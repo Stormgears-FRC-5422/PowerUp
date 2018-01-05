@@ -12,3 +12,8 @@ When updating the repository, make sure you also run
 git submodule update --init --recursive
 ```
 if any dependencies have updated.
+
+To pull and update submodules in one shot, run
+```
+git pull --recurse-submodules
+```
