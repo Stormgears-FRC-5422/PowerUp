@@ -1,3 +1,4 @@
 [submodule "deps"]
 	path = deps
 	url = ../PowerUp-dependencies.git
+	branch = master
