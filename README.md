@@ -9,11 +9,7 @@ git clone --recursive https://github.com/Stormgears-FRC-5422/PowerUp.git
 
 When updating the repository, make sure you also run 
 ```
-git submodule update --init --recursive
+git submodule update --init --remote
 ```
 if any dependencies have updated.
 
-To pull and update submodules in one shot, run
-```
-git pull --recurse-submodules
-```
