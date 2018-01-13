@@ -1,9 +1,9 @@
-package org.stormgears.PowerUp.subsystems.dsio.controls;
+package org.stormgears.powerup.subsystems.dsio.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
-import org.stormgears.PowerUp.subsystems.dsio.event_listeners.OnButtonTouchUpListener;
+import org.stormgears.powerup.subsystems.dsio.event_listeners.OnButtonTouchUpListener;
 
 public class Button {
 	private JoystickButton wpiInstance;

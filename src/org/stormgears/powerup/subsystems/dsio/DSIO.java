@@ -1,7 +1,7 @@
-package org.stormgears.PowerUp.subsystems.dsio;
+package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
-import org.stormgears.PowerUp.subsystems.dsio.controls.Button;
+import org.stormgears.powerup.subsystems.dsio.controls.Button;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();

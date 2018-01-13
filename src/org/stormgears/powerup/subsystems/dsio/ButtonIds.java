@@ -1,4 +1,4 @@
-package org.stormgears.PowerUp.subsystems.dsio;
+package org.stormgears.powerup.subsystems.dsio;
 
 public class ButtonIds {
 	public static final int BIG_BLUE_BUTTON_ID = 10;
