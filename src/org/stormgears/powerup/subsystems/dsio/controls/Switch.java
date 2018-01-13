@@ -1,8 +1,8 @@
-package org.stormgears.PowerUp.subsystems.dsio.controls;
+package org.stormgears.powerup.subsystems.dsio.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
-import org.stormgears.PowerUp.subsystems.dsio.event_listeners.OnSwitchFlippedListener;
+import org.stormgears.powerup.subsystems.dsio.event_listeners.OnSwitchFlippedListener;
 
 public class Switch extends BaseControl {
 	private OnSwitchFlippedListener delegate;

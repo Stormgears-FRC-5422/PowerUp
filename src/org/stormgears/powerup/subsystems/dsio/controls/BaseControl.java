@@ -1,4 +1,4 @@
-package org.stormgears.PowerUp.subsystems.dsio.controls;
+package org.stormgears.powerup.subsystems.dsio.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
