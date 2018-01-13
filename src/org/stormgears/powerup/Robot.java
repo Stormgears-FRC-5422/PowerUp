@@ -1,7 +1,7 @@
-package org.stormgears.PowerUp;
+package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import org.stormgears.PowerUp.subsystems.dsio.DSIO;
+import org.stormgears.powerup.subsystems.dsio.DSIO;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
