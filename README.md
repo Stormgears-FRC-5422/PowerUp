@@ -13,3 +13,4 @@ git submodule update --init --remote
 ```
 if any dependencies have updated.
 
+You may need to unregister the deps folder from IntelliJ in Preferences -> Version Control.
