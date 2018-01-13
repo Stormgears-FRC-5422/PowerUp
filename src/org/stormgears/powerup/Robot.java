@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 
 /*
