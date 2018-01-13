@@ -39,5 +39,21 @@
         <jarDirectory url="file://$USER_HOME$/wpilib/java/current/lib" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/deps" />
+        </CLASSES>
+        <JAVADOC />
+        <NATIVE>
+          <root url="file://$MODULE_DIR$/deps" />
+        </NATIVE>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/deps" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/deps" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/deps" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
   </component>
 </module>
