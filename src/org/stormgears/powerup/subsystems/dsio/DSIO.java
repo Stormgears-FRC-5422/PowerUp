@@ -1,7 +1,9 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
+
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
+import org.stormgears.powerup.subsystems.dsio.controls.Switch;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -23,21 +25,31 @@ public class DSIO {
 			greenButton 	= new Button(ButtonIds.GREEN_BUTTON_ID, buttonBoard),
 			smallBlueButton = new Button(ButtonIds.SMALL_BLUE_BUTTON_ID, buttonBoard),
 			blackButton 	= new Button(ButtonIds.BLACK_BUTTON_ID, buttonBoard),
-			whiteButton 	= new Button(ButtonIds.WHITE_BUTTON_ID, buttonBoard),
-			greenSwitch 	= new Button(ButtonIds.GREEN_SWITCH_ID, buttonBoard),
-			orangeSwitch 	= new Button(ButtonIds.ORANGE_SWITCH_ID, buttonBoard),
-			redSwitch 		= new Button(ButtonIds.RED_SWITCH_ID, buttonBoard);
+			whiteButton 	= new Button(ButtonIds.WHITE_BUTTON_ID, buttonBoard);
+
+	private final Switch
+			greenSwitch 	= new Switch(ButtonIds.GREEN_SWITCH_ID, buttonBoard),
+			orangeSwitch 	= new Switch(ButtonIds.ORANGE_SWITCH_ID, buttonBoard),
+			redSwitch 		= new Switch(ButtonIds.RED_SWITCH_ID, buttonBoard);
 
 	private DSIO() {
-		setupButtons();
+		setupButtonsAndSwitches();
 	}
 
 	/*
-	 * If you want a button to do something, write it in the appropriate Lambda block below.
+	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
-	private void setupButtons() {
+	private void setupButtonsAndSwitches() {
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
 
+		});
+
+		greenSwitch.setOnSwitchFlippedListener(isOn -> {
+			if (isOn) {
+
+			} else {
+
+			}
 		});
 	}
 }

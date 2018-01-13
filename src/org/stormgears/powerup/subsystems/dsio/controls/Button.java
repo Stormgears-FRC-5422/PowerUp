@@ -5,17 +5,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import org.stormgears.powerup.subsystems.dsio.event_listeners.OnButtonTouchUpListener;
 
-public class Button {
-	private JoystickButton wpiInstance;
+public class Button extends BaseControl {
 	private OnButtonTouchUpListener delegate;
 
 	public Button(int number, Joystick joystick) {
-		wpiInstance = new JoystickButton(joystick, number);
-
-		setupCommand();
+		super(joystick, number);
 	}
 
-	private void setupCommand() {
+	@Override
+	protected void setupCommand() {
 		wpiInstance.whenReleased(new Command() {
 			@Override
 			protected boolean isFinished() {
