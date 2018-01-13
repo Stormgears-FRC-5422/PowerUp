@@ -1,16 +1,23 @@
 package org.stormgears.PowerUp;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.stormgears.PowerUp.subsystems.dsio.DSIO;
 
-/**
+/*
  * The entry point of the PowerUp program. Please keep it clean.
  */
 public class Robot extends IterativeRobot {
-
+	/*
+	 * Everybody, _please_ follow the singleton pattern!
+	 * Create a private, final instance in your class, and link it here like this
+	 * Then, when you want to use it somewhere else, use Robot.<subsystem>.blah
+	 * Example: Robot.dsio.
+	 */
+	public static DSIO dsio = DSIO.getInstance();
 
 	/**
 	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
+	 * used for any initialization code
 	 */
 	@Override
 	public void robotInit() {
@@ -26,7 +33,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	/**
-	 * Runs when teleop mode starts
+	 * Runs when operator control starts
 	 */
 	@Override
 	public void teleopInit() {
