@@ -52,4 +52,26 @@ public class DSIO {
 			}
 		});
 	}
+
+	// Joystick related methods
+
+	public double getJoystickX(JoystickFilter... filters) {
+		return applyFilters(joystick.getX(), filters);
+	}
+
+	public double getJoystickY(JoystickFilter... filters) {
+		return applyFilters(joystick.getY(), filters);
+	}
+
+	public double getJoystickZ(JoystickFilter... filters) {
+		return applyFilters(joystick.getZ(), filters);
+	}
+
+	private double applyFilters(double value, JoystickFilter... filters) {
+		for (JoystickFilter f : filters) {
+			value = f.getNewValue(value);
+		}
+
+		return value;
+	}
 }
