@@ -5,8 +5,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 /**
  * It's like WPI_TalonSRX, but with a little more Trehan
  */
-public class TrehanTalon extends WPI_TalonSRX {
-	public TrehanTalon(int deviceNumber) {
+public class StormTalon extends WPI_TalonSRX {
+	public StormTalon(int deviceNumber) {
 		super(deviceNumber);
 	}
 
