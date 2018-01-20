@@ -55,23 +55,25 @@ public class DSIO {
 
 	// Joystick related methods
 
-	public double getJoystickX(JoystickFilter... filters) {
-		return applyFilters(joystick.getX(), filters);
+	private static final double X_NULLZONE = 0.1;
+	private static final double Y_NULLZONE = 0.1;
+	private static final double Z_NULLZONE = 0.2;
+
+	public double getJoystickX() {
+		double x = joystick.getX();
+
+		return Math.abs(x) < X_NULLZONE ? 0 : x;
 	}
 
-	public double getJoystickY(JoystickFilter... filters) {
-		return applyFilters(joystick.getY(), filters);
+	public double getJoystickY() {
+		double y = joystick.getY();
+
+		return Math.abs(y) < Y_NULLZONE ? 0 : y;
 	}
 
-	public double getJoystickZ(JoystickFilter... filters) {
-		return applyFilters(joystick.getZ(), filters);
-	}
+	public double getJoystickZ() {
+		double z = joystick.getZ();
 
-	private double applyFilters(double value, JoystickFilter... filters) {
-		for (JoystickFilter f : filters) {
-			value = f.getNewValue(value);
-		}
-
-		return value;
+		return Math.abs(z) < Z_NULLZONE ? 0 : z;
 	}
 }
