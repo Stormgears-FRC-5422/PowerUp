@@ -27,9 +27,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		System.out.println("testing");
-		System.out.println(config.hasNavX);
-		System.out.println(config.robotName);
 
 	}
 

@@ -1,14 +1,14 @@
 package org.stormgears.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 public abstract class AbstractRobotConfiguration {
 	private static final String PATH = "/home/lvuser";
-	private static final String NAME = "config.txt";
+	private static final String NAME = "config.properties";
+	private static final String COMMENTS =
+			" If a property varies from robot to robot, add it here.\n" +
+			"# If it is the same across every robot, make it a static field in the appropriate class.";
 	File configFile = new File(PATH, NAME);
 
 	public String robotName, robotWidth, robotLength, robotHeight;
@@ -31,6 +31,7 @@ public abstract class AbstractRobotConfiguration {
 			loadDefaults();
 			loadExtras();
 		} catch (IOException e) {
+			System.err.println("THIS IS A BIG PROBLEM. Error reading " + NAME);
 			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
@@ -76,10 +77,11 @@ public abstract class AbstractRobotConfiguration {
 				configFile.createNewFile();
 			}
 
-			properties.store(outputStream, "");
+			properties.store(outputStream, COMMENTS);
 			outputStream.flush();
 
 		} catch (IOException e) {
+			System.err.println("Error writing to " + NAME + ". Check file permissions.");
 			e.printStackTrace();
 		} finally {
 			if (outputStream != null) {
@@ -90,6 +92,26 @@ public abstract class AbstractRobotConfiguration {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+
+	/*
+	 * These methods will help with parsing Strings stored as values in the config file
+	 */
+
+	protected int parseInt(String s) {
+		try {
+			return Integer.parseInt(s);
+		} catch (Exception e) {
+			return Integer.MIN_VALUE;
+		}
+	}
+
+	protected double parseDouble(String s) {
+		try {
+			return Double.parseDouble(s);
+		} catch (Exception e) {
+			return Double.MIN_VALUE;
 		}
 	}
 }
