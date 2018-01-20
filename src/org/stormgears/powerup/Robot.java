@@ -3,7 +3,9 @@ package org.stormgears.powerup;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
+import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
+import org.stormgears.utils.AbstractRobotConfiguration;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -17,6 +19,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive = Drive.getInstance();
+	public static RobotConfiguration config = RobotConfiguration.getInstance();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -24,6 +27,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		System.out.println("testing");
+		System.out.println(config.hasNavX);
+		System.out.println(config.robotName);
 
 	}
 

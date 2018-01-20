@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
-    <varelement var="file://$wpilib$" value="wpilib" />
-    <varelement var="file://$wpilib.sources$" kind="src:" value="wpilib.sources" />
-    <varelement var="file://$networktables$" value="networktables" />
-    <varelement var="file://$networktables.sources$" kind="src:" value="networktables.sources" />
-    <varelement var="file://$opencv$" value="opencv" />
-    <varelement var="file://$opencv.sources$" kind="src:" value="opencv.sources" />
-    <varelement var="file://$cscore$" value="cscore" />
-    <varelement var="file://$cscore.sources$" kind="src:" value="cscore.sources" />
-    <varelement var="file://$USERLIBS_DIR$/CTRLib.jar" value="USERLIBS_DIR/CTRLib.jar" />
-    <varelement var="file://$USERLIBS_DIR$/navx_frc.jar" value="USERLIBS_DIR/navx_frc.jar" />
-    <varelement var="file://$USERLIBS_DIR$/StormUtils.jar" value="USERLIBS_DIR/StormUtils.jar" />
-    <varelement var="file://$USERLIBS_DIR$/webdashboard-diagnostics.jar" value="USERLIBS_DIR/webdashboard-diagnostics.jar" />
-    <varelement var="file://$USERLIBS_DIR$/webdashboard-dist.jar" value="USERLIBS_DIR/webdashboard-dist.jar" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
     </src_description>
