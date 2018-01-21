@@ -14,6 +14,10 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 	 */
 	public boolean hasNavX;
 	public int frontLeftTalonId, frontRightTalonId, rearLeftTalonId, rearRightTalonId;
+	public double velocityF, velocityP, velocityI, velocityD;
+	public int velocityIzone;
+	public int encoderResolution;
+	public boolean reverseJoystick;
 
 	/*
 	 * WARNING: Do not set properties here. Only access ones from the file and set their respective fields.
@@ -29,5 +33,15 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 		frontRightTalonId = parseInt(properties.getProperty("frontRightTalonId"));
 		rearLeftTalonId = parseInt(properties.getProperty("rearLeftTalonId"));
 		rearRightTalonId = parseInt(properties.getProperty("rearRightTalonId"));
+
+		velocityF = parseDouble(properties.getProperty("velocityF"));
+		velocityP = parseDouble(properties.getProperty("velocityP"));
+		velocityI = parseDouble(properties.getProperty("velocityI"));
+		velocityD = parseDouble(properties.getProperty("velocityD"));
+		velocityIzone = parseInt(properties.getProperty("velocityIzone"));
+
+		encoderResolution = parseInt(properties.getProperty("encoderResolution"));
+
+		reverseJoystick = Boolean.parseBoolean(properties.getProperty("reverseJoystick"));
 	}
 }

@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
 
@@ -12,7 +13,7 @@ public class DSIO {
 	}
 
 	// If you want to change the channel, change it here
-	private static final byte JOYSTICK_CHANNEL = 1, BUTTON_BOARD_CHANNEL = 0;
+	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1;
 
 	// Don't instantiate any other joysticks
 	private final Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
@@ -55,25 +56,34 @@ public class DSIO {
 
 	// Joystick related methods
 
-	private static final double X_NULLZONE = 0.1;
-	private static final double Y_NULLZONE = 0.1;
-	private static final double Z_NULLZONE = 0.2;
+	private static final double X_NULLZONE = 0.2;
+	private static final double Y_NULLZONE = 0.2;
+	private static final double Z_NULLZONE = 0.05;
 
 	public double getJoystickX() {
 		double x = joystick.getX();
 
-		return Math.abs(x) < X_NULLZONE ? 0 : x;
+		double filtered = Math.abs(x) < X_NULLZONE ? 0 : x;
+		int reverse = Robot.config.reverseJoystick ? -1 : 1;
+
+		return filtered * reverse;
 	}
 
 	public double getJoystickY() {
 		double y = joystick.getY();
 
-		return Math.abs(y) < Y_NULLZONE ? 0 : y;
+		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : y;
+		int reverse = Robot.config.reverseJoystick ? -1 : 1;
+
+		return filtered * reverse;
 	}
 
 	public double getJoystickZ() {
 		double z = joystick.getZ();
 
-		return Math.abs(z) < Z_NULLZONE ? 0 : z;
+		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : z;
+		int reverse = Robot.config.reverseJoystick ? -1 : 1;
+
+		return filtered * reverse;
 	}
 }

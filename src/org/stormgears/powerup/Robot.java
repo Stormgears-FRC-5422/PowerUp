@@ -17,9 +17,9 @@ public class Robot extends IterativeRobot {
 	 * Then, when you want to use it somewhere else, use Robot.<subsystem>.blah
 	 * Example: Robot.dsio.
 	 */
-	public static DSIO dsio = DSIO.getInstance();
-	public static Drive drive = Drive.getInstance();
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static DSIO dsio = DSIO.getInstance();
+	public static Drive drive;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -27,7 +27,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		System.out.println("Robot.robotInit : " + config.robotName + " is running");
 
+		Drive.init();
+		drive = Drive.getInstance();
 	}
 
 	/**
@@ -59,7 +62,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-
+		if (drive != null) {
+			drive.move();
+		} else {
+			System.err.println("Robot.drive is null; that's a problem!");
+		}
 	}
 
 	/**
