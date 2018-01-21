@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
+import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.AbstractRobotConfiguration;
 
 /*
@@ -18,6 +19,7 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
 
@@ -28,6 +30,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		System.out.println("Robot.robotInit : " + config.robotName + " is running");
+
+		Sensors.init();
+		sensors = Sensors.getInstance();
 
 		Drive.init();
 		drive = Drive.getInstance();
