@@ -1,6 +1,6 @@
 package org.stormgears.powerup.subsystems.information;
 
-import org.stormgears.utils.AbstractRobotConfiguration;
+import org.stormgears.utils.configuration_file.AbstractRobotConfiguration;
 
 public class RobotConfiguration extends AbstractRobotConfiguration {
 	private static RobotConfiguration instance = new RobotConfiguration();

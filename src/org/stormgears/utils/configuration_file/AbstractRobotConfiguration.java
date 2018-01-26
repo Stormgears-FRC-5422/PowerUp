@@ -1,7 +1,6 @@
-package org.stormgears.utils;
+package org.stormgears.utils.configuration_file;
 
 import java.io.*;
-import java.util.Properties;
 
 public abstract class AbstractRobotConfiguration {
 	private static final String PATH = "/home/lvuser";
@@ -9,29 +8,31 @@ public abstract class AbstractRobotConfiguration {
 	private static final String COMMENTS =
 			" If a property varies from robot to robot, add it here.\n" +
 			"# If it is the same across every robot, make it a static field in the appropriate class.";
-	File configFile = new File(PATH, NAME);
 
+	// Default properties variables
 	public String robotName, robotWidth, robotLength, robotHeight;
 
-	protected Properties properties;
+	private File configFile = new File(PATH, NAME);
+	protected SafeProperties properties;
 
 	public AbstractRobotConfiguration() {
-		properties = new Properties();
+		properties = new SafeProperties();
+
 		FileInputStream inputStream = null;
-
 		try {
-			inputStream = new FileInputStream(configFile);
-
-			if (!configFile.exists()) {
-				configFile.createNewFile();
+			if (!configFile.createNewFile()) {	// This block will only run if the file exists already
+				inputStream = new FileInputStream(configFile);
+				properties.load(inputStream);
 			}
 
-			properties.load(inputStream);
+			applyDefaultsIfNotPresent();
 
 			loadDefaults();
 			loadExtras();
 		} catch (IOException e) {
-			System.err.println("THIS IS A BIG PROBLEM. Error reading " + NAME);
+			System.err.println("THIS IS A BIG PROBLEM. Error reading/writing " + NAME +
+					"\nNO ROBOT PROPERTIES ARE AVAILABLE!\n" +
+					"Check file permissions.");
 			e.printStackTrace();
 		} finally {
 			if (inputStream != null) {
@@ -43,8 +44,6 @@ public abstract class AbstractRobotConfiguration {
 				}
 			}
 		}
-
-		applyDefaults();
 	}
 
 	private void loadDefaults() {
@@ -57,7 +56,7 @@ public abstract class AbstractRobotConfiguration {
 
 	protected abstract void loadExtras();
 
-	private void applyDefaults() {
+	private void applyDefaultsIfNotPresent() throws IOException {
 		/*
 		 * Please add default properties here (applicable to EVERY season)
 		 */
@@ -69,48 +68,41 @@ public abstract class AbstractRobotConfiguration {
 		 * End default properties
 		 */
 
-		FileOutputStream outputStream = null;
-		try {
-			outputStream = new FileOutputStream(configFile);
+		FileOutputStream outputStream = new FileOutputStream(configFile);
 
-			if (!configFile.exists()) {
-				configFile.createNewFile();
-			}
-
-			properties.store(outputStream, COMMENTS);
-			outputStream.flush();
-
-		} catch (IOException e) {
-			System.err.println("Error writing to " + NAME + ". Check file permissions.");
-			e.printStackTrace();
-		} finally {
-			if (outputStream != null) {
-				try {
-					outputStream.close();
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		properties.store(outputStream, COMMENTS);
+		outputStream.flush();
+		outputStream.close();
 	}
 
 	/*
 	 * These methods will help with parsing Strings stored as values in the config file
 	 */
 
+	/**
+	 * @param s The String to parse
+	 * @return The int value of s, or Integer.MIN_VALUE if s cannot be successfully parsed
+	 */
 	protected int parseInt(String s) {
 		try {
 			return Integer.parseInt(s);
 		} catch (Exception e) {
+			System.err.println("WARNING! \"" + s + "\" was just read from " + NAME +
+					". This value was expected to be an int. It isn't. Chances are you don't want to see this message.");
 			return Integer.MIN_VALUE;
 		}
 	}
 
+	/**
+	 * @param s The String to parse
+	 * @return The double value of s, or Double.MIN_VALUE if s cannot be successfully parsed
+	 */
 	protected double parseDouble(String s) {
 		try {
 			return Double.parseDouble(s);
 		} catch (Exception e) {
+			System.err.println("WARNING! \"" + s + "\" was just read from " + NAME +
+					". This value was expected to be a double. It isn't. Chances are you don't want to see this message.");
 			return Double.MIN_VALUE;
 		}
 	}
