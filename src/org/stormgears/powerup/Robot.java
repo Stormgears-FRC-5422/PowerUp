@@ -1,12 +1,10 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.utils.AbstractRobotConfiguration;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
