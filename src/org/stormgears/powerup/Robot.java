@@ -1,12 +1,11 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.utils.AbstractRobotConfiguration;
+import org.stormgears.utils.sensor_drivers.NavX;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -22,6 +21,7 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
+	public static NavX navX;
 
 	/**
 	 * This function is run when the robot is first started up and should be
