@@ -10,9 +10,9 @@ public class Drive {
 	private static Drive instance;
 	public static Drive getInstance() { return instance; }
 
-	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
+	private static final int MAX_VELOCITY_ENCODER_TICKS = 1;
 	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
-	private static final ControlMode MODE = ControlMode.Velocity;
+	private static final ControlMode MODE = ControlMode.PercentOutput;
 
 	private static final StormTalon[] talons = new StormTalon[4];
 
@@ -28,8 +28,8 @@ public class Drive {
 			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
 			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
 			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
-		}
-	}
+	}		}
+
 
 	public static void init() {
 		instance = new Drive();
@@ -39,9 +39,6 @@ public class Drive {
 		double x = Robot.dsio.getJoystickX(),
 				y = Robot.dsio.getJoystickY(),
 				z = Robot.dsio.getJoystickZ();
-		System.out.println("Joystick x: " + (double) Math.round(x * 1000) / 1000 +
-				" y: " + (double) Math.round(y * 1000) / 1000 +
-				" z: " + (double) Math.round(z * 1000) / 1000);
 
 		double theta = Math.atan2(x, y);
 		if (theta < 0) theta = 2 * Math.PI + theta;
@@ -56,9 +53,11 @@ public class Drive {
 	// Run mecanum math on each raw speed and set talons accordingly
 	// TODO: This code makes the robot drive fairly poorly. It does not drive straight
 	private void mecMove(double tgtVel, double theta, double changeVel) {
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		theta = theta + navX_theta;
 		int c = 0;
 		for (StormTalon t : talons) {
-			System.out.print("Real Velocities: " + c + ": " + t.getSensorCollection().getQuadratureVelocity() + "   ");
+			//System.out.print("Real Velocities: " + c + ": " + t.getSensorCollection().getQuadratureVelocity() + "   ");
 			c++;
 		}
 		System.out.println();
@@ -115,7 +114,7 @@ public class Drive {
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
-		System.out.println("Wanted Velocities: " + Arrays.toString(vels));
+		//System.out.println("Wanted Velocities: " + Arrays.toString(vels));
 	}
 
 	private void setDriveTalonsZeroVelocity() {
