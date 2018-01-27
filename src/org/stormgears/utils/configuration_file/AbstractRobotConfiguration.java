@@ -1,8 +1,14 @@
 package org.stormgears.utils.configuration_file;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.*;
 
 public abstract class AbstractRobotConfiguration {
+	private Logger logger = LogManager.getLogger(AbstractRobotConfiguration.class);
+
 	private static final String PATH = "/home/lvuser";
 	private static final String NAME = "config.properties";
 	private static final String COMMENTS =
@@ -30,17 +36,16 @@ public abstract class AbstractRobotConfiguration {
 			loadDefaults();
 			loadExtras();
 		} catch (IOException e) {
-			System.err.println("THIS IS A BIG PROBLEM. Error reading/writing " + NAME +
-					"\nNO ROBOT PROPERTIES ARE AVAILABLE!\n" +
-					"Check file permissions.");
-			e.printStackTrace();
+			logger.fatal("Error reading/writing {}. NO ROBOT PROPERTIES ARE AVAILABLE! Check file permissions.", NAME);
+			logger.catching(Level.ERROR, e);
+
+			throw new IllegalStateException(e.getMessage());
 		} finally {
 			if (inputStream != null) {
 				try {
 					inputStream.close();
-
 				} catch (IOException e) {
-					e.printStackTrace();
+					logger.catching(Level.ERROR, e);
 				}
 			}
 		}
@@ -87,9 +92,9 @@ public abstract class AbstractRobotConfiguration {
 		try {
 			return Integer.parseInt(s);
 		} catch (Exception e) {
-			System.err.println("WARNING! \"" + s + "\" was just read from " + NAME +
-					". This value was expected to be an int. It isn't. Chances are you don't want to see this message.");
-			return Integer.MIN_VALUE;
+			logger.error("{} was just read from {}. This value was expected to be an integer, but it wasn't.", s, NAME);
+			logger.throwing(e);
+			throw e;
 		}
 	}
 
@@ -101,9 +106,9 @@ public abstract class AbstractRobotConfiguration {
 		try {
 			return Double.parseDouble(s);
 		} catch (Exception e) {
-			System.err.println("WARNING! \"" + s + "\" was just read from " + NAME +
-					". This value was expected to be a double. It isn't. Chances are you don't want to see this message.");
-			return Double.MIN_VALUE;
+			logger.error("{} was just read from {}. This value was expected to be a double, but it wasn't.", s, NAME);
+			logger.throwing(e);
+			throw e;
 		}
 	}
 }

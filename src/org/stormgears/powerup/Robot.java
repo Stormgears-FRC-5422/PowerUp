@@ -31,7 +31,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		System.out.println("Robot.robotInit : " + config.robotName + " is running");
+		logger.info("{} is running", config.robotName);
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
@@ -72,7 +72,7 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			drive.move();
 		} else {
-			System.err.println("Robot.drive is null; that's a problem!");
+			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 	}
 
