@@ -3,8 +3,6 @@ package org.stormgears.utils;
 public class MecanumDrive extends AbstractDrive {
 
 
-
-
 	/**
 	 * Turns the robot `theta` degrees (relative)
 	 *
