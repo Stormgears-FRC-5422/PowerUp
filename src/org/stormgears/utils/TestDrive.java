@@ -1,6 +1,11 @@
 package org.stormgears.utils;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class TestDrive extends AbstractDrive {
+	private Logger logger = LogManager.getLogger(TestDrive.class);
+
 	/**
 	 * Turns the robot `theta` degrees (relative)
 	 *
@@ -8,7 +13,7 @@ public class TestDrive extends AbstractDrive {
 	 */
 	@Override
 	void turn(double theta) {
-		System.out.println("TestDrive: theta = " + theta);
+		logger.debug("theta = {}", theta);
 	}
 
 	/**
@@ -19,6 +24,12 @@ public class TestDrive extends AbstractDrive {
 	 */
 	@Override
 	void move(double vX, double vY) {
-		System.out.println("TestDrive: vX = " + vX + ", vY = " + vY);
+		logger.debug("vX = {}, vY = {}", vX, vY);
+	}
+
+	public static void main(String[] args) {
+		TestDrive drive = new TestDrive();
+
+		drive.move(1337, 337);
 	}
 }
