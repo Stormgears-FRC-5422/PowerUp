@@ -3,15 +3,21 @@ package org.stormgears.powerup;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
+import org.stormgears.utils.Log4jConfigurationFactory;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
  */
 public class Robot extends IterativeRobot {
+	static {
+		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
+	}
+
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
 	 * Create a private, final instance in your class, and link it here like this
