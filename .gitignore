@@ -192,7 +192,7 @@ hs_err_pid*
 
 # misc files
 # use "git update-index --assume-unchanged FILE_NAME" instead
-# sysProps.xml
+sysProps.xml
 
 # End of https://www.gitignore.io/api/eclipse,java,windows,macos,linux,intellij
 

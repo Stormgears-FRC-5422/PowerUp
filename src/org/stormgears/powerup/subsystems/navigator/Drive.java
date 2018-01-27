@@ -1,15 +1,17 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
-
-import java.util.Arrays;
 
 // TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
 	public static Drive getInstance() { return instance; }
+
+	private Logger logger = LogManager.getLogger(Robot.class);
 
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 1;
 	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
@@ -56,12 +58,6 @@ public class Drive {
 	private void mecMove(double tgtVel, double theta, double changeVel) {
 		double navX_theta = Robot.sensors.getNavX().getTheta();
 		theta = theta + navX_theta;
-		int c = 0;
-		for (StormTalon t : talons) {
-			//System.out.print("Real Velocities: " + c + ": " + t.getSensorCollection().getQuadratureVelocity() + "   ");
-			c++;
-		}
-		System.out.println();
 
 		double[] vels = new double[talons.length];
 
@@ -115,12 +111,17 @@ public class Drive {
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
-		//System.out.println("Wanted Velocities: " + Arrays.toString(vels));
 	}
 
 	private void setDriveTalonsZeroVelocity() {
 		for (StormTalon t : talons) {
 			t.set(MODE, 0);
+		}
+	}
+
+	public void debug() {
+		for (StormTalon t : talons) {
+			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
 		}
 	}
 }
