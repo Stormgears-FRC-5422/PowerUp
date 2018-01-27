@@ -26,10 +26,4 @@ public class TestDrive extends AbstractDrive {
 	void move(double vX, double vY) {
 		logger.debug("vX = {}, vY = {}", vX, vY);
 	}
-
-	public static void main(String[] args) {
-		TestDrive drive = new TestDrive();
-
-		drive.move(1337, 337);
-	}
 }

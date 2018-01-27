@@ -1,6 +1,8 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
@@ -20,6 +22,8 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
+
+	private Logger logger = LogManager.getLogger(Robot.class);
 
 	/**
 	 * This function is run when the robot is first started up and should be
