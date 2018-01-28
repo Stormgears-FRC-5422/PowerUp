@@ -28,8 +28,8 @@ public class Log4jConfigurationFactory extends ConfigurationFactory {
 			addAttribute("pattern", "%d{HH:mm:ss.SSS} [%t] %-5level %class{36}.%M:%L - %msg%xEx%n"));
 		builder.add(appenderBuilder);
 
-		builder.add(builder.newLogger("org.stormgears.utils.TestDrive", Level.TRACE).add(builder.newAppenderRef("Stdout")));
-		builder.add(builder.newRootLogger(Level.INFO).add(builder.newAppenderRef("Stdout")));
+//		builder.add(builder.newLogger("org.stormgears.utils.TestDrive", Level.TRACE).add(builder.newAppenderRef("Stdout")));
+		builder.add(builder.newRootLogger(Level.TRACE).add(builder.newAppenderRef("Stdout")));
 
 		return builder.build();
 	}

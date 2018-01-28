@@ -76,10 +76,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		if (drive != null) {
-			drive.move();
+			if(!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.move();
+			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
+
+		sensors.getNavX().debug();
 	}
 
 	/**
