@@ -10,6 +10,12 @@ public class FieldElements {
 	 * Each of the following Inner Classes contains the dimensions of critical field landmarks and zones
 	 */
 
+	public static class Field {
+		public static final double LENGTH = 0;
+		public static final double WIDTH = 0;
+		public static final double HEIGHT = 0;
+	}
+
 	public static class Switch {
 		public static final double LENGTH = 0;
 		public static final double WIDTH = 0;
