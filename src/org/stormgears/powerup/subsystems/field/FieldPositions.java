@@ -21,4 +21,10 @@ public class FieldPositions {
 			this.position = position;
 		}
 	}
+
+	public static final Position OWN_SWITCH = new Position(0, 0);
+	public static final Position OWN_PORTAL = new Position(0, 0);
+	public static final Position OWN_CUBE_STACK = new Position(0, 0);
+	public static final Position OWN_PLATFORM_ZONE = new Position(0, 0);
+	public static final Position AUTO_LINE = new Position(0, 0);
 }
