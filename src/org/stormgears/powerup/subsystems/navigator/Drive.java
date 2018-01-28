@@ -26,6 +26,8 @@ public class Drive {
 		talons[3] = new StormTalon(Robot.config.rearRightTalonId);
 
 		for (StormTalon t : talons) {
+			t.setInverted(true);
+			t.setSensorPhase(true);
 			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);
 			t.config_kP(0, Robot.config.velocityP, TALON_FPID_TIMEOUT);
 			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
