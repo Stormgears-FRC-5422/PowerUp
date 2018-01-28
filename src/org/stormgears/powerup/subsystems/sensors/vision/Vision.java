@@ -18,7 +18,7 @@ public class Vision {
 
 
 
-	public void getViaionCoordinatesFromNetworkTable() {
+	public void getVisionCoordinatesFromNetworkTable() {
 		double [] defaultXArray = new double[0];
 		double [] defaultYArray = new double[0];
 
