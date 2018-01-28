@@ -64,4 +64,10 @@ public class FieldElements {
 		public static final double WIDTH = 0;
 		public static final double HEIGHT = 0;
 	}
+
+	public static class Rungs {
+		public static final double LENGTH = 0;
+		public static final double WIDTH = 0;
+		public static final double HEIGHT = 0;
+	}
 }
