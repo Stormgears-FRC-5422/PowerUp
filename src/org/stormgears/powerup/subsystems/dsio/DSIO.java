@@ -13,6 +13,8 @@ public class DSIO {
 		return instance;
 	}
 
+	public Choosers choosers;
+
 	// If you want to change the channel, change it here
 	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1;
 
@@ -36,7 +38,8 @@ public class DSIO {
 
 	private DSIO() {
 		setupButtonsAndSwitches();
-		setupSendableChoosers();
+
+		choosers = new Choosers();
 	}
 
 	/*
@@ -54,13 +57,6 @@ public class DSIO {
 
 			}
 		});
-	}
-
-	/*
-	 * Please add SendableChoosers (radio buttons that appear on SmartDashboard) here
-	 */
-	private void setupSendableChoosers() {
-
 	}
 
 	// Joystick related methods
