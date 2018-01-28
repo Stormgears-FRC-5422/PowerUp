@@ -8,6 +8,7 @@ import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
+import org.stormgears.powerup.subsystems.sensors.vision.Vision;
 import org.stormgears.utils.Log4jConfigurationFactory;
 
 /*
@@ -28,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
-
+	public Vision v = new Vision();
 	private Logger logger = LogManager.getLogger(Robot.class);
 
 	/**
@@ -67,7 +68,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-
+		//REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
 	}
 
 	/**
