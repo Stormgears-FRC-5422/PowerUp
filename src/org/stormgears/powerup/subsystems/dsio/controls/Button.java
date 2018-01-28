@@ -2,9 +2,13 @@ package org.stormgears.powerup.subsystems.dsio.controls;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.event_listeners.OnButtonTouchUpListener;
 
 public class Button extends BaseControl {
+	private Logger logger = LogManager.getLogger(Button.class);
+
 	private OnButtonTouchUpListener delegate;
 
 	public Button(int number, Joystick joystick) {
@@ -21,6 +25,7 @@ public class Button extends BaseControl {
 
 			@Override
 			protected void execute() {
+				logger.info("Button #{} pressed", number);
 				if (delegate != null) delegate.onTouchUp();
 			}
 		});

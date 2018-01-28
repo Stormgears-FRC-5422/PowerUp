@@ -5,8 +5,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 public abstract class BaseControl {
 	protected JoystickButton wpiInstance;
+	protected int number;
 
 	public BaseControl(Joystick joystick, int number) {
+		this.number = number;
+
 		wpiInstance = new JoystickButton(joystick, number);
 
 		setupCommand();

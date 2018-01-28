@@ -46,11 +46,61 @@ public class DSIO {
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
 	private void setupButtonsAndSwitches() {
+		// BIG BLUE
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
 
 		});
 
+		// RED
+		redButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// YELLOW
+		yellowButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// GREEN
+		greenButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// SMALL BLUE
+		smallBlueButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// BLACK
+		blackButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// WHITE
+		whiteButton.setOnButtonTouchUpListener(() -> {
+
+		});
+
+		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
+			if (isOn) {
+
+			} else {
+
+			}
+		});
+
+		// ORANGE SWITCH
+		orangeSwitch.setOnSwitchFlippedListener(isOn -> {
+			if (isOn) {
+
+			} else {
+
+			}
+		});
+
+		// RED SWITCH
+		redSwitch.setOnSwitchFlippedListener(isOn -> {
 			if (isOn) {
 
 			} else {
