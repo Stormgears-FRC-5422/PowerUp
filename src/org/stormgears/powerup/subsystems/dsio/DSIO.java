@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.powerup.subsystems.field.FieldElements;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -35,6 +36,7 @@ public class DSIO {
 
 	private DSIO() {
 		setupButtonsAndSwitches();
+		setupSendableChoosers();
 	}
 
 	/*
@@ -52,6 +54,13 @@ public class DSIO {
 
 			}
 		});
+	}
+
+	/*
+	 * Please add SendableChoosers (radio buttons that appear on SmartDashboard) here
+	 */
+	private void setupSendableChoosers() {
+
 	}
 
 	// Joystick related methods
