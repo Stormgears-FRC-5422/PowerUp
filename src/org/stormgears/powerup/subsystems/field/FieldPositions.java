@@ -17,7 +17,7 @@ public class FieldPositions {
 		RIGHT(new Position(0, 0));
 
 		private Position position;
-		private StartingSpots(Position position) {
+		StartingSpots(Position position) {
 			this.position = position;
 		}
 
@@ -59,9 +59,22 @@ public class FieldPositions {
 		RED, BLUE;
 	}
 
-	public static final Position OWN_SWITCH = new Position(0, 0);
-	public static final Position OWN_PORTAL = new Position(0, 0);
+	public static final Position OWN_EXCHANGE = new Position(0, 0);
 	public static final Position OWN_CUBE_STACK = new Position(0, 0);
+	public static final Position OWN_AUTO_LINE = new Position(0, 0);
+	public static final Position OWN_SWITCH = new Position(0, 0);
 	public static final Position OWN_PLATFORM_ZONE = new Position(0, 0);
-	public static final Position AUTO_LINE = new Position(0, 0);
+	public static final Position OWN_PLATFORM_EDGE = new Position(0, 0);
+	public static final Position OWN_PLATFORM_ELEVATED = new Position(0, 0);
+	public static final Position OWN_NULL_ZONE_LEFT = new Position(0, 0);
+	public static final Position OWN_NULL_ZONE_RIGHT = new Position(0, 0);
+
+	public static final Position MIDLINE = new Position(0, 0);
+
+	public static final Position OPP_EXCHANGE = new Position(0, 0);
+	public static final Position OPP_AUTO_LINE = new Position(0, 0);
+	public static final Position OPP_SWITCH = new Position(0, 0);
+	public static final Position OPP_PLATFORM_ZONE = new Position(0, 0);
+	public static final Position OPP_PLATFORM_EDGE = new Position(0, 0);
+	public static final Position OPP_PLATFORM_ELEVATED = new Position(0, 0);
 }
