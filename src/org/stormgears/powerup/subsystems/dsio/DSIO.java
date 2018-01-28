@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
@@ -38,10 +39,12 @@ public class DSIO {
 
 	private DSIO() {
 		setupButtonsAndSwitches();
-
 		choosers = new Choosers();
 	}
 
+	public static void init() {
+		instance = new DSIO();
+	}
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */

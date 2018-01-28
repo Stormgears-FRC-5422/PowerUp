@@ -27,9 +27,8 @@ public class Robot extends IterativeRobot {
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
 	public static Sensors sensors;
-	public static DSIO dsio = DSIO.getInstance();
+	public static DSIO dsio;
 	public static Drive drive;
-	public Vision v = new Vision();
 	private Logger logger = LogManager.getLogger(Robot.class);
 
 	/**
@@ -39,6 +38,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
+
+		DSIO.init();
+		dsio = DSIO.getInstance();
 
 		Sensors.init();
 		sensors = Sensors.getInstance();

@@ -1,18 +1,18 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 public class Position {
-	private int x, y;
+	private double x, y;
 
-	public Position(int x, int y) {
+	public Position(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 }
