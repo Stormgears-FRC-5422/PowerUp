@@ -20,6 +20,43 @@ public class FieldPositions {
 		private StartingSpots(Position position) {
 			this.position = position;
 		}
+
+		public Position getPosition() {
+			return position;
+		}
+	}
+
+	public enum StartingDirections {
+		// TODO: Put correct thetas
+		LEFT(0),
+		STRAIGHT(0),
+		RIGHT(0);
+
+		private double theta;
+		private StartingDirections(double theta){
+			this.theta = theta;
+		}
+
+		public double getTheta() {
+			return theta;
+		}
+	}
+
+	public enum PlacementSpot {
+		//TODO:Change position values & Light Colors
+		SCALE(new Position(0, 0)),
+		SWITCH(OWN_SWITCH),
+		JUST_CROSS(new Position(0, 0));
+
+		private Position destination;
+
+		private PlacementSpot(Position destination) {
+			this.destination = destination;
+		}
+	}
+
+	public enum Alliance {
+		RED, BLUE;
 	}
 
 	public static final Position OWN_SWITCH = new Position(0, 0);
