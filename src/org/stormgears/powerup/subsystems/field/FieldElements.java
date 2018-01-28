@@ -15,7 +15,7 @@ public class FieldElements {
 	public static class Field {
 		public static final double LENGTH = 648;
 		public static final double WIDTH = 324;
-		public static final double HEIGHT = 0;
+		public static final double HEIGHT = 1;
 	}
 
 	public static class Switch {
