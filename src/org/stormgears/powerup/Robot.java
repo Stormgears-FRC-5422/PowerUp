@@ -9,7 +9,7 @@ import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
-import org.stormgears.utils.Log4jConfigurationFactory;
+import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
