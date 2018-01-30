@@ -1,19 +1,18 @@
 package org.stormgears.powerup.subsystems.navigator.motionprofile;
 
-
 import com.ctre.CANTalon;
-import com.ctre.CANTalon.TalonControlMode;
-import com.ctre.CANTalon.TrajectoryPoint;
-
-import org.stormgears.StormUtils.SafeTalon;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import com.ctre.phoenix.ErrorCode;
+import com.ctre.phoenix.motion.MotionProfileStatus;
+import com.ctre.phoenix.motion.TrajectoryPoint;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import org.stormgears.powerup.Robot;
+import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.utils.StormTalon;
 
 public class MotionControl {
 	private static final double notifierRate = 0.005;
 	private boolean stopNotifier = false;
-	public SafeTalon[] talons;
-	public CANTalon.MotionProfileStatus[] statuses = new CANTalon.MotionProfileStatus[4];
+	public MotionProfileStatus[] statuses = new MotionProfileStatus[4];
 	private int numPoints = 0;
 	private int btmBufferPoints = 0;
 	private int runCount = 0;
@@ -35,12 +34,12 @@ public class MotionControl {
 
 			synchronized(this) {
 //				if (numPoints > 0) {
-				for (SafeTalon t : talons) {
-					t.clearMotionProfileHasUnderrun();
+				for (StormTalon t : Robot.driveTalons.getTalons()) {
+					t.clearMotionProfileHasUnderrun(10);
 					t.processMotionProfileBuffer();
 //						t.clearMotionProfileHasUnderrun();
 				}
-				talons[0].getMotionProfileStatus(statuses[0]);
+				Robot.driveTalons.getTalons()[0].getMotionProfileStatus(statuses[0]);
 				btmBufferPoints = statuses[0].btmBufferCnt;
 				numPoints = --numPoints < 0 ? 0 : numPoints;
 //				}
@@ -48,16 +47,14 @@ public class MotionControl {
 		}
 	}
 
-	public MotionControl(SafeTalon[] talons) {
-		this.talons = talons;
+	public MotionControl() {
 		int i = 0;
-		for (SafeTalon t : talons) {
-			t.changeControlMode(TalonControlMode.MotionProfile);
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
-			t.setEncPosition(0);
+			t.getSensorCollection().setQuadraturePosition(0, 10);
 			t.set(0);
-			statuses[i++] = new CANTalon.MotionProfileStatus();
+			statuses[i++] = new MotionProfileStatus();
 		}
 	}
 
@@ -70,13 +67,12 @@ public class MotionControl {
 
 	public void startControlThread() {
 		int i = 0;
-		for (SafeTalon t : talons) {
-			t.changeControlMode(TalonControlMode.MotionProfile);
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
-			t.setEncPosition(0);
+			t.getSensorCollection().setQuadraturePosition(0, 10);
 			t.set(0);
-			statuses[i++] = new CANTalon.MotionProfileStatus();
+			statuses[i++] = new MotionProfileStatus();
 		}
 
 		synchronized(this) {
@@ -87,23 +83,22 @@ public class MotionControl {
 
 	public void printStatus() {
 		int i = 0;
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 		}
 	}
 
 	public void shutDownProfiling() {
 		numPoints = 0;
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
-			t.clearMotionProfileHasUnderrun();
-			t.changeControlMode(TalonControlMode.Speed); //may need to be vbus
+			t.clearMotionProfileHasUnderrun(10);
 		}
 	}
 
 	public void clearMotionProfileTrajectories() {
 		numPoints = 0;
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 		}
 	}
@@ -117,33 +112,33 @@ public class MotionControl {
 	}
 
 	// wrapper functions for talon
-	public synchronized boolean pushMotionProfileTrajectory(int talonIndex, TrajectoryPoint pt) {
-		if (talonIndex == talons.length - 1)
+	public synchronized ErrorCode pushMotionProfileTrajectory(int talonIndex, TrajectoryPoint pt) {
+		if (talonIndex == Robot.driveTalons.getTalons().length - 1)
 			numPoints++;
 
-		return talons[talonIndex].pushMotionProfileTrajectory(pt);
+		return Robot.driveTalons.getTalons()[talonIndex].pushMotionProfileTrajectory(pt);
 	}
 
-	public int getEncVel(int talonIndex) { return talons[talonIndex].getEncVelocity();	}
+	public int getEncVel(int talonIndex) { return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();	}
 
-	public int getEncPos(int talonIndex) {	return talons[talonIndex].getEncPosition();}
+	public int getEncPos(int talonIndex) {	return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();}
 	//TODO: add in some edge case error checking
 	public void enable() {
 		int i = 0;
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 			t.set(1);
 		}
 	}
 
 	public void disable() {
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.set(0);
 		}
 	}
 
 	public void holdProfile() {
-		for (SafeTalon t : talons) {
+		for (StormTalon t : Robot.driveTalons.getTalons()) {
 			t.set(2);
 		}
 	}

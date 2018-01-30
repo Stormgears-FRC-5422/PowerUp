@@ -37,4 +37,8 @@ public class DriveTalons {
 		return instance;
 	}
 
+	public StormTalon[] getTalons() {
+		return talons;
+	}
+
 }

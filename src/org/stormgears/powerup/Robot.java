@@ -12,7 +12,11 @@ import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
+import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -35,6 +39,7 @@ public class Robot extends IterativeRobot {
 	public static DriveTalons driveTalons;
 	public Vision v = new Vision();
 	private Logger logger = LogManager.getLogger(Robot.class);
+	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<RegisteredNotifier>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -102,6 +107,15 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 
+	}
+
+	/**
+	 * This function is called whenever the robot is disabled.
+	 */
+	public void disabledInit() {
+		for(RegisteredNotifier rn : notifierRegistry) {
+			rn.stop();
+		}
 	}
 }
 
