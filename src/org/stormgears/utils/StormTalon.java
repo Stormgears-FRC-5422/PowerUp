@@ -41,5 +41,5 @@ public class StormTalon extends WPI_TalonSRX {
 	}
 
 	// TODO: Other set methods
-	// TODO: Add synchronised functionality
+	// TODO: Add synchronized functionality
 }

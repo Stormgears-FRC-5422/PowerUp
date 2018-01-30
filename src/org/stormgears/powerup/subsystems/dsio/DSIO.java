@@ -5,12 +5,15 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.powerup.subsystems.field.FieldElements;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
 	public static DSIO getInstance() {
 		return instance;
 	}
+
+	public Choosers choosers;
 
 	// If you want to change the channel, change it here
 	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1;
@@ -35,6 +38,8 @@ public class DSIO {
 
 	private DSIO() {
 		setupButtonsAndSwitches();
+
+		choosers = new Choosers();
 	}
 
 	/*

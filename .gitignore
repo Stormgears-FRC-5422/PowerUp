@@ -196,5 +196,4 @@ sysProps.xml
 
 # End of https://www.gitignore.io/api/eclipse,java,windows,macos,linux,intellij
 
-#Build folder
-build
+/build/
