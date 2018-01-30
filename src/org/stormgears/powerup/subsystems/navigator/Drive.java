@@ -1,31 +1,23 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
 
-import static org.apache.logging.log4j.util.Unbox.box;
-
-
 // TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
+	public static Drive getInstance() { return instance; }
 
-	public static Drive getInstance() {
-		return instance;
-	}
+	private Logger logger = LogManager.getLogger(Robot.class);
 
-	private static final Logger logger = LogManager.getLogger(Robot.class);
+	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
+	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
+	private static final ControlMode MODE = ControlMode.Velocity;
 
-	private static final int MAX_VELOCITY_ENCODER_TICKS = 1;
-	private static final int TALON_FPID_TIMEOUT = 0;    // TODO: Adithya said 'Figure out what the hell that thing is'
-	private static final ControlMode MODE = ControlMode.PercentOutput;
-
-	private static final IMotorControllerEnhanced[] talons = new StormTalon[4];
+	public static final StormTalon[] talons = new StormTalon[4];
 
 	private Drive() {
 		talons[0] = new StormTalon(Robot.config.frontLeftTalonId);
@@ -33,7 +25,7 @@ public class Drive {
 		talons[2] = new StormTalon(Robot.config.rearLeftTalonId);
 		talons[3] = new StormTalon(Robot.config.rearRightTalonId);
 
-		for (IMotorControllerEnhanced t : talons) {
+		for (StormTalon t : talons) {
 			t.setInverted(true);
 			t.setSensorPhase(true);
 			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);
@@ -51,14 +43,14 @@ public class Drive {
 
 	public void move() {
 		double x = Robot.dsio.getJoystickX(),
-			y = Robot.dsio.getJoystickY(),
-			z = Robot.dsio.getJoystickZ();
+				y = Robot.dsio.getJoystickY(),
+				z = Robot.dsio.getJoystickZ();
 
 		double theta = Math.atan2(x, y);
 		if (theta < 0) theta = 2 * Math.PI + theta;
 
 		if (x == 0 && y == 0 && z == 0) {
-			setDriveTalonsZeroVelocity();
+       		setDriveTalonsZeroVelocity();
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z), theta, z);
 		}
@@ -102,13 +94,13 @@ public class Drive {
 		}
 
 		while (Math.abs(vels[0]) > 1.0 ||
-			Math.abs(vels[1]) > 1.0 ||
-			Math.abs(vels[2]) > 1.0 ||
-			Math.abs(vels[3]) > 1.0) {
+				Math.abs(vels[1]) > 1.0 ||
+				Math.abs(vels[2]) > 1.0 ||
+				Math.abs(vels[3]) > 1.0) {
 			double max = Math.max(Math.max(Math.max(Math.abs(vels[0]),
-				Math.abs(vels[1])),
-				Math.abs(vels[2])),
-				Math.abs(vels[3]));
+					Math.abs(vels[1])),
+					Math.abs(vels[2])),
+					Math.abs(vels[3]));
 
 			for (int i = 0; i < vels.length; i++) {
 				vels[i] /= max;
@@ -119,20 +111,24 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
+		System.out.println("Target: " + vels[2]);
+
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
+
+		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {
-		for (IMotorControllerEnhanced t : talons) {
+		for (StormTalon t : talons) {
 			t.set(MODE, 0);
 		}
 	}
 
 	public void debug() {
-		for (IMotorControllerEnhanced t : talons) {
-			logger.debug("Real Velocities: {}", box(((TalonSRX) t).getSensorCollection().getQuadratureVelocity()));
+		for (StormTalon t : talons) {
+			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
 		}
 	}
 }
