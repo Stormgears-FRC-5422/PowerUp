@@ -1,4 +1,4 @@
-package org.stormgears.utils;
+package org.stormgears.utils.logging;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -22,13 +22,15 @@ public class Log4jConfigurationFactory extends ConfigurationFactory {
 		builder.setStatusLevel(Level.WARN);
 //		builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL).
 //			addAttribute("level", Level.DEBUG));
-		AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").
-			addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
-		appenderBuilder.add(builder.newLayout("PatternLayout").
-			addAttribute("pattern", "%d{HH:mm:ss.SSS} [%t] %-5level %class{36}.%M:%L - %msg%xEx%n"));
+		AppenderComponentBuilder appenderBuilder = builder
+			.newAppender("Stdout", "CONSOLE")
+			.addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
+		appenderBuilder.add(builder.newLayout("PatternLayout")
+			.addAttribute("pattern", "%d{HH:mm:ss.SSS} [%t] %-5level %class{36}.%M:%L - %msg%xEx%n"));
 		builder.add(appenderBuilder);
 
 //		builder.add(builder.newLogger("org.stormgears.utils.TestDrive", Level.TRACE).add(builder.newAppenderRef("Stdout")));
+
 		builder.add(builder.newRootLogger(Level.TRACE).add(builder.newAppenderRef("Stdout")));
 
 		return builder.build();
@@ -47,6 +49,6 @@ public class Log4jConfigurationFactory extends ConfigurationFactory {
 
 	@Override
 	protected String[] getSupportedTypes() {
-		return new String[] {"*"};
+		return new String[]{"*"};
 	}
 }
