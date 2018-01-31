@@ -60,6 +60,7 @@ public class DSIO {
 				Robot.shooter.stop();
 				Robot.shooter.stopImpellor();
 			}
+			System.out.println();
 		});
 	}
 

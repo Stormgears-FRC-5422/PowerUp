@@ -105,8 +105,6 @@ public class Robot extends IterativeRobot {
 
 		sensors.getNavX().debug();
 
-		Robot.shooter.shoot();
-		Robot.shooter.startImpellor();
 	}
 
 	/**
