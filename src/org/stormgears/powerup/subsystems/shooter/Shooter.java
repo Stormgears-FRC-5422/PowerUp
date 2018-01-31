@@ -3,8 +3,6 @@ package org.stormgears.powerup.subsystems.shooter;
 import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.stormgears.StormUtils.SafeTalon;
 import org.stormgears.utils.StormTalon;
 

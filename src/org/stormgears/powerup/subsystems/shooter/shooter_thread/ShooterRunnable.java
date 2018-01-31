@@ -1,8 +1,7 @@
-package org.usfirst.frc.team5422.robot.subsystems.shooter.shooter_thread;
+package org.stormgears.powerup.subsystems.shooter.shooter_thread;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.stormgears.WebDashboard.Diagnostics.Diagnostics;
-import org.usfirst.frc.team5422.robot.Robot;
+import org.stormgears.powerup.Robot;
 
 /**
  * All the stuff that needs to happen on a separate thread.
@@ -13,7 +12,7 @@ public class ShooterRunnable implements Runnable
 	public void run()
 	{
 		//to start the shooter before the impeller
-		Robot.shooterSubsystem.shoot();
+		Robot.shooter.shoot();
 
 		// Wait three seconds for wheel to spin up
 		try {
@@ -22,10 +21,10 @@ public class ShooterRunnable implements Runnable
 			e.printStackTrace();
 		}
 
-		Robot.shooterSubsystem.startImpeller();
+		Robot.shooter.startImpellor();
 
-		while (Robot.shooterSubsystem.isEnabled()) {
-			Robot.shooterSubsystem.shoot();
+		while (Robot.shooter.isPressed()) {
+			Robot.shooter.shoot();
 
 			// Loop will run 10 times a second
 			try {
@@ -34,9 +33,9 @@ public class ShooterRunnable implements Runnable
 				e.printStackTrace();
 			}
 
-			SmartDashboard.putNumber("Shooter velocity: ", Robot.shooterSubsystem.motor.getEncVelocity());
+		//	SmartDashboard.putNumber("Shooter velocity: ", Robot.shooter.shooterTalon.());
 		}
 
-		Robot.shooterSubsystem.stop();
+		Robot.shooter.stop();
 	}
 }
