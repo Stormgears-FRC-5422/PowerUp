@@ -6,13 +6,13 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
+import org.stormgears.powerup.subsystems.shooter.Shooter;
 import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.powerup.subsystems.shooter.RobotTalonConstants;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static Shooter shooter;
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
@@ -40,6 +41,7 @@ public class Robot extends IterativeRobot {
 	public Vision v = new Vision();
 	private Logger logger = LogManager.getLogger(Robot.class);
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<RegisteredNotifier>();
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -57,6 +59,9 @@ public class Robot extends IterativeRobot {
 
 		Drive.init();
 		drive = Drive.getInstance();
+
+
+		shooter = new Shooter(RobotTalonConstants.SHOOTER_TALON, RobotTalonConstants.IMPELLOR_TALON);
 
 	}
 
@@ -99,6 +104,9 @@ public class Robot extends IterativeRobot {
 		}
 
 		sensors.getNavX().debug();
+
+		Robot.shooter.shoot();
+		Robot.shooter.startImpellor();
 	}
 
 	/**
@@ -116,6 +124,11 @@ public class Robot extends IterativeRobot {
 		for(RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();
 		}
+	}
+
+	public static void setShooter(Shooter shooter){
+		Robot.shooter = shooter;
+
 	}
 }
 
