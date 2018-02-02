@@ -6,8 +6,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
@@ -17,7 +15,6 @@ import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.stormgears.utils.Log4jConfigurationFactory;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -34,7 +31,6 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static Shooter shooter;
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
@@ -60,10 +56,6 @@ public class Robot extends IterativeRobot {
 
 		Drive.init();
 		drive = Drive.getInstance();
-
-
-		shooter = new Shooter(RobotTalonConstants.SHOOTER_TALON, RobotTalonConstants.IMPELLOR_TALON);
-
 	}
 
 	/**
@@ -123,11 +115,6 @@ public class Robot extends IterativeRobot {
 		for(RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();
 		}
-	}
-
-	public static void setShooter(Shooter shooter){
-		Robot.shooter = shooter;
-
 	}
 }
 
