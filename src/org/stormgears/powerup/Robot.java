@@ -36,7 +36,7 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static DriveTalons driveTalons;
 	public Vision v = new Vision();
-	private Logger logger = LogManager.getLogger(Robot.class);
+	private static final Logger logger = LogManager.getLogger(Robot.class);
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<RegisteredNotifier>();
 
 
