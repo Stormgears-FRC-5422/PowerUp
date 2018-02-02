@@ -52,6 +52,7 @@ public class DSIO {
 		// BIG BLUE
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
 
+
 		});
 
 		// RED
@@ -86,11 +87,15 @@ public class DSIO {
 
 		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
-			if (isOn) {
+			if(isOn){
+				Robot.shooter.startImpellor();
+				Robot.shooter.shoot();
 
-			} else {
-
+			} else{
+				Robot.shooter.stop();
+				Robot.shooter.stopImpellor();
 			}
+			System.out.println();
 		});
 
 		// ORANGE SWITCH
@@ -144,4 +149,6 @@ public class DSIO {
 
 		return filtered * reverse;
 	}
+
+
 }

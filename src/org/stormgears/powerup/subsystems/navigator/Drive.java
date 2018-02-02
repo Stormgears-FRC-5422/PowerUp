@@ -13,11 +13,11 @@ public class Drive {
 
 	private Logger logger = LogManager.getLogger(Drive.class);
 
-	private static final int MAX_VELOCITY_ENCODER_TICKS = 1;
+	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
-	private static final ControlMode MODE = ControlMode.PercentOutput;
+	private static final ControlMode MODE = ControlMode.Velocity;
 
-	private static final StormTalon[] talons = new StormTalon[4];
+	public static final StormTalon[] talons = new StormTalon[4];
 
 	private Drive() {
 		talons[0] = new StormTalon(Robot.config.frontLeftTalonId);
@@ -33,7 +33,8 @@ public class Drive {
 			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
 			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
 			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
-	}		}
+		}
+	}
 
 
 	public static void init() {
@@ -110,9 +111,13 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
+		System.out.println("Target: " + vels[2]);
+
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
+
+		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {

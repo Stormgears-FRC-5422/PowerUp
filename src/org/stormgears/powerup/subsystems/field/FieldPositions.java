@@ -77,4 +77,5 @@ public class FieldPositions {
 	public static final Position OPP_PLATFORM_ZONE = new Position(0, 0);
 	public static final Position OPP_PLATFORM_EDGE = new Position(0, 0);
 	public static final Position OPP_PLATFORM_ELEVATED = new Position(0, 0);
+	public static final Position OPP_PORTAL_LEFT = new Position(0, 0);
 }

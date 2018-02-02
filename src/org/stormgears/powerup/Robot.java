@@ -27,9 +27,13 @@ public class Robot extends IterativeRobot {
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
 	public static Sensors sensors;
-	public static DSIO dsio;
+	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
+	public static DriveTalons driveTalons;
+	public Vision v = new Vision();
 	private Logger logger = LogManager.getLogger(Robot.class);
+	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<RegisteredNotifier>();
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -39,14 +43,18 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
-		DSIO.init();
-		dsio = DSIO.getInstance();
-
 		Sensors.init();
 		sensors = Sensors.getInstance();
 
+		DriveTalons.init();
+		driveTalons = DriveTalons.getInstance();
+
 		Drive.init();
 		drive = Drive.getInstance();
+
+
+		shooter = new Shooter(RobotTalonConstants.SHOOTER_TALON, RobotTalonConstants.IMPELLOR_TALON);
+
 	}
 
 	/**
@@ -88,6 +96,7 @@ public class Robot extends IterativeRobot {
 		}
 
 		sensors.getNavX().debug();
+
 	}
 
 	/**
@@ -95,6 +104,20 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+
+	}
+
+	/**
+	 * This function is called whenever the robot is disabled.
+	 */
+	public void disabledInit() {
+		for(RegisteredNotifier rn : notifierRegistry) {
+			rn.stop();
+		}
+	}
+
+	public static void setShooter(Shooter shooter){
+		Robot.shooter = shooter;
 
 	}
 }
