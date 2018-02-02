@@ -48,17 +48,13 @@ public class DSIO {
 	private void setupButtonsAndSwitches() {
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
 
-
 		});
 
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
-			if(isOn){
-				Robot.shooter.startImpellor();
-				Robot.shooter.shoot();
+			if (isOn) {
 
-			} else{
-				Robot.shooter.stop();
-				Robot.shooter.stopImpellor();
+			} else {
+
 			}
 		});
 	}
