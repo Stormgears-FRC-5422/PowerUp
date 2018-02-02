@@ -6,9 +6,17 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.powerup.subsystems.navigator.Drive;
+import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
+import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.utils.logging.Log4jConfigurationFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.stormgears.utils.Log4jConfigurationFactory;
 
 /*
@@ -26,6 +34,7 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static Shooter shooter;
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
