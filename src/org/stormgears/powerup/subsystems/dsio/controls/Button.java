@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.event_listeners.OnButtonTouchUpListener;
 
 public class Button extends BaseControl {
-	private Logger logger = LogManager.getLogger(Button.class);
+	private static final Logger logger = LogManager.getLogger(Button.class);
 
 	private OnButtonTouchUpListener delegate;
 
