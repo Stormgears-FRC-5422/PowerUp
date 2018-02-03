@@ -16,9 +16,9 @@ public class MotionMagic {
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
 	public static final int TALON_FPID_TIMEOUT = 10;
 
-	public MotionMagic(int talonID) {
+	public MotionMagic(StormTalon talon) {
+		this.talon = talon;
 		/* first choose the sensor */
-		talon = new StormTalon(talonID);
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, TALON_FPID_TIMEOUT);
 		talon.setSensorPhase(true);
 		talon.setInverted(false);
@@ -53,8 +53,8 @@ public class MotionMagic {
 
 
 		if (_joy.getRawButton(1)) {
-			/* Motion Magic - 4096 ticks/rev * 10 Rotations in either direction */
-			double targetPos = leftYstick * 4096 * 10.0;
+			/* Motion Magic - 8192 ticks/rev * 10 Rotations in either direction */
+			double targetPos = leftYstick * 8192 * 10.0;
 			talon.set(ControlMode.MotionMagic, targetPos);
 
 		} else {

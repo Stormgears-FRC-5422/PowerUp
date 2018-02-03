@@ -81,6 +81,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
+
 	}
 
 	/**
@@ -100,6 +101,7 @@ public class Robot extends IterativeRobot {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
+		Robot.drive.runMotionMagic();
 //		sensors.getNavX().debug();
 
 	}

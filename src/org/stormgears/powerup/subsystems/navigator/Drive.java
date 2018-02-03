@@ -10,7 +10,7 @@ import org.stormgears.utils.StormTalon;
 // TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
-	// private static MotionMagic motionMagicInstance;
+	private static MotionMagic motionMagicInstance;
 	public static Drive getInstance() { return instance; }
 
 	private static final Logger logger = LogManager.getLogger(Drive.class);
@@ -131,6 +131,12 @@ public class Drive {
 	public void debug() {
 		for (StormTalon t : talons) {
 			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
+		}
+	}
+	public void runMotionMagic(){
+		for(StormTalon t : talons){
+			MotionMagic m = new MotionMagic(t);
+			m.runMotionMagic(Robot.dsio.getJoystick());
 		}
 	}
 }

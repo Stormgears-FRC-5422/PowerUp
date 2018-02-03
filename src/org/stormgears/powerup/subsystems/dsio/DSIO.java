@@ -141,4 +141,7 @@ public class DSIO {
 
 		return filtered * reverse;
 	}
+	public Joystick getJoystick(){
+		return joystick;
+	}
 }
