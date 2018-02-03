@@ -140,6 +140,9 @@ public class DSIO {
 	}
 
 	private double getJoystickMultiplier() {
+		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
+			return 0.2;
+		}
 		return 1;
 	}
 
