@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
 	public static Sensors sensors;
-	public static DSIO dsio = DSIO.getInstance();
+	public static DSIO dsio;
 	public static Drive drive;
 	public static DriveTalons driveTalons;
 	public Vision v = new Vision();
@@ -47,6 +47,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
+
+		DSIO.init();
+		dsio = DSIO.getInstance();
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
@@ -91,12 +94,13 @@ public class Robot extends IterativeRobot {
 			if(!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
+				drive.debug();
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
-		sensors.getNavX().debug();
+//		sensors.getNavX().debug();
 
 	}
 

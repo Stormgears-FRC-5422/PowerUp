@@ -2,14 +2,15 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
-import org.stormgears.powerup.subsystems.field.FieldElements;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DSIO {
-	private static DSIO instance = new DSIO();
+	private static DSIO instance;
 	public static DSIO getInstance() {
 		return instance;
 	}
@@ -38,6 +39,13 @@ public class DSIO {
 			redSwitch 		= new Switch(ButtonIds.RED_SWITCH_ID, buttonBoard);
 
 	private DSIO() {
+//		new Timer().scheduleAtFixedRate(new TimerTask() {
+//			@Override
+//			public void run() {
+//				System.out.println(buttonBoard.getRawButton(10));
+//			}
+//		}, 0, 250);
+
 		setupButtonsAndSwitches();
 		choosers = new Choosers();
 	}
@@ -51,7 +59,7 @@ public class DSIO {
 	private void setupButtonsAndSwitches() {
 		// BIG BLUE
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
-
+			System.out.println("Big Blue Button released");
 		});
 
 		// RED

@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
@@ -116,8 +117,6 @@ public class Drive {
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
-
-		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {
@@ -127,8 +126,14 @@ public class Drive {
 	}
 
 	public void debug() {
+//		for (StormTalon t : talons) {
+//			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
+//		}
+
 		for (StormTalon t : talons) {
-			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
+			SmartDashboard.putNumber("Talon " + t.getDeviceID() + " Quadrature Position:", t.getSensorCollection().getQuadraturePosition());
+			SmartDashboard.putNumber("Talon " + t.getDeviceID() + " Quadrature Speed:", t.getSensorCollection().getQuadratureVelocity());
+			SmartDashboard.putNumber("Talon " + t.getDeviceID() + " Current:", t.getOutputCurrent());
 		}
 	}
 }
