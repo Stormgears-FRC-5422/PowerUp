@@ -70,6 +70,7 @@ public class FieldElements {
 		public static final double HEIGHT = 3.5;
 		public static final double LENGTH_RAMP = 12.75;
 		public static final double ANGLE_RAMP = 15.35;
+		public static final double THETA_PLATFORM = 14.8;
 	}
 
 	public static class	PlatformZone {
