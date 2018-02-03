@@ -4,11 +4,13 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.utils.StormTalon;
 
 // TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
+	// private static MotionMagic motionMagicInstance;
 	public static Drive getInstance() { return instance; }
 
 	private static final Logger logger = LogManager.getLogger(Drive.class);
