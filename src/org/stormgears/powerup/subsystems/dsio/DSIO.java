@@ -21,18 +21,18 @@ public class DSIO {
 			buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL);
 
 	private final Button
-			bigBlueButton 	= new Button(ButtonIds.BIG_BLUE_BUTTON_ID, buttonBoard),
-			redButton 		= new Button(ButtonIds.RED_BUTTON_ID, buttonBoard),
-			yellowButton 	= new Button(ButtonIds.YELLOW_BUTTON_ID, buttonBoard),
-			greenButton 	= new Button(ButtonIds.GREEN_BUTTON_ID, buttonBoard),
-			smallBlueButton = new Button(ButtonIds.SMALL_BLUE_BUTTON_ID, buttonBoard),
-			blackButton 	= new Button(ButtonIds.BLACK_BUTTON_ID, buttonBoard),
-			whiteButton 	= new Button(ButtonIds.WHITE_BUTTON_ID, buttonBoard);
+			bigBlueButton 	= new Button(ButtonIds.Board.BIG_BLUE, buttonBoard),
+			redButton 		= new Button(ButtonIds.Board.RED, buttonBoard),
+			yellowButton 	= new Button(ButtonIds.Board.YELLOW, buttonBoard),
+			greenButton 	= new Button(ButtonIds.Board.GREEN, buttonBoard),
+			smallBlueButton = new Button(ButtonIds.Board.SMALL_BLUE, buttonBoard),
+			blackButton 	= new Button(ButtonIds.Board.BLACK, buttonBoard),
+			whiteButton 	= new Button(ButtonIds.Board.WHITE, buttonBoard);
 
 	private final Switch
-			greenSwitch 	= new Switch(ButtonIds.GREEN_SWITCH_ID, buttonBoard),
-			orangeSwitch 	= new Switch(ButtonIds.ORANGE_SWITCH_ID, buttonBoard),
-			redSwitch 		= new Switch(ButtonIds.RED_SWITCH_ID, buttonBoard);
+			greenSwitch 	= new Switch(ButtonIds.Board.GREEN_SWITCH, buttonBoard),
+			orangeSwitch 	= new Switch(ButtonIds.Board.ORANGE_SWITCH, buttonBoard),
+			redSwitch 		= new Switch(ButtonIds.Board.RED_SWITCH, buttonBoard);
 
 	private DSIO() {
 		setupButtonsAndSwitches();
@@ -115,8 +115,7 @@ public class DSIO {
 	public double getJoystickX() {
 		double x = joystick.getX();
 
-		// TODO: Determine whether we need the entire range of 0.0..1.0 joystick values
-		double filtered = Math.abs(x) < X_NULLZONE ? 0 : x - Math.copySign(X_NULLZONE, x);
+		double filtered = Math.abs(x) < X_NULLZONE ? 0 : ((x - Math.copySign(X_NULLZONE, x)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -125,7 +124,7 @@ public class DSIO {
 	public double getJoystickY() {
 		double y = joystick.getY();
 
-		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : y - Math.copySign(Y_NULLZONE, y);
+		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : ((y - Math.copySign(Y_NULLZONE, y)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -134,11 +133,17 @@ public class DSIO {
 	public double getJoystickZ() {
 		double z = joystick.getZ();
 
-		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : z - Math.copySign(Z_NULLZONE, z);
+		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : ((z - Math.copySign(Z_NULLZONE, z)) / (1 - Z_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
 	}
+
+	private double getJoystickMultiplier() {
+		return 1;
+	}
+
+
 	public Joystick getJoystick(){
 		return joystick;
 	}
