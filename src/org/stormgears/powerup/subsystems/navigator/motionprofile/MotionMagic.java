@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import edu.wpi.first.wpilibj.Joystick;
+import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.utils.StormTalon;
 
@@ -46,6 +47,7 @@ public class MotionMagic {
 	}
 
 	public void runMotionMagic(Joystick _joy) {
+		System.out.println(Robot.driveTalons.getTalons()[1].getSensorCollection().getQuadraturePosition());
 		/* get gamepad axis - forward stick is positive */
 		double leftYstick = -1.0 * _joy.getY();
 		/* calculate the percent motor output */
@@ -54,12 +56,15 @@ public class MotionMagic {
 
 		if (_joy.getRawButton(1)) {
 			/* Motion Magic - 8192 ticks/rev * 10 Rotations in either direction */
-			double targetPos = leftYstick * 8192 * 10.0;
+			double targetPos = 8192 * 2;
+			if(talon.equals(Robot.driveTalons.getTalons()[1]) || talon.equals(Robot.driveTalons.getTalons()[3])) {
+				targetPos *= -1;
+			}
 			talon.set(ControlMode.MotionMagic, targetPos);
 
 		} else {
 			/* Percent voltage mode */
-			talon.set(ControlMode.PercentOutput, leftYstick);
+			//talon.set(ControlMode.PercentOutput, leftYstick);
 		}
 		try {
 			TimeUnit.MILLISECONDS.sleep(10);
