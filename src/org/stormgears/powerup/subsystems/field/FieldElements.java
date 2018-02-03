@@ -1,5 +1,8 @@
 package org.stormgears.powerup.subsystems.field;
 
+import org.stormgears.powerup.subsystems.navigator.Position;
+import sun.security.util.Length;
+
 public class FieldElements {
 	/*
 	 * This is the FieldElements class
@@ -19,57 +22,47 @@ public class FieldElements {
 	}
 
 	public static class Switch {
+
+
 		public static final double LENGTH = 56;
 		public static final double WIDTH = 153.5;
 		public static final double HEIGHT = 18.75;
-		public static final double BETWEEN_SWITCH_AND_FENCE_FRONT = 2.25;
-		public static final double BETWEEN_SWITCH_AND_FENCE_SIDES = 1.5;
-		public static final double LOWEST_POSITION = 3;
-		public static final double STARTING_HEIGHT = 9;
-		public static final double START_OWNERSHIP = 6;
-		public static final double PLATE_COVER_HEIGHT = 3.5;
+		public static Position position =  null;
+		public Switch(int x,int y) {
+			position = new Position(x,y);
+		}
 
 	}
+	Switch ourSwitch = new Switch(0,0);
+
+	Switch oppSwitch = new Switch(0,0);
 
 	public static class Scale {
 		public static final double LENGTH = 48;
 		public static final double WIDTH = 180;
 		public static final double HEIGHT = 84;
-		public static final double PLATE_COVER_HEIGHT = 3.5;
-		public static final double HIGHEST_POSITION = 72;
-		public static final double LOWEST_POSITION = 48;
-		public static final double STARTING_HEIGHT = 60;
-		public static final double START_OWNERSHIP = 56;
-		public static final double WIDTH_TOWER = 17;
+		public static final Position OWN_SCALE_PLATFORM_ZONE = new Position(0, 0);
+		public static final Position OWN_SCALE_PLATFORM_EDGE = new Position(0, 0);
+		public static final Position OWN_SCALE_PLATFORM_ELEVATED = new Position(0, 0);
 	}
 
 	public static class Exchange {
 		public static final double LENGTH = 48;
 		public static final double WIDTH = 36;//possibly wrong order
 		public static final double HEIGHT = 0;
-		public static final double HEIGHT_LIP_INSERT = 1.75;
-		public static final double HEIGHT_LIP_RETURN = 18;
-		public static final double HEIGHT_INSERT = 16.25;
-		public static final double WIDTH_INSERT = 21;
-		public static final double HEIGHT_RETURN = 14;
-		public static final double WIDTH_RETURN = 14;
+		public static final Position OWN_EXCHANGE = new Position(0, 120);
 	}
 
 	public static class Portal {
 		public static final double LENGTH = 48;
 		public static final double WIDTH = 155;//possibly wrong order
 		public static final double HEIGHT = 0;
-		public static final double HEIGHT_LIP_OPENING = 20;
-		public static final double HEIGHT_OPENING = 14;
-		public static final double WIDTH_OPENING = 14;
 	}
 
 	public static class Platform {
 		public static final double LENGTH = 41;//our half
 		public static final double WIDTH = 104;
 		public static final double HEIGHT = 3.5;
-		public static final double LENGTH_RAMP = 12.75;
-		public static final double ANGLE_RAMP = 15.35;
 	}
 
 	public static class	PlatformZone {
@@ -82,14 +75,12 @@ public class FieldElements {
 		public static final double LENGTH = 95.25;
 		public static final double WIDTH = 72;//possibly wrong order
 		public static final double HEIGHT = 0;
-
 	}
 
 	public static class PowerCubeZone {
 		public static final double LENGTH = 45;
 		public static final double WIDTH = 42;//possibly wrong order
 		public static final double HEIGHT = 0;
-		public static final double WIDTH_GAFFERS_TAPE = 2;
 	}
 
 	public static class Rungs {
