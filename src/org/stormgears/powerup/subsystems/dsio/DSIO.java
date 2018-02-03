@@ -110,7 +110,7 @@ public class DSIO {
 
 	private static final double X_NULLZONE = 0.2;
 	private static final double Y_NULLZONE = 0.2;
-	private static final double Z_NULLZONE = 0.05;
+	private static final double Z_NULLZONE = 0.1;
 
 	public double getJoystickX() {
 		double x = joystick.getX();
