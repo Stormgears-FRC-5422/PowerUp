@@ -58,13 +58,15 @@ public class Drive {
 		}
 	}
 
+	private double[] vels = new double[talons.length];
+
 	// Run mecanum math on each raw speed and set talons accordingly
 	// TODO: This code makes the robot drive fairly poorly. It does not drive straight
 	private void mecMove(double tgtVel, double theta, double changeVel) {
 		double navX_theta = Robot.sensors.getNavX().getTheta();
 		theta = theta + navX_theta;
 
-		double[] vels = new double[talons.length];
+//		double[] vels = new double[talons.length];
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi
