@@ -101,7 +101,7 @@ public class Robot extends IterativeRobot {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
-		Robot.drive.runMotionMagic();
+//		Robot.drive.runMotionMagic();
 //		sensors.getNavX().debug();
 
 	}

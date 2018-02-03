@@ -1,12 +1,9 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
-import org.stormgears.powerup.subsystems.field.FieldElements;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -118,7 +115,8 @@ public class DSIO {
 	public double getJoystickX() {
 		double x = joystick.getX();
 
-		double filtered = Math.abs(x) < X_NULLZONE ? 0 : x;
+		// TODO: Determine whether we need the entire range of 0.0..1.0 joystick values
+		double filtered = Math.abs(x) < X_NULLZONE ? 0 : x - Math.copySign(X_NULLZONE, x);
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -127,7 +125,7 @@ public class DSIO {
 	public double getJoystickY() {
 		double y = joystick.getY();
 
-		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : y;
+		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : y - Math.copySign(Y_NULLZONE, y);
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -136,7 +134,7 @@ public class DSIO {
 	public double getJoystickZ() {
 		double z = joystick.getZ();
 
-		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : z;
+		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : z - Math.copySign(Z_NULLZONE, z);
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
