@@ -42,9 +42,6 @@ public class DSIO {
 		choosers = new Choosers();
 	}
 
-	public static void init() {
-		instance = new DSIO();
-	}
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
