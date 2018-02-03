@@ -113,13 +113,13 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
-		System.out.println("Target: " + vels[2]);
+//		System.out.println("Target: " + vels[2]);
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
 
-		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
+//		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {
