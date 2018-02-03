@@ -17,7 +17,7 @@ public class Button extends BaseControl {
 
 	@Override
 	protected void setupCommand() {
-		wpiInstance.whenReleased(new Command() {
+		wpiInstance.whenPressed(new Command() {
 			@Override
 			protected boolean isFinished() {
 				return true;
