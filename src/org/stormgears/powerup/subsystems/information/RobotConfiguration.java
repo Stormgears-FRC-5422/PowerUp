@@ -19,6 +19,7 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 	public int encoderResolution;
 	public boolean reverseJoystick;
 
+
 	/*
 	 * WARNING: Do not set properties here. Only access ones from the file and set their respective fields.
 	 * If you want to set robot properties, SSH into the roboRIO and edit /home/lvuser/config.properties in vim.
