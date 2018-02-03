@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -79,7 +80,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
+		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
 	}
 
 	/**
@@ -87,6 +88,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+
 		if (drive != null) {
 			if(!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
@@ -96,7 +99,7 @@ public class Robot extends IterativeRobot {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
-		sensors.getNavX().debug();
+//		sensors.getNavX().debug();
 
 	}
 
