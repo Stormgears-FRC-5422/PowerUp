@@ -59,6 +59,9 @@ public class FieldPositions {
 		RED, BLUE;
 	}
 
+	public enum PlateAssignment {
+		A_RIGHTSCALE_RIGHTSWITCH, B_LEFTSCALE_LEFTSWITCH, C_LEFTSCALE_RIGHTSWITCH, D_RIGHTSCALE_LEFTSWITCH;
+	}
 
 	public static final Position OWN_CUBE_STACK = new Position(157, 218.1);
 	public static final Position OWN_EXCHANGE = new Position(120, 119);
