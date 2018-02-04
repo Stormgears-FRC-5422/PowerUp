@@ -51,7 +51,7 @@ public class Choosers {
 		plateAssignmentChooser.addObject("A: Right Scale, Right Switch", FieldPositions.PlateAssignment.A_RIGHTSCALE_RIGHTSWITCH);
 		plateAssignmentChooser.addDefault("B: Left Scale, Left Switch", FieldPositions.PlateAssignment.B_LEFTSCALE_LEFTSWITCH);
 		plateAssignmentChooser.addObject("C: Left Scale, Right Switch", FieldPositions.PlateAssignment.C_LEFTSCALE_RIGHTSWITCH);
-		plateAssignmentChooser.addObject("D: Right Scale, Left Switch", FieldPositions.PlateAssignment.D_RIGHTSCALE_LEFTSWITCH);
+		plateAssignmentChooser.addObject("D: RightScale, Left Switch", FieldPositions.PlateAssignment.D_RIGHTSCALE_LEFTSWITCH);
 		SmartDashboard.putData("Plate Assignments", plateAssignmentChooser);
 	}
 
