@@ -79,6 +79,7 @@ public class FieldPositions {
 	public static final Position OWN_POWER_CUBE_5 = new Position(215.9,316.3);
 	public static final Position OWN_POWER_CUBE_6 = new Position(244,316.3);
 
+	public static final Position OWN_SCALE_SWITCH_MIDPOINT = new Position(0,350);//TODO get accurate y coordinate
 
 	public static final Position MIDLINE = new Position(0, 443);
 
