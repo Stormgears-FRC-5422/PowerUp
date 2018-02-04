@@ -10,13 +10,12 @@ import org.stormgears.powerup.Robot;
 
 public class GlobalMapping {
 
-	NetworkTable table = NetworkTable.getTable("GPTable");
+	NetworkTable table = NetworkTable.getTable("GP Table");
 
 	static final double PI = Math.PI;
 	static final double WHEEL_RADIUS = 4.0; //inches
 	static final int ENC_RESOLUTION = 2048; //ticks per revolution
 	static final double RADIANS_PER_TICK = 2*Math.PI/(float) ENC_RESOLUTION;
-
 
 	public static long enc_fl;
 	static long enc_fr;
