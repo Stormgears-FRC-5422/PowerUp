@@ -15,7 +15,7 @@ public class GlobalMapping {
 	static final double RADIANS_PER_TICK = 2*Math.PI/(float) ENC_RESOLUTION;
 
 
-	static long enc_fl;
+	public static long enc_fl;
 	static long enc_fr;
 	static long enc_bl;
 	static long enc_br;
@@ -80,10 +80,10 @@ public class GlobalMapping {
 
 	public static void updatePos() {
 		//TODO: Get access to talons in order to get the enc position for each talon
-		enc_fl = Drive.talons[Robot.config.frontLeftTalonId].getSensorCollection().getQuadraturePosition();
-		enc_fr = Drive.talons[Robot.config.frontRightTalonId].getSensorCollection().getQuadraturePosition();
-		enc_bl = Drive.talons[Robot.config.rearLeftTalonId].getSensorCollection().getQuadraturePosition();
-		enc_br = Drive.talons[Robot.config.rearRightTalonId].getSensorCollection().getQuadraturePosition();
+		enc_fl = Robot.driveTalons.getTalons()[Robot.config.frontLeftTalonId].getSensorCollection().getQuadraturePosition();
+		enc_fr = Robot.driveTalons.getTalons()[Robot.config.frontRightTalonId].getSensorCollection().getQuadraturePosition();
+		enc_bl = Robot.driveTalons.getTalons()[Robot.config.rearLeftTalonId].getSensorCollection().getQuadraturePosition();
+		enc_br = Robot.driveTalons.getTalons()[Robot.config.rearRightTalonId].getSensorCollection().getQuadraturePosition();
 
 		int d_enc_fl = (int) (enc_fl - prev_enc_fl);
 		int d_enc_fr = (int) (enc_fr - prev_enc_fr);
