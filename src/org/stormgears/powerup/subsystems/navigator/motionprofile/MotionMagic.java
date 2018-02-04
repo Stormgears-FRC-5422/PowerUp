@@ -46,31 +46,25 @@ public class MotionMagic {
 		talon.setSelectedSensorPosition(0, 0, TALON_FPID_TIMEOUT);
 	}
 
-	public void runMotionMagic(Joystick _joy) {
-		System.out.println(Robot.driveTalons.getTalons()[1].getSensorCollection().getQuadraturePosition());
-		/* get gamepad axis - forward stick is positive */
-		double leftYstick = -1.0 * _joy.getY();
-		/* calculate the percent motor output */
-		double motorOutput = talon.getMotorOutputPercent();
+	/** The runMotionMagic method receives an encoder position
+	 * (8192 ticks / 1 revolution) and uses the MotionMagic
+	 * ControlMode along with PID to get to the commanded position.
+	 * This class and method applies to only one talon.
+	 *
+	 * @param targetPos - encoder position
+	 */
+	public void runMotionMagic(int targetPos) {
+		//sets position using motion magic
+		talon.set(ControlMode.MotionMagic, targetPos);
 
-
-		if (_joy.getRawButton(1)) {
-			/* Motion Magic - 8192 ticks/rev * 10 Rotations in either direction */
-			double targetPos = 8192 * 2;
-			if(talon.equals(Robot.driveTalons.getTalons()[1]) || talon.equals(Robot.driveTalons.getTalons()[3])) {
-				targetPos *= -1;
-			}
-			talon.set(ControlMode.MotionMagic, targetPos);
-
-		} else {
-			/* Percent voltage mode */
-			//talon.set(ControlMode.PercentOutput, leftYstick);
-		}
+		//TODO: figure out what this try-catch actually does
 		try {
 			TimeUnit.MILLISECONDS.sleep(10);
-		} catch (Exception e) {
-		}
+		} catch (Exception e) { }
 	}
+
+
+
 }
 
 

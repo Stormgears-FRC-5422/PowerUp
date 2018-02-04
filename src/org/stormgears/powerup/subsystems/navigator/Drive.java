@@ -10,7 +10,6 @@ import org.stormgears.utils.StormTalon;
 // TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
-	private static MotionMagic motionMagicInstance;
 	public static Drive getInstance() { return instance; }
 
 	private static final Logger logger = LogManager.getLogger(Drive.class);
@@ -19,22 +18,12 @@ public class Drive {
 	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
 	private static final ControlMode MODE = ControlMode.Velocity;
 
-	public static final StormTalon[] talons = new StormTalon[4];
+	private static MotionMagic[] motions;
 
 	private Drive() {
-		talons[0] = new StormTalon(Robot.config.frontLeftTalonId);
-		talons[1] = new StormTalon(Robot.config.frontRightTalonId);
-		talons[2] = new StormTalon(Robot.config.rearLeftTalonId);
-		talons[3] = new StormTalon(Robot.config.rearRightTalonId);
-
-		for (StormTalon t : talons) {
-			t.setInverted(true);
-			t.setSensorPhase(true);
-			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);
-			t.config_kP(0, Robot.config.velocityP, TALON_FPID_TIMEOUT);
-			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
-			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
-			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
+		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
+		for(int i = 0; i < Robot.driveTalons.getTalons().length; i ++) {
+			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i]);
 		}
 	}
 
@@ -58,15 +47,15 @@ public class Drive {
 		}
 	}
 
-	private double[] vels = new double[talons.length];
-
 	// Run mecanum math on each raw speed and set talons accordingly
 	// TODO: This code makes the robot drive fairly poorly. It does not drive straight
 	private void mecMove(double tgtVel, double theta, double changeVel) {
+		StormTalon[] talons = Robot.driveTalons.getTalons();
+
 		double navX_theta = Robot.sensors.getNavX().getTheta();
 		theta = theta + navX_theta;
 
-//		double[] vels = new double[talons.length];
+		double[] vels = new double[talons.length];
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi
@@ -125,20 +114,46 @@ public class Drive {
 	}
 
 	private void setDriveTalonsZeroVelocity() {
+		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
 			t.set(MODE, 0);
 		}
 	}
 
 	public void debug() {
+		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
 			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
 		}
 	}
-	public void runMotionMagic(){
-		for(StormTalon t : talons){
-			MotionMagic m = new MotionMagic(t);
-			m.runMotionMagic(Robot.dsio.getJoystick());
+
+	/** THe inteded purpose of this method is to move the robot at a given
+	 * angle (theta) for a given distance (distance). The distance should be
+	 * given in inches, and the theta in radians. The method will convert the
+	 * distance into encoder ticks in order to facilitate motion magic. Ensure
+	 * that when calling this method, you take into account the angle of the
+	 * robot using the navX before inputting a theta.
+	 *
+	 * @param distance - the distance to move the robot in inches
+	 * @param theta - the angle at which to move the robot
+	 */
+	public void runMotionMagic(double distance, double theta){
+		//TODO: make wheel diameter and other constants that im just making up
+		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
+		//TODO: constant for encoder ticks
+		double ticks = distance / wheelCircumference * 8192;
+		motions[0].runMotionMagic((int)ticks);
+
+		double[] modifiers = new double[motions.length];
+		//From the mecMove method...
+		//TODO: test and see if this works
+		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+
+		for(int i = 0; i < motions.length; i ++) {
+			motions[i].runMotionMagic((int)(ticks * modifiers[i]));
 		}
 	}
 }
