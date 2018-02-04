@@ -13,6 +13,7 @@ public class Choosers {
 //	private SendableChooser<FieldPositions.StartingDirections> startingDirectionChooser;
 	private SendableChooser<FieldPositions.PlacementSpot> placementSpotChooser;
 	private SendableChooser<FieldPositions.Alliance> allianceChooser;
+	private SendableChooser<FieldPositions.PlateAssignment> plateAssignmentChooser;
 	/*
 	 * In this constructor:
 	 * 	1) Initialise the chooser with the enum you want to list out
@@ -46,9 +47,15 @@ public class Choosers {
 		allianceChooser.addObject("Blue Alliance", FieldPositions.Alliance.BLUE);
 		SmartDashboard.putData("Alliance Side", allianceChooser);
 
-
-
+		plateAssignmentChooser = new SendableChooser<>();
+		plateAssignmentChooser.addObject("A: Right Scale, Right Switch", FieldPositions.PlateAssignment.A_RIGHTSCALE_RIGHTSWITCH);
+		plateAssignmentChooser.addDefault("B: Left Scale, Left Switch", FieldPositions.PlateAssignment.B_LEFTSCALE_LEFTSWITCH);
+		plateAssignmentChooser.addObject("C: Left Scale, Right Switch", FieldPositions.PlateAssignment.C_LEFTSCALE_RIGHTSWITCH);
+		plateAssignmentChooser.addObject("D: Right Scale, Left Switch", FieldPositions.PlateAssignment.D_RIGHTSCALE_LEFTSWITCH);
+		SmartDashboard.putData("Plate Assignments", plateAssignmentChooser);
 	}
+
+
 
 	// Getters go below here
 
@@ -67,4 +74,6 @@ public class Choosers {
 	public FieldPositions.Alliance getAlliance(){
 		return allianceChooser.getSelected();
 	}
+
+	public FieldPositions.PlateAssignment getPlateAssignment() {return plateAssignmentChooser.getSelected();}
 }
