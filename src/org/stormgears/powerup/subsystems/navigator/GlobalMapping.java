@@ -5,9 +5,12 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import org.stormgears.powerup.Robot;
 
 public class GlobalMapping {
+
+	NetworkTable table = NetworkTable.getTable("GPTable");
 
 	static final double PI = Math.PI;
 	static final double WHEEL_RADIUS = 4.0; //inches
@@ -59,14 +62,13 @@ public class GlobalMapping {
 
 	public void run() {
 		updatePos();
-		//TODO: Make NetworkConstants class in order to get the GP information for all of the below
 		SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
 		SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
-		//networkPublish(NetworkConstants.GP_THETA, getTheta());
-		//networkPublish(NetworkConstants.GP_X, x);
-		//networkPublish(NetworkConstants.GP_Y, y);
-		//networkPublish(NetworkConstants.GP_VX, vx);
-		//networkPublish(NetworkConstants.GP_VY, vy);
+		table.putNumber("GP_THETA", getTheta());
+		table.putNumber("GP_X_POS", x);
+		table.putNumber("GP_Y_POS", y);
+		table.putNumber("GP_VEL_X", vel_x);
+		table.putNumber("GP_VEL_Y", vel_y);
 	}
 
 	public void resetPosition(double X, double Y, double theta) {
@@ -79,7 +81,6 @@ public class GlobalMapping {
 	}
 
 	public static void updatePos() {
-		//TODO: Get access to talons in order to get the enc position for each talon
 		enc_fl = Robot.driveTalons.getTalons()[Robot.config.frontLeftTalonId].getSensorCollection().getQuadraturePosition();
 		enc_fr = Robot.driveTalons.getTalons()[Robot.config.frontRightTalonId].getSensorCollection().getQuadraturePosition();
 		enc_bl = Robot.driveTalons.getTalons()[Robot.config.rearLeftTalonId].getSensorCollection().getQuadraturePosition();
