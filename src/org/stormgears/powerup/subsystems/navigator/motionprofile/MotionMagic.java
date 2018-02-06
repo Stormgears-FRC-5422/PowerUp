@@ -55,8 +55,9 @@ public class MotionMagic {
 	 */
 	public void runMotionMagic(int targetPos) {
 		//sets position using motion magic
+		talon.configMotionCruiseVelocity(5000, 10);
+		talon.configMotionAcceleration(1500, 10);
 		talon.set(ControlMode.MotionMagic, targetPos);
-
 		//TODO: figure out what this try-catch actually does
 		try {
 			TimeUnit.MILLISECONDS.sleep(10);
