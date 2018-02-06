@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
 
 // TODO: CLEAN THIS UP
@@ -19,7 +21,7 @@ public class Drive {
 	private static final ControlMode MODE = ControlMode.Velocity;
 
 	private static MotionMagic[] motions;
-
+	private MotionManager m = new MotionManager();
 	private Drive() {
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 		for(int i = 0; i < Robot.driveTalons.getTalons().length; i ++) {
@@ -120,6 +122,15 @@ public class Drive {
 		}
 	}
 
+	public void driveMotionProfile(double rotations, double theta) {
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		theta = theta + navX_theta;
+
+		double [][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
+		m.pushProfile(profile, false, true);
+		m.startProfile();
+	}
+
 	public void debug() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
@@ -131,13 +142,15 @@ public class Drive {
 	 * angle (theta) for a given distance (distance). The distance should be
 	 * given in inches, and the theta in radians. The method will convert the
 	 * distance into encoder ticks in order to facilitate motion magic. Ensure
-	 * that when calling this method, you take into account the angle of the
-	 * robot using the navX before inputting a theta.
+	 * that when calling this method.
 	 *
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta - the angle at which to move the robot
 	 */
 	public void runMotionMagic(double distance, double theta){
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		theta = theta + navX_theta;
+
 		//TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
 		//TODO: constant for encoder ticks

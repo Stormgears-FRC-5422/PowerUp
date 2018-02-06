@@ -39,7 +39,9 @@ public class MotionControl {
 					t.processMotionProfileBuffer();
 //						t.clearMotionProfileHasUnderrun();
 				}
+				System.out.println("HERE1");
 				Robot.driveTalons.getTalons()[0].getMotionProfileStatus(statuses[0]);
+				System.out.println("HERE2");
 				btmBufferPoints = statuses[0].btmBufferCnt;
 				numPoints = --numPoints < 0 ? 0 : numPoints;
 //				}
