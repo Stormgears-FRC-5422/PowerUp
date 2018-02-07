@@ -59,7 +59,6 @@ public class FieldPositions {
 		RED, BLUE
 	}
 
-
 	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);
 	public static final Position OWN_EXCHANGE = new Position(102, 0);
 	public static final Position OWN_AUTO_LINE = new Position(0, 121.1);
