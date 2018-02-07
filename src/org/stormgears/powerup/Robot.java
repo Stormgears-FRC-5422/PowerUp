@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -10,9 +11,7 @@ import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
-import org.stormgears.powerup.subsystems.shooter.Shooter;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.powerup.subsystems.shooter.RobotTalonConstants;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -33,13 +32,12 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static Shooter shooter;
 	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
 	public static DriveTalons driveTalons;
 	public Vision v = new Vision();
-	private Logger logger = LogManager.getLogger(Robot.class);
+	private static final Logger logger = LogManager.getLogger(Robot.class);
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<RegisteredNotifier>();
 
 
@@ -59,10 +57,6 @@ public class Robot extends IterativeRobot {
 
 		Drive.init();
 		drive = Drive.getInstance();
-
-
-		shooter = new Shooter(RobotTalonConstants.SHOOTER_TALON, RobotTalonConstants.IMPELLOR_TALON);
-
 	}
 
 	/**
@@ -86,7 +80,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
+		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
 	}
 
 	/**
@@ -94,6 +88,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+
+		Scheduler.getInstance().run();
+
 		if (drive != null) {
 			if(!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
@@ -103,7 +100,7 @@ public class Robot extends IterativeRobot {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
-		sensors.getNavX().debug();
+//		sensors.getNavX().debug();
 
 	}
 
@@ -122,11 +119,6 @@ public class Robot extends IterativeRobot {
 		for(RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();
 		}
-	}
-
-	public static void setShooter(Shooter shooter){
-		Robot.shooter = shooter;
-
 	}
 }
 

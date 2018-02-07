@@ -42,16 +42,12 @@ public class DSIO {
 		choosers = new Choosers();
 	}
 
-	public static void init() {
-		instance = new DSIO();
-	}
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
 	private void setupButtonsAndSwitches() {
 		// BIG BLUE
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
-
 
 		});
 
@@ -87,15 +83,11 @@ public class DSIO {
 
 		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
-			if(isOn){
-				Robot.shooter.startImpellor();
-				Robot.shooter.shoot();
+			if (isOn) {
 
-			} else{
-				Robot.shooter.stop();
-				Robot.shooter.stopImpellor();
+			} else {
+
 			}
-			System.out.println();
 		});
 
 		// ORANGE SWITCH
@@ -149,6 +141,4 @@ public class DSIO {
 
 		return filtered * reverse;
 	}
-
-
 }

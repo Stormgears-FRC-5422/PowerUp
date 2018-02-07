@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.event_listeners.OnSwitchFlippedListener;
 
 public class Switch extends BaseControl {
-	private Logger logger = LogManager.getLogger(Switch.class);
+	private static final Logger logger = LogManager.getLogger(Switch.class);
 
 	private OnSwitchFlippedListener delegate;
 

@@ -4,10 +4,13 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public abstract class AbstractRobotConfiguration {
-	private Logger logger = LogManager.getLogger(AbstractRobotConfiguration.class);
+	private static final Logger logger = LogManager.getLogger(AbstractRobotConfiguration.class);
 
 	private static final String PATH = "/home/lvuser";
 	private static final String NAME = "config.properties";

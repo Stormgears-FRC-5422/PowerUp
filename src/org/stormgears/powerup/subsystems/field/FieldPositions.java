@@ -56,26 +56,33 @@ public class FieldPositions {
 	}
 
 	public enum Alliance {
-		RED, BLUE;
+		RED, BLUE
 	}
 
-	public static final Position OWN_EXCHANGE = new Position(0, 0);
-	public static final Position OWN_CUBE_STACK = new Position(0, 0);
-	public static final Position OWN_AUTO_LINE = new Position(0, 0);
-	public static final Position OWN_SWITCH = new Position(0, 0);
-	public static final Position OWN_PLATFORM_ZONE = new Position(0, 0);
-	public static final Position OWN_PLATFORM_EDGE = new Position(0, 0);
-	public static final Position OWN_PLATFORM_ELEVATED = new Position(0, 0);
-	public static final Position OWN_NULL_ZONE_LEFT = new Position(0, 0);
-	public static final Position OWN_NULL_ZONE_RIGHT = new Position(0, 0);
+	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);
+	public static final Position OWN_EXCHANGE = new Position(102, 0);
+	public static final Position OWN_AUTO_LINE = new Position(0, 121.1);
+	public static final Position OWN_SCALE_PLATFORM_ZONE = new Position(95.2, 211);
+	public static final Position OWN_SCALE_PLATFORM_EDGE = new Position(97.4, 262.5);
+	public static final Position OWN_SCALE_PLATFORM_ELEVATED = new Position(110, 275.1);
+	public static final Position OWN_NULL_ZONE_LEFT = new Position(0, 289);
+	public static final Position OWN_NULL_ZONE_RIGHT = new Position(228.8, 289);
+	public static final Position OWN_SWITCH = new Position(95.7,141.2);
+	public static final Position OWN_POWER_CUBE_1 = new Position(95.5,197.3);
+	public static final Position OWN_POWER_CUBE_2 = new Position(113.6,197.3);
+	public static final Position OWN_POWER_CUBE_3 = new Position(141.7,197.3);
+	public static final Position OWN_POWER_CUBE_4 = new Position(169.8,197.3);
+	public static final Position OWN_POWER_CUBE_5 = new Position(197.9,197.3);
+	public static final Position OWN_POWER_CUBE_6 = new Position(226,197.3);
 
-	public static final Position MIDLINE = new Position(0, 0);
 
-	public static final Position OPP_EXCHANGE = new Position(0, 0);
-	public static final Position OPP_AUTO_LINE = new Position(0, 0);
-	public static final Position OPP_SWITCH = new Position(0, 0);
-	public static final Position OPP_PLATFORM_ZONE = new Position(0, 0);
-	public static final Position OPP_PLATFORM_EDGE = new Position(0, 0);
-	public static final Position OPP_PLATFORM_ELEVATED = new Position(0, 0);
-	public static final Position OPP_PORTAL_LEFT = new Position(0, 0);
+	public static final Position MIDLINE = new Position(0, 324);
+
+	public static final Position OPP_EXCHANGE = new Position(174, 613);
+	public static final Position OPP_AUTO_LINE = new Position(0, 527);
+	public static final Position OPP_SWITCH = new Position(85.2, 453.1);
+	public static final Position OPP_PLATFORM_ZONE = new Position(95.1, 333.6);
+	public static final Position OPP_PLATFORM_EDGE = new Position(95.1, 333.6);
+	public static final Position OPP_PLATFORM_ELEVATED = new Position(106.2, 331.3);
+	public static final Position OPP_PORTAL_LEFT = new Position(0, 614);
 }

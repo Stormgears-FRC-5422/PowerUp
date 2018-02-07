@@ -1,5 +1,8 @@
 package org.stormgears.powerup.subsystems.field;
 
+import org.stormgears.powerup.subsystems.navigator.Position;
+import sun.security.util.Length;
+
 public class FieldElements {
 	/*
 	 * This is the FieldElements class
@@ -19,22 +22,35 @@ public class FieldElements {
 	}
 
 	public static class Switch {
+
+
 		public static final double LENGTH = 56;
 		public static final double WIDTH = 153.5;
 		public static final double HEIGHT = 18.75;
+		public static Position position =  null;
+		public Switch(int x,int y) {
+			position = new Position(x,y);
+		}
+
 	}
+	Switch ourSwitch = new Switch(0,0);
+
+	Switch oppSwitch = new Switch(0,0);
 
 	public static class Scale {
 		public static final double LENGTH = 48;
 		public static final double WIDTH = 180;
 		public static final double HEIGHT = 84;
+		public static final Position OWN_SCALE_PLATFORM_ZONE = new Position(0, 0);
+		public static final Position OWN_SCALE_PLATFORM_EDGE = new Position(0, 0);
+		public static final Position OWN_SCALE_PLATFORM_ELEVATED = new Position(0, 0);
 	}
 
 	public static class Exchange {
 		public static final double LENGTH = 48;
 		public static final double WIDTH = 36;//possibly wrong order
 		public static final double HEIGHT = 0;
-
+		public static final Position OWN_EXCHANGE = new Position(0, 120);
 	}
 
 	public static class Portal {

@@ -11,7 +11,7 @@ public class Drive {
 	private static Drive instance;
 	public static Drive getInstance() { return instance; }
 
-	private Logger logger = LogManager.getLogger(Drive.class);
+	private static final Logger logger = LogManager.getLogger(Drive.class);
 
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static final int TALON_FPID_TIMEOUT = 0;	// TODO: Adithya said 'Figure out what the hell that thing is'
