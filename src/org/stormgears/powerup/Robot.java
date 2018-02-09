@@ -10,7 +10,6 @@ import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.powerup.subsystems.sensors.vision.Vision;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
@@ -25,6 +24,8 @@ public class Robot extends IterativeRobot {
 		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}
 
+	private static final Logger logger = LogManager.getLogger(Robot.class);
+
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
 	 * Create a private, final instance in your class, and link it here like this
@@ -36,8 +37,6 @@ public class Robot extends IterativeRobot {
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
 	public static DriveTalons driveTalons;
-	public Vision v = new Vision();
-	private static final Logger logger = LogManager.getLogger(Robot.class);
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 
 
@@ -81,7 +80,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
-
 	}
 
 	/**
