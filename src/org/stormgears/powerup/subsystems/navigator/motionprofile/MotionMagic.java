@@ -3,19 +3,17 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.utils.StormTalon;
 
 import java.util.concurrent.TimeUnit;
 
-
 public class MotionMagic {
 
-	StormTalon talon;
+	private StormTalon talon;
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static final int TALON_FPID_TIMEOUT = 10;
+	private static final int TALON_FPID_TIMEOUT = 10;
 
 	public MotionMagic(StormTalon talon) {
 		this.talon = talon;
@@ -55,17 +53,20 @@ public class MotionMagic {
 	 */
 	public void runMotionMagic(int targetPos) {
 		//sets position using motion magic
-		talon.configMotionCruiseVelocity(5000, 10);
-		talon.configMotionAcceleration(1500, 10);
+		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT);
+		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT);
+		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT);
+		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT);
 		talon.set(ControlMode.MotionMagic, targetPos);
+
 		//TODO: figure out what this try-catch actually does
 		try {
 			TimeUnit.MILLISECONDS.sleep(10);
-		} catch (Exception e) { }
+		} catch (Exception e) {
+			System.out.println("SOMEBODY FORGOT TO PRINT SOMETHING IN THIS CATCH BLOCK. BLAME WHOEVER WROTE MotionMagic.java");
+			System.out.println(e.getMessage());
+		}
 	}
-
-
-
 }
 
 
