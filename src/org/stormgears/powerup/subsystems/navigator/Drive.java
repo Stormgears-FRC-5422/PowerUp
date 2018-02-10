@@ -43,17 +43,21 @@ public class Drive {
 		if (x == 0 && y == 0 && z == 0) {
        		setDriveTalonsZeroVelocity();
 		} else {
-			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z), theta, z);
+			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
+				theta,
+				z,
+				false);
 		}
 	}
 
 	// Run mecanum math on each raw speed and set talons accordingly
-	// TODO: This code makes the robot drive fairly poorly. It does not drive straight
-	private void mecMove(double tgtVel, double theta, double changeVel) {
+	private void mecMove(double tgtVel, double theta, double changeVel, boolean useAbsoluteControl) {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 
-		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta + navX_theta;
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta + navX_theta;
+		}
 
 		double[] vels = new double[talons.length];
 
@@ -127,7 +131,8 @@ public class Drive {
 		}
 	}
 
-	/** THe inteded purpose of this method is to move the robot at a given
+	/**
+	 * The inteded purpose of this method is to move the robot at a given
 	 * angle (theta) for a given distance (distance). The distance should be
 	 * given in inches, and the theta in radians. The method will convert the
 	 * distance into encoder ticks in order to facilitate motion magic. Ensure
