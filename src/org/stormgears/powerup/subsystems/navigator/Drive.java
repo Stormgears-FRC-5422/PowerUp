@@ -106,6 +106,12 @@ public class Drive {
 			}
 		}
 
+		if(Robot.dsio.getJoystickX() == 0 && Robot.dsio.getJoystickY() == 0) {
+			for(int i = 0; i < vels.length; i ++) {
+				vels[i] = -changeVel;
+			}
+		}
+
 		for (int i = 0; i < vels.length; i++) {
 			vels[i] *= tgtVel;
 		}
