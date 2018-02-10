@@ -9,6 +9,7 @@ import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
+import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
@@ -44,6 +45,8 @@ public class Robot extends IterativeRobot {
 	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 
 	public static GlobalMapping globalMapping;
+	public static Intake intake = Intake.getInstance();
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -96,6 +99,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+	public int i = 0;
 	@Override
 	public void teleopPeriodic() {
 
@@ -104,13 +108,15 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
+					//if(i == 0){
+					//	Robot.drive.runMotionMagic(60, 0);
+					//	i++;
+					//}
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
-//		Robot.drive.runMotionMagic();
 //		sensors.getNavX().debug();
 	}
 
