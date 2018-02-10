@@ -7,12 +7,13 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
+import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
-
+import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,8 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static DriveTalons driveTalons;
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<>();
+	public static GlobalMapping globalMapping;
+	public static Intake intake = Intake.getInstance();
 
 
 	/**
@@ -50,6 +53,9 @@ public class Robot extends IterativeRobot {
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+
+		//globalMapping.init();
+		//globalMapping=GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -71,7 +77,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-
+		//globalMapping.run();
 	}
 
 	/**
