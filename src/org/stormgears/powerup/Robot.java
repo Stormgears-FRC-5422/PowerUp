@@ -2,7 +2,6 @@ package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -10,11 +9,8 @@ import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.powerup.subsystems.sensors.vision.Vision;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -28,6 +24,8 @@ public class Robot extends IterativeRobot {
 		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}
 
+	private static final Logger logger = LogManager.getLogger(Robot.class);
+
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
 	 * Create a private, final instance in your class, and link it here like this
@@ -39,10 +37,7 @@ public class Robot extends IterativeRobot {
 	public static DSIO dsio = DSIO.getInstance();
 	public static Drive drive;
 	public static DriveTalons driveTalons;
-	public Vision v = new Vision();
-	private static final Logger logger = LogManager.getLogger(Robot.class);
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<>();
-	StormTalon[] talons = new StormTalon[0];
 
 
 	/**
@@ -68,7 +63,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		talons = Robot.driveTalons.getTalons();
 
 	}
 
@@ -83,27 +77,9 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
-
-	int i = 0;
 	@Override
 	public void autonomousPeriodic() {
-        for (int i = 0; i < talons.length; i ++) {
-        	SmartDashboard.putNumber("enc " + i + " vel: ",  talons[i].getSensorCollection().getQuadratureVelocity());
-			SmartDashboard.putNumber("enc " + i + " pos: ",  talons[i].getSensorCollection().getQuadraturePosition());
-        }
-		if (drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if(i == 0) {
-					i ++;
-				drive.runMotionMagic(-100, 2*Math.PI/3);
-				//drive.driveMotionProfile(2, 0);
-				}
-
-			}
-		} else {
-			logger.fatal("Robot.drive is null; that's a problem!");
-		}
+		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
 	}
 
 	/**
@@ -112,6 +88,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
+		Scheduler.getInstance().run();
+
+		if (drive != null) {
+			if(!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.move();
+			}
+		} else {
+			logger.fatal("Robot.drive is null; that's a problem!");
+		}
+
+//		Robot.drive.runMotionMagic();
 //		sensors.getNavX().debug();
 
 	}
@@ -128,10 +116,9 @@ public class Robot extends IterativeRobot {
 	 * This function is called whenever the robot is disabled.
 	 */
 	public void disabledInit() {
-		i = 0;
-//		for(RegisteredNotifier rn : notifierRegistry) {
-//			rn.stop();
-//		}
+		for(RegisteredNotifier rn : notifierRegistry) {
+			rn.stop();
+		}
 	}
 }
 
