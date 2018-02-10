@@ -6,7 +6,7 @@ import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
 
-public class DSIO {
+public class  DSIO {
 	private static DSIO instance = new DSIO();
 	public static DSIO getInstance() {
 		return instance;
