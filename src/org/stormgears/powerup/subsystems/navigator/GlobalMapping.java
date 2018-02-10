@@ -1,20 +1,33 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.networktables.NetworkTable;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
 import org.stormgears.powerup.Robot;
 
 public class GlobalMapping {
 
-	NetworkTable table = NetworkTable.getTable("GP Table");
+
+	private static GlobalMapping instance;
+	public static GlobalMapping getInstance() { return instance; }
+
+	public static void init() {
+		instance = new GlobalMapping();
+		instance.run();
+	}
+
+	private static NetworkTableInstance robotTable = NetworkTableInstance.getDefault();
+	private NetworkTable gpTable = robotTable.getTable("GP Table");
+
 
 	static final double PI = Math.PI;
 	static final double WHEEL_RADIUS = 4.0; //inches
-	static final int ENC_RESOLUTION = 2048; //ticks per revolution
+	static final int ENC_RESOLUTION = 8192; //ticks per revolution
 	static final double RADIANS_PER_TICK = 2*Math.PI/(float) ENC_RESOLUTION;
 
 	public static long enc_fl;
@@ -61,13 +74,20 @@ public class GlobalMapping {
 
 	public void run() {
 		updatePos();
+		SmartDashboard.putNumber("GP_X_POS", x);
+		SmartDashboard.putNumber("GP_Y_POS", y);
+		SmartDashboard.putNumber("GP_VEL_X", vel_x);
+		SmartDashboard.putNumber("GP_VEL_Y", vel_y);
+
 		SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
 		SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
-		table.putNumber("GP_THETA", getTheta());
-		table.putNumber("GP_X_POS", x);
-		table.putNumber("GP_Y_POS", y);
-		table.putNumber("GP_VEL_X", vel_x);
-		table.putNumber("GP_VEL_Y", vel_y);
+
+		gpTable.getEntry("GP_THETA").setNumber(getTheta());
+		gpTable.getEntry("GP_X_POS").setNumber(x);
+		gpTable.getEntry("GP_Y_POS").setNumber(y);
+		gpTable.getEntry("GP_VEL_X").setNumber(vel_x);
+		gpTable.getEntry("GP_VEL_Y").setNumber(vel_y);
+
 	}
 
 	public void resetPosition(double X, double Y, double theta) {
