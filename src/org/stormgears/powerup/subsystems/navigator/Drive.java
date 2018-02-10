@@ -106,6 +106,7 @@ public class Drive {
 			}
 		}
 
+		//Turning in place
 		if(Robot.dsio.getJoystickX() == 0 && Robot.dsio.getJoystickY() == 0) {
 			for(int i = 0; i < vels.length; i ++) {
 				vels[i] = -changeVel;
