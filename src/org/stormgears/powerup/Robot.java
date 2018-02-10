@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
+import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
@@ -39,6 +40,8 @@ public class Robot extends IterativeRobot {
 	public static DriveTalons driveTalons;
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 	public static GlobalMapping globalMapping;
+	public static Intake intake = Intake.getInstance();
+
 
 	/**
 	 * This function is run when the robot is first started up and should be
