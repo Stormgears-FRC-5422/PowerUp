@@ -12,6 +12,9 @@ public class Choosers {
 //	private SendableChooser<FieldPositions.StartingDirections> startingDirectionChooser;
 	private SendableChooser<FieldPositions.PlacementSpot> placementSpotChooser;
 	private SendableChooser<FieldPositions.Alliance> allianceChooser;
+	private SendableChooser<FieldPositions.LeftRight> ownSwitchPlateAssignmentChooser;
+	private SendableChooser<FieldPositions.LeftRight> scalePlateAssignmentChooser;
+	private SendableChooser<FieldPositions.LeftRight> opponentSwitchPlateAssignmentChooser;
 
 	/*
 	 * In this constructor:
@@ -45,9 +48,22 @@ public class Choosers {
 		allianceChooser.addDefault("Red Alliance", FieldPositions.Alliance.RED);
 		allianceChooser.addObject("Blue Alliance", FieldPositions.Alliance.BLUE);
 		SmartDashboard.putData("Alliance Side", allianceChooser);
+		
+		ownSwitchPlateAssignmentChooser = new SendableChooser<>();
+		ownSwitchPlateAssignmentChooser.addDefault("Own Switch Plate Assignment: L", FieldPositions.LeftRight.L);
+		ownSwitchPlateAssignmentChooser.addObject("Own Switch Plate Assignment: R", FieldPositions.LeftRight.R);
+		SmartDashboard.putData("Own Switch Plate Assignment", ownSwitchPlateAssignmentChooser);
+
+		scalePlateAssignmentChooser = new SendableChooser<>();
+		scalePlateAssignmentChooser.addDefault("Scale Plate Assignment: L", FieldPositions.LeftRight.L);
+		scalePlateAssignmentChooser.addObject("Scale Plate Assignment: R", FieldPositions.LeftRight.R);
+		SmartDashboard.putData("Scale Plate Assignment", scalePlateAssignmentChooser);
+
+		opponentSwitchPlateAssignmentChooser = new SendableChooser<>();
+		opponentSwitchPlateAssignmentChooser.addDefault("Opponent Switch Plate Assignment: L", FieldPositions.LeftRight.L);
+		opponentSwitchPlateAssignmentChooser.addObject("Opponent Switch Plate Assignment: R", FieldPositions.LeftRight.R);
+		SmartDashboard.putData("Opponent Switch Plate Assignment", opponentSwitchPlateAssignmentChooser);
 	}
-
-
 
 	// Getters go below here
 
@@ -65,5 +81,11 @@ public class Choosers {
 
 	public FieldPositions.Alliance getAlliance(){
 		return allianceChooser.getSelected();
+	}
+
+	public String getPlateAssignmentData() {
+		return ownSwitchPlateAssignmentChooser.getSelected().name() +
+			scalePlateAssignmentChooser.getSelected().name() +
+			opponentSwitchPlateAssignmentChooser.getSelected().name();
 	}
 }
