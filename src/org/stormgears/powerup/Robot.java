@@ -12,7 +12,7 @@ import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
-
+import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class Robot extends IterativeRobot {
 	public static Drive drive;
 	public static DriveTalons driveTalons;
 	public static List<RegisteredNotifier> notifierRegistry = new ArrayList<>();
-
+	public static GlobalMapping globalMapping;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -50,6 +50,9 @@ public class Robot extends IterativeRobot {
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+
+		//globalMapping.init();
+		//globalMapping=GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -71,7 +74,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-
+		//globalMapping.run();
 	}
 
 	/**
