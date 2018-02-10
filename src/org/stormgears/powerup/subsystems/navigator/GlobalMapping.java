@@ -26,7 +26,7 @@ public class GlobalMapping {
 
 
 	static final double PI = Math.PI;
-	static final double WHEEL_RADIUS = 4.0; //inches
+	static final double WHEEL_RADIUS = 4.0; //inch
 	static final int ENC_RESOLUTION = 8192; //ticks per revolution
 	static final double RADIANS_PER_TICK = 2*Math.PI/(float) ENC_RESOLUTION;
 
