@@ -25,11 +25,11 @@ public class Intake extends Subsystem {
 
 	private Intake(int leftRelayId, int rightRelayId, int leftTalonId, int rightTalonId) {
 		// TODO: Properly configure relays and talons
-		leftRelay = new Relay(leftRelayId);
-		rightRelay = new Relay(rightRelayId);
-
-		leftTalon = new StormTalon(leftTalonId);
-		rightTalon = new StormTalon(rightTalonId);
+//		leftRelay = new Relay(leftRelayId);
+//		rightRelay = new Relay(rightRelayId);
+//
+//		leftTalon = new StormTalon(leftTalonId);
+//		rightTalon = new StormTalon(rightTalonId);
 	}
 
 	public static void init() {

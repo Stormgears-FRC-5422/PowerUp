@@ -18,8 +18,8 @@ public class ElevatorSharedTalons {
 
 	private ElevatorSharedTalons(int leftMotorId, int rightMotorId) {
 		// TODO: Correctly setup talons
-		leftMotor = new StormTalon(leftMotorId);
-		rightMotor = new StormTalon(rightMotorId);
+//		leftMotor = new StormTalon(leftMotorId);
+//		rightMotor = new StormTalon(rightMotorId);
 	}
 
 	public static void init() {
