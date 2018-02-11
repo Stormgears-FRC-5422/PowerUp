@@ -11,6 +11,7 @@ public class EthernetLidar extends StormNetSensor {
 		// TODO magic number
 		setSensorCount(4);
 		sensorValues = new short[m_numSensors];
+		this.m_deviceString = voice.getDeviceString();
 	}
 
 	public boolean test(int sleep) {

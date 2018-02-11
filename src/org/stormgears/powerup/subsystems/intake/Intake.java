@@ -1,31 +1,52 @@
 package org.stormgears.powerup.subsystems.intake;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
 
-import static org.stormgears.powerup.Robot.drive;
-import static org.stormgears.powerup.Robot.driveTalons;
-
 public class Intake extends Subsystem {
-		private static Intake instance = new Intake();
-		public static Intake getInstance(){
-			return instance;
-		}
+	private static Intake instance;
+	public static Intake getInstance() {
+		return instance;
+	}
 
-		protected void initDefaultCommand(){
+	//TODO: Change these to correct values
+	private static final int LEFT_RELAY_ID = 0;
+	private static final int RIGHT_RELAY_ID = 0;
 
-		}
+	//TODO: Change these to correct values
+	private static final int LEFT_TALON_ID = 0;
+	private static final int RIGHT_TALON_ID = 0;
 
-		public void enableIntake(){
-			System.out.println("intake on");
-			StormTalon talon = Robot.driveTalons.getTalons()[1];
-			talon.set(ControlMode.Velocity, 2000 );
-		}
+	// TODO: Rename these if needed
+	private StormTalon leftTalon, rightTalon;
+	private Relay leftRelay, rightRelay;
 
-		public void disableIntake(){
-			System.out.println("intake off");
-		}
+	private Intake(int leftRelayId, int rightRelayId, int leftTalonId, int rightTalonId) {
+		// TODO: Properly configure relays and talons
+		leftRelay = new Relay(leftRelayId);
+		rightRelay = new Relay(rightRelayId);
 
+		leftTalon = new StormTalon(leftTalonId);
+		rightTalon = new StormTalon(rightTalonId);
+	}
+
+	public static void init() {
+		instance = new Intake(LEFT_RELAY_ID, RIGHT_RELAY_ID, LEFT_TALON_ID, RIGHT_TALON_ID);
+	}
+
+	public void enableIntake() {
+		// TODO: Implement
+		System.out.println("Intake on");
+	}
+
+	public void disableIntake() {
+		// TODO: Implement
+		System.out.println("Intake off");
+	}
+
+	@Override
+	protected void initDefaultCommand() {
+
+	}
 }

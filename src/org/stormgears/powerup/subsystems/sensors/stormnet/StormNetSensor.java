@@ -18,7 +18,7 @@ public class StormNetSensor {
 	private boolean m_simulation = false;
 	int m_numSensors = -1;
 	String m_deviceString;
-	StormNetVoice m_voice;  // Handles the underlying communication channel
+	private StormNetVoice m_voice;  // Handles the underlying communication channel
     byte[] m_command;
 
     // I don't understand why these are backwards, but there you have it.
@@ -128,7 +128,7 @@ public class StormNetSensor {
      * member is set to true. If the debug member is set to false this function
      * does nothing.
      *
-     * @param  Message	A message string to print to System.out.
+     * @param  message	A message string to print to System.out.
      * @see	   log
      */
     protected void debug(String message) {
@@ -198,7 +198,7 @@ public class StormNetSensor {
 
         byte[] receive = new byte[expect.length];
 
-        debug(commandName + " sending " + byteArrayToHexString(command));
+		debug(commandName + " sending " + byteArrayToHexString(command));
         boolean result = transaction(command, command.length, receive, receive.length);
 
         // The transaction is successful only if the transaction succeeds and the ping response is what we expect

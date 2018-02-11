@@ -83,9 +83,9 @@ public class  DSIO {
 		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
 			if (isOn) {
-				Intake.getInstance().enableIntake();
+				Robot.intake.enableIntake();
 			} else {
-				Intake.getInstance().disableIntake();
+				Robot.intake.disableIntake();
 			}
 		});
 
@@ -146,10 +146,5 @@ public class  DSIO {
 			return 0.2;
 		}
 		return 1;
-	}
-
-
-	public Joystick getJoystick(){
-		return joystick;
 	}
 }
