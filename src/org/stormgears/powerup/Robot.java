@@ -63,8 +63,7 @@ public class Robot extends IterativeRobot {
 		Sensors.init();
 		sensors = Sensors.getInstance();
 
-//		GlobalMapping.init();
-//		globalMapping = GlobalMapping.getInstance();
+
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -83,6 +82,9 @@ public class Robot extends IterativeRobot {
 
 		Climber.init();
 		climber = Climber.getInstance();
+
+		GlobalMapping.init();
+		globalMapping = GlobalMapping.getInstance();
 	}
 
 	/**
