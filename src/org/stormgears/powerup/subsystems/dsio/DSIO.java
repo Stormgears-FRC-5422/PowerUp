@@ -1,11 +1,13 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
+
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.powerup.subsystems.intake.Intake;
 
-public class DSIO {
+public class  DSIO {
 	private static DSIO instance = new DSIO();
 	public static DSIO getInstance() {
 		return instance;
@@ -81,9 +83,9 @@ public class DSIO {
 		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
 			if (isOn) {
-
+				Intake.getInstance().enableIntake();
 			} else {
-
+				Intake.getInstance().disableIntake();
 			}
 		});
 
