@@ -6,7 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
-import org.stormgears.powerup.subsystems.field.FieldPositions;
+import org.stormgears.powerup.subsystems.elevator_climber.Climber;
+import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
+import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
@@ -29,6 +31,8 @@ public class Robot extends IterativeRobot {
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
 
+	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
+
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
 	 * Create a private, final instance in your class, and link it here like this
@@ -36,16 +40,16 @@ public class Robot extends IterativeRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static Sensors sensors;
 	public static DSIO dsio = DSIO.getInstance();
-	public static Drive drive;
-	public static DriveTalons driveTalons;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
-
-	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
-
+	public static Sensors sensors;
 	public static GlobalMapping globalMapping;
-	public static Intake intake = Intake.getInstance();
+	public static DriveTalons driveTalons;
+	public static Drive drive;
+	public static Intake intake;
+	public static ElevatorSharedTalons elevatorSharedTalons;
+	public static Elevator elevator;
+	public static Climber climber;
 
 
 	/**
@@ -59,14 +63,26 @@ public class Robot extends IterativeRobot {
 		Sensors.init();
 		sensors = Sensors.getInstance();
 
-		//globalMapping.init();
-		//globalMapping=GlobalMapping.getInstance();
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
 		Drive.init();
 		drive = Drive.getInstance();
+
+		Intake.init();
+		drive = Drive.getInstance();
+
+		ElevatorSharedTalons.init();
+		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+
+		Elevator.init();
+		elevator = Elevator.getInstance();
+
+		Climber.init();
+		climber = Climber.getInstance();
 	}
 
 	/**
@@ -82,10 +98,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-		System.out.println(FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
-		System.out.println(FieldPositions.OWN_SWITCH_LEFT_PLATE);
-		//globalMapping.run();
+//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
+
+//		globalMapping.run();
+//		if (drive != null && !sensors.getNavX().isCalibrating()) {
+//			Robot.drive.runMotionMagic(60, 0);
+//		}
 	}
 
 	/**
@@ -93,13 +111,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		// REQUIRED TO TEST VISION: v.getVisionCoordinatesFromNetworkTable();
+
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
-	public int i = 0;
 	@Override
 	public void teleopPeriodic() {
 
@@ -108,10 +125,6 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-					//if(i == 0){
-					//	Robot.drive.runMotionMagic(60, 0);
-					//	i++;
-					//}
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");

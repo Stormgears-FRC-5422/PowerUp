@@ -11,14 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 
 public class GlobalMapping {
-
-
 	private static GlobalMapping instance;
 	public static GlobalMapping getInstance() { return instance; }
 
 	public static void init() {
 		instance = new GlobalMapping();
-		instance.run();
 	}
 
 	private static NetworkTableInstance robotTable = NetworkTableInstance.getDefault();

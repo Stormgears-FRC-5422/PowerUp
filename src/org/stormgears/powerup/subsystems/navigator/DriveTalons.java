@@ -4,18 +4,16 @@ import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
 
 public class DriveTalons {
-
 	private static DriveTalons instance;
-	public static final int TALON_FPID_TIMEOUT = 0;
-
-	public static DriveTalons getInstance(){
+	public static DriveTalons getInstance() {
 		return instance;
 	}
 
+	private static final int TALON_FPID_TIMEOUT = 0;
 
-	private static final StormTalon[] talons = new StormTalon[4];
+	private final StormTalon[] talons = new StormTalon[4];
 
-	private DriveTalons(){
+	private DriveTalons() {
 		talons[0] = new StormTalon(Robot.config.frontLeftTalonId);
 		talons[1] = new StormTalon(Robot.config.frontRightTalonId);
 		talons[2] = new StormTalon(Robot.config.rearLeftTalonId);
@@ -33,12 +31,8 @@ public class DriveTalons {
 	public static void init() {
 		instance = new DriveTalons();
 	}
-	public static DriveTalons getDriveTalons(){
-		return instance;
-	}
 
 	public StormTalon[] getTalons() {
 		return talons;
 	}
-
 }
