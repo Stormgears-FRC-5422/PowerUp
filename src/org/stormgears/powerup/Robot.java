@@ -120,6 +120,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+	int i = 0;
 	@Override
 	public void teleopPeriodic() {
 
@@ -128,7 +129,10 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-
+					if(i == 0){
+						Robot.drive.enableMotionMagic(60, 2*Math.PI/3);
+						i++;
+					}
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
