@@ -15,7 +15,7 @@ public class MotionMagic {
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
 	private static final int TALON_FPID_TIMEOUT = 10;
 
-	public MotionMagic(StormTalon talon) {
+	public MotionMagic(StormTalon talon, double maxVel, double maxAccel) {
 		this.talon = talon;
 		/* first choose the sensor */
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, TALON_FPID_TIMEOUT);
@@ -38,8 +38,11 @@ public class MotionMagic {
 		talon.config_kI(0, config.velocityI, TALON_FPID_TIMEOUT);
 		talon.config_kD(0, config.velocityD, TALON_FPID_TIMEOUT);
 		/* set acceleration and vcruise velocity - see documentation */
-		talon.configMotionCruiseVelocity(15000, TALON_FPID_TIMEOUT);
-		talon.configMotionAcceleration(6000, TALON_FPID_TIMEOUT);
+
+
+
+		talon.configMotionCruiseVelocity((int)Math.round(maxVel), TALON_FPID_TIMEOUT);
+		talon.configMotionAcceleration((int)Math.round(maxAccel), TALON_FPID_TIMEOUT);
 		/* zero the sensor */
 		talon.setSelectedSensorPosition(0, 0, TALON_FPID_TIMEOUT);
 	}
