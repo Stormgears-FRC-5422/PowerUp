@@ -99,7 +99,7 @@ public class GlobalMapping {
 
 	}
 
-	public void resetPosition(double X, double Y, double theta) {
+	public static void resetPosition(double X, double Y, double theta) {
 		x = X;
 		y = Y;
 		vel_x = 0;
