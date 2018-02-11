@@ -9,7 +9,8 @@ import static org.stormgears.powerup.Robot.drive;
 import static org.stormgears.powerup.Robot.driveTalons;
 
 public class Intake extends Subsystem {
-		private static Intake instance = new Intake();
+
+	private static Intake instance = new Intake();
 		public static Intake getInstance(){
 			return instance;
 		}
@@ -18,14 +19,17 @@ public class Intake extends Subsystem {
 
 		}
 
-		public void enableIntake(){
-			System.out.println("intake on");
-			StormTalon talon = Robot.driveTalons.getTalons()[1];
-			talon.set(ControlMode.Velocity, 2000 );
+
+	public void enableIntake(){
+		System.out.println("intake on");
+		StormTalon talon = Robot.driveTalons.getTalons()[1];
+		talon.set(ControlMode.PercentOutput, 0.5); //speed = encoder ticks per 0.1 seconds
 		}
 
 		public void disableIntake(){
 			System.out.println("intake off");
+			StormTalon talon = Robot.driveTalons.getTalons()[1];
+			talon.set(ControlMode.PercentOutput, 0);
 		}
 
 }
