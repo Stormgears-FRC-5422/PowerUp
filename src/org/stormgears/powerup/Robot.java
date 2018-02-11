@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
 		Climber.init();
 		climber = Climber.getInstance();
 
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
+		//GlobalMapping.init();
+		//globalMapping = GlobalMapping.getInstance();
 	}
 
 	/**
