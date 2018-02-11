@@ -1,5 +1,6 @@
 package org.stormgears.powerup.subsystems.field;
 
+import org.jetbrains.annotations.Nullable;
 import org.stormgears.powerup.subsystems.navigator.Position;
 
 public class FieldPositions {
@@ -59,6 +60,25 @@ public class FieldPositions {
 		RED, BLUE
 	}
 
+	public enum LeftRight { L, R }
+
+	@Nullable
+	public static Position OWN_SWITCH_PLATE_ASSIGNMENT = null;
+	@Nullable
+	public static Position SCALE_PLATE_ASSIGNMENT = null;
+	@Nullable
+	public static Position OPPONENT_SWITCH_PLATE_ASSIGNMENT = null;
+
+	// TODO: Update these to the right positions
+	public static final Position OWN_SWITCH_LEFT_PLATE = new Position(0, 0);
+	public static final Position OWN_SWITCH_RIGHT_PLATE = new Position(0, 0);
+	public static final Position SCALE_LEFT_PLATE = new Position(0, 0);
+	public static final Position SCALE_RIGHT_PLATE = new Position(0, 0);
+	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);
+	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
+
+
+	// TODO: Put the right numbers in
 	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);
 	public static final Position OWN_EXCHANGE = new Position(102, 0);
 	public static final Position OWN_AUTO_LINE = new Position(0, 121.1);
@@ -78,11 +98,11 @@ public class FieldPositions {
 
 	public static final Position MIDLINE = new Position(0, 324);
 
-	public static final Position OPP_EXCHANGE = new Position(174, 613);
-	public static final Position OPP_AUTO_LINE = new Position(0, 527);
-	public static final Position OPP_SWITCH = new Position(85.2, 453.1);
-	public static final Position OPP_PLATFORM_ZONE = new Position(95.1, 333.6);
-	public static final Position OPP_PLATFORM_EDGE = new Position(95.1, 333.6);
-	public static final Position OPP_PLATFORM_ELEVATED = new Position(106.2, 331.3);
-	public static final Position OPP_PORTAL_LEFT = new Position(0, 614);
+	public static final Position OPPONENT_EXCHANGE = new Position(174, 613);
+	public static final Position OPPONENT_AUTO_LINE = new Position(0, 527);
+	public static final Position OPPONENT_SWITCH = new Position(85.2, 453.1);
+	public static final Position OPPONENT_PLATFORM_ZONE = new Position(95.1, 333.6);
+	public static final Position OPPONENT_PLATFORM_EDGE = new Position(95.1, 333.6);
+	public static final Position OPPONENT_PLATFORM_ELEVATED = new Position(106.2, 331.3);
+	public static final Position OPPONENT_PORTAL_LEFT = new Position(0, 614);
 }

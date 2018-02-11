@@ -44,7 +44,7 @@ public class Drive {
 		instance = new Drive();
 	}
 
-	public void move() {
+	public void move(boolean useAbsoluteControl) {
 		double x = Robot.dsio.getJoystickX(),
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
@@ -58,7 +58,7 @@ public class Drive {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
 				theta,
 				z,
-				false);
+				useAbsoluteControl);
 		}
 	}
 
@@ -68,7 +68,7 @@ public class Drive {
 
 		if (useAbsoluteControl) {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
-			theta = theta + navX_theta;
+			theta = theta - navX_theta;
 		}
 
 		double[] vels = new double[talons.length];
@@ -173,7 +173,7 @@ public class Drive {
 
 
 		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta + navX_theta;
+		theta = theta - navX_theta;
 
 		//TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
