@@ -341,7 +341,7 @@ public class MotionManager {
 				pt.velocity = pathArray[i][0] * table[j][colIndex];
 				positions[j] += pt.velocity * deltaT;
 				pt.position = positions[j];
-				// TODO - probably want the commented setting, but need to test it.
+				// TODO - probably want the commented setting, but need to sendTestData it.
 				pt.isLastPoint = false; //(done && ( (i + 1) == pathArray.length));  //TODO
 				control.pushMotionProfileTrajectory(j, pt);
 			}

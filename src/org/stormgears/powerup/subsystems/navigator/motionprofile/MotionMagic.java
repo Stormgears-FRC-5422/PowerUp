@@ -38,8 +38,11 @@ public class MotionMagic {
 		talon.config_kI(0, config.velocityI, TALON_FPID_TIMEOUT);
 		talon.config_kD(0, config.velocityD, TALON_FPID_TIMEOUT);
 		/* set acceleration and vcruise velocity - see documentation */
-		talon.configMotionCruiseVelocity(maxVel, TALON_FPID_TIMEOUT);
-		talon.configMotionAcceleration(maxAccel, TALON_FPID_TIMEOUT);
+
+
+
+		talon.configMotionCruiseVelocity((int)Math.round(maxVel), TALON_FPID_TIMEOUT);
+		talon.configMotionAcceleration((int)Math.round(maxAccel), TALON_FPID_TIMEOUT);
 		/* zero the sensor */
 		talon.setSelectedSensorPosition(0, 0, TALON_FPID_TIMEOUT);
 	}

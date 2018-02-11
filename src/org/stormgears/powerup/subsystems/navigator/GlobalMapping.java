@@ -11,14 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 
 public class GlobalMapping {
-
-
 	private static GlobalMapping instance;
 	public static GlobalMapping getInstance() { return instance; }
 
 	public static void init() {
 		instance = new GlobalMapping();
-		instance.run();
 	}
 
 	private static NetworkTableInstance robotTable = NetworkTableInstance.getDefault();
@@ -79,6 +76,18 @@ public class GlobalMapping {
 		SmartDashboard.putNumber("GP_VEL_X", vel_x);
 		SmartDashboard.putNumber("GP_VEL_Y", vel_y);
 
+		SmartDashboard.putNumber("ENC_FR",enc_fr);
+		gpTable.getEntry("ENC_FR").setNumber(enc_fr);
+
+		SmartDashboard.putNumber("ENC_FL",enc_fl);
+		gpTable.getEntry("ENC_FL").setNumber(enc_fl);
+
+		SmartDashboard.putNumber("ENC_BR",enc_br);
+		gpTable.getEntry("ENC_BR").setNumber(enc_br);
+
+		SmartDashboard.putNumber("ENC_BL",enc_bl);
+		gpTable.getEntry("ENC_BL").setNumber(enc_bl);
+
 		SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
 		SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
 
@@ -90,7 +99,7 @@ public class GlobalMapping {
 
 	}
 
-	public void resetPosition(double X, double Y, double theta) {
+	public static void resetPosition(double X, double Y, double theta) {
 		x = X;
 		y = Y;
 		vel_x = 0;
@@ -100,32 +109,52 @@ public class GlobalMapping {
 	}
 
 	public static void updatePos() {
-		enc_fl = Robot.driveTalons.getTalons()[Robot.config.frontLeftTalonId].getSensorCollection().getQuadraturePosition();
-		enc_fr = Robot.driveTalons.getTalons()[Robot.config.frontRightTalonId].getSensorCollection().getQuadraturePosition();
-		enc_bl = Robot.driveTalons.getTalons()[Robot.config.rearLeftTalonId].getSensorCollection().getQuadraturePosition();
-		enc_br = Robot.driveTalons.getTalons()[Robot.config.rearRightTalonId].getSensorCollection().getQuadraturePosition();
+
+		enc_fl = -1*Robot.driveTalons.getTalons()[0].getSensorCollection().getQuadraturePosition();
+		enc_fr = Robot.driveTalons.getTalons()[1].getSensorCollection().getQuadraturePosition();
+		enc_bl =-1* Robot.driveTalons.getTalons()[2].getSensorCollection().getQuadraturePosition();
+		enc_br = Robot.driveTalons.getTalons()[3].getSensorCollection().getQuadraturePosition();
 
 		int d_enc_fl = (int) (enc_fl - prev_enc_fl);
 		int d_enc_fr = (int) (enc_fr - prev_enc_fr);
 		int d_enc_bl = (int) (enc_bl - prev_enc_bl);
 		int d_enc_br = (int) (enc_br - prev_enc_br);
 
-		double dRobotX = (d_enc_fr + d_enc_bl - (d_enc_fl + d_enc_br))*RADIANS_PER_TICK*WHEEL_RADIUS/4.f;
-		double dRobotY = (d_enc_fl + d_enc_bl + (d_enc_fl + d_enc_br))*RADIANS_PER_TICK*WHEEL_RADIUS/4.f;
+		prev_enc_fl=enc_fl;
+		prev_enc_fr=enc_fr;
+		prev_enc_bl=enc_bl;
+		prev_enc_br=enc_br;
 
-		double angle = getTheta();
+		//Probably is how much time has passed since last run
+		double time=Timer.getFPGATimestamp() - prevTimeStamp;
 
-		double dFieldX = dRobotX * Math.cos(angle);
-		double dFieldY = dRobotY * Math.cos(angle);
+		//averages the encoder ticks
+		double enc_1=(d_enc_fl + d_enc_br)/2;
+		double enc_2=(d_enc_fr + d_enc_bl)/2;
 
-		x += dFieldX;
-		y += dRobotY;
+		//double v1=enc_1/ENC_RESOLUTION*2.0*Math.PI*WHEEL_RADIUS/time;
+		//double v2=enc_2/ENC_RESOLUTION*2.0*Math.PI*WHEEL_RADIUS/time;
+		//double movementAngle=Math.atan(1/Math.sqrt(2)*((v2-v1)/(v1+v2)));
 
-		double dt = Timer.getFPGATimestamp() - prevTimeStamp;
-		double temp_vel_x = dFieldX/dt;
-		double temp_vel_y = dFieldY/dt;
+		double encY=(enc_1+enc_2)/2.0/Math.sqrt(2);
+		double encX=(enc_1-enc_2)/2.0/Math.sqrt(2);
+
+		double  revY=encY/ENC_RESOLUTION;
+		double  revX=encX/ENC_RESOLUTION;
+
+		double dY=revY*2.0*PI*WHEEL_RADIUS;
+		double dX=revX*2.0*PI*WHEEL_RADIUS;
+
+		double field_Angle = getTheta();
+
+		double field_DistanceY=dY*Math.cos(field_Angle)+dX*Math.sin(field_Angle);
+		double field_DistanceX=dX*Math.cos(field_Angle)-dY*Math.sin(field_Angle);
+
+		x += field_DistanceX;
+		y += field_DistanceY;
 
 		//TODO: Figure out the smoothing factor code
+		//TODO: Fix NavX CRC Error.
 	}
 
 	public static double getX() {
