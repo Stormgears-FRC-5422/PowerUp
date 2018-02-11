@@ -157,7 +157,7 @@ public class GlobalMapping {
 		y += field_DistanceY;
 
 		//TODO: Figure out the smoothing factor code
-		//TODO: Fix NavX CRC Error
+		//TODO: Fix NavX CRC Error.
 	}
 
 	public static double getX() {
