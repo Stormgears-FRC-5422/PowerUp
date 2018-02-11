@@ -2,6 +2,7 @@ package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -64,7 +65,6 @@ public class Robot extends IterativeRobot {
 		sensors = Sensors.getInstance();
 
 
-
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
@@ -106,7 +106,7 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
-		Robot.drive.enableMotionMagic(60, (2/3) * Math.PI);
+		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
 	}
 
 	/**
@@ -121,6 +121,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	int i = 0;
+
 	@Override
 	public void teleopPeriodic() {
 
@@ -129,16 +130,22 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-					if(i == 0){
-						Robot.drive.enableMotionMagic(60, 2*Math.PI/3);
-						i++;
-					}
+				if (i == 0) {
+					Robot.drive.enableMotionMagic(60, 2 * Math.PI / 3);
+					i++;
+				}
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 
+		SmartDashboard.putNumber("Talon 0", driveTalons.getTalons()[0].getSensorCollection().getQuadratureVelocity());
+		SmartDashboard.putNumber("Talon 1", driveTalons.getTalons()[1].getSensorCollection().getQuadratureVelocity());
+		SmartDashboard.putNumber("Talon 2", driveTalons.getTalons()[2].getSensorCollection().getQuadratureVelocity());
+		SmartDashboard.putNumber("Talon 3", driveTalons.getTalons()[3].getSensorCollection().getQuadratureVelocity());
 //		sensors.getNavX().debug();
+
+
 	}
 
 	/**
