@@ -106,6 +106,7 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
+		Robot.drive.enableMotionMagic(60, (2/3) * Math.PI);
 	}
 
 	/**
@@ -127,6 +128,7 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
