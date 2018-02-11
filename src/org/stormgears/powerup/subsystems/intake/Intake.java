@@ -19,7 +19,7 @@ public class Intake extends Subsystem {
 	private static final int LEFT_TALON_ID = 0;
 	private static final int RIGHT_TALON_ID = 0;
 
-	// TODO: Rename these if needed
+	// TODO: Rename these if needed.
 	private StormTalon leftTalon, rightTalon;
 	private Relay leftRelay, rightRelay;
 
