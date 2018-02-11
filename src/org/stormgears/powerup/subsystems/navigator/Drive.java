@@ -169,7 +169,7 @@ public class Drive {
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta    - the angle at which to move the robot
 	 */
-	public void runMotionMagic(double distance, double theta) {
+	public void enableMotionMagic(double distance, double theta) {
 
 
 		double navX_theta = Robot.sensors.getNavX().getTheta();
@@ -192,30 +192,41 @@ public class Drive {
 
 		int max = 0;
 		for (int i = 0; i < modifiers.length; i++) {
-			if (modifiers[i] > modifiers[max]) {
+			if (Math.abs(modifiers[i]) > Math.abs(modifiers[max])) {
 				max = i;
 			}
 		}
 
-		double d2 = modifiers[max] * distance;
-		double t1 = maxVel / maxAccel;
-		double totTime = 0; //TODO: FIND TOTAL TIME
-		double vmax2 = d2 / (totTime - t1);
-		double a2 = vmax2 / t1;
+		double currentDistance;
+		double t1;
+		double totTime;
+		double vmax2;
+		double a2;
 
+
+		double maxDistance = (Math.abs(modifiers[max] * distance));
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
-			if (i == 0 || i == 1) {
+
+			currentDistance = (Math.abs(modifiers[i] * distance));
+			t1 = maxVel / maxAccel;
+			totTime = 0; //TODO: FIND TOTAL TIME
+			vmax2 = currentDistance / (totTime - t1);
+			a2 = vmax2 / t1;
+
+
+			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			}
 		}
-
 		for (int i = 0; i < motions.length; i++) {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
+
 	}
 
-
-
 }
+
+
+
