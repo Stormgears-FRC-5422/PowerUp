@@ -32,8 +32,8 @@ public class Drive {
 
 	private Drive() {
 
-		maxVel = 15000;
-		maxAccel = 6000;
+		maxVel = 5000000;
+		maxAccel = 100000;
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 
 
@@ -172,12 +172,11 @@ public class Drive {
 	 */
 	public void enableMotionMagic(double distance, double theta) {
 
-
 		double navX_theta = Robot.sensors.getNavX().getTheta();
 		theta = theta - navX_theta;
 
-		//TODO: make wheel diameter and other constants that im just making up
-		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
+//TODO: make wheel diameter and other constants that im just making up
+		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192;
 		// motions[0].runMotionMagic((int) ticks);
@@ -210,8 +209,8 @@ public class Drive {
 
 			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
 			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance/maxVel); //TODO: FIND TOTAL TIME
-			vmax2 = currentDistance / (totTime - t1);
+			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
+			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 
 
@@ -219,14 +218,14 @@ public class Drive {
 				System.out.println(vmax2);
 				System.out.println("a2" + a2);
 				System.out.println("totTime" + totTime);
-				System.out.println("currentDistance : " + currentDistance);
+				System.out.println(i + ": currentDistance : " + currentDistance);
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			} else {
 				System.out.println(vmax2);
 				System.out.println("a2" + a2);
 				System.out.println("totTime" + totTime);
-				System.out.println("currentDistance : " + currentDistance);
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
+				System.out.println(i + ": currentDistance : " + currentDistance);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {

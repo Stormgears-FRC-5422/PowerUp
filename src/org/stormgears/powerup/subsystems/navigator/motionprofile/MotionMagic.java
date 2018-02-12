@@ -55,10 +55,11 @@ public class MotionMagic {
 	 * @param targetPos - encoder position
 	 */
 	public void runMotionMagic(int targetPos) {
-		//sets position using motion magic
+		//redundant code
 		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT);
 		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT);
 		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT);
+
 		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT);
 		talon.set(ControlMode.MotionMagic, targetPos);
 
