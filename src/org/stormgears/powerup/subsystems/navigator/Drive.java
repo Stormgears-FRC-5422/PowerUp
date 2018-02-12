@@ -128,13 +128,13 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
-//		System.out.println("Target: " + vels[2]);
+//    System.out.println("Target: " + vels[2]);
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
 
-//		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
+//    System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {
@@ -180,7 +180,7 @@ public class Drive {
 		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192;
-	//	motions[0].runMotionMagic((int) ticks);
+		// motions[0].runMotionMagic((int) ticks);
 
 		double[] modifiers = new double[motions.length];
 
@@ -236,6 +236,5 @@ public class Drive {
 	}
 
 }
-
 
 
