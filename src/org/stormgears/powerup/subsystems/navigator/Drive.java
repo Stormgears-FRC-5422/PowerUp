@@ -37,6 +37,7 @@ public class Drive {
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 
 
+
 	}
 
 
@@ -127,13 +128,13 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
-//		System.out.println("Target: " + vels[2]);
+//    System.out.println("Target: " + vels[2]);
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
 
-//		System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
+//    System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
 	}
 
 	private void setDriveTalonsZeroVelocity() {
@@ -179,7 +180,7 @@ public class Drive {
 		double wheelCircumference = 2 * Math.PI * 3; //3 in wheel radius???
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192;
-		motions[0].runMotionMagic((int) ticks);
+		// motions[0].runMotionMagic((int) ticks);
 
 		double[] modifiers = new double[motions.length];
 
@@ -204,19 +205,27 @@ public class Drive {
 		double a2;
 
 
-		double maxDistance = (Math.abs(modifiers[max] * distance));
+		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
-			currentDistance = (Math.abs(modifiers[i] * distance));
+			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
 			t1 = maxVel / maxAccel;
-			totTime = 0; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance/maxVel); //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1);
 			a2 = vmax2 / t1;
 
 
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
+				System.out.println(vmax2);
+				System.out.println("a2" + a2);
+				System.out.println("totTime" + totTime);
+				System.out.println("currentDistance : " + currentDistance);
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			} else {
+				System.out.println(vmax2);
+				System.out.println("a2" + a2);
+				System.out.println("totTime" + totTime);
+				System.out.println("currentDistance : " + currentDistance);
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			}
 		}
@@ -227,6 +236,5 @@ public class Drive {
 	}
 
 }
-
 
 
