@@ -1,3 +1,4 @@
+/*
 package org.stormgears.powerup.auto.command;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -18,13 +19,13 @@ import java.util.Map;
 public class Path {
 		static int mapLayout;
 		static int startingPosition;
-		static Alliance allianceColor;
+	//	static Alliance allianceColor;
 		static String objective;
 		static int switc = 0;
 		public Path(int MapLayout, int Position, Alliance AllianceColor, String Objective) {
 			mapLayout = MapLayout;
 			startingPosition = Position;
-			allianceColor = AllianceColor;
+	//		allianceColor = AllianceColor;
 			objective = Objective;
 			// TODO: make a int that has all the parameters of the match, to be used for the case/switch
 		}
@@ -86,3 +87,4 @@ public class Path {
 
 
 	}
+*/

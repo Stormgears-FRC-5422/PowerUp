@@ -62,29 +62,31 @@ public class Robot extends IterativeRobot {
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+		// Sensor test runs for a long time right now.
+		System.out.println("SENSOR TEST ABT TO BE RUN!!");
 
-
-
+//		sensors.getStormNet().test();
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
 		Drive.init();
 		drive = Drive.getInstance();
-
-		Intake.init();
-		drive = Drive.getInstance();
-
-		ElevatorSharedTalons.init();
-		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
-
-		Elevator.init();
-		elevator = Elevator.getInstance();
-
-		Climber.init();
-		climber = Climber.getInstance();
+//
+//		//Intake.init();
+//		drive = Drive.getInstance();
+//
+//		ElevatorSharedTalons.init();
+//		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+//
+//		Elevator.init();
+//		elevator = Elevator.getInstance();
+//
+//		Climber.init();
+//		climber = Climber.getInstance();
 
 		//GlobalMapping.init();
 		//globalMapping = GlobalMapping.getInstance();
+
 	}
 
 	/**
@@ -106,6 +108,8 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
+
+
 	}
 
 	/**
@@ -119,15 +123,29 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+
+	int i = 0;
 	@Override
 	public void teleopPeriodic() {
 
 		Scheduler.getInstance().run();
 
 		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-			}
+			System.out.println("R1");
+			drive.move(false);
+//			if (!sensors.getNavX().isCalibrating()) {
+//				System.out.println("R2");
+//				if (!sensors.getNavX().thetaIsSet())
+//					sensors.getNavX().setInitialTheta();
+//				System.out.println("R2b");
+//				if (i == 0) {
+//					System.out.println("R3");
+//					Robot.drive.enableMotionMagic(60, (2*Math.PI)/3);
+//					i++;
+//				}
+//				System.out.println("R4");
+//				drive.move(true);
+//			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}

@@ -13,6 +13,7 @@ public class EthernetLidar extends StormNetSensor {
 		sensorValues = new short[m_numSensors];
 	}
 
+	//TODO: Change the loop back to sleep, right now we just want to run this forever
 	public boolean test(int sleep) {
 		boolean superResult = super.test(sleep);
 
