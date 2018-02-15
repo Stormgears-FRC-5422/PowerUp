@@ -14,7 +14,7 @@ public class Sensors {
 
 	private Sensors() {
 //		vision = new Vision();
-// 		navX = new NavX();
+ 		navX = new NavX();
 //		stormNet = new StormNet();
 	}
 

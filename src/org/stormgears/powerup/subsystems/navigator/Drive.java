@@ -36,8 +36,6 @@ public class Drive {
 		maxAccel = 100000;
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 
-
-
 	}
 
 
@@ -215,23 +213,15 @@ public class Drive {
 
 
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
-				System.out.println(vmax2);
-				System.out.println("a2" + a2);
-				System.out.println("totTime" + totTime);
-				System.out.println(i + ": currentDistance : " + currentDistance);
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			} else {
-				System.out.println(vmax2);
-				System.out.println("a2" + a2);
-				System.out.println("totTime" + totTime);
-				System.out.println(i + ": currentDistance : " + currentDistance);
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
+			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
-
 	}
 
 }
