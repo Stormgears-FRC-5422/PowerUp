@@ -14,6 +14,7 @@ public class EthernetLidar extends StormNetSensor {
 		this.m_deviceString = voice.getDeviceString();
 	}
 
+	//TODO: Change the loop back to sleep, right now we just want to run this forever
 	public boolean test(int sleep) {
 		boolean superResult = super.test(sleep);
 

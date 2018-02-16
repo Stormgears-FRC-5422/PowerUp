@@ -7,9 +7,9 @@ import java.net.Socket;
 
 public class EthernetVoice extends StormNetVoice {
 
-	private DataInputStream m_backFromServer = null;
+	private DataInputStream m_backFromServer;
 	private Socket m_clientSocket;
-	private DataOutputStream m_outToServer = null;
+	private DataOutputStream m_outToServer;
 
 	// TODO - do we really want to open the connection at construction?
 	public EthernetVoice(String address, int port) {
@@ -19,6 +19,7 @@ public class EthernetVoice extends StormNetVoice {
 			m_outToServer = new DataOutputStream(m_clientSocket.getOutputStream());
 			m_backFromServer = new DataInputStream(m_clientSocket.getInputStream());
 		} catch (Exception e) {
+			System.out.println("SENSOR CLIENT SOCKET NOT CONNECTED!!!");
 			e.printStackTrace();
 		}
 	}
@@ -35,6 +36,7 @@ public class EthernetVoice extends StormNetVoice {
 			m_backFromServer.readFully(dataReceived, 0, receiveSize);
 			result = StormNetSensor.STORMNET_SUCCESS;
 		} catch (IOException e) {
+			System.out.println("SENSOR TRANSACTION FAILED!!!");
 			e.printStackTrace();
 			result = StormNetSensor.STORMNET_FAILURE;
 		}

@@ -7,6 +7,10 @@ public class TestI2CSensor extends StormNetSensor {
 		super(voice);
 	}
 
+	public boolean test() {
+		return false;
+//		log("Test returned " + (ping() ? "true" : "false") );
+	}
 }
 
 
