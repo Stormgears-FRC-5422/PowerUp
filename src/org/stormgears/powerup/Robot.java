@@ -100,13 +100,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 
-//		globalMapping.run();
-//		if (drive != null && !sensors.getNavX().isCalibrating()) {
-//			Robot.drive.runMotionMagic(60, 0);
-//		}
-		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
 	}
 
 	/**
@@ -120,20 +114,14 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	int i = 0;
-
 	@Override
 	public void teleopPeriodic() {
-
 		Scheduler.getInstance().run();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					Robot.drive.enableMotionMagic(60, 2 * Math.PI / 3);
-					i++;
-				}
+				Robot.drive.move(true);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");

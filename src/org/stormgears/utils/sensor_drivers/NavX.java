@@ -21,7 +21,15 @@ public class NavX {
 	 *
 	 * @return the angle of the robot in radians
 	 */
-	public double getTheta() {
+	public Double getTheta() {
+
+		if (initialTheta == null) {
+
+			System.out.print("Theta is NULL!!!!!");
+			return null;
+
+		}
+
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;
 
 		theta = theta % (2 * Math.PI);

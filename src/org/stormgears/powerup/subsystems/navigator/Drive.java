@@ -168,61 +168,61 @@ public class Drive {
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta    - the angle at which to move the robot
 	 */
-	public void enableMotionMagic(double distance, double theta) {
-
-		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta - navX_theta;
-
-//TODO: make wheel diameter and other constants that im just making up
-		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
-		//TODO: constant for encoder ticks
-		double ticks = distance / wheelCircumference * 8192;
-		// motions[0].runMotionMagic((int) ticks);
-
-		double[] modifiers = new double[motions.length];
-
-		//From the mecMove method...
-		//TODO: test and see if this works
-		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
-		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
-
-		int max = 0;
-		for (int i = 0; i < modifiers.length; i++) {
-			if (Math.abs(modifiers[i]) > Math.abs(modifiers[max])) {
-				max = i;
-			}
-		}
-
-		double currentDistance;
-		double t1;
-		double totTime;
-		double vmax2;
-		double a2;
-
-
-		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
-		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
-
-			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
-			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
-			vmax2 = currentDistance / (totTime - t1) / 10.0;
-			a2 = vmax2 / t1;
-
-
-			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
-			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
-			}
-		}
-		for (int i = 0; i < motions.length; i++) {
-			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
-			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
-		}
-	}
+//	public void enableMotionMagic(double distance, double theta) {
+//
+//		double navX_theta = Robot.sensors.getNavX().getTheta();
+//		theta = theta - navX_theta;
+//
+////TODO: make wheel diameter and other constants that im just making up
+//		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
+//		//TODO: constant for encoder ticks
+//		double ticks = distance / wheelCircumference * 8192;
+//		// motions[0].runMotionMagic((int) ticks);
+//
+//		double[] modifiers = new double[motions.length];
+//
+//		//From the mecMove method...
+//		//TODO: test and see if this works
+//		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+//		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+//		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+//		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+//
+//		int max = 0;
+//		for (int i = 0; i < modifiers.length; i++) {
+//			if (Math.abs(modifiers[i]) > Math.abs(modifiers[max])) {
+//				max = i;
+//			}
+//		}
+//
+//		double currentDistance;
+//		double t1;
+//		double totTime;
+//		double vmax2;
+//		double a2;
+//
+//
+//		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
+//		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
+//
+//			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
+//			t1 = maxVel / maxAccel;
+//			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
+//			vmax2 = currentDistance / (totTime - t1) / 10.0;
+//			a2 = vmax2 / t1;
+//
+//
+//			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
+//				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
+//			} else {
+//				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
+//			}
+//		}
+//		for (int i = 0; i < motions.length; i++) {
+//			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
+//			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
+//		}
+//	}
 
 }
 
