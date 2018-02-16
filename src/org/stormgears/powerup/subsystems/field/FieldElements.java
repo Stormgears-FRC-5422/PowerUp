@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.field;
 
 import org.stormgears.powerup.subsystems.navigator.Position;
-import sun.security.util.Length;
 
 public class FieldElements {
 	/*
@@ -22,20 +21,10 @@ public class FieldElements {
 	}
 
 	public static class Switch {
-
-
 		public static final double LENGTH = 56;
 		public static final double WIDTH = 153.5;
 		public static final double HEIGHT = 18.75;
-		public static Position position =  null;
-		public Switch(int x,int y) {
-			position = new Position(x,y);
-		}
-
 	}
-	Switch ourSwitch = new Switch(0,0);
-
-	Switch oppSwitch = new Switch(0,0);
 
 	public static class Scale {
 		public static final double LENGTH = 48;

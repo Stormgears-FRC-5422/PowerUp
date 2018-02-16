@@ -2,13 +2,12 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
-import org.stormgears.powerup.subsystems.field.FieldElements;
+import org.stormgears.powerup.subsystems.intake.Intake;
 
-public class DSIO {
+public class  DSIO {
 	private static DSIO instance = new DSIO();
 	public static DSIO getInstance() {
 		return instance;
@@ -24,18 +23,18 @@ public class DSIO {
 			buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL);
 
 	private final Button
-			bigBlueButton 	= new Button(ButtonIds.BIG_BLUE_BUTTON_ID, buttonBoard),
-			redButton 		= new Button(ButtonIds.RED_BUTTON_ID, buttonBoard),
-			yellowButton 	= new Button(ButtonIds.YELLOW_BUTTON_ID, buttonBoard),
-			greenButton 	= new Button(ButtonIds.GREEN_BUTTON_ID, buttonBoard),
-			smallBlueButton = new Button(ButtonIds.SMALL_BLUE_BUTTON_ID, buttonBoard),
-			blackButton 	= new Button(ButtonIds.BLACK_BUTTON_ID, buttonBoard),
-			whiteButton 	= new Button(ButtonIds.WHITE_BUTTON_ID, buttonBoard);
+			bigBlueButton 	= new Button(ButtonIds.Board.BIG_BLUE, buttonBoard),
+			redButton 		= new Button(ButtonIds.Board.RED, buttonBoard),
+			yellowButton 	= new Button(ButtonIds.Board.YELLOW, buttonBoard),
+			greenButton 	= new Button(ButtonIds.Board.GREEN, buttonBoard),
+			smallBlueButton = new Button(ButtonIds.Board.SMALL_BLUE, buttonBoard),
+			blackButton 	= new Button(ButtonIds.Board.BLACK, buttonBoard),
+			whiteButton 	= new Button(ButtonIds.Board.WHITE, buttonBoard);
 
 	private final Switch
-			greenSwitch 	= new Switch(ButtonIds.GREEN_SWITCH_ID, buttonBoard),
-			orangeSwitch 	= new Switch(ButtonIds.ORANGE_SWITCH_ID, buttonBoard),
-			redSwitch 		= new Switch(ButtonIds.RED_SWITCH_ID, buttonBoard);
+			greenSwitch 	= new Switch(ButtonIds.Board.GREEN_SWITCH, buttonBoard),
+			orangeSwitch 	= new Switch(ButtonIds.Board.ORANGE_SWITCH, buttonBoard),
+			redSwitch 		= new Switch(ButtonIds.Board.RED_SWITCH, buttonBoard);
 
 	private DSIO() {
 		setupButtonsAndSwitches();
@@ -84,9 +83,9 @@ public class DSIO {
 		// GREEN SWITCH
 		greenSwitch.setOnSwitchFlippedListener(isOn -> {
 			if (isOn) {
-
+				Robot.intake.enableIntake();
 			} else {
-
+				Robot.intake.disableIntake();
 			}
 		});
 
@@ -113,12 +112,12 @@ public class DSIO {
 
 	private static final double X_NULLZONE = 0.2;
 	private static final double Y_NULLZONE = 0.2;
-	private static final double Z_NULLZONE = 0.05;
+	private static final double Z_NULLZONE = 0.1;
 
 	public double getJoystickX() {
 		double x = joystick.getX();
 
-		double filtered = Math.abs(x) < X_NULLZONE ? 0 : x;
+		double filtered = Math.abs(x) < X_NULLZONE ? 0 : ((x - Math.copySign(X_NULLZONE, x)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -127,7 +126,7 @@ public class DSIO {
 	public double getJoystickY() {
 		double y = joystick.getY();
 
-		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : y;
+		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : ((y - Math.copySign(Y_NULLZONE, y)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
@@ -136,9 +135,16 @@ public class DSIO {
 	public double getJoystickZ() {
 		double z = joystick.getZ();
 
-		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : z;
+		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : ((z - Math.copySign(Z_NULLZONE, z)) / (1 - Z_NULLZONE)) * getJoystickMultiplier();
 		int reverse = Robot.config.reverseJoystick ? -1 : 1;
 
 		return filtered * reverse;
+	}
+
+	private double getJoystickMultiplier() {
+		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
+			return 0.2;
+		}
+		return 1;
 	}
 }

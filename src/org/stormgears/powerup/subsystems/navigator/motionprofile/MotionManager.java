@@ -3,9 +3,11 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ctre.CANTalon;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.PIDController;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
@@ -151,6 +153,7 @@ public class MotionManager {
 
 	public MotionManager() {
 		numTalons = Robot.driveTalons.getTalons().length;
+		control = new MotionControl();
 	}
 
 	// Theta is a heading change. 0 is straight ahead,
@@ -298,7 +301,7 @@ public class MotionManager {
 
 			for(int j = 0; j < numTalons; j ++) {
 				pt.position = 0;
-				//TODO: UNCOMMENT AND FIX THESE LINES
+				//TODO: UNCOMMENT AND FIX THESE LINEs
 				//pt.timeDurMs = 10;
 				//pt.velocityOnly = false;
 				pt.zeroPos = (i == currIndex); //needed for successive profiles, only first pt should be set to true
@@ -338,7 +341,7 @@ public class MotionManager {
 				pt.velocity = pathArray[i][0] * table[j][colIndex];
 				positions[j] += pt.velocity * deltaT;
 				pt.position = positions[j];
-				// TODO - probably want the commented setting, but need to test it.
+				// TODO - probably want the commented setting, but need to sendTestData it.
 				pt.isLastPoint = false; //(done && ( (i + 1) == pathArray.length));  //TODO
 				control.pushMotionProfileTrajectory(j, pt);
 			}
