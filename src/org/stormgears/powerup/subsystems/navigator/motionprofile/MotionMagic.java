@@ -40,14 +40,14 @@ public class MotionMagic {
 		/* set acceleration and vcruise velocity - see documentation */
 
 
-
-		talon.configMotionCruiseVelocity((int)Math.round(maxVel), TALON_FPID_TIMEOUT);
-		talon.configMotionAcceleration((int)Math.round(maxAccel), TALON_FPID_TIMEOUT);
+		talon.configMotionCruiseVelocity((int) Math.round(maxVel), TALON_FPID_TIMEOUT);
+		talon.configMotionAcceleration((int) Math.round(maxAccel), TALON_FPID_TIMEOUT);
 		/* zero the sensor */
 		talon.setSelectedSensorPosition(0, 0, TALON_FPID_TIMEOUT);
 	}
 
-	/** The runMotionMagic method receives an encoder position
+	/**
+	 * The runMotionMagic method receives an encoder position
 	 * (8192 ticks / 1 revolution) and uses the MotionMagic
 	 * ControlMode along with PID to get to the commanded position.
 	 * This class and method applies to only one talon.

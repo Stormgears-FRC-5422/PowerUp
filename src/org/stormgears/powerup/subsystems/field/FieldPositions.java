@@ -18,6 +18,7 @@ public class FieldPositions {
 		RIGHT(new Position(0, 0));
 
 		private Position position;
+
 		StartingSpots(Position position) {
 			this.position = position;
 		}
@@ -34,7 +35,8 @@ public class FieldPositions {
 		RIGHT(0);
 
 		private double theta;
-		StartingDirections(double theta){
+
+		StartingDirections(double theta) {
 			this.theta = theta;
 		}
 
@@ -60,7 +62,7 @@ public class FieldPositions {
 		RED, BLUE
 	}
 
-	public enum LeftRight { L, R }
+	public enum LeftRight {L, R}
 
 	@Nullable
 	public static Position OWN_SWITCH_PLATE_ASSIGNMENT = null;
@@ -87,13 +89,13 @@ public class FieldPositions {
 	public static final Position OWN_SCALE_PLATFORM_ELEVATED = new Position(110, 275.1);
 	public static final Position OWN_NULL_ZONE_LEFT = new Position(0, 289);
 	public static final Position OWN_NULL_ZONE_RIGHT = new Position(228.8, 289);
-	public static final Position OWN_SWITCH = new Position(95.7,141.2);
-	public static final Position OWN_POWER_CUBE_1 = new Position(95.5,197.3);
-	public static final Position OWN_POWER_CUBE_2 = new Position(113.6,197.3);
-	public static final Position OWN_POWER_CUBE_3 = new Position(141.7,197.3);
-	public static final Position OWN_POWER_CUBE_4 = new Position(169.8,197.3);
-	public static final Position OWN_POWER_CUBE_5 = new Position(197.9,197.3);
-	public static final Position OWN_POWER_CUBE_6 = new Position(226,197.3);
+	public static final Position OWN_SWITCH = new Position(95.7, 141.2);
+	public static final Position OWN_POWER_CUBE_1 = new Position(95.5, 197.3);
+	public static final Position OWN_POWER_CUBE_2 = new Position(113.6, 197.3);
+	public static final Position OWN_POWER_CUBE_3 = new Position(141.7, 197.3);
+	public static final Position OWN_POWER_CUBE_4 = new Position(169.8, 197.3);
+	public static final Position OWN_POWER_CUBE_5 = new Position(197.9, 197.3);
+	public static final Position OWN_POWER_CUBE_6 = new Position(226, 197.3);
 
 
 	public static final Position MIDLINE = new Position(0, 324);

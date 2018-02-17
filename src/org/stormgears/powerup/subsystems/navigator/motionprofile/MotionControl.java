@@ -22,7 +22,7 @@ public class MotionControl {
 		// The purpose of this thread is just to push data into the firmware buffer
 		// other details of the control come through the motion manager thread.
 		public void run() {
-			synchronized(this) {
+			synchronized (this) {
 				if (stopNotifier) return;
 			}
 
@@ -30,7 +30,7 @@ public class MotionControl {
 				System.out.println("In MotionControl run() with numPoints = " + numPoints + " and runCount = " + runCount);
 			}
 
-			synchronized(this) {
+			synchronized (this) {
 //				if (numPoints > 0) {
 				for (StormTalon t : Robot.driveTalons.getTalons()) {
 					t.clearMotionProfileHasUnderrun(10);
@@ -59,7 +59,7 @@ public class MotionControl {
 	}
 
 	public void stopControlThread() {
-		synchronized(this) {
+		synchronized (this) {
 			stopNotifier = true;
 			notifier.stop();
 		}
@@ -75,7 +75,7 @@ public class MotionControl {
 			statuses[i++] = new MotionProfileStatus();
 		}
 
-		synchronized(this) {
+		synchronized (this) {
 			stopNotifier = false;
 			notifier.startPeriodic(notifierRate);
 		}
@@ -119,9 +119,14 @@ public class MotionControl {
 		return Robot.driveTalons.getTalons()[talonIndex].pushMotionProfileTrajectory(pt);
 	}
 
-	public int getEncVel(int talonIndex) { return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();	}
+	public int getEncVel(int talonIndex) {
+		return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
+	}
 
-	public int getEncPos(int talonIndex) {	return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();}
+	public int getEncPos(int talonIndex) {
+		return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
+	}
+
 	//TODO: add in some edge case error checking
 	public void enable() {
 		int i = 0;

@@ -1,13 +1,13 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
-
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
 
-public class  DSIO {
+public class DSIO {
 	private static DSIO instance = new DSIO();
+
 	public static DSIO getInstance() {
 		return instance;
 	}
@@ -19,23 +19,23 @@ public class  DSIO {
 
 	// Don't instantiate any other joysticks
 	private final Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
-			buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL);
+		buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL);
 
 	private boolean joystickEnabled = true;
 
 	private final Button
-			bigBlueButton 	= new Button(ButtonIds.Board.BIG_BLUE, buttonBoard),
-			redButton 		= new Button(ButtonIds.Board.RED, buttonBoard),
-			yellowButton 	= new Button(ButtonIds.Board.YELLOW, buttonBoard),
-			greenButton 	= new Button(ButtonIds.Board.GREEN, buttonBoard),
-			smallBlueButton = new Button(ButtonIds.Board.SMALL_BLUE, buttonBoard),
-			blackButton 	= new Button(ButtonIds.Board.BLACK, buttonBoard),
-			whiteButton 	= new Button(ButtonIds.Board.WHITE, buttonBoard);
+		bigBlueButton = new Button(ButtonIds.Board.BIG_BLUE, buttonBoard),
+		redButton = new Button(ButtonIds.Board.RED, buttonBoard),
+		yellowButton = new Button(ButtonIds.Board.YELLOW, buttonBoard),
+		greenButton = new Button(ButtonIds.Board.GREEN, buttonBoard),
+		smallBlueButton = new Button(ButtonIds.Board.SMALL_BLUE, buttonBoard),
+		blackButton = new Button(ButtonIds.Board.BLACK, buttonBoard),
+		whiteButton = new Button(ButtonIds.Board.WHITE, buttonBoard);
 
 	private final Switch
-			greenSwitch 	= new Switch(ButtonIds.Board.GREEN_SWITCH, buttonBoard),
-			orangeSwitch 	= new Switch(ButtonIds.Board.ORANGE_SWITCH, buttonBoard),
-			redSwitch 		= new Switch(ButtonIds.Board.RED_SWITCH, buttonBoard);
+		greenSwitch = new Switch(ButtonIds.Board.GREEN_SWITCH, buttonBoard),
+		orangeSwitch = new Switch(ButtonIds.Board.ORANGE_SWITCH, buttonBoard),
+		redSwitch = new Switch(ButtonIds.Board.RED_SWITCH, buttonBoard);
 
 	private DSIO() {
 		setupButtonsAndSwitches();

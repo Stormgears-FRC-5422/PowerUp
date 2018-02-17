@@ -94,7 +94,7 @@ public class TrapezoidalProfile {
 
 		if (xsd < xscv) {
 			//Fixed math errors in triangular profile
-			tsd = (Math.sqrt((2 * a * (d/2.0) + vs * vs) ) - vs) / a;
+			tsd = (Math.sqrt((2 * a * (d / 2.0) + vs * vs)) - vs) / a;
 //			xsd = 0.5 * a * tsd * tsd; // TODO: xsd is never used after assignment
 			tTotal = 2 * tsd;
 		}

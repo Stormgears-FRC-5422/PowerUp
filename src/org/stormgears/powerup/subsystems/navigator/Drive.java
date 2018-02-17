@@ -205,12 +205,12 @@ public class Drive {
 		double a2;
 
 
-		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
+		double maxDistance = ((Math.abs(modifiers[max] * distance)) * 8192) / (8 * Math.PI);
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
-			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
+			currentDistance = ((Math.abs(modifiers[i] * distance)) * 8192) / (8 * Math.PI);
 			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance / maxVel) * 10; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 

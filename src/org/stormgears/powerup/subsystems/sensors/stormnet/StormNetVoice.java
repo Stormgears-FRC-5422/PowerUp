@@ -6,7 +6,7 @@ public abstract class StormNetVoice {
 
 	protected abstract boolean transaction_internal(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize);
 
-	public boolean transaction(byte[] dataToSend, int sendSize,	byte[] dataReceived, int receiveSize) {
+	public boolean transaction(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize) {
 		return this.transaction_internal(dataToSend, sendSize, dataReceived, receiveSize);
 	}
 

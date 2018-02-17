@@ -15,7 +15,7 @@ public class NavX {
 
 	/**
 	 * Gets the angle of the robot in radians
-	 *
+	 * <p>
 	 * Make sure that you wrap calls to this method in "if (navX.thetaIsSet())"
 	 *
 	 * @return the angle of the robot in radians, null if NavX is not calibrated
@@ -28,13 +28,13 @@ public class NavX {
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;
 
 		theta = theta % (2 * Math.PI);
-		if(theta < 0) theta += 2 * Math.PI;
+		if (theta < 0) theta += 2 * Math.PI;
 		return theta;
 	}
 
 	/**
 	 * TODO: This method is sketchy at times, we need to fix it
-	 *
+	 * <p>
 	 * Gets the displacement in the X direction of the robot from 0,0
 	 *
 	 * @return the displacement in the X direction of the robot

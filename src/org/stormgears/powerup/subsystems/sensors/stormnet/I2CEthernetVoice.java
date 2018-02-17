@@ -29,8 +29,8 @@ public class I2CEthernetVoice extends StormNetVoice {
 		// i2c result + command results
 		// i2c result is a single 0/1 byte - 1 means success
 
-		byte eSendSize = (byte)(sendSize + 4);  // @ + id + send + receive
-		byte eReceiveSize = (byte)(receiveSize + 1); // i2c result + final receive buffer
+		byte eSendSize = (byte) (sendSize + 4);  // @ + id + send + receive
+		byte eReceiveSize = (byte) (receiveSize + 1); // i2c result + final receive buffer
 
 		byte[] receiveBuffer = new byte[eReceiveSize];
 		ByteBuffer buffer = ByteBuffer.allocate(eSendSize);
@@ -38,14 +38,14 @@ public class I2CEthernetVoice extends StormNetVoice {
 
 		buffer.put("@".getBytes(StandardCharsets.US_ASCII)[0]);
 		buffer.put(m_deviceAddress);
-		buffer.put((byte)sendSize);
-		buffer.put((byte)receiveSize);
+		buffer.put((byte) sendSize);
+		buffer.put((byte) receiveSize);
 		buffer.put(dataToSend);
 
-		if ( m_ethernetVoice.transaction(buffer.array(), eSendSize, receiveBuffer, eReceiveSize) ) {
+		if (m_ethernetVoice.transaction(buffer.array(), eSendSize, receiveBuffer, eReceiveSize)) {
 			// The ethernet command worked. Unpack
 			boolean i2cResult = receiveBuffer[0] == 1; // Ethernet returns 1 in this slot if it believes i2c succeeded
-			System.arraycopy(receiveBuffer,1,dataReceived,0, receiveSize);
+			System.arraycopy(receiveBuffer, 1, dataReceived, 0, receiveSize);
 			return i2cResult;
 		}
 		return false;

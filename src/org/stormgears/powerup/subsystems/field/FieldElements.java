@@ -54,7 +54,7 @@ public class FieldElements {
 		public static final double HEIGHT = 3.5;
 	}
 
-	public static class	PlatformZone {
+	public static class PlatformZone {
 		public static final double LENGTH = 133.5;
 		public static final double WIDTH = 119.75;//possibly wrong order
 		public static final double HEIGHT = 0;

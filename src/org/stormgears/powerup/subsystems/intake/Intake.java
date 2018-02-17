@@ -2,11 +2,12 @@ package org.stormgears.powerup.subsystems.intake;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import org.stormgears.utils.StormTalon;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
+import org.stormgears.utils.StormTalon;
 
 public class Intake extends Subsystem {
 	private static Intake instance;
+
 	public static Intake getInstance() {
 		return instance;
 	}
@@ -39,7 +40,7 @@ public class Intake extends Subsystem {
 	public void enableIntake() {
 		// TODO: Implement
 		System.out.println("Intake on");
-		GlobalMapping.resetPosition(0,0,0);
+		GlobalMapping.resetPosition(0, 0, 0);
 
 	}
 

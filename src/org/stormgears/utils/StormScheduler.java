@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 
 public class StormScheduler {
 	private static StormScheduler instance;
+
 	public static StormScheduler getInstance() {
 		return instance;
 	}

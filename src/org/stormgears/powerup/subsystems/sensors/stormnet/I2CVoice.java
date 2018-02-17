@@ -23,10 +23,10 @@ public class I2CVoice extends StormNetVoice {
 	}
 
 	/**
-	* This function inverts the original sense of the return code (true no longer means "Transaction aborted").
-	* Note that this return code for the wpilib result has been suspect and shouldn't necessarily be relied upon
-	* for interpreting successful connections. Use one of the built-in commands for that (e.g. ping()).
-	*/
+	 * This function inverts the original sense of the return code (true no longer means "Transaction aborted").
+	 * Note that this return code for the wpilib result has been suspect and shouldn't necessarily be relied upon
+	 * for interpreting successful connections. Use one of the built-in commands for that (e.g. ping()).
+	 */
 	protected boolean transaction_internal(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize) {
 		boolean result;
 		result = m_I2C.transaction(dataToSend, sendSize, dataReceived, receiveSize);

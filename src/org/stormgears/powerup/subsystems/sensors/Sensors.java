@@ -1,12 +1,15 @@
 package org.stormgears.powerup.subsystems.sensors;
 
+import org.stormgears.powerup.subsystems.sensors.stormnet.StormNet;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
 import org.stormgears.utils.sensor_drivers.NavX;
-import org.stormgears.powerup.subsystems.sensors.stormnet.*;
 
 public class Sensors {
 	private static Sensors instance;
-	public static Sensors getInstance() { return instance; }
+
+	public static Sensors getInstance() {
+		return instance;
+	}
 
 	private Vision vision;
 	private NavX navX;
@@ -14,7 +17,7 @@ public class Sensors {
 
 	private Sensors() {
 //		vision = new Vision();
- 		navX = new NavX();
+		navX = new NavX();
 //		stormNet = new StormNet();
 	}
 
@@ -26,7 +29,11 @@ public class Sensors {
 		return vision;
 	}
 
-	public NavX getNavX() { return navX; }
+	public NavX getNavX() {
+		return navX;
+	}
 
-	public StormNet getStormNet() { return stormNet; }
+	public StormNet getStormNet() {
+		return stormNet;
+	}
 }
