@@ -6,12 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.sensor_drivers.NavX;
 
-import static org.apache.logging.log4j.util.Unbox.box;
-
-// TODO: CLEAN THIS UP
 public class Drive {
 	private static Drive instance;
 
@@ -24,6 +22,7 @@ public class Drive {
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static int maxVel;
 	private static int maxAccel;
+	private static boolean useAbsoluteControl;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
 	private StormTalon[] talons;
@@ -37,8 +36,8 @@ public class Drive {
 		talons = Robot.driveTalons.getTalons();
 		vels = new double[talons.length];
 
-		maxVel = 5000000;
-		maxAccel = 100000;
+		maxVel = 15000;
+		maxAccel = 6000;
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 
 	}
@@ -48,7 +47,15 @@ public class Drive {
 		instance = new Drive();
 	}
 
-	public void move(boolean useAbsoluteControl) {
+	public void onAbsoluteControl()  {
+		useAbsoluteControl = true;
+	}
+
+	public void offAbsoluteControl() {
+		useAbsoluteControl =  false;
+	}
+
+	public void move() {
 		double x = Robot.dsio.getJoystickX(),
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
@@ -71,10 +78,9 @@ public class Drive {
 						 double theta,
 						 double changeVel,
 						 boolean useAbsoluteControl, double x, double y) {
-
-		if (useAbsoluteControl && Robot.sensors.getNavX().thetaIsSet()) {
-			double navXTheta = Robot.sensors.getNavX().getTheta();
-			theta = theta - navXTheta;
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navX_theta;
 		}
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
@@ -169,10 +175,19 @@ public class Drive {
 		}
 	}
 
+	public void driveMotionProfile(double rotations, double theta) {
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		theta = theta + navX_theta;
+
+		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
+		m.pushProfile(profile, false, true);
+		m.startProfile();
+	}
+
 	public void debug() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
-			logger.debug("Real Velocities: {}", box(t.getSensorCollection().getQuadratureVelocity()));
+			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
 		}
 	}
 
@@ -201,13 +216,12 @@ public class Drive {
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta    - the angle at which to move the robot
 	 */
-	public void enableMotionMagic(double distance, double theta) {
-		double navXTheta = 0;
-		if (Robot.sensors.getNavX().thetaIsSet()) {
-			// Should not be null because of check.
-			navXTheta = Robot.sensors.getNavX().getTheta();
+	public void moveStraight(double distance, double theta) {
+
+
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();theta = theta - navX_theta;
 		}
-		theta = theta - navXTheta;
 
 		//TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
@@ -238,12 +252,12 @@ public class Drive {
 		double a2;
 
 
-		double maxDistance = ((Math.abs(modifiers[max] * distance)) * 8192) / (8 * Math.PI);
+		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
-			currentDistance = ((Math.abs(modifiers[i] * distance)) * 8192) / (8 * Math.PI);
+			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
 			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance / maxVel) * 10; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 
@@ -255,8 +269,66 @@ public class Drive {
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
-			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]));
+			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
+	}
+
+	/** This method takes in an angle, theta, and turns the robot to the
+	 * corresponding direction so that its front faces the angle passed in.
+	 *
+	 * @param theta Angle desired for robot turn
+	 */
+	public void turnTo(double theta) {
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navX_theta;
+		}
+
+		double robotLength = Double.parseDouble(Robot.config.robotLength);
+		double robotWidth = Double.parseDouble(Robot.config.robotWidth);
+
+		double r = Math.sqrt(Math.pow(robotLength, 2) + Math.pow((robotWidth),2))/2.0;
+
+		double s = r * theta;
+
+		double encoderTicks = s/(8.0 * Math.PI) * 8192.0;
+		encoderTicks *= Math.sqrt(2);
+
+		for(int i = 0; i < motions.length; i ++) {
+			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel/2, maxAccel/2);
+		}
+
+		System.out.println(encoderTicks + "");
+
+		for (int i = 0; i < motions.length; i++) {
+			System.out.println("Talon " + i + " Commanded: " + (encoderTicks));
+			motions[i].runMotionMagic((int) encoderTicks);
+		}
+	}
+
+	/**
+	 * MoveToPos Method; Moves robot between two positions
+	 *
+	 * @param p1 first position
+	 * @param p2 second position
+	 *
+	 */
+	public void moveToPos(Position p1, Position p2){
+
+		double deltaX = p2.getX() - p1.getX();
+		double deltaY = p2.getY() - p1.getY();
+
+		double theta = Math.atan(deltaY/deltaX);
+
+		double hyp = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+
+		moveStraight(hyp, theta);
+
+
+
+
+
+
 	}
 }

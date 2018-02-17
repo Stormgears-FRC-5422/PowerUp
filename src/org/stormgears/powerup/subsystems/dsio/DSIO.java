@@ -53,13 +53,13 @@ public class DSIO {
 		});
 
 		// RED
-		redButton.setOnButtonTouchUpListener(() -> {
-
+		redButton.setOnButtonTouchUpListener(() -> { //closes gripper
+			Robot.gripper.closeGripper();
 		});
 
 		// YELLOW
-		yellowButton.setOnButtonTouchUpListener(() -> {
-
+		yellowButton.setOnButtonTouchUpListener(() -> { //opens gripper
+			Robot.gripper.openGripper();
 		});
 
 		// GREEN
@@ -92,16 +92,16 @@ public class DSIO {
 		});
 
 		// ORANGE SWITCH
-		orangeSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useTractionControl = isOn);
-
-		// RED SWITCH
-		redSwitch.setOnSwitchFlippedListener(isOn -> {
+		orangeSwitch.setOnSwitchFlippedListener(isOn -> { //For AbsControl
 			if (isOn) {
-
+				Robot.drive.onAbsoluteControl();
 			} else {
-
+				Robot.drive.offAbsoluteControl();
 			}
 		});
+
+		// RED SWITCH
+		redSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useTractionControl = isOn);
 	}
 
 	// Joystick related methods
