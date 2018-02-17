@@ -25,6 +25,7 @@ public class Drive {
 	private static final int TALON_FPID_TIMEOUT = 0;    // TODO: Adithya said 'Figure out what the hell that thing is'
 	private static int maxVel;
 	private static int maxAccel;
+	private static boolean useAbsoluteControl;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
 	private static MotionMagic[] motions;
@@ -43,7 +44,15 @@ public class Drive {
 		instance = new Drive();
 	}
 
-	public void move(boolean useAbsoluteControl) {
+	public void onAbsoluteControl()  {
+		useAbsoluteControl = true;
+	}
+
+	public void offAbsoluteControl() {
+		useAbsoluteControl =  false;
+	}
+
+	public void move() {
 		double x = Robot.dsio.getJoystickX(),
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
@@ -56,13 +65,12 @@ public class Drive {
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
 				theta,
-				z,
-				useAbsoluteControl);
+				z);
 		}
 	}
 
 	// Run mecanum math on each raw speed and set talons accordingly
-	private void mecMove(double tgtVel, double theta, double changeVel, boolean useAbsoluteControl) {
+	private void mecMove(double tgtVel, double theta, double changeVel) {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 
 		if (useAbsoluteControl) {

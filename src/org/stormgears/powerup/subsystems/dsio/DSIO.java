@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -92,16 +93,16 @@ public class DSIO {
 		});
 
 		// ORANGE SWITCH
-		orangeSwitch.setOnSwitchFlippedListener(isOn -> {
+		orangeSwitch.setOnSwitchFlippedListener(isOn -> { //For AbsControl
 			if (isOn) {
-
+				Robot.drive.onAbsoluteControl();
 			} else {
-
+				Robot.drive.offAbsoluteControl();
 			}
 		});
 
 		// RED SWITCH
-		redSwitch.setOnSwitchFlippedListener(isOn -> {
+		redSwitch.setOnSwitchFlippedListener(isOn -> { //For MotionMagic
 			if (isOn) {
 
 			} else {
