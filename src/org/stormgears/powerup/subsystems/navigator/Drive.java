@@ -52,6 +52,8 @@ public class Drive {
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
 
+//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
+
 		double theta = Math.atan2(x, y);
 		if (theta < 0) theta = 2 * Math.PI + theta;
 
