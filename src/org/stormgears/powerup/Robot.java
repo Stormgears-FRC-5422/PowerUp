@@ -11,6 +11,7 @@ import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
+import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
@@ -51,6 +52,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorSharedTalons elevatorSharedTalons;
 	public static Elevator elevator;
 	public static Climber climber;
+	public static Gripper gripper;
 
 
 	/**
@@ -85,6 +87,9 @@ public class Robot extends IterativeRobot {
 
 		//GlobalMapping.init();
 		//globalMapping = GlobalMapping.getInstance();
+
+		Gripper.init();
+		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -93,6 +98,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
+		SmartDashboard.putNumber("Gripper Close Current", 0.0);
+
 	}
 
 	/**
@@ -114,7 +121,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-
+		//Robot.gripper.closeGripper();
 	}
 
 	/**
@@ -146,13 +153,22 @@ public class Robot extends IterativeRobot {
 //		sensors.getNavX().debug();
 
 
+
 	}
 
 	/**
 	 * This function is called periodically during sendTestData mode
 	 */
+
+	public void testInit(){
+		SmartDashboard.putNumber("Gripper Open Current", 0.0);
+
+	}
+
 	@Override
 	public void testPeriodic() {
+
+		//Robot.gripper.openGripper();
 
 	}
 
