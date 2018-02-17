@@ -3,10 +3,13 @@ package org.stormgears.powerup.subsystems.gripper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.StormTalon;
 
 public class Gripper extends Subsystem {
+	private static final Logger logger = LogManager.getLogger(Gripper.class);
 	private static Gripper instance;
 
 	public static Gripper getInstance() {
@@ -28,14 +31,14 @@ public class Gripper extends Subsystem {
 
 
 	public void openGripper() {
-		System.out.println("Gripper Opening");
+		logger.info("Gripper Opening");
 		talon.set(ControlMode.PercentOutput, 0.5);
 		SmartDashboard.putNumber("Gripper Open Current", talon.getOutputCurrent());
 	}
 
 	public void closeGripper() {
 		StormScheduler.getInstance().queue(() -> {
-			System.out.println("Gripper Closing");
+			logger.info("Gripper Closing");
 			talon.set(ControlMode.PercentOutput, -0.5);
 			SmartDashboard.putNumber("Gripper Close Current", talon.getOutputCurrent());
 
@@ -49,12 +52,11 @@ public class Gripper extends Subsystem {
 
 			talon.set(ControlMode.PercentOutput, 0);
 		});
-
 	}
 
 
 	public void disableGripper() {
-		System.out.println("Gripper Disabled");
+		logger.info("Gripper Disabled");
 		talon.set(ControlMode.PercentOutput, 0);
 	}
 

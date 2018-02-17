@@ -110,7 +110,7 @@ public class LidarSensorTest {
 	 * does nothing.
 	 *
 	 * @param message A message string to print to System.out.
-	 * @see     this#log
+	 * @see this#log
 	 */
 	public void debug(String message) {
 		if (m_debug)

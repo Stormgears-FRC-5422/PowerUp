@@ -1,11 +1,15 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class EthernetVoice extends StormNetVoice {
+	private static final Logger logger = LogManager.getLogger(StormNetVoice.class);
 
 	private DataInputStream m_backFromServer;
 	private Socket m_clientSocket;
@@ -19,8 +23,8 @@ public class EthernetVoice extends StormNetVoice {
 			m_outToServer = new DataOutputStream(m_clientSocket.getOutputStream());
 			m_backFromServer = new DataInputStream(m_clientSocket.getInputStream());
 		} catch (Exception e) {
-			System.out.println("SENSOR CLIENT SOCKET NOT CONNECTED!!!");
-			e.printStackTrace();
+			logger.error("SENSOR CLIENT SOCKET NOT CONNECTED!!!");
+			logger.catching(e);
 		}
 	}
 
@@ -36,8 +40,8 @@ public class EthernetVoice extends StormNetVoice {
 			m_backFromServer.readFully(dataReceived, 0, receiveSize);
 			result = StormNetSensor.STORMNET_SUCCESS;
 		} catch (IOException e) {
-			System.out.println("SENSOR TRANSACTION FAILED!!!");
-			e.printStackTrace();
+			logger.error("SENSOR TRANSACTION FAILED!!!");
+			logger.catching(e);
 			result = StormNetSensor.STORMNET_FAILURE;
 		}
 

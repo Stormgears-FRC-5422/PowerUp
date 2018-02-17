@@ -47,6 +47,8 @@ public class GlobalMapping {
 	static double vel_x;
 	static double vel_y;
 
+	static double smoothingFactor = 0.9;
+
 	static public AHRS ahrs = new AHRS(Port.kMXP);
 
 	public GlobalMapping() {
@@ -127,6 +129,7 @@ public class GlobalMapping {
 		prev_enc_br = enc_br;
 
 		//Probably is how much time has passed since last run
+		double dTime = Timer.getFPGATimestamp() - prevTimeStamp;
 		double time = Timer.getFPGATimestamp() - prevTimeStamp;
 
 		//averages the encoder ticks
@@ -153,6 +156,14 @@ public class GlobalMapping {
 
 		x += field_DistanceX;
 		y += field_DistanceY;
+
+		double temp_vel_x = field_DistanceX / dTime;
+		double temp_vel_y = field_DistanceY / dTime;
+
+		vel_x = smoothingFactor * temp_vel_x + (1 - smoothingFactor) * vel_x;
+		vel_y = smoothingFactor * temp_vel_y + (1 - smoothingFactor) * vel_y;
+
+		prevTimeStamp = Timer.getFPGATimestamp();
 
 		//TODO: Figure out the smoothing factor code
 		//TODO: Fix NavX CRC Error.

@@ -30,7 +30,7 @@ public class StormScheduler {
 			}
 
 			@Override
-			protected void execute() {
+			public synchronized void start() {
 				runnable.run();
 			}
 		});

@@ -2,10 +2,13 @@ package org.stormgears.powerup.subsystems.intake;
 
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.utils.StormTalon;
 
 public class Intake extends Subsystem {
+	private static final Logger logger = LogManager.getLogger(Intake.class);
 	private static Intake instance;
 
 	public static Intake getInstance() {
@@ -39,14 +42,14 @@ public class Intake extends Subsystem {
 
 	public void enableIntake() {
 		// TODO: Implement
-		System.out.println("Intake on");
+		logger.info("Intake on");
 		GlobalMapping.resetPosition(0, 0, 0);
 
 	}
 
 	public void disableIntake() {
 		// TODO: Implement
-		System.out.println("Intake off");
+		logger.info("Intake off");
 	}
 
 	@Override

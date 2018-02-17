@@ -3,11 +3,17 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile;
 import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motion.MotionProfileStatus;
 import com.ctre.phoenix.motion.TrajectoryPoint;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormTalon;
 
+import static org.apache.logging.log4j.util.Unbox.box;
+
 public class MotionControl {
+	private static final Logger logger = LogManager.getLogger(MotionControl.class);
+
 	private static final double notifierRate = 0.005;
 	private boolean stopNotifier = false;
 	public MotionProfileStatus[] statuses = new MotionProfileStatus[4];
@@ -27,7 +33,7 @@ public class MotionControl {
 			}
 
 			if (++runCount % runReportInterval == 0) {
-				System.out.println("In MotionControl run() with numPoints = " + numPoints + " and runCount = " + runCount);
+				logger.trace("In MotionControl run() with numPoints = {} and runCount = {}", box(numPoints), box(runCount));
 			}
 
 			synchronized (this) {
@@ -37,9 +43,9 @@ public class MotionControl {
 					t.processMotionProfileBuffer();
 //						t.clearMotionProfileHasUnderrun();
 				}
-				System.out.println("HERE1");
+				logger.trace("HERE1");
 				Robot.driveTalons.getTalons()[0].getMotionProfileStatus(statuses[0]);
-				System.out.println("HERE2");
+				logger.trace("HERE2");
 				btmBufferPoints = statuses[0].btmBufferCnt;
 				numPoints = --numPoints < 0 ? 0 : numPoints;
 //				}
@@ -104,7 +110,7 @@ public class MotionControl {
 	}
 
 	public synchronized int getPointsRemaining() {
-		System.out.println("numPoints : " + numPoints + " , btmBufferPoints : " + btmBufferPoints);
+		logger.debug("numPoints: {}, btmBufferPoints: {}", box(numPoints), box(btmBufferPoints));
 		if (numPoints > 0)
 			return numPoints;
 		else

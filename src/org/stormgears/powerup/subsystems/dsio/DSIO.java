@@ -23,6 +23,7 @@ public class DSIO {
 
 	private boolean joystickEnabled = true;
 
+
 	private final Button
 		bigBlueButton = new Button(ButtonIds.Board.BIG_BLUE, buttonBoard),
 		redButton = new Button(ButtonIds.Board.RED, buttonBoard),

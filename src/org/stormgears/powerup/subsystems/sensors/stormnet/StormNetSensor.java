@@ -1,5 +1,8 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
@@ -14,6 +17,8 @@ import java.util.concurrent.TimeUnit;
  *        1 byte reply (bitwise OR of input argument (~in)
  */
 public class StormNetSensor {
+	private static final Logger logger = LogManager.getLogger(StormNetSensor.class);
+
 	private boolean m_debug = false;
 	private boolean m_simulation = false;
 	int m_numSensors = -1;
@@ -143,7 +148,7 @@ public class StormNetSensor {
 	 * @param message A message string to print to System.out.
 	 */
 	protected void log(String message) {
-		System.out.println("id " + m_deviceString + ":" + message);
+		logger.info("id {}: {}", m_deviceString, message);
 	}
 
 // low-level i/o routines	
