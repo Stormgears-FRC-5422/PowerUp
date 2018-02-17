@@ -3,6 +3,7 @@ package org.stormgears.powerup.subsystems.gripper;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.StormTalon;
 
 public class Gripper extends Subsystem {
@@ -33,13 +34,22 @@ public class Gripper extends Subsystem {
 	}
 
 	public void closeGripper() {
-		if (talon.getOutputCurrent() <= 0.5) {
+		StormScheduler.getInstance().queue(() -> {
 			System.out.println("Gripper Closing");
 			talon.set(ControlMode.PercentOutput, -0.5);
 			SmartDashboard.putNumber("Gripper Close Current", talon.getOutputCurrent());
-		} else {
+
+			while (talon.getOutputCurrent() <= 0.5) {
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+
 			talon.set(ControlMode.PercentOutput, 0);
-		}
+		});
+
 	}
 
 
