@@ -92,13 +92,7 @@ public class DSIO {
 		});
 
 		// ORANGE SWITCH
-		orangeSwitch.setOnSwitchFlippedListener(isOn -> { //For AbsControl
-			if (isOn) {
-				Robot.drive.onAbsoluteControl();
-			} else {
-				Robot.drive.offAbsoluteControl();
-			}
-		});
+		orangeSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useAbsoluteControl = isOn);
 
 		// RED SWITCH
 		redSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useTractionControl = isOn);

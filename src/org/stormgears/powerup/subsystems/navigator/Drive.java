@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.sensor_drivers.NavX;
@@ -20,39 +21,30 @@ public class Drive {
 	private static final Logger logger = LogManager.getLogger(Drive.class);
 
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
-	private static int maxVel;
-	private static int maxAccel;
-	private static boolean useAbsoluteControl;
 	private static final ControlMode MODE = ControlMode.Velocity;
+
+	private static final int MAX_VELOCITY = 15000;
+	private static final int MAX_ACCELERATION = 6000;
 
 	private StormTalon[] talons;
 	private double[] vels;
 
+	public boolean useAbsoluteControl = true;
 	public boolean useTractionControl = true;
 
-	private static MotionMagic[] motions;
+	private MotionMagic[] motions;
+	private MotionManager motionManager;
 
 	private Drive() {
 		talons = Robot.driveTalons.getTalons();
 		vels = new double[talons.length];
 
-		maxVel = 15000;
-		maxAccel = 6000;
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
-
 	}
 
 
 	public static void init() {
 		instance = new Drive();
-	}
-
-	public void onAbsoluteControl()  {
-		useAbsoluteControl = true;
-	}
-
-	public void offAbsoluteControl() {
-		useAbsoluteControl =  false;
 	}
 
 	public void move() {
@@ -67,17 +59,19 @@ public class Drive {
 			setDriveTalonsZeroVelocity();
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
+				x, y, z,
 				theta,
-				z,
-				useAbsoluteControl, x, y);
+				useAbsoluteControl);
 		}
 	}
 
 	// Run mecanum math on each raw speed and set talons accordingly
 	private void mecMove(double tgtVel,
-						 double theta,
+						 double x,
+						 double y,
 						 double changeVel,
-						 boolean useAbsoluteControl, double x, double y) {
+						 double theta,
+						 boolean useAbsoluteControl) {
 		if (useAbsoluteControl) {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navX_theta;
@@ -180,8 +174,8 @@ public class Drive {
 		theta = theta + navX_theta;
 
 		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
-		m.pushProfile(profile, false, true);
-		m.startProfile();
+		motionManager.pushProfile(profile, false, true);
+		motionManager.startProfile();
 	}
 
 	public void debug() {
@@ -256,8 +250,8 @@ public class Drive {
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
 			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
-			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
+			t1 = MAX_VELOCITY / MAX_ACCELERATION;
+			totTime = (t1) + (maxDistance/ MAX_VELOCITY) * 10; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 
@@ -265,7 +259,7 @@ public class Drive {
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
 			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel, maxAccel);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
@@ -296,7 +290,7 @@ public class Drive {
 		encoderTicks *= Math.sqrt(2);
 
 		for(int i = 0; i < motions.length; i ++) {
-			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], maxVel/2, maxAccel/2);
+			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY /2, MAX_ACCELERATION /2);
 		}
 
 		System.out.println(encoderTicks + "");
