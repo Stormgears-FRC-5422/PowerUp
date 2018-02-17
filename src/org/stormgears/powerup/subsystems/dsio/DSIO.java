@@ -127,40 +127,38 @@ public class DSIO {
 	public double getJoystickX() {
 		if (!joystickEnabled) return 0;
 
-		double x = joystick.getX();
-
-		double filtered = Math.abs(x) < X_NULLZONE ? 0 : ((x - Math.copySign(X_NULLZONE, x)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
-		int reverse = Robot.config.reverseJoystick ? -1 : 1;
-
-		return filtered * reverse;
+		return processJoystick(joystick.getX(), X_NULLZONE);
 	}
 
 	public double getJoystickY() {
 		if (!joystickEnabled) return 0;
 
-		double y = joystick.getY();
-
-		double filtered = Math.abs(y) < Y_NULLZONE ? 0 : ((y - Math.copySign(Y_NULLZONE, y)) / (1 - X_NULLZONE)) * getJoystickMultiplier();
-		int reverse = Robot.config.reverseJoystick ? -1 : 1;
-
-		return filtered * reverse;
+		return processJoystick(joystick.getY(), Y_NULLZONE);
 	}
 
 	public double getJoystickZ() {
 		if (!joystickEnabled) return 0;
 
-		double z = joystick.getZ();
-
-		double filtered = Math.abs(z) < Z_NULLZONE ? 0 : ((z - Math.copySign(Z_NULLZONE, z)) / (1 - Z_NULLZONE)) * getJoystickMultiplier();
-		int reverse = Robot.config.reverseJoystick ? -1 : 1;
-
-		return filtered * reverse;
+		return processJoystick(joystick.getZ(), Z_NULLZONE);
 	}
 
-	private double getJoystickMultiplier() {
-		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
-			return 0.2;
+	private double processJoystick(double val, final double nullzone) {
+		if (Math.abs(val) < nullzone) {
+			return 0;
+		} else {
+			val = ((val - Math.copySign(nullzone, val)) / (1 - nullzone));
 		}
-		return 1;
+
+		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
+			return 0.2 * val;
+		}
+
+		val *= Math.abs(val);
+
+		if (Robot.config.reverseJoystick) {
+			return -val;
+		} else {
+			return val;
+		}
 	}
 }
