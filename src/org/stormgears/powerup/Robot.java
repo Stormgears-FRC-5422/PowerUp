@@ -18,6 +18,7 @@ import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -61,9 +62,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
+		StormScheduler.init();
+
 		Sensors.init();
 		sensors = Sensors.getInstance();
-
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -72,7 +74,7 @@ public class Robot extends IterativeRobot {
 		drive = Drive.getInstance();
 
 		Intake.init();
-		drive = Drive.getInstance();
+		intake = Intake.getInstance();
 
 		ElevatorSharedTalons.init();
 		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
@@ -106,7 +108,7 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
-		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
+//		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
 	}
 
 	/**
@@ -125,13 +127,13 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 
-		Scheduler.getInstance().run();
+		StormScheduler.getInstance().run();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				if (i == 0) {
-					Robot.drive.enableMotionMagic(60, 2 * Math.PI / 3);
+					Robot.drive.enableMotionMagic(60, 0);
 					i++;
 				}
 			}
