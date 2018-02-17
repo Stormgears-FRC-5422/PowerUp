@@ -218,7 +218,7 @@ public class Drive {
 		}
 
 		//TODO: make wheel diameter and other constants that im just making up
-		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
+		double wheelCircumference = 2 * Math.PI * Robot.config.wheelRadius; //4 in wheel radius???
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192;
 		// motions[0].runMotionMagic((int) ticks);
@@ -246,10 +246,10 @@ public class Drive {
 		double a2;
 
 
-		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
+		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(2*Math.PI * Robot.config.wheelRadius);
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
-			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
+			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(2*Math.PI * Robot.config.wheelRadius);
 			t1 = MAX_VELOCITY / MAX_ACCELERATION;
 			totTime = (t1) + (maxDistance/ MAX_VELOCITY) * 10; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
@@ -286,7 +286,7 @@ public class Drive {
 
 		double s = r * theta;
 
-		double encoderTicks = s/(8.0 * Math.PI) * 8192.0;
+		double encoderTicks = s/(2 * Math.PI * Robot.config.wheelRadius) * 8192.0;
 		encoderTicks *= Math.sqrt(2);
 
 		for(int i = 0; i < motions.length; i ++) {
