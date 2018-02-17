@@ -264,4 +264,29 @@ public class Drive {
 			motions[i].runMotionMagic((int) encoderTicks);
 		}
 	}
+
+	/**
+	 * MoveToPos Method; Moves robot between two positions
+	 *
+	 * @param p1 first position
+	 * @param p2 second position
+	 *
+	 */
+	public void moveToPos(Position p1, Position p2){
+
+		double deltaX = p2.getX() - p1.getX();
+		double deltaY = p2.getY() - p1.getY();
+
+		double theta = Math.atan(deltaY/deltaX);
+
+		double hyp = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+
+		moveStraight(hyp, theta);
+
+
+
+
+
+
+	}
 }
