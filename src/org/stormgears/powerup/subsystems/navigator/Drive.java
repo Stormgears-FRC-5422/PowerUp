@@ -1,12 +1,13 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.utils.StormTalon;
+import org.stormgears.utils.sensor_drivers.NavX;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
@@ -21,15 +22,20 @@ public class Drive {
 	private static final Logger logger = LogManager.getLogger(Drive.class);
 
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
-	private static final int TALON_FPID_TIMEOUT = 0;    // TODO: Adithya said 'Figure out what the hell that thing is'
 	private static int maxVel;
 	private static int maxAccel;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
+	private StormTalon[] talons;
+	private double[] vels;
+
+	public boolean useTractionControl = true;
+
 	private static MotionMagic[] motions;
-	private MotionManager m = new MotionManager();
 
 	private Drive() {
+		talons = Robot.driveTalons.getTalons();
+		vels = new double[talons.length];
 
 		maxVel = 5000000;
 		maxAccel = 100000;
@@ -56,20 +62,20 @@ public class Drive {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
 				theta,
 				z,
-				useAbsoluteControl);
+				useAbsoluteControl, x, y);
 		}
 	}
 
 	// Run mecanum math on each raw speed and set talons accordingly
-	private void mecMove(double tgtVel, double theta, double changeVel, boolean useAbsoluteControl) {
-		StormTalon[] talons = Robot.driveTalons.getTalons();
+	private void mecMove(double tgtVel,
+						 double theta,
+						 double changeVel,
+						 boolean useAbsoluteControl, double x, double y) {
 
 		if (useAbsoluteControl && Robot.sensors.getNavX().thetaIsSet()) {
 			double navXTheta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navXTheta;
 		}
-
-		double[] vels = new double[talons.length];
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi
@@ -115,7 +121,7 @@ public class Drive {
 		}
 
 		//Turning in place
-		if (Robot.dsio.getJoystickX() == 0 && Robot.dsio.getJoystickY() == 0) {
+		if (x == 0 && y == 0) {
 			for (int i = 0; i < vels.length; i++) {
 				vels[i] = -changeVel;
 			}
@@ -125,36 +131,64 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
-//    System.out.println("Target: " + vels[2]);
+		// Traction control
+		if (useTractionControl && driverInputEligibleForTractionControl()) {
+			NavX navX = Robot.sensors.getNavX();
+			float nx = navX.getVelocityX();
+			float ny = navX.getVelocityY();
+			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
+			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
+
+			SmartDashboard.putNumber("stickVelocity", stickVelocity);
+			SmartDashboard.putNumber("actualVelocity", actualVelocity);
+			SmartDashboard.putNumber("tractiontest", Math.abs((actualVelocity - stickVelocity) / stickVelocity));
+			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+				logger.info("Using traction control...");
+
+				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
+				for (int i = 0; i < vels.length; i++) {
+					vels[i] *= multiplier;
+				}
+			}
+		}
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);
 		}
+	}
 
-//    System.out.println("Actual: " + talons[2].getSensorCollection().getQuadratureVelocity());
+	private double convertToEncoderUnits(double speedInMetersPerSecond) {
+		double inPer100ms = speedInMetersPerSecond * 100 / 2.54 / 10;
+		return inPer100ms / Robot.config.wheelRadius / 2 / Math.PI * 8192;
 	}
 
 	private void setDriveTalonsZeroVelocity() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
-			t.set(MODE, 0);
+			t.set(ControlMode.PercentOutput, 0);
 		}
 	}
-
-//	public void driveMotionProfile(double rotations, double theta) {
-//		double navX_theta = Robot.sensors.getNavX().getTheta();
-//		theta = theta + navX_theta;
-//
-//		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
-//		m.pushProfile(profile, false, true);
-//		m.startProfile();
-//	}
 
 	public void debug() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
 			logger.debug("Real Velocities: {}", box(t.getSensorCollection().getQuadratureVelocity()));
 		}
+	}
+
+	private boolean driverInputEligibleForTractionControl() {
+		return Math.abs(Robot.dsio.getJoystickX()) < 0.4 &&
+			Math.abs(Robot.dsio.getJoystickZ()) < 0.4;
+
+	}
+
+	private double average(double[] data) {
+		double total = 0;
+		for (double d : data) {
+			total += d;
+		}
+
+		return total / data.length;
 	}
 
 	/**
@@ -168,7 +202,6 @@ public class Drive {
 	 * @param theta    - the angle at which to move the robot
 	 */
 	public void enableMotionMagic(double distance, double theta) {
-
 		double navXTheta = 0;
 		if (Robot.sensors.getNavX().thetaIsSet()) {
 			// Should not be null because of check.
@@ -176,7 +209,7 @@ public class Drive {
 		}
 		theta = theta - navXTheta;
 
-//TODO: make wheel diameter and other constants that im just making up
+		//TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192;
@@ -226,5 +259,4 @@ public class Drive {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 	}
-
 }

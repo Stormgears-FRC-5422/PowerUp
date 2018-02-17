@@ -92,13 +92,7 @@ public class DSIO {
 		});
 
 		// ORANGE SWITCH
-		orangeSwitch.setOnSwitchFlippedListener(isOn -> {
-			if (isOn) {
-
-			} else {
-
-			}
-		});
+		orangeSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useTractionControl = isOn);
 
 		// RED SWITCH
 		redSwitch.setOnSwitchFlippedListener(isOn -> {
@@ -139,7 +133,7 @@ public class DSIO {
 	public double getJoystickZ() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(joystick.getZ(), Z_NULLZONE);
+		return processJoystick(-joystick.getZ(), Z_NULLZONE);
 	}
 
 	private double processJoystick(double val, final double nullzone) {

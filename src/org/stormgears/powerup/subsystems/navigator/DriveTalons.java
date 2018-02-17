@@ -1,5 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
 
@@ -26,6 +27,7 @@ public class DriveTalons {
 			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
 			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
 			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
+			t.setNeutralMode(NeutralMode.Brake);
 		}
 	}
 

@@ -21,6 +21,7 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 	public int positionIzone;
 	public int encoderResolution;
 	public boolean reverseJoystick;
+	public double wheelRadius;
 
 
 	/*
@@ -52,5 +53,7 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 		encoderResolution = parseInt(properties.getProperty("encoderResolution"));
 
 		reverseJoystick = Boolean.parseBoolean(properties.getProperty("reverseJoystick"));
+
+		wheelRadius = parseDouble(properties.getProperty("wheelRadius"));
 	}
 }

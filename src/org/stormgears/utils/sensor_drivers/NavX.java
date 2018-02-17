@@ -49,6 +49,14 @@ public class NavX {
 		return displacementX;
 	}
 
+	public float getVelocityX() {
+		return ahrs.getVelocityX();
+	}
+
+	public float getVelocityY() {
+		return ahrs.getVelocityY();
+	}
+
 	public void debug() {
 		if (thetaIsSet()) logger.debug("Theta: {}", getTheta());
 		logger.debug("DisplacementX: {}", getDisplacementX());

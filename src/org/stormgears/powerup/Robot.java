@@ -116,9 +116,13 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	int i = 0;
 	@Override
 	public void autonomousPeriodic() {
-
+		if (i == 0) {
+			i++;
+			drive.enableMotionMagic(60, 2 * Math.PI / 3);
+		}
 	}
 
 	/**
@@ -126,19 +130,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-
 		StormScheduler.getInstance().run();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-//				drive.move(false);
-				drive.enableMotionMagic(60, 0);
+				drive.move(false);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
-//		sensors.getNavX().debug();
 	}
 
 	/**
