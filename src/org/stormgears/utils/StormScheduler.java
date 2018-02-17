@@ -28,6 +28,11 @@ public class StormScheduler {
 			protected boolean isFinished() {
 				return true;
 			}
+
+			@Override
+			public synchronized void start() {
+				runnable.run();
+			}
 		});
 	}
 
