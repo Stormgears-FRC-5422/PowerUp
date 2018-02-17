@@ -1,8 +1,6 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -11,6 +9,7 @@ import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
+import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
@@ -18,6 +17,7 @@ import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot {
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
 
-	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
+	public static final ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
@@ -51,6 +51,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorSharedTalons elevatorSharedTalons;
 	public static Elevator elevator;
 	public static Climber climber;
+	public static Gripper gripper;
 
 
 	/**
@@ -61,9 +62,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
+		StormScheduler.init();
+
 		Sensors.init();
 		sensors = Sensors.getInstance();
-
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -72,7 +74,7 @@ public class Robot extends IterativeRobot {
 		drive = Drive.getInstance();
 
 		Intake.init();
-		drive = Drive.getInstance();
+		intake = Intake.getInstance();
 
 		ElevatorSharedTalons.init();
 		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
@@ -85,6 +87,9 @@ public class Robot extends IterativeRobot {
 
 		//GlobalMapping.init();
 		//globalMapping = GlobalMapping.getInstance();
+
+		Gripper.init();
+		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -100,7 +105,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 
+//		globalMapping.run();
+//		if (drive != null && !sensors.getNavX().isCalibrating()) {
+//			Robot.drive.runMotionMagic(60, 0);
+//		}
 	}
 
 	/**
@@ -116,24 +126,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		Scheduler.getInstance().run();
+
+		StormScheduler.getInstance().run();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				Robot.drive.move(true);
+				drive.move(false);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
-
-		SmartDashboard.putNumber("Talon 0", driveTalons.getTalons()[0].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 1", driveTalons.getTalons()[1].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 2", driveTalons.getTalons()[2].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 3", driveTalons.getTalons()[3].getSensorCollection().getQuadratureVelocity());
 //		sensors.getNavX().debug();
-
-
 	}
 
 	/**

@@ -1,17 +1,14 @@
 package org.stormgears.powerup.subsystems.navigator.motionprofile;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ctre.CANTalon;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.PIDController;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormTalon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MotionManager {
 	private List<double[][]> paths = new ArrayList<>();
@@ -25,9 +22,9 @@ public class MotionManager {
 	private int numTalons;
 
 	private RegisteredNotifier notifier = new RegisteredNotifier(new PeriodicRunnable(), "MotionManager");
-	private final double [][] table = generateTable();
-	private static final double deltaT = 0.01/60;
-	private static final double scale = 500d/Math.PI;
+	private final double[][] table = generateTable();
+	private static final double deltaT = 0.01 / 60;
+	private static final double scale = 500d / Math.PI;
 	// TODO - make 1000 and 500 not magic numbers
 
 	// For pid-based turning
@@ -54,12 +51,11 @@ public class MotionManager {
 			// synchronize to avoid MT conflicts with the input of profiles
 
 			// called from synchronized methods - which effectively sync(this)
-			synchronized(this) {
+			synchronized (this) {
 
 				if (!rotateToAngle) {
 					runMotionProfile();
-				}
-				else {
+				} else {
 					runRotateToAngle();
 				}
 			}
@@ -70,10 +66,10 @@ public class MotionManager {
 				control.enable();
 			}
 
-			if (loading == false) return;
+			if (!loading) return;
 
 			// Are we done?
-			if(paths.isEmpty()) {  // TODO: need a more elegant stop condition??
+			if (paths.isEmpty()) {  // TODO: need a more elegant stop condition??
 				loading = false;
 				isLoaded = true;
 				// anything else? disable talons?
@@ -81,11 +77,11 @@ public class MotionManager {
 			}
 
 			// If the last profile was marked "immediate" we need to abandon the current path and clean up
-			if(interrupt) {
+			if (interrupt) {
 				currIndex = 0;
 				control.clearMotionProfileTrajectories();
 				//remove all other profiles from the list except the most recent one
-				while(paths.size() > 1) {
+				while (paths.size() > 1) {
 					paths.remove(0);
 					profileDetails.remove(0);
 				}
@@ -93,13 +89,13 @@ public class MotionManager {
 			}
 
 			// Push the next section
-			if(profileDetails.get(0).turn == true) pushTurn();
+			if (profileDetails.get(0).turn) pushTurn();
 			else pushLinear();
 
 			// If we have pushed the entire path, remove it and let the next path run on the next time through
 			// this could lead to a short cycle, but that is probably OK since we push points more quickly
 			// than they can run anyway.
-			if(currIndex >= paths.get(0).length) {
+			if (currIndex >= paths.get(0).length) {
 				currIndex = 0;
 				paths.remove(0);
 				profileDetails.remove(0);
@@ -107,19 +103,18 @@ public class MotionManager {
 		}
 
 		private void runRotateToAngle() {
-			if (loading == false) return;
+			if (!loading) return;
 
 			// are we there yet?
 			// exponential averaging of recent error values
 			recentError = Math.abs(0.25 * recentError) + Math.abs(0.75 * turnController.getError());
-			if ( recentError < kToleranceDegrees) {
+			if (recentError < kToleranceDegrees) {
 				loading = false;
 				adjustPIDTurnRate(0);  // stop!
 				turnController.disable();
 				paths.remove(0);
 				profileDetails.remove(0);
-			}
-			else {
+			} else {
 				adjustPIDTurnRate(rotateToAngleRate);
 			}
 		}
@@ -127,10 +122,10 @@ public class MotionManager {
 
 	class PIDOutput implements edu.wpi.first.wpilibj.PIDOutput {
 		@Override
-	    /* This function is invoked periodically by the PID Controller, */
-	    /* based upon navX MXP yaw angle input and PID Coefficients.    */
+		/* This function is invoked periodically by the PID Controller, */
+		/* based upon navX MXP yaw angle input and PID Coefficients.    */
 		public void pidWrite(double output) {
-			synchronized(MotionManager.this) {
+			synchronized (MotionManager.this) {
 				System.out.println("in PIDWrite - rotateToAngleRate = " + output);
 				System.out.println("Error: " + MotionManager.this.turnController.getAvgError() +
 					" Output: " + MotionManager.this.turnController.get() +
@@ -162,7 +157,7 @@ public class MotionManager {
 	public synchronized void rotateToAngle(double theta) {
 		double turnAngle = theta * 180.0 / Math.PI;
 
-		double [][] dummyPathArray = new double[0][0];
+		double[][] dummyPathArray = new double[0][0];
 		ProfileDetails d = new ProfileDetails();
 
 		rotateToAngle = true;
@@ -174,7 +169,7 @@ public class MotionManager {
 		// pidControl turning is independent of motion profiling. This just sets things up. Actual work happens elsewhere
 		//TODO: uncomment line and fix
 		//turnController = new PIDController(kP, kI, kD, kF, SensorManager.getGlobalMappingSubsystem().getPIDSource(), new PIDOutput());
-		turnController.setInputRange(-180.0f,  180.0f);
+		turnController.setInputRange(-180.0f, 180.0f);
 		turnController.setOutputRange(-2.5, 2.5);
 		turnController.setAbsoluteTolerance(kToleranceDegrees);
 		turnController.setContinuous(true);
@@ -212,7 +207,7 @@ public class MotionManager {
 		Robot.driveTalons.getTalons()[Robot.config.rearRightTalonId].set(ControlMode.Velocity, vel);
 	}
 
-    /*
+	/*
 	 * Preconditions: All talons must be set to the following
 	 *
 	 * reverseOutput(true)
@@ -226,7 +221,7 @@ public class MotionManager {
 	 *
 	 */
 
-	public synchronized void pushProfile(double [][] pathArray, boolean immediate, boolean done) {
+	public synchronized void pushProfile(double[][] pathArray, boolean immediate, boolean done) {
 		ProfileDetails d = new ProfileDetails();
 		d.done = done;
 		d.turn = false;
@@ -274,13 +269,16 @@ public class MotionManager {
 		double maxVel = 240; //RPM
 		double ogTheta = d.theta;
 
-		if(ogTheta > 0) ogTheta = Math.PI/2.0;
-		else ogTheta = 3 * Math.PI/2.0;
+		if (ogTheta > 0) ogTheta = Math.PI / 2.0;
+		else ogTheta = 3 * Math.PI / 2.0;
 		d.theta %= (2 * Math.PI);
 		double tTheta = d.theta - Math.PI;
-		if(tTheta > 0) {d.theta = Math.PI - tTheta; d.direction = true; }
+		if (tTheta > 0) {
+			d.theta = Math.PI - tTheta;
+			d.direction = true;
+		}
 		d.direction = false;
-		double dist = robotRadius * d.theta/(2.0 * Math.PI * wheelRadius);
+		double dist = robotRadius * d.theta / (2.0 * Math.PI * wheelRadius);
 		System.out.println("ogTheta: " + ogTheta);
 		return TrapezoidalProfile.getTrapezoidZero(dist, maxVel, ogTheta, getRobotRPM());
 	}
@@ -288,26 +286,26 @@ public class MotionManager {
 	public void pushTurn() {
 		System.out.println("pushTurn started");
 		//clear existing profiles
-		double [] positions = new double[4];
+		double[] positions = new double[4];
 		TrajectoryPoint pt = new TrajectoryPoint();
 		double[][] pathArray = paths.get(0);
 		boolean direc = profileDetails.get(0).direction;
 		boolean done = profileDetails.get(0).done;
 
-		for(int i = currIndex; i < currIndex + batchSize; i ++) {
-			if(i >= pathArray.length) break;
+		for (int i = currIndex; i < currIndex + batchSize; i++) {
+			if (i >= pathArray.length) break;
 
-			int colIndex = (int)(pathArray[i][1] * 500/Math.PI);
+			int colIndex = (int) (pathArray[i][1] * 500 / Math.PI);
 
-			for(int j = 0; j < numTalons; j ++) {
+			for (int j = 0; j < numTalons; j++) {
 				pt.position = 0;
 				//TODO: UNCOMMENT AND FIX THESE LINEs
 				//pt.timeDurMs = 10;
 				//pt.velocityOnly = false;
 				pt.zeroPos = (i == currIndex); //needed for successive profiles, only first pt should be set to true
 				pt.velocity = pathArray[i][0] * table[j][colIndex]; //TODO: change signs as appropriate for turning
-				if((j == 0 || j == 2) && direc) pt.velocity = -pt.velocity;
-				else if((j == 1 || j == 3) && !direc) pt.velocity = -pt.velocity;
+				if ((j == 0 || j == 2) && direc) pt.velocity = -pt.velocity;
+				else if ((j == 1 || j == 3) && !direc) pt.velocity = -pt.velocity;
 				positions[j] += pt.velocity * deltaT;
 				pt.position = positions[j];
 				pt.isLastPoint = false;//(done && (i + 1 == pathArray.length));  // TODO
@@ -324,15 +322,15 @@ public class MotionManager {
 		System.out.println("pushLinear started");
 		double[][] pathArray = paths.get(0);
 		TrajectoryPoint pt = new TrajectoryPoint();
-		double [] positions = new double[4];
+		double[] positions = new double[4];
 		boolean done = profileDetails.get(0).done;
 
-		for(int i = currIndex; i < currIndex + batchSize; i ++) {
-			if(i >= pathArray.length) break;
+		for (int i = currIndex; i < currIndex + batchSize; i++) {
+			if (i >= pathArray.length) break;
 
-			int colIndex = (int)(((pathArray[i][1] + 2*Math.PI) % (2*Math.PI)) * 500/Math.PI);
+			int colIndex = (int) (((pathArray[i][1] + 2 * Math.PI) % (2 * Math.PI)) * 500 / Math.PI);
 
-			for(int j = 0; j < numTalons; j ++) {
+			for (int j = 0; j < numTalons; j++) {
 				pt.position = 0;
 				//TODO: UNCOMMENT AND FIX THESE LINES
 				//pt.timeDurMs = 10;
@@ -369,16 +367,16 @@ public class MotionManager {
 		boolean wait = false;
 		int count = 0;
 
-		while(true) {
-			synchronized(this) {
+		while (true) {
+			synchronized (this) {
 				if (loading || control.getPointsRemaining() > 0) {
 					wait = true;
 				}
 			}
 
 			if (wait) {
-				wait = false;  // reset
-				if ( count % 10 == 0) {
+//				wait = false;  // reset // TODO: Assignment never used?
+				if (count % 10 == 0) {
 					System.out.println("Waited " + count + " intervals");
 				}
 
@@ -405,8 +403,8 @@ public class MotionManager {
 		double root = Math.sqrt(2);
 		double x = 0;
 		double y = 0;
-		for(int i = 0; i < vels.length; i ++) {
-			if(i == 0 || i == 3) x -= vels[i] / root;
+		for (int i = 0; i < vels.length; i++) {
+			if (i == 0 || i == 3) x -= vels[i] / root;
 			else x += vels[i] / root;
 			y += vels[i] / root;
 		}
@@ -418,7 +416,7 @@ public class MotionManager {
 
 	private int[] getEncVels() {
 		int[] vels = new int[numTalons];
-		for(int i = 0; i < numTalons ; i ++) {
+		for (int i = 0; i < numTalons; i++) {
 			vels[i] = control.getEncVel(i);
 		}
 		return vels;
@@ -426,8 +424,8 @@ public class MotionManager {
 
 
 	//helper methods for generating table
-	private double [][] generateTable() {
-		double [][] table = new double[4][1000];
+	private double[][] generateTable() {
+		double[][] table = new double[4][1000];
 		table[0] = getFuncs1(true);
 		table[1] = getFuncs2(true);  //FOR TURN: false
 		table[2] = getFuncs2(false); //FOR TURN: true
@@ -436,10 +434,12 @@ public class MotionManager {
 	}
 
 	private double[] getFuncs1(boolean neg) {
-		double[] temp =  new double[1000];
-		for(int i = 0; i < 1000; i ++) {
-			if(neg) temp[i] = -Math.sqrt(2) * (Math.sin(2 * Math.PI  * i / 1000.0 + Math.PI / 2.0) - Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
-			else temp[i] = Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) - Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
+		double[] temp = new double[1000];
+		for (int i = 0; i < 1000; i++) {
+			if (neg)
+				temp[i] = -Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) - Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
+			else
+				temp[i] = Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) - Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
 		}
 		return temp;
 
@@ -447,9 +447,11 @@ public class MotionManager {
 
 	private double[] getFuncs2(boolean neg) {
 		double[] temp = new double[1000];
-		for(int i = 0; i < 1000; i ++) {
-			if(neg) temp[i] = -Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) + Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
-			else temp[i] = Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) + Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
+		for (int i = 0; i < 1000; i++) {
+			if (neg)
+				temp[i] = -Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) + Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
+			else
+				temp[i] = Math.sqrt(2) * (Math.sin(2 * Math.PI * i / 1000.0 + Math.PI / 2.0) + Math.cos(2 * Math.PI * i / 1000.0 + Math.PI / 2.0));
 		}
 		return temp;
 	}

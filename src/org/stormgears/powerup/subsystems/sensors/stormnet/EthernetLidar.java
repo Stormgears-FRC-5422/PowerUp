@@ -1,6 +1,5 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
-import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
 public class EthernetLidar extends StormNetSensor {
@@ -11,6 +10,7 @@ public class EthernetLidar extends StormNetSensor {
 		// TODO magic number
 		setSensorCount(4);
 		sensorValues = new short[m_numSensors];
+		this.m_deviceString = voice.getDeviceString();
 	}
 
 	//TODO: Change the loop back to sleep, right now we just want to run this forever

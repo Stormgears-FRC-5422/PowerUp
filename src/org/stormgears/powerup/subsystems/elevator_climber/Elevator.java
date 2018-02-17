@@ -5,6 +5,7 @@ import org.stormgears.powerup.Robot;
 
 public class Elevator extends Subsystem {
 	private static Elevator instance;
+
 	public static Elevator getInstance() {
 		return instance;
 	}

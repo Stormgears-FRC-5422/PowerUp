@@ -1,12 +1,5 @@
 package org.stormgears.powerup.auto.command;
 
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
-
-import java.util.TimerTask;
-
 public class WallFollowCommand {
 //	private I2C i2c;
 //	private byte[] distance;

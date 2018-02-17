@@ -4,6 +4,7 @@ import org.stormgears.utils.StormTalon;
 
 public class ElevatorSharedTalons {
 	private static ElevatorSharedTalons instance;
+
 	public static ElevatorSharedTalons getInstance() {
 		return instance;
 	}

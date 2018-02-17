@@ -9,7 +9,7 @@ public class Choosers {
 	 * Declare private choosers here
 	 */
 	private SendableChooser<FieldPositions.StartingSpots> startingSpotChooser;
-//	private SendableChooser<FieldPositions.StartingDirections> startingDirectionChooser;
+	//	private SendableChooser<FieldPositions.StartingDirections> startingDirectionChooser;
 	private SendableChooser<FieldPositions.PlacementSpot> placementSpotChooser;
 	private SendableChooser<FieldPositions.Alliance> allianceChooser;
 	private SendableChooser<FieldPositions.LeftRight> ownSwitchPlateAssignmentChooser;
@@ -48,7 +48,7 @@ public class Choosers {
 		allianceChooser.addDefault("Red Alliance", FieldPositions.Alliance.RED);
 		allianceChooser.addObject("Blue Alliance", FieldPositions.Alliance.BLUE);
 		SmartDashboard.putData("Alliance Side", allianceChooser);
-		
+
 		ownSwitchPlateAssignmentChooser = new SendableChooser<>();
 		ownSwitchPlateAssignmentChooser.addDefault("Own Switch Plate Assignment: L", FieldPositions.LeftRight.L);
 		ownSwitchPlateAssignmentChooser.addObject("Own Switch Plate Assignment: R", FieldPositions.LeftRight.R);
@@ -75,11 +75,11 @@ public class Choosers {
 //		return startingDirectionChooser.getSelected();
 //	}
 
-	public FieldPositions.PlacementSpot getPlacementSpot(){
+	public FieldPositions.PlacementSpot getPlacementSpot() {
 		return placementSpotChooser.getSelected();
 	}
 
-	public FieldPositions.Alliance getAlliance(){
+	public FieldPositions.Alliance getAlliance() {
 		return allianceChooser.getSelected();
 	}
 

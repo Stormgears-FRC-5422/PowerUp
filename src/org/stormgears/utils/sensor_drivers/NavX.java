@@ -6,40 +6,35 @@ import edu.wpi.first.wpilibj.SPI;
 public class NavX {
 	private AHRS ahrs;
 	private float velocityX, displacementX;
-	private Double initialTheta;
+	private double initialTheta;
+	private boolean thetaIsSet = false;
 
 	public NavX() {
 		ahrs = new AHRS(SPI.Port.kMXP);
-
-		initialTheta = null;
 	}
 
 	/**
 	 * Gets the angle of the robot in radians
-	 *
+	 * <p>
 	 * Make sure that you wrap calls to this method in "if (navX.thetaIsSet())"
 	 *
-	 * @return the angle of the robot in radians
+	 * @return the angle of the robot in radians, null if NavX is not calibrated
 	 */
-	public Double getTheta() {
-
-		if (initialTheta == null) {
-
-			System.out.print("Theta is NULL!!!!!");
-			return null;
-
+	public double getTheta() {
+		if (!thetaIsSet) {
+			throw new IllegalStateException("Theta is not set.");
 		}
 
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;
 
 		theta = theta % (2 * Math.PI);
-		if(theta < 0) theta += 2 * Math.PI;
+		if (theta < 0) theta += 2 * Math.PI;
 		return theta;
 	}
 
 	/**
 	 * TODO: This method is sketchy at times, we need to fix it
-	 *
+	 * <p>
 	 * Gets the displacement in the X direction of the robot from 0,0
 	 *
 	 * @return the displacement in the X direction of the robot
@@ -60,10 +55,11 @@ public class NavX {
 	}
 
 	public boolean thetaIsSet() {
-		return initialTheta != null;
+		return thetaIsSet;
 	}
 
 	public void setInitialTheta() {
 		initialTheta = ahrs.getAngle();
+		thetaIsSet = true;
 	}
 }
