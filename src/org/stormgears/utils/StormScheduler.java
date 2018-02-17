@@ -18,7 +18,7 @@ public class StormScheduler {
 		instance = new StormScheduler();
 	}
 
-	public void queueWpiCommand(Command command) {
+	public void queue(Command command) {
 		Scheduler.getInstance().add(command);
 	}
 
