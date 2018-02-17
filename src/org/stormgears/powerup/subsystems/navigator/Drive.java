@@ -222,11 +222,9 @@ public class Drive {
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
-			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
+			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]));
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 	}
 
 }
-
-

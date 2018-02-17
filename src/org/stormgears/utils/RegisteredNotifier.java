@@ -1,9 +1,12 @@
 package org.stormgears.utils;
 
 import edu.wpi.first.wpilibj.Notifier;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 
 public class RegisteredNotifier extends Notifier {
+	private static final Logger logger = LogManager.getLogger(RegisteredNotifier.class);
 	private String name;
 
 	public RegisteredNotifier(Runnable run) {
@@ -19,9 +22,9 @@ public class RegisteredNotifier extends Notifier {
 		this.name = name;
 
 		if (run == null) {
-			System.out.println(name + " runnable IS NULL");
+			logger.warn("{} runnable IS NULL", name);
 		} else {
-			System.out.println(name + " runnable IS NOT NULL");
+			logger.warn("{} runnable IS NOT NULL", name);
 		}
 
 	}

@@ -3,11 +3,13 @@ package org.stormgears.powerup.subsystems.sensors.vision;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
-import java.util.Arrays;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class Vision {
+
+	private static final Logger logger = LogManager.getLogger(Vision.class);
 
 	public Vision() {
 
@@ -33,8 +35,8 @@ public class Vision {
 //		centers[0] = centerXArray;
 //		centers[1] = centerYArray;
 
-		System.out.println("centerX: " + Arrays.toString(centerXArray));
-		System.out.println("centerY: " + Arrays.toString(centerYArray));
+		logger.debug("centerX: {}", centerXArray);
+		logger.debug("centerY: {}", centerYArray);
 	}
 
 

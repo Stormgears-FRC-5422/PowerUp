@@ -1,8 +1,13 @@
 package org.stormgears.powerup.subsystems.field;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import static org.apache.logging.log4j.util.Unbox.box;
 
 public class FmsInterface {
+	private static final Logger logger = LogManager.getLogger(FmsInterface.class);
 	private static FmsInterface instance = new FmsInterface();
 
 	public static FmsInterface getInstance() {
@@ -22,7 +27,7 @@ public class FmsInterface {
 					e.printStackTrace();
 				}
 
-				System.out.println("Try #" + (++tryNum) + " getting data from the FMS.");
+				logger.info("Try #{} getting data from the FMS.", box(++tryNum));
 
 				data = DriverStation.getInstance().getGameSpecificMessage();
 			}
@@ -72,6 +77,6 @@ public class FmsInterface {
 				break;
 		}
 
-		System.out.println(data);
+		logger.info("FMS Data: {}", data);
 	}
 }

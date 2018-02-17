@@ -3,6 +3,8 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.PIDController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormTalon;
@@ -10,7 +12,11 @@ import org.stormgears.utils.StormTalon;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.apache.logging.log4j.util.Unbox.box;
+
 public class MotionManager {
+	private static final Logger logger = LogManager.getLogger(MotionManager.class);
+
 	private List<double[][]> paths = new ArrayList<>();
 	private List<ProfileDetails> profileDetails = new ArrayList<>();
 	private boolean loading = false;
@@ -126,10 +132,11 @@ public class MotionManager {
 		/* based upon navX MXP yaw angle input and PID Coefficients.    */
 		public void pidWrite(double output) {
 			synchronized (MotionManager.this) {
-				System.out.println("in PIDWrite - rotateToAngleRate = " + output);
-				System.out.println("Error: " + MotionManager.this.turnController.getAvgError() +
-					" Output: " + MotionManager.this.turnController.get() +
-					" Set: " + MotionManager.this.turnController.getSetpoint());
+				logger.trace("in PIDWrite - rotateToAngleRate = {}", output);
+				logger.trace("Error: {} Output: {} Set: {}",
+					box(MotionManager.this.turnController.getAvgError()),
+					box(MotionManager.this.turnController.get()),
+					box(MotionManager.this.turnController.getSetpoint()));
 				rotateToAngleRate = output;
 			}
 		}
@@ -279,12 +286,12 @@ public class MotionManager {
 		}
 		d.direction = false;
 		double dist = robotRadius * d.theta / (2.0 * Math.PI * wheelRadius);
-		System.out.println("ogTheta: " + ogTheta);
+		logger.trace("ogTheta: {}", ogTheta);
 		return TrapezoidalProfile.getTrapezoidZero(dist, maxVel, ogTheta, getRobotRPM());
 	}
 
 	public void pushTurn() {
-		System.out.println("pushTurn started");
+		logger.trace("pushTurn started");
 		//clear existing profiles
 		double[] positions = new double[4];
 		TrajectoryPoint pt = new TrajectoryPoint();
@@ -319,7 +326,7 @@ public class MotionManager {
 	}
 
 	public void pushLinear() {
-		System.out.println("pushLinear started");
+		logger.trace("pushLinear started");
 		double[][] pathArray = paths.get(0);
 		TrajectoryPoint pt = new TrajectoryPoint();
 		double[] positions = new double[4];
@@ -377,16 +384,16 @@ public class MotionManager {
 			if (wait) {
 //				wait = false;  // reset // TODO: Assignment never used?
 				if (count % 10 == 0) {
-					System.out.println("Waited " + count + " intervals");
+					logger.debug("Waited {} intervals", count);
 				}
 
 				try {
 					Thread.sleep(pollMillis);
 				} catch (InterruptedException e) {
-					System.out.println("Ignoring Interrupted exception in waitUntilProfileFinishes: " + e.getMessage());
+					logger.warn("Ignoring Interrupted exception in waitUntilProfileFinishes: {}", e);
 				}
 			} else {
-				System.out.println("Return from waitUntilProfileFinishes after waiting " + count + " interval(s)");
+				logger.debug("Return from waitUntilProfileFinishes after waiting {} interval(s)", count);
 				if (!rotateToAngle) {
 					shutDownProfiling();
 				}

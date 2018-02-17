@@ -2,8 +2,12 @@ package org.stormgears.utils.sensor_drivers;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class NavX {
+	private static final Logger logger = LogManager.getLogger(NavX.class);
+
 	private AHRS ahrs;
 	private float velocityX, displacementX;
 	private double initialTheta;
@@ -46,8 +50,8 @@ public class NavX {
 	}
 
 	public void debug() {
-		if (thetaIsSet()) System.out.println("Theta: " + getTheta());
-		System.out.println("DisplacementX: " + getDisplacementX());
+		if (thetaIsSet()) logger.debug("Theta: {}", getTheta());
+		logger.debug("DisplacementX: {}", getDisplacementX());
 	}
 
 	public boolean isCalibrating() {
