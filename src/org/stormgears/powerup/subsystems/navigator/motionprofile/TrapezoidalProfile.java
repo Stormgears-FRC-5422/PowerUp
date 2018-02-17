@@ -54,21 +54,19 @@ public class TrapezoidalProfile {
 		double xscv = 0.5 * a * tscv * tscv;
 //			System.out.println("t: " + tscv + " x: " + xscv);
 
-		double tTotal = 0;
-
 		double xd = v * v / (2.0 * a); //d travelled decell
 		double xc = d - xscv - xd;       //d travelled @ const
 		double xsd = d - xd;
 		double tsd = tscv + xc / v;
-		tTotal = tsd + v / a;
+		double tTotal = tsd + v / a;
 
 		if (xsd < xscv) {
 			tsd = (Math.sqrt((2 * a * d + vs * vs) / 2.0) - vs) / a;
-			xsd = 0.5 * a * tsd * tsd + vs * t;
+//			xsd = 0.5 * a * tsd * tsd + vs * t; // TODO: xsd is never used after this assignment
 			tTotal = 2 * Math.sqrt((2 * a * d + vs * vs) / 2.0) / a - vs / a;
 		}
 
-		double velocity = 0;
+		double velocity;
 		if (t < tscv && t < tsd) {
 			if (!goDown) velocity = a * t + vs;
 			else velocity = -a * t + vs;
@@ -88,18 +86,16 @@ public class TrapezoidalProfile {
 		double tscv = Math.abs((v - vs) / a);
 		double xscv = 0.5 * a * tscv * tscv;
 
-		double tTotal = 0;
-
 		double xd = v * v / (2.0 * a); //d travelled decell
 		double xc = d - xscv - xd;       //d travelled @ const
 		double xsd = d - xd;
 		double tsd = tscv + xc / v;
-		tTotal = tsd + v / a;
+		double tTotal = tsd + v / a;
 
 		if (xsd < xscv) {
 			//Fixed math errors in triangular profile
 			tsd = (Math.sqrt((2 * a * (d/2.0) + vs * vs) ) - vs) / a;
-			xsd = 0.5 * a * tsd * tsd;
+//			xsd = 0.5 * a * tsd * tsd; // TODO: xsd is never used after assignment
 			tTotal = 2 * tsd;
 		}
 

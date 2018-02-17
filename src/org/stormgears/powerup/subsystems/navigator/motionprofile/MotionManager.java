@@ -1,17 +1,14 @@
 package org.stormgears.powerup.subsystems.navigator.motionprofile;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ctre.CANTalon;
 import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.PIDController;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormTalon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MotionManager {
 	private List<double[][]> paths = new ArrayList<>();
@@ -70,7 +67,7 @@ public class MotionManager {
 				control.enable();
 			}
 
-			if (loading == false) return;
+			if (!loading) return;
 
 			// Are we done?
 			if(paths.isEmpty()) {  // TODO: need a more elegant stop condition??
@@ -93,7 +90,7 @@ public class MotionManager {
 			}
 
 			// Push the next section
-			if(profileDetails.get(0).turn == true) pushTurn();
+			if(profileDetails.get(0).turn) pushTurn();
 			else pushLinear();
 
 			// If we have pushed the entire path, remove it and let the next path run on the next time through
@@ -107,7 +104,7 @@ public class MotionManager {
 		}
 
 		private void runRotateToAngle() {
-			if (loading == false) return;
+			if (!loading) return;
 
 			// are we there yet?
 			// exponential averaging of recent error values
@@ -377,7 +374,7 @@ public class MotionManager {
 			}
 
 			if (wait) {
-				wait = false;  // reset
+//				wait = false;  // reset // TODO: Assignment never used?
 				if ( count % 10 == 0) {
 					System.out.println("Waited " + count + " intervals");
 				}

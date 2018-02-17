@@ -1,8 +1,6 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -34,7 +32,7 @@ public class Robot extends IterativeRobot {
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
 
-	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
+	public static final ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 
 	/*
 	 * Everybody, _please_ follow the singleton pattern!

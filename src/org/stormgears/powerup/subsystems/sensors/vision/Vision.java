@@ -28,9 +28,10 @@ public class Vision {
 		double [] centerXArray = centerX.getDoubleArray(defaultXArray);
 		double [] centerYArray = centerY.getDoubleArray(defaultYArray);
 
-		double [][] centers = new double [2][];
-		centers[0] = centerXArray;
-		centers[1] = centerYArray;
+		// TODO: What is the purpose of centers?
+//		double [][] centers = new double [2][];
+//		centers[0] = centerXArray;
+//		centers[1] = centerYArray;
 
 		System.out.println("centerX: " + Arrays.toString(centerXArray));
 		System.out.println("centerY: " + Arrays.toString(centerYArray));

@@ -3,6 +3,8 @@ package org.stormgears.utils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static org.apache.logging.log4j.util.Unbox.box;
+
 public class TestDrive extends AbstractDrive {
 	private static final Logger logger = LogManager.getLogger(TestDrive.class);
 
@@ -13,7 +15,7 @@ public class TestDrive extends AbstractDrive {
 	 */
 	@Override
 	void turn(double theta) {
-		logger.debug("theta = {}", theta);
+		logger.debug("theta = {}", box(theta));
 	}
 
 	/**
@@ -24,6 +26,6 @@ public class TestDrive extends AbstractDrive {
 	 */
 	@Override
 	void move(double vX, double vY) {
-		logger.debug("vX = {}, vY = {}", vX, vY);
+		logger.debug("vX = {}, vY = {}", box(vX), box(vY));
 	}
 }

@@ -34,7 +34,7 @@ public class FieldPositions {
 		RIGHT(0);
 
 		private double theta;
-		private StartingDirections(double theta){
+		StartingDirections(double theta){
 			this.theta = theta;
 		}
 
@@ -51,7 +51,7 @@ public class FieldPositions {
 
 		private Position destination;
 
-		private PlacementSpot(Position destination) {
+		PlacementSpot(Position destination) {
 			this.destination = destination;
 		}
 	}

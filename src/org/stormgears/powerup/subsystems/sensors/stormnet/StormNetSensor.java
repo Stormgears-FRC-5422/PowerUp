@@ -129,7 +129,7 @@ public class StormNetSensor {
      * does nothing.
      *
      * @param  message	A message string to print to System.out.
-     * @see	   log
+     * @see this#log
      */
     protected void debug(String message) {
         if (m_debug)
@@ -161,7 +161,7 @@ public class StormNetSensor {
 	 * @param  sendSize		Number of bytes to send.
 	 * @param  dataReceived	Pre-allocated buffer to receive data sent from slave to end the transaction.
 	 * @param  receiveSize	Number of bytes to read from I2C bus.
-	 * @see    I2C
+	 * @see    edu.wpi.first.wpilibj.I2C
 	 */	    
     public boolean transaction(byte[] dataToSend, int sendSize,	byte[] dataReceived, int receiveSize) {
         boolean result;
@@ -220,7 +220,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  receiveBuffer Bytes read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see transaction
+     * @see this#transaction
      */
     protected boolean fetchCommand(byte[] command, String commandName, byte[] receiveBuffer) {
         debug(commandName);
@@ -245,7 +245,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  byteArray    Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchBytes(String command, String commandName, byte[] byteArray){
         // fetching bytes doesn't require additional processing
@@ -265,7 +265,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  shortArray   Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchShorts(String command, String commandName, short[] shortArray){
         byte[] receiveBuffer = new byte[shortArray.length * Short.BYTES];
@@ -294,7 +294,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  intArray   Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchInts(String command, String commandName, int[] intArray){
         byte[] receiveBuffer = new byte[intArray.length * Integer.BYTES];
@@ -323,7 +323,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  longArray   Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchLongs(String command, String commandName, long[] longArray){
         byte[] receiveBuffer = new byte[longArray.length * Long.BYTES];
@@ -352,7 +352,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  floatArray   Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchFloats(String command, String commandName, float[] floatArray){
         byte[] receiveBuffer = new byte[floatArray.length * Float.BYTES];
@@ -381,7 +381,7 @@ public class StormNetSensor {
      * @param  commandName	Friendly name of command for debug logging.
      * @param  doubleArray   Values read from the slave by the master.
      * @return Result of command. True for STORMNET_SUCCESS (note the flip in sense)
-     * @see fetchCommand
+     * @see this#fetchCommand
      */
     protected boolean fetchDoubles(String command, String commandName, double[] doubleArray){
         byte[] receiveBuffer = new byte[doubleArray.length * Double.BYTES];
