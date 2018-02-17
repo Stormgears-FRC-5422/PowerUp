@@ -1,10 +1,10 @@
 package org.stormgears.powerup.subsystems.elevator_climber;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.stormgears.utils.StormTalon;
 
 public class ElevatorSharedTalons {
 	private static ElevatorSharedTalons instance;
-
 	public static ElevatorSharedTalons getInstance() {
 		return instance;
 	}
@@ -19,8 +19,10 @@ public class ElevatorSharedTalons {
 
 	private ElevatorSharedTalons(int leftMotorId, int rightMotorId) {
 		// TODO: Correctly setup talons
-//		leftMotor = new StormTalon(leftMotorId);
-//		rightMotor = new StormTalon(rightMotorId);
+		leftMotor = new StormTalon(leftMotorId);
+		rightMotor = new StormTalon(rightMotorId);
+		rightMotor.set(ControlMode.Follower, leftMotorId);
+
 	}
 
 	public static void init() {
