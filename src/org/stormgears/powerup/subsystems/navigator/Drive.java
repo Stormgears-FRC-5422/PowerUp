@@ -174,10 +174,12 @@ public class Drive {
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta    - the angle at which to move the robot
 	 */
-	public void enableMotionMagic(double distance, double theta) {
+	public void moveStraight(double distance, double theta) {
 
-		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta - navX_theta;
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navX_theta;
+		}
 
 //TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
@@ -236,8 +238,10 @@ public class Drive {
 	 * @param theta Angle desired for robot turn
 	 */
 	public void turnTo(double theta) {
-//		double navX_theta = Robot.sensors.getNavX().getTheta();
-//		theta = navX_theta + theta;
+		if (useAbsoluteControl) {
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navX_theta;
+		}
 
 		double robotLength = Double.parseDouble(Robot.config.robotLength);
 		double robotWidth = Double.parseDouble(Robot.config.robotWidth);
