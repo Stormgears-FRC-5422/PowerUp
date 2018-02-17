@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 public class FmsInterface {
 	private static FmsInterface instance = new FmsInterface();
+
 	public static FmsInterface getInstance() {
 		return instance;
 	}
@@ -43,20 +44,32 @@ public class FmsInterface {
 	private void parseRandomSidesFromData() {
 		// Own switch
 		switch (data.charAt(0)) {
-			case 'L': FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE; break;
-			case 'R': FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_RIGHT_PLATE; break;
+			case 'L':
+				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE;
+				break;
+			case 'R':
+				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_RIGHT_PLATE;
+				break;
 		}
 
 		// Own switch
 		switch (data.charAt(1)) {
-			case 'L': FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE; break;
-			case 'R': FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_RIGHT_PLATE; break;
+			case 'L':
+				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE;
+				break;
+			case 'R':
+				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_RIGHT_PLATE;
+				break;
 		}
 
 		// Own switch
 		switch (data.charAt(2)) {
-			case 'L': FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE; break;
-			case 'R': FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_RIGHT_PLATE; break;
+			case 'L':
+				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
+				break;
+			case 'R':
+				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_RIGHT_PLATE;
+				break;
 		}
 
 		System.out.println(data);

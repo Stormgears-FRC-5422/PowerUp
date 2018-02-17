@@ -1,8 +1,6 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -11,6 +9,7 @@ import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
+import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
@@ -33,7 +32,7 @@ public class Robot extends IterativeRobot {
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
 
-	public static ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
+	public static final ArrayList<RegisteredNotifier> notifierRegistry = new ArrayList<>();
 
 	/*
 	 * Everybody, _please_ follow the singleton pattern!
@@ -52,6 +51,7 @@ public class Robot extends IterativeRobot {
 	public static ElevatorSharedTalons elevatorSharedTalons;
 	public static Elevator elevator;
 	public static Climber climber;
+	public static Gripper gripper;
 
 
 	/**
@@ -87,6 +87,9 @@ public class Robot extends IterativeRobot {
 
 		//GlobalMapping.init();
 		//globalMapping = GlobalMapping.getInstance();
+
+		Gripper.init();
+		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -108,7 +111,6 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
-//		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
 	}
 
 	/**
@@ -122,8 +124,6 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
-	int i = 0;
-
 	@Override
 	public void teleopPeriodic() {
 
@@ -132,22 +132,13 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					Robot.drive.enableMotionMagic(60, 0);
-					i++;
-				}
+//				drive.move(false);
+				drive.enableMotionMagic(60,0);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
-
-		SmartDashboard.putNumber("Talon 0", driveTalons.getTalons()[0].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 1", driveTalons.getTalons()[1].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 2", driveTalons.getTalons()[2].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 3", driveTalons.getTalons()[3].getSensorCollection().getQuadratureVelocity());
 //		sensors.getNavX().debug();
-
-
 	}
 
 	/**

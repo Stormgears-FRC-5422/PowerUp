@@ -6,10 +6,9 @@ import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
 
-import java.util.Arrays;
+import static org.apache.logging.log4j.util.Unbox.box;
 
 // TODO: CLEAN THIS UP
 public class Drive {
@@ -65,7 +64,7 @@ public class Drive {
 	private void mecMove(double tgtVel, double theta, double changeVel, boolean useAbsoluteControl) {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 
-		if (useAbsoluteControl && Robot.sensors.getNavX().getTheta() != null) {
+		if (useAbsoluteControl && Robot.sensors.getNavX().thetaIsSet()) {
 			double navXTheta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navXTheta;
 		}
@@ -154,7 +153,7 @@ public class Drive {
 	public void debug() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 		for (StormTalon t : talons) {
-			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
+			logger.debug("Real Velocities: {}", box(t.getSensorCollection().getQuadratureVelocity()));
 		}
 	}
 
@@ -171,7 +170,7 @@ public class Drive {
 	public void enableMotionMagic(double distance, double theta) {
 
 		double navXTheta = 0;
-		if (Robot.sensors.getNavX().getTheta() != null) {
+		if (Robot.sensors.getNavX().thetaIsSet()) {
 			// Should not be null because of check.
 			navXTheta = Robot.sensors.getNavX().getTheta();
 		}
@@ -206,12 +205,12 @@ public class Drive {
 		double a2;
 
 
-		double maxDistance = ((Math.abs(modifiers[max] * distance))* 8192)/(8*Math.PI);
+		double maxDistance = ((Math.abs(modifiers[max] * distance)) * 8192) / (8 * Math.PI);
 		for (int i = 0; i < Robot.driveTalons.getTalons().length; i++) {
 
-			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(8*Math.PI);
+			currentDistance = ((Math.abs(modifiers[i] * distance)) * 8192) / (8 * Math.PI);
 			t1 = maxVel / maxAccel;
-			totTime = (t1) + (maxDistance/maxVel) * 10; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance / maxVel) * 10; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 

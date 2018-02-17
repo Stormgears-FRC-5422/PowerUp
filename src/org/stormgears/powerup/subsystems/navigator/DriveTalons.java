@@ -5,6 +5,7 @@ import org.stormgears.utils.StormTalon;
 
 public class DriveTalons {
 	private static DriveTalons instance;
+
 	public static DriveTalons getInstance() {
 		return instance;
 	}

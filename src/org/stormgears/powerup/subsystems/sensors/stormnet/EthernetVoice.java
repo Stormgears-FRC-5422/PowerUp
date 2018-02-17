@@ -28,7 +28,7 @@ public class EthernetVoice extends StormNetVoice {
 		return "ETH " + m_clientSocket.getInetAddress().toString() + ":" + Integer.toString(m_clientSocket.getPort());
 	}
 
-	protected boolean transaction_internal(byte[] dataToSend, int sendSize,	byte[] dataReceived, int receiveSize) {
+	protected boolean transaction_internal(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize) {
 		boolean result;
 
 		try {

@@ -4,6 +4,7 @@ import org.stormgears.utils.configuration_file.AbstractRobotConfiguration;
 
 public class RobotConfiguration extends AbstractRobotConfiguration {
 	private static RobotConfiguration instance = new RobotConfiguration();
+
 	public static RobotConfiguration getInstance() {
 		return instance;
 	}

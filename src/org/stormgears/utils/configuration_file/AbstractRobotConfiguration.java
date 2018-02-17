@@ -15,7 +15,7 @@ public abstract class AbstractRobotConfiguration {
 	private static final String PATH = "/home/lvuser";
 	private static final String NAME = "config.properties";
 	private static final String COMMENTS =
-			" If a property varies from robot to robot, add it here.\n" +
+		" If a property varies from robot to robot, add it here.\n" +
 			"# If it is the same across every robot, make it a static field in the appropriate class.";
 
 	// Default properties variables
@@ -29,7 +29,7 @@ public abstract class AbstractRobotConfiguration {
 
 		FileInputStream inputStream = null;
 		try {
-			if (!configFile.createNewFile()) {	// This block will only run if the file exists already
+			if (!configFile.createNewFile()) {    // This block will only run if the file exists already
 				inputStream = new FileInputStream(configFile);
 				properties.load(inputStream);
 			}

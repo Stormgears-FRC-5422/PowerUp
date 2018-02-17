@@ -7,26 +7,26 @@ public class RegisteredNotifier extends Notifier {
 	private String name;
 
 	public RegisteredNotifier(Runnable run) {
-		this(run,"Unnamed");
+		this(run, "Unnamed");
 	}
 
 	public RegisteredNotifier(Runnable run, String name) {
 		super(run);
-		synchronized(Robot.notifierRegistry) {
+		synchronized (Robot.notifierRegistry) {
 			Robot.notifierRegistry.add(this);
 		}
 
 		this.name = name;
 
-		if(run==null){
+		if (run == null) {
 			System.out.println(name + " runnable IS NULL");
-		}else{
+		} else {
 			System.out.println(name + " runnable IS NOT NULL");
 		}
 
 	}
 
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 

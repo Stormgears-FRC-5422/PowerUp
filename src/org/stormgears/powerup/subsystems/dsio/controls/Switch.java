@@ -6,6 +6,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.event_listeners.OnSwitchFlippedListener;
 
+import static org.apache.logging.log4j.util.Unbox.box;
+
 public class Switch extends BaseControl {
 	private static final Logger logger = LogManager.getLogger(Switch.class);
 
@@ -25,7 +27,7 @@ public class Switch extends BaseControl {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch #{} flipped off", number);
+				logger.info("Switch #{} flipped off", box(number));
 				if (delegate != null) delegate.onSwitchFlipped(false);
 			}
 		});
@@ -38,7 +40,7 @@ public class Switch extends BaseControl {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch #{} flipped on", number);
+				logger.info("Switch #{} flipped on", box(number));
 				if (delegate != null) delegate.onSwitchFlipped(true);
 			}
 		});

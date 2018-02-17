@@ -6,6 +6,7 @@ import org.stormgears.powerup.Robot;
 
 public class Climber extends Subsystem {
 	private static Climber instance;
+
 	public static Climber getInstance() {
 		return instance;
 	}

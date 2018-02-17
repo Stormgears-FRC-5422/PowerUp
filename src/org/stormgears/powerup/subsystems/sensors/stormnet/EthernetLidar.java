@@ -1,6 +1,5 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
-import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
 public class EthernetLidar extends StormNetSensor {

@@ -1,10 +1,11 @@
 package org.stormgears.utils.sensor_drivers;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -60,23 +61,22 @@ public class LidarSensorTest {
 	}
 
 
-
 	/**
 	 * Turn a byte array into something more readable for display, using the characters
 	 * 0-9, A-F to construct the hex value of each byte.
-	 *
+	 * <p>
 	 * For example, if your byte array is {'A', 'B', 'C'} then
 	 * this function will return "414243".
-	 *
+	 * <p>
 	 * Thanks to StackOverflow for this implementation. It was originally called
 	 * byteToHexString()
 	 *
-	 * @param  in	a byte array
-	 * @return      the hex representation of the byte array as a String
+	 * @param in a byte array
+	 * @return the hex representation of the byte array as a String
 	 */
 	public static String byteArrayToHexString(byte[] in) {
 		final StringBuilder builder = new StringBuilder();
-		for(byte b : in) {
+		for (byte b : in) {
 			builder.append(String.format("%02x", b));
 		}
 		return builder.toString();
@@ -85,21 +85,21 @@ public class LidarSensorTest {
 	/**
 	 * Creates a byte array from a string containing the hex representation of each byte
 	 * using the characters 0-9, A-F to represent each byte.
-	 *
+	 * <p>
 	 * For example, if your input string is "414243" then the resulting byte array
 	 * will be {'A', 'B', 'C'}
-	 *
+	 * <p>
 	 * Thanks to StackOverflow for this implementation.
 	 *
-	 * @param  s	A hex string representation of a byte array
-	 * @return      The resulting byte array
+	 * @param s A hex string representation of a byte array
+	 * @return The resulting byte array
 	 */
 	public static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
 		byte[] data = new byte[len / 2];
 		for (int i = 0; i < len; i += 2) {
 			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-				+ Character.digit(s.charAt(i+1), 16));
+				+ Character.digit(s.charAt(i + 1), 16));
 		}
 		return data;
 	}
@@ -109,24 +109,24 @@ public class LidarSensorTest {
 	 * member is set to true. If the debug member is set to false this function
 	 * does nothing.
 	 *
-	 * @param  Message	A message string to print to System.out.
-	 * @see	   log
+	 * @param message A message string to print to System.out.
+	 * @see     this#log
 	 */
 	public void debug(String message) {
-		if (m_debug == true)
+		if (m_debug)
 			log(message);
 	}
 
 	/**
 	 * Unconditionally logs a message.
 	 *
-	 * @param  Message	A message string to print to System.out.
+	 * @param message A message string to print to System.out.
 	 */
 	public void log(String message) {
 		System.out.println("id " + m_deviceAddress + ":" + message);
 	}
 
-	public boolean transaction(byte[] dataToSend, int sendSize,	byte[] dataReceived, int receiveSize) {
+	public boolean transaction(byte[] dataToSend, int sendSize, byte[] dataReceived, int receiveSize) {
 		boolean result;
 
 		// Simulation mode allows us to pretend without real sensors
@@ -144,11 +144,10 @@ public class LidarSensorTest {
 				result = I2CFAILURE;
 			}
 
-			debug("Result of transaction: " + result + (result == I2CSUCCESS ? " (Success)" : " (Failure)") );
+			debug("Result of transaction: " + result + (result == I2CSUCCESS ? " (Success)" : " (Failure)"));
 			debug("bytes returned: " + byteArrayToHexString(dataReceived));
-		}
-		else {
-			for(byte i=0; i< receiveSize; i++)
+		} else {
+			for (byte i = 0; i < receiveSize; i++)
 				dataReceived[i] = i;
 			result = I2CSUCCESS;
 		}
@@ -159,12 +158,12 @@ public class LidarSensorTest {
 	/**
 	 * A convenience function to implement a simple commmand. Callers send a byte[] command and
 	 * read back an expected reply. The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  expect       bytes expected on return.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param expect      bytes expected on return.
 	 * @return true or false depending on whether the received bytes match expected bytes.
 	 */
 	protected boolean basicCommand(byte[] command, String commandName, byte[] expect) {
@@ -185,16 +184,16 @@ public class LidarSensorTest {
 	/**
 	 * A convenience function to implement a simple commmand. Callers send a byte[] command and
 	 * read back enough bytes to fill the receiveBuffer provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  receiveBuffer Bytes read from the slave by the master.
+	 * @param command       Command string to send
+	 * @param commandName   Friendly name of command for debug logging.
+	 * @param receiveBuffer Bytes read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see transaction
+	 * @see this#transaction
 	 */
 	protected boolean fetchCommand(byte[] command, String commandName, byte[] receiveBuffer) {
 		debug(commandName);
@@ -212,18 +211,18 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * byteArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  byteArray    Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param byteArray   Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchBytes(String command, String commandName, byte[] byteArray){
+	protected boolean fetchBytes(String command, String commandName, byte[] byteArray) {
 		// fetching bytes doesn't require additional processing
 		return fetchCommand(command.getBytes(), commandName, byteArray);
 	}
@@ -232,24 +231,24 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * shortArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  shortArray   Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param shortArray  Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchShorts(String command, String commandName, short[] shortArray){
+	protected boolean fetchShorts(String command, String commandName, short[] shortArray) {
 		byte[] receiveBuffer = new byte[shortArray.length * Short.BYTES];
 		boolean result = fetchCommand(command.getBytes(), commandName, receiveBuffer);
 
 		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
-		for (int i=0; i<shortArray.length; i++) {
+		for (int i = 0; i < shortArray.length; i++) {
 			shortArray[i] = buffer.getShort();
 			debug("short value: " + shortArray[i]);
 		}
@@ -261,24 +260,24 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * intArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  intArray   Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param intArray    Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchInts(String command, String commandName, int[] intArray){
+	protected boolean fetchInts(String command, String commandName, int[] intArray) {
 		byte[] receiveBuffer = new byte[intArray.length * Integer.BYTES];
 		boolean result = fetchCommand(command.getBytes(), commandName, receiveBuffer);
 
 		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
-		for (int i=0; i<intArray.length; i++) {
+		for (int i = 0; i < intArray.length; i++) {
 			intArray[i] = buffer.getInt();
 			debug("int value: " + intArray[i]);
 		}
@@ -290,24 +289,24 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * longArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  longArray   Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param longArray   Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchLongs(String command, String commandName, long[] longArray){
+	protected boolean fetchLongs(String command, String commandName, long[] longArray) {
 		byte[] receiveBuffer = new byte[longArray.length * Long.BYTES];
 		boolean result = fetchCommand(command.getBytes(), commandName, receiveBuffer);
 
 		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
-		for (int i=0; i<longArray.length; i++) {
+		for (int i = 0; i < longArray.length; i++) {
 			longArray[i] = buffer.getLong();
 			debug("long value: " + longArray[i]);
 		}
@@ -319,24 +318,24 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * floatArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  floatArray   Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param floatArray  Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchFloats(String command, String commandName, float[] floatArray){
+	protected boolean fetchFloats(String command, String commandName, float[] floatArray) {
 		byte[] receiveBuffer = new byte[floatArray.length * Float.BYTES];
 		boolean result = fetchCommand(command.getBytes(), commandName, receiveBuffer);
 
 		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
-		for (int i=0; i<floatArray.length; i++) {
+		for (int i = 0; i < floatArray.length; i++) {
 			floatArray[i] = buffer.getFloat();
 			debug("float value: " + floatArray[i]);
 		}
@@ -348,24 +347,24 @@ public class LidarSensorTest {
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
 	 * doubleArray provided.
-	 *
+	 * <p>
 	 * The command may or may not have an effect on the device.
-	 *
+	 * <p>
 	 * Performs debug-level logging in debug mode.
 	 *
-	 * @param  command 		Command string to send
-	 * @param  commandName	Friendly name of command for debug logging.
-	 * @param  doubleArray   Values read from the slave by the master.
+	 * @param command     Command string to send
+	 * @param commandName Friendly name of command for debug logging.
+	 * @param doubleArray Values read from the slave by the master.
 	 * @return Result of command. True for I2CSUCCESS (note the flip in sense)
-	 * @see fetchCommand
+	 * @see this#fetchCommand
 	 */
-	protected boolean fetchDoubles(String command, String commandName, double[] doubleArray){
+	protected boolean fetchDoubles(String command, String commandName, double[] doubleArray) {
 		byte[] receiveBuffer = new byte[doubleArray.length * Double.BYTES];
 		boolean result = fetchCommand(command.getBytes(), commandName, receiveBuffer);
 
 		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
 		buffer.order(ByteOrder.LITTLE_ENDIAN);
-		for (int i=0; i<doubleArray.length; i++) {
+		for (int i = 0; i < doubleArray.length; i++) {
 			doubleArray[i] = buffer.getDouble();
 			debug("double value: " + doubleArray[i]);
 		}
@@ -380,6 +379,7 @@ public class LidarSensorTest {
 		fetchCommand("P".getBytes(StandardCharsets.US_ASCII), "Ping", receiveBuffer);
 		return receiveBuffer[0];
 	}
+
 	// echo FAST - change the rate of the blinking LED
 	public boolean fast() {
 		return basicCommand("F".getBytes(StandardCharsets.US_ASCII), "Fast", "FAST".getBytes());
@@ -419,17 +419,17 @@ public class LidarSensorTest {
 			// setup
 			m_clientSocket = new Socket("10.54.22.177", 5422);
 			m_outToServer = new DataOutputStream(m_clientSocket.getOutputStream());
-			m_backFromServer= new DataInputStream(m_clientSocket.getInputStream());
+			m_backFromServer = new DataInputStream(m_clientSocket.getInputStream());
 
 			// some basic tests
 			log("Entered the try of doIt");
 			log("Ping test returned " + Byte.toString(ping()));
 			TimeUnit.SECONDS.sleep(sleep);
-			log("Fast test returned " + (fast() ? "true" : "false") );
+			log("Fast test returned " + (fast() ? "true" : "false"));
 			TimeUnit.SECONDS.sleep(sleep);
-			log("Slow test returned " + (slow() ? "true" : "false") );
+			log("Slow test returned " + (slow() ? "true" : "false"));
 			TimeUnit.SECONDS.sleep(sleep);
-			log("Blink test returned " + (blink(2000) ? "true" : "false") );
+			log("Blink test returned " + (blink(2000) ? "true" : "false"));
 			TimeUnit.SECONDS.sleep(sleep);
 
 			short[] sensorValues = new short[4];  // 4 sensor values
