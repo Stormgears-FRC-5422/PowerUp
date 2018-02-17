@@ -100,8 +100,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-		SmartDashboard.putNumber("Gripper Close Current", 0.0);
-
 	}
 
 	/**
@@ -115,7 +113,6 @@ public class Robot extends IterativeRobot {
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
 //		}
-//		Robot.drive.enableMotionMagic(60, (2 / 3) * Math.PI);
 	}
 
 	/**
@@ -123,14 +120,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		//Robot.gripper.closeGripper();
+
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
-	int i = 0;
-
 	@Override
 	public void teleopPeriodic() {
 
@@ -139,38 +134,19 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					Robot.drive.enableMotionMagic(60, 0);
-					i++;
-				}
+				drive.move(false);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
-
-		SmartDashboard.putNumber("Talon 0", driveTalons.getTalons()[0].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 1", driveTalons.getTalons()[1].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 2", driveTalons.getTalons()[2].getSensorCollection().getQuadratureVelocity());
-		SmartDashboard.putNumber("Talon 3", driveTalons.getTalons()[3].getSensorCollection().getQuadratureVelocity());
 //		sensors.getNavX().debug();
-
-
-
 	}
 
 	/**
 	 * This function is called periodically during sendTestData mode
 	 */
-
-	public void testInit(){
-		SmartDashboard.putNumber("Gripper Open Current", 0.0);
-
-	}
-
 	@Override
 	public void testPeriodic() {
-
-		//Robot.gripper.openGripper();
 
 	}
 
