@@ -53,13 +53,13 @@ public class DSIO {
 		});
 
 		// RED
-		redButton.setOnButtonTouchUpListener(() -> {
-
+		redButton.setOnButtonTouchUpListener(() -> { //closes gripper
+			Robot.gripper.closeGripper();
 		});
 
 		// YELLOW
-		yellowButton.setOnButtonTouchUpListener(() -> {
-
+		yellowButton.setOnButtonTouchUpListener(() -> { //opens gripper
+			Robot.gripper.openGripper();
 		});
 
 		// GREEN

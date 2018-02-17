@@ -32,25 +32,39 @@ public class Gripper extends Subsystem {
 
 	public void openGripper() {
 		logger.info("Gripper Opening");
+		x = 0;
 		talon.set(ControlMode.PercentOutput, 0.5);
 		SmartDashboard.putNumber("Gripper Open Current", talon.getOutputCurrent());
+	}
+
+	static int x = 0;
+
+	public void resetX() {
+		x = 0;
 	}
 
 	public void closeGripper() {
 		StormScheduler.getInstance().queue(() -> {
 			logger.info("Gripper Closing");
-			talon.set(ControlMode.PercentOutput, -0.5);
-			SmartDashboard.putNumber("Gripper Close Current", talon.getOutputCurrent());
 
-			while (talon.getOutputCurrent() <= 0.5) {
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+			if (talon.getOutputCurrent() <= 4 & x == 0) {
+				System.out.println("Gripper Closing");
+				talon.set(ControlMode.PercentOutput, -0.5);
+				System.out.println(talon.getOutputCurrent());
+				SmartDashboard.putNumber("Gripper Close Current", talon.getOutputCurrent());
+				while (talon.getOutputCurrent() <= 0.5) {
+					try {
+						Thread.sleep(20);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
+				talon.set(ControlMode.PercentOutput, 0);
 			}
-
-			talon.set(ControlMode.PercentOutput, 0);
+			if (x == 0) {
+				x++;
+				System.out.println(talon.getOutputCurrent());
+			}
 		});
 	}
 

@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -98,6 +99,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
+		gripper.resetX();
+		//SmartDashboard.putNumber("Gripper Close Current", 0.0);
+
 	}
 
 	/**
@@ -116,10 +120,15 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	int x = 0;
+
 	@Override
 	public void autonomousPeriodic() {
 
+		Robot.gripper.closeGripper();
+
 	}
+
 
 	/**
 	 * This function is called periodically during operator control
@@ -144,9 +153,17 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during sendTestData mode
 	 */
+
+	public void testInit() {
+		SmartDashboard.putNumber("Gripper Open Current", 0.0);
+
+	}
+
+	;
+
 	@Override
 	public void testPeriodic() {
-
+		Robot.gripper.openGripper();
 	}
 
 	/**
