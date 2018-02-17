@@ -2,6 +2,7 @@ package org.stormgears.utils.sensor_drivers;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
+import org.jetbrains.annotations.Nullable;
 
 public class NavX {
 	private AHRS ahrs;
@@ -19,9 +20,11 @@ public class NavX {
 	 *
 	 * Make sure that you wrap calls to this method in "if (navX.thetaIsSet())"
 	 *
-	 * @return the angle of the robot in radians
+	 * @return the angle of the robot in radians, null if NavX is not calibrated
 	 */
-	public double getTheta() {
+	@Nullable
+	public Double getTheta() {
+		if (initialTheta == null) return null;
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;
 
 		theta = theta % (2 * Math.PI);

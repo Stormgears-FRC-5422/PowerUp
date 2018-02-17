@@ -65,9 +65,9 @@ public class Drive {
 	private void mecMove(double tgtVel, double theta, double changeVel, boolean useAbsoluteControl) {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
 
-		if (useAbsoluteControl) {
-			double navX_theta = Robot.sensors.getNavX().getTheta();
-			theta = theta - navX_theta;
+		if (useAbsoluteControl && Robot.sensors.getNavX().getTheta() != null) {
+			double navXTheta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navXTheta;
 		}
 
 		double[] vels = new double[talons.length];
@@ -142,14 +142,14 @@ public class Drive {
 		}
 	}
 
-	public void driveMotionProfile(double rotations, double theta) {
-		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta + navX_theta;
-
-		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
-		m.pushProfile(profile, false, true);
-		m.startProfile();
-	}
+//	public void driveMotionProfile(double rotations, double theta) {
+//		double navX_theta = Robot.sensors.getNavX().getTheta();
+//		theta = theta + navX_theta;
+//
+//		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
+//		m.pushProfile(profile, false, true);
+//		m.startProfile();
+//	}
 
 	public void debug() {
 		StormTalon[] talons = Robot.driveTalons.getTalons();
@@ -170,8 +170,12 @@ public class Drive {
 	 */
 	public void enableMotionMagic(double distance, double theta) {
 
-		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta - navX_theta;
+		double navXTheta = 0;
+		if (Robot.sensors.getNavX().getTheta() != null) {
+			// Should not be null because of check.
+			navXTheta = Robot.sensors.getNavX().getTheta();
+		}
+		theta = theta - navXTheta;
 
 //TODO: make wheel diameter and other constants that im just making up
 		double wheelCircumference = 2 * Math.PI * 4; //4 in wheel radius???
