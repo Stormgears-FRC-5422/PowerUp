@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
@@ -19,6 +20,7 @@ import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
+import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -99,7 +101,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-		gripper.resetX();
 		//SmartDashboard.putNumber("Gripper Close Current", 0.0);
 
 	}
@@ -125,6 +126,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 
+//		StormTalon talon = new StormTalon(4);
+//		talon.set(ControlMode.PercentOutput, 1);
+//		SmartDashboard.putNumber("Velocity", talon.getSensorCollection().getQuadratureVelocity());
 		Robot.gripper.closeGripper();
 
 	}
@@ -142,7 +146,7 @@ public class Robot extends IterativeRobot {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 //				drive.move(false);
-				drive.enableMotionMagic(60, 0);
+				//drive.enableMotionMagic(60, 0);
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");

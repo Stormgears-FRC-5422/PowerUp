@@ -49,17 +49,20 @@ public class DSIO {
 	private void setupButtonsAndSwitches() {
 		// BIG BLUE
 		bigBlueButton.setOnButtonTouchUpListener(() -> {
-
+			Robot.gripper.disableGripper();
+			System.out.println("BIG BLUE PRESSED");
 		});
 
 		// RED
 		redButton.setOnButtonTouchUpListener(() -> { //closes gripper
 			Robot.gripper.closeGripper();
+			System.out.println("RED BUTTON PRESSED");
 		});
 
 		// YELLOW
 		yellowButton.setOnButtonTouchUpListener(() -> { //opens gripper
 			Robot.gripper.openGripper();
+			System.out.println("YELLOW BUTTON PRESSED");
 		});
 
 		// GREEN
