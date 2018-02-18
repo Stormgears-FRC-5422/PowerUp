@@ -15,6 +15,7 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
+import org.stormgears.powerup.subsystems.navigator.Position;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
@@ -116,14 +117,16 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+
 	int i = 0;
+
 	@Override
 	public void autonomousPeriodic() {
 		if (!sensors.getNavX().isCalibrating()) {
 			if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 			if (i == 0) {
 				i++;
-				drive.moveStraight(60, 2 * Math.PI / 3);
+				drive.moveStraight(14, 0);
 			}
 		}
 	}
@@ -131,6 +134,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+
 	@Override
 	public void teleopPeriodic() {
 		StormScheduler.getInstance().run();
@@ -138,7 +142,10 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
+				if (i == 0) {
+					i++;
+					drive.moveStraight(20,0);
+				}
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
