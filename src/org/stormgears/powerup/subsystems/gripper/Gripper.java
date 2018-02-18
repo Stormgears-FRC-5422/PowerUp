@@ -2,7 +2,6 @@ package org.stormgears.powerup.subsystems.gripper;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.utils.StormScheduler;
@@ -20,6 +19,11 @@ public class Gripper extends Subsystem {
 	private static final int TALON_ID = 4;
 
 	private StormTalon talon;
+	private final Object lock = new Object();
+
+	private boolean gripperClosing = false;
+	private boolean gripperOpening = false;
+	private boolean shouldTerminate = false;
 
 	private Gripper(int TalonId) {
 		talon = new StormTalon(TalonId);
@@ -29,49 +33,80 @@ public class Gripper extends Subsystem {
 		instance = new Gripper(TALON_ID);
 	}
 
-
 	public void openGripper() {
-		while (talon.getOutputCurrent() <= 2.5) {
-			talon.set(ControlMode.PercentOutput, 0.25);
-			SmartDashboard.putNumber("Gripper Open Current", talon.getOutputCurrent());
-			try {
-				Thread.sleep(20);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		if (!gripperOpening) {
+			gripperOpening = true;
+
+			StormScheduler.getInstance().async(() -> {
+				boolean shouldTerminate = false;
+
+				logger.info("Gripper Opening");
+				talon.set(ControlMode.PercentOutput, 0.25);
+
+				while (!shouldTerminate && talon.getOutputCurrent() <= 2.5) {
+					synchronized (lock) {
+						shouldTerminate = this.shouldTerminate;
+					}
+
+					waitMs(20);
+				}
+
+				logger.info("Gripper limit is reached or terminated early");
+				synchronized (lock) {
+					talon.set(ControlMode.PercentOutput, 0);
+
+					gripperOpening = false;
+					this.shouldTerminate = false;
+				}
+			});
 		}
-		talon.set(ControlMode.PercentOutput, 0);
 	}
 
 	public void closeGripper() {
-		StormScheduler.getInstance().queue(() -> {
-			logger.info("Gripper Closing");
+		if (!gripperClosing) {
+			gripperClosing = true;
 
-			while (talon.getOutputCurrent() <= 2.5) {
+			StormScheduler.getInstance().async(() -> {
+				logger.info("Sending new close command");
+				boolean shouldTerminate = false;
+
+				logger.info("Gripper Closing");
 				talon.set(ControlMode.PercentOutput, -0.25);
-				System.out.println("hi" + talon.getOutputCurrent());
-				SmartDashboard.putNumber("Gripper Close Current", talon.getOutputCurrent());
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+
+				while (!shouldTerminate && talon.getOutputCurrent() <= 2.5) {
+					synchronized (lock) {
+						shouldTerminate = this.shouldTerminate;
+//						logger.info("shouldTerminate: {}", shouldTerminate);
+					}
+
+					waitMs(20);
 				}
-			}
 
-			talon.set(ControlMode.PercentOutput, 0);
+				logger.info("Cube is being hugged or terminated early");
+				synchronized (lock) {
+					talon.set(ControlMode.PercentOutput, 0);
 
-		});
+					gripperClosing = false;
+					this.shouldTerminate = false;
+				}
+			});
+		}
 	}
 
-
 	public void disableGripper() {
-		logger.info("Gripper Disabled");
-		talon.set(ControlMode.PercentOutput, 0);
+		shouldTerminate = true;
+	}
+
+	private void waitMs(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 
 	}
-
 }

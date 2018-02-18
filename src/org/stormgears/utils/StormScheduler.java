@@ -30,10 +30,14 @@ public class StormScheduler {
 			}
 
 			@Override
-			public synchronized void start() {
+			public void execute() {
 				runnable.run();
 			}
 		});
+	}
+
+	public void async(Runnable runnable) {
+		new Thread(runnable).start();
 	}
 
 	public void run() {

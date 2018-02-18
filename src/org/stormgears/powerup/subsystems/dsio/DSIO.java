@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.controls.Button;
 import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.utils.RegisteredNotifier;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -67,7 +68,7 @@ public class DSIO {
 
 		// GREEN
 		greenButton.setOnButtonTouchUpListener(() -> {
-
+			Robot.notifierRegistry.add(new RegisteredNotifier(() -> {}));
 		});
 
 		// SMALL BLUE
