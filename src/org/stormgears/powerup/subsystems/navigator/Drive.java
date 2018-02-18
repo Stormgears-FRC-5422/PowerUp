@@ -304,7 +304,7 @@ public class Drive {
 		for(int i = 0; i < motions.length; i ++) {
 			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY /2, MAX_ACCELERATION /2);
 		}
-
+//comment
 		System.out.println(encoderTicks + "");
 
 		for (int i = 0; i < motions.length; i++) {
