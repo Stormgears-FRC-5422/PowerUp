@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -24,6 +25,7 @@ import org.stormgears.utils.logging.Log4jConfigurationFactory;
 import java.util.ArrayList;
 
 import java.util.concurrent.TimeUnit;
+
 /*
  * The entry point of the PowerUp program. Please keep it clean.
  */
@@ -115,6 +117,7 @@ public class Robot extends IterativeRobot {
 	/**
 	 * Runs when autonomous mode starts
 	 */
+	int minus = 1;
 	@Override
 	public void autonomousInit() {
 		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
@@ -141,13 +144,15 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		if (!sensors.getNavX().isCalibrating()) {
-			if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-			if (i == 0) {
-				i++;
-				drive.moveStraight(14, 0);
-			}
+		if (i == 0) {
+			i++;
+			drive.moveStraight( 24, Math.PI/2);
 		}
+
+		for (int i = 0; i < driveTalons.getTalons().length; i++) {
+			SmartDashboard.putNumber("Talon " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+		}
+
 	}
 
 	/**
@@ -163,7 +168,7 @@ public class Robot extends IterativeRobot {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				if (i == 0) {
 					i++;
-					drive.moveStraight(20,0);
+					drive.moveStraight(20, 0);
 				}
 			}
 		} else {
@@ -184,6 +189,12 @@ public class Robot extends IterativeRobot {
 	 */
 	public void disabledInit() {
 //		fmsInterface.startPollingForData();
+
+		for (int i = 0; i < driveTalons.getTalons().length; i++) {
+			System.out.println(driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+		}
+
+		 i = 0;
 
 		for (RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();

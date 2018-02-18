@@ -23,13 +23,13 @@ public class Drive {
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
-	private static final int MAX_VELOCITY = 15000;
-	private static final int MAX_ACCELERATION = 6000;
+	private static final int MAX_VELOCITY = 5000;
+	private static final int MAX_ACCELERATION = 2500;
 
 	private StormTalon[] talons;
 	private double[] vels;
 
-	public boolean useAbsoluteControl = true;
+	public boolean useAbsoluteControl = false;
 	public boolean useTractionControl = true;
 
 	private MotionMagic[] motions;
@@ -254,15 +254,24 @@ public class Drive {
 
 			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(2*Math.PI * Robot.config.wheelRadius);
 			t1 = MAX_VELOCITY / MAX_ACCELERATION;
-			totTime = (t1) + (maxDistance/ MAX_VELOCITY) * 10; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance / MAX_VELOCITY) / 10.0; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 
 
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2 * 10, a2 * 10);
+				System.out.println("Max Distance " + maxDistance);
+				System.out.println("TotalTime " + totTime);
+				System.out.println("T1 " + t1);
+				System.out.println("A2 " + a2);
+				System.out.println("vmax2 " + vmax2);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2 , a2 );
 			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY * 10, MAX_ACCELERATION * 10);
+				System.out.println("TotalTime " + totTime);
+				System.out.println("T1 " + t1);
+				System.out.println("A2 " + a2);
+				System.out.println("vmax2 " + vmax2);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
