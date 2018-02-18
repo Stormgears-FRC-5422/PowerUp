@@ -46,13 +46,13 @@ public class Robot extends IterativeRobot {
 	public static DSIO dsio = DSIO.getInstance();
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
-	public static GlobalMapping globalMapping;
 	public static DriveTalons driveTalons;
 	public static Drive drive;
 	public static Intake intake;
 	public static ElevatorSharedTalons elevatorSharedTalons;
 	public static Elevator elevator;
 	public static Climber climber;
+	public static GlobalMapping globalMapping;
 	public static Gripper gripper;
 
 
@@ -117,7 +117,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
+//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 	}
 
 	/**
@@ -126,34 +126,24 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopInit() {
 //		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-
-//		globalMapping.run();
-//		if (drive != null && !sensors.getNavX().isCalibrating()) {
-//			Robot.drive.runMotionMagic(60, 0);
-//		}
 	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
-
-	int i = 0;
+	private int i = 0;
 
 	@Override
 	public void autonomousPeriodic() {
-		if (!sensors.getNavX().isCalibrating()) {
-			if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-			if (i == 0) {
-				i++;
-				drive.moveStraight(14, 0);
-			}
-		}
+//		if (i == 0) {
+//			i++;
+//			drive.moveStraight(20,0);
+//		}
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
-
 	@Override
 	public void teleopPeriodic() {
 		StormScheduler.getInstance().run();
@@ -161,10 +151,7 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					i++;
-					drive.moveStraight(20,0);
-				}
+				drive.move();
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
@@ -184,6 +171,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void disabledInit() {
 //		fmsInterface.startPollingForData();
+		i = 0;
 
 		for (RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();
