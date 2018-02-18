@@ -260,9 +260,9 @@ public class Drive {
 
 
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2, a2);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2 * 10, a2 * 10);
 			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
+				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY * 10, MAX_ACCELERATION * 10);
 			}
 		}
 		for (int i = 0; i < motions.length; i++) {
@@ -319,6 +319,7 @@ public class Drive {
 		double theta = Math.atan(deltaY/deltaX);
 
 		double hyp = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
+		System.out.println(hyp);
 
 		moveStraight(hyp, theta);
 
