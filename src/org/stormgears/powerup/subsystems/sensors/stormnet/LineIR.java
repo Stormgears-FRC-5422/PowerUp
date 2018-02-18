@@ -13,13 +13,12 @@ public class LineIR extends StormNetSensor {
 		this.m_deviceString = voice.getDeviceString();
 	}
 
-	//TODO: Change the loop back to sleep, right now we just want to run this forever
 	public boolean test(int sleep) {
 		boolean superResult = super.test(sleep);
 
 		try {
 			short[] sensorValues = new short[2];  // 2 sensor values
-			for (int i = 0; i < 5; i++) {
+			for (int i = 0; i < sleep; i++) {
 				fetchShorts("C", "Color", sensorValues);
 				log("IR test returned [ " +
 					sensorValues[0] + " ] [ " +
