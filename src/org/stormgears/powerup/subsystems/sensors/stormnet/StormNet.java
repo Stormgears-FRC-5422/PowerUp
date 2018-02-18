@@ -14,10 +14,17 @@ public class StormNet {
 	}
 
 	public boolean test() {
+		System.out.println("In Stormnet Test");
+		System.out.println("about to test lidar");
 		m_lidar.test();
+		System.out.println("about to test lineIR");
 		m_lineIR.test();
 		return true;
 	}
+
+	public int getLidarDistance(int sensorNumber) {return m_lidar.getDistance(sensorNumber);}
+
+	public int getLineIRDistance(int sensorNumber) {return m_lineIR.getDistance(sensorNumber);}
 
 	// TODO: when the serial line is connected to the arduino then the socket needs to reconnect
 }

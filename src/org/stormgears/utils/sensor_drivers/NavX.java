@@ -74,4 +74,10 @@ public class NavX {
 		initialTheta = ahrs.getAngle();
 		thetaIsSet = true;
 	}
+
+	public boolean test() {
+		debug();
+		return true;
+	}
+
 }

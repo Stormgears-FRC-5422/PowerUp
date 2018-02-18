@@ -40,7 +40,10 @@ public class EthernetLidar extends StormNetSensor {
 
 	// Distance in millimeters
 	public int getDistance(int sensorNumber) {
+		pollDistance();
 		return (0xFFFF & sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
+
+
 
 }

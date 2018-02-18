@@ -23,6 +23,7 @@ import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
 
+import java.util.concurrent.TimeUnit;
 /*
  * The entry point of the PowerUp program. Please keep it clean.
  */
@@ -63,10 +64,28 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
+		boolean sensorBot = false;
+
 		StormScheduler.init();
 
 		Sensors.init();
-		sensors = Sensors.getInstance();
+
+		if (sensorBot) {
+			sensors = Sensors.getInstance();
+			sensors.getNavX().setInitialTheta();
+			sensors.getNavX().test();
+			sensors.getStormNet().test();
+			while (true) {
+				try {
+					System.out.println("NavX theta: " + sensors.getNavX().getTheta());
+					System.out.println("Lidar distances: " + sensors.getStormNet().getLidarDistance(1) + ", "
+						+ sensors.getStormNet().getLidarDistance(2));
+					TimeUnit.SECONDS.sleep(1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
