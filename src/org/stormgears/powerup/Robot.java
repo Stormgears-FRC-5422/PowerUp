@@ -119,9 +119,12 @@ public class Robot extends IterativeRobot {
 	int i = 0;
 	@Override
 	public void autonomousPeriodic() {
-		if (i == 0) {
-			i++;
-			drive.driveMotionProfile(60, 2 * Math.PI / 3);
+		if (!sensors.getNavX().isCalibrating()) {
+			if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+			if (i == 0) {
+				i++;
+				drive.moveStraight(60, 2 * Math.PI / 3);
+			}
 		}
 	}
 

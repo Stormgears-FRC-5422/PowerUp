@@ -40,6 +40,7 @@ public class Drive {
 		vels = new double[talons.length];
 
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
+		motionManager = new MotionManager();
 	}
 
 
@@ -143,7 +144,7 @@ public class Drive {
 
 			SmartDashboard.putNumber("stickVelocity", stickVelocity);
 			SmartDashboard.putNumber("actualVelocity", actualVelocity);
-			SmartDashboard.putNumber("tractiontest", Math.abs((actualVelocity - stickVelocity) / stickVelocity));
+			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
 			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
 				logger.info("Using traction control...");
 
