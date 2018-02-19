@@ -13,9 +13,9 @@ public class FieldPositions {
 
 	public enum StartingSpots {
 		// TODO: Put correct coordinates here
-		LEFT(new Position(0, 0)),
-		CENTER(new Position(0, 0)),
-		RIGHT(new Position(0, 0));
+		LEFT(new Position(47, 19.5)),
+		CENTER(new Position(222, 19.5)),
+		RIGHT(new Position(311, 19.5));
 
 		private Position position;
 
@@ -64,22 +64,27 @@ public class FieldPositions {
 
 	public enum LeftRight {L, R}
 
+	public static LeftRight OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE;
+	public static LeftRight SCALE_PLATE_ASSIGNMENT_CHOICE;
+	public static LeftRight OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;
+
 	@Nullable
 	public static Position OWN_SWITCH_PLATE_ASSIGNMENT = null;
 	@Nullable
 	public static Position SCALE_PLATE_ASSIGNMENT = null;
 	@Nullable
 	public static Position OPPONENT_SWITCH_PLATE_ASSIGNMENT = null;
-
+	
 	// TODO: Update these to the right positions
-	public static final Position OWN_SWITCH_LEFT_PLATE = new Position(0, 0);
-	public static final Position OWN_SWITCH_RIGHT_PLATE = new Position(0, 0);
-	public static final Position SCALE_LEFT_PLATE = new Position(0, 0);
-	public static final Position SCALE_RIGHT_PLATE = new Position(0, 0);
+	public static final Position OWN_SWITCH_LEFT_PLATE = new Position(47, 167);
+	public static final Position OWN_SWITCH_RIGHT_PLATE = new Position(277, 167);
+	public static final Position SCALE_LEFT_PLATE = new Position(47, 303);
+	public static final Position SCALE_RIGHT_PLATE = new Position(277, 303);
 	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);
 	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
-
-
+	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(47,234); 
+	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(277,234); 
+	
 	// TODO: Put the right numbers in
 	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);
 	public static final Position OWN_EXCHANGE = new Position(102, 0);
@@ -107,4 +112,11 @@ public class FieldPositions {
 	public static final Position OPPONENT_PLATFORM_EDGE = new Position(95.1, 333.6);
 	public static final Position OPPONENT_PLATFORM_ELEVATED = new Position(106.2, 331.3);
 	public static final Position OPPONENT_PORTAL_LEFT = new Position(0, 614);
+		
+	public static final double X_DISTANCE_TO_STRAFFE_TO_SCALE = 5.0;
+	public static final double X_DISTANCE_TO_STRAFFE_TO_SWITCH = 18.0;
+	
+	
+	
+
 }
