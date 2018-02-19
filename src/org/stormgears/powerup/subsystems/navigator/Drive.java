@@ -43,8 +43,6 @@ public class Drive {
 		motionManager = new MotionManager();
 	}
 
-
-
 	public static void init() {
 		instance = new Drive();
 	}
@@ -80,7 +78,6 @@ public class Drive {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navX_theta - (Math.PI/2);
 		}
-		//Naik is dumb
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi
@@ -298,7 +295,7 @@ public class Drive {
 		for(int i = 0; i < motions.length; i ++) {
 			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY /2, MAX_ACCELERATION /2);
 		}
-//comment
+
 		System.out.println(encoderTicks + "");
 
 		for (int i = 0; i < motions.length; i++) {

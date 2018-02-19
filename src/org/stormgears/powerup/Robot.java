@@ -1,8 +1,8 @@
 package org.stormgears.powerup;
 
-import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +22,7 @@ import org.stormgears.powerup.subsystems.navigator.Position;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
+import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
@@ -68,30 +69,12 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
-
-
-
-		boolean sensorBot = true;
+		boolean sensorBot = false;
 
 		StormScheduler.init();
 
 		Sensors.init();
-
-		if (sensorBot) {
-			sensors = Sensors.getInstance();
-			sensors.getNavX().setInitialTheta();
-			sensors.getNavX().test();
-		//	sensors.getStormNet().test();
-
-				try {
-					System.out.println("NavX theta: " + sensors.getNavX().getTheta());
-					System.out.println("Lidar distances: " + sensors.getStormNet().getLidarDistance(1) + ", "
-						+ sensors.getStormNet().getLidarDistance(2));
-					TimeUnit.SECONDS.sleep(1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-		}
+		sensors = Sensors.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -117,73 +100,57 @@ public class Robot extends IterativeRobot {
 		Gripper.init();
 		gripper = Gripper.getInstance();
 
-		for (int i = 0; i < driveTalons.getTalons().length; i++)
+		for(int i = 0; i < driveTalons.getTalons().length; i ++) {
 			driveTalons.getTalons()[i].setInverted(true);
+		}
 	}
 
 	/**
 	 * Runs when autonomous mode starts
 	 */
-	int minus = 1;
 	@Override
 	public void autonomousInit() {
-		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-	}
 
+	}
 	/**
 	 * Runs when operator control starts
 	 */
 	@Override
 	public void teleopInit() {
-
-//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 		driveTalons.getTalons()[3].setSensorPhase(true);
-//		driveTalons.getTalons()[1].set(ControlMode.Velocity, 1000);
-//		driveTalons.getTalons()[2].set(ControlMode.Velocity, 1000);
-//		driveTalons.getTalons()[3].set(ControlMode.Velocity, 1000);
-//		globalMapping.run();
-//		if (drive != null && !sensors.getNavX().isCalibrating()) {
-//			Robot.drive.runMotionMagic(60, 0);
-//		}
 	}
+
+	int i = 0;
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
-
-	int i = 0;
-
 	@Override
 	public void autonomousPeriodic() {
-
-		for (int i = 0; i < driveTalons.getTalons().length; i++) {
-			SmartDashboard.putNumber("Talon " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+		if(drive != null) {
+			if(!sensors.getNavX().isCalibrating()) {
+				if(!sensors.getNavX().thetaIsSet())
+					sensors.getNavX().setInitialTheta();
+				if(i == 0) {
+					i ++;
+					drive.moveStraight(120, 0);
+				}
+			}
 		}
-
 	}
 
 	/**
 	 * This function is called periodically during operator control
 	 */
 
-	//Naik is dumb
 	@Override
 	public void teleopPeriodic() {
-		StormScheduler.getInstance().run();
-
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+		if(drive != null) {
+			if(!sensors.getNavX().isCalibrating()) {
+				if(!sensors.getNavX().thetaIsSet())
+					sensors.getNavX().setInitialTheta();
 				drive.move();
-
 			}
-		} else {
-			logger.fatal("Robot.drive is null; that's a problem!");
-		}
-
-		for (int i = 0; i < driveTalons.getTalons().length; i++) {
-			SmartDashboard.putNumber("Talon " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
-			SmartDashboard.putNumber("Talon Vel " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadratureVelocity());
 		}
 	}
 
@@ -199,17 +166,10 @@ public class Robot extends IterativeRobot {
 	 * This function is called whenever the robot is disabled.
 	 */
 	public void disabledInit() {
-//		fmsInterface.startPollingForData();
-
-		for (int i = 0; i < driveTalons.getTalons().length; i++) {
+		for(int i = 0; i < driveTalons.getTalons().length; i ++) {
 			System.out.println(driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
 		}
-
-		 i = 0;
-
-		for (RegisteredNotifier rn : notifierRegistry) {
-			rn.stop();
-		}
+		i = 0;
 	}
 }
 

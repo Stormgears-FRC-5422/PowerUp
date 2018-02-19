@@ -20,7 +20,7 @@ public class DriveTalons {
 		talons[1] = new StormTalon(Robot.config.frontRightTalonId);
 		talons[2] = new StormTalon(Robot.config.rearLeftTalonId);
 		talons[3] = new StormTalon(Robot.config.rearRightTalonId);
-//comment
+
 		for (StormTalon t : talons) {
 			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);
 			t.config_kP(0, Robot.config.velocityP, TALON_FPID_TIMEOUT);
