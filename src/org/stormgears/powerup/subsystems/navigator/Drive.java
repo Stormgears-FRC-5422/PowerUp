@@ -29,7 +29,7 @@ public class Drive {
 	private StormTalon[] talons;
 	private double[] vels;
 
-	public boolean useAbsoluteControl = false;
+	public boolean useAbsoluteControl = true;
 	public boolean useTractionControl = true;
 
 	private MotionMagic[] motions;
@@ -78,7 +78,7 @@ public class Drive {
 						 boolean useAbsoluteControl) {
 		if (useAbsoluteControl) {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
-			theta = theta - navX_theta;
+			theta = theta - navX_theta - (Math.PI/2);
 		}
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
@@ -146,7 +146,8 @@ public class Drive {
 			SmartDashboard.putNumber("stickVelocity", stickVelocity);
 			SmartDashboard.putNumber("actualVelocity", actualVelocity);
 			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
-			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+
+				if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
 				logger.info("Using traction control...");
 
 				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;

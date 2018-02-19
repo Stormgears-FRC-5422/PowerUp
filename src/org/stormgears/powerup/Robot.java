@@ -1,5 +1,7 @@
 package org.stormgears.powerup;
 
+import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
@@ -66,7 +68,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
-		boolean sensorBot = false;
+
+
+
+		boolean sensorBot = true;
 
 		StormScheduler.init();
 
@@ -76,8 +81,8 @@ public class Robot extends IterativeRobot {
 			sensors = Sensors.getInstance();
 			sensors.getNavX().setInitialTheta();
 			sensors.getNavX().test();
-			sensors.getStormNet().test();
-			while (true) {
+		//	sensors.getStormNet().test();
+
 				try {
 					System.out.println("NavX theta: " + sensors.getNavX().getTheta());
 					System.out.println("Lidar distances: " + sensors.getStormNet().getLidarDistance(1) + ", "
@@ -86,7 +91,6 @@ public class Robot extends IterativeRobot {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
 		}
 
 		DriveTalons.init();
@@ -112,6 +116,9 @@ public class Robot extends IterativeRobot {
 
 		Gripper.init();
 		gripper = Gripper.getInstance();
+
+		for (int i = 0; i < driveTalons.getTalons().length; i++)
+			driveTalons.getTalons()[i].setInverted(true);
 	}
 
 	/**
@@ -128,8 +135,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 
+//		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
+		driveTalons.getTalons()[3].setSensorPhase(true);
+//		driveTalons.getTalons()[1].set(ControlMode.Velocity, 1000);
+//		driveTalons.getTalons()[2].set(ControlMode.Velocity, 1000);
+//		driveTalons.getTalons()[3].set(ControlMode.Velocity, 1000);
 //		globalMapping.run();
 //		if (drive != null && !sensors.getNavX().isCalibrating()) {
 //			Robot.drive.runMotionMagic(60, 0);
@@ -144,10 +155,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		if (i == 0) {
-			i++;
-			drive.moveStraight( 24, Math.PI/2);
-		}
 
 		for (int i = 0; i < driveTalons.getTalons().length; i++) {
 			SmartDashboard.putNumber("Talon " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
@@ -166,13 +173,16 @@ public class Robot extends IterativeRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					i++;
-					drive.moveStraight(20, 0);
-				}
+				drive.move();
+
 			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
+		}
+
+		for (int i = 0; i < driveTalons.getTalons().length; i++) {
+			SmartDashboard.putNumber("Talon " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+			SmartDashboard.putNumber("Talon Vel " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadratureVelocity());
 		}
 	}
 
