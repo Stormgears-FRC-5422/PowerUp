@@ -82,14 +82,14 @@ public class Robot extends BaseStormgearsRobot {
 		ElevatorSharedTalons.init();
 		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
-		Elevator.init();
-		elevator = Elevator.getInstance();
-
-		Climber.init();
-		climber = Climber.getInstance();
-
-		Gripper.init();
-		gripper = Gripper.getInstance();
+//		Elevator.init();
+//		elevator = Elevator.getInstance();
+//
+//		Climber.init();
+//		climber = Climber.getInstance();
+//
+//		Gripper.init();
+//		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterAutonomousInit() {
-		if(drive != null) {
+		if (drive != null) {
 			if(!sensors.getNavX().isCalibrating()) {
 				if(!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.moveStraight(120, 0);
@@ -126,7 +126,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterTeleopInit() {
-
+		elevator.moveElevatorToPosition(80);
 	}
 
 	/**

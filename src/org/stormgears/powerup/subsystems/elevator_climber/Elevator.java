@@ -38,7 +38,7 @@ public class Elevator extends Subsystem {
 	private ElevatorSharedTalons talons;
 
 	// Side shift stuff
-	private static final int SIDE_SHIFT_TALON_ID = 11;
+	private static final int SIDE_SHIFT_TALON_ID = 7;
 	public StormTalon sideShiftTalon;
 	private int sideShiftPosition = 0;
 	public static final int LEFT = -1, CENTER = 0, RIGHT = 1;

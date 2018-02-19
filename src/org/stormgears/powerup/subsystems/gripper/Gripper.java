@@ -16,12 +16,12 @@ public class Gripper extends Subsystem {
 	}
 
 	//TODO: Change to correct value
-	private static final int TALON_ID = 0;
+	private static final int TALON_ID = 8;
 
 	private static final double GRIPPER_POWER = 0.5;
 	private static final double CLOSE_CURRENT_LIMIT = 3.0;
 	private static final double OPEN_CURRENT_LIMIT = 1.5;
-	private static final int CURRENT_CHECK_START_TIME = 50;
+	private static final int CURRENT_CHECK_START_TIME = 100;
 
 	private StormTalon talon;
 	private final Object lock = new Object();
