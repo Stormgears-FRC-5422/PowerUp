@@ -1,9 +1,5 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -18,21 +14,18 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
-import org.stormgears.powerup.subsystems.navigator.Position;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
+import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
 
-import java.util.concurrent.TimeUnit;
-
 /*
  * The entry point of the PowerUp program. Please keep it clean.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends BaseStormgearsRobot {
 	static {
 		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}
@@ -61,8 +54,6 @@ public class Robot extends IterativeRobot {
 	public static Gripper gripper;
 
 
-
-
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code
@@ -71,12 +62,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
-		boolean sensorBot = false;
-
 		StormScheduler.init();
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -96,9 +88,6 @@ public class Robot extends IterativeRobot {
 		Climber.init();
 		climber = Climber.getInstance();
 
-		//GlobalMapping.init();
-		//globalMapping = GlobalMapping.getInstance();
-
 		Gripper.init();
 		gripper = Gripper.getInstance();
 	}
@@ -110,6 +99,20 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 
 	}
+
+	/**
+	 * Runs once right at the start of autonomousPeriodic
+	 */
+	@Override
+	public void afterAutonomousInit() {
+		if(drive != null) {
+			if(!sensors.getNavX().isCalibrating()) {
+				if(!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.moveStraight(120, 0);
+			}
+		}
+	}
+
 	/**
 	 * Runs when operator control starts
 	 */
@@ -118,23 +121,21 @@ public class Robot extends IterativeRobot {
 		drive.setVelocityPID();
 	}
 
-	int i = 0;
+	/**
+	 * Runs once right at the start of teleopPeriodic
+	 */
+	@Override
+	public void afterTeleopInit() {
+
+	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if(drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if(!sensors.getNavX().thetaIsSet())
-					sensors.getNavX().setInitialTheta();
-				if(i == 0) {
-					i ++;
-					drive.moveStraight(120, 0);
-				}
-			}
-		}
+		super.autonomousPeriodic();
+
 	}
 
 	/**
@@ -143,12 +144,17 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		if(drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if(!sensors.getNavX().thetaIsSet())
-					sensors.getNavX().setInitialTheta();
+		super.teleopPeriodic();
+
+		StormScheduler.getInstance().run();
+
+		if (drive != null) {
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
 			}
+		} else {
+			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 	}
 
@@ -156,18 +162,14 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during sendTestData mode
 	 */
 	@Override
-	public void testPeriodic() {
-
-	}
-
-	/**
-	 * This function is called whenever the robot is disabled.
-	 */
 	public void disabledInit() {
-		for(int i = 0; i < driveTalons.getTalons().length; i ++) {
-			System.out.println(driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+		super.disabledInit();
+
+//		fmsInterface.startPollingForData();
+
+		for (RegisteredNotifier rn : notifierRegistry) {
+			rn.stop();
 		}
-		i = 0;
 	}
 }
 
