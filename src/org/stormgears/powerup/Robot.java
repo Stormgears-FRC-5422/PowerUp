@@ -1,7 +1,5 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.Joystick;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -46,13 +44,13 @@ public class Robot extends BaseStormgearsRobot {
 	public static DSIO dsio = DSIO.getInstance();
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
+	public static GlobalMapping globalMapping;
 	public static DriveTalons driveTalons;
 	public static Drive drive;
 	public static Intake intake;
 	public static ElevatorSharedTalons elevatorSharedTalons;
 	public static Elevator elevator;
 	public static Climber climber;
-	public static GlobalMapping globalMapping;
 	public static Gripper gripper;
 
 
@@ -87,11 +85,14 @@ public class Robot extends BaseStormgearsRobot {
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
 
 //		Gripper.init();
 //		gripper = Gripper.getInstance();
+
+		for (int i = 0; i < driveTalons.getTalons().length; i++)
+			driveTalons.getTalons()[i].setInverted(true);
 	}
 
 	/**

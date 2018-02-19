@@ -23,8 +23,8 @@ public class Drive {
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
-	private static final int MAX_VELOCITY = 15000;
-	private static final int MAX_ACCELERATION = 6000;
+	private static final int MAX_VELOCITY = 25000;
+	private static final int MAX_ACCELERATION = 750;
 
 	private StormTalon[] talons;
 	private double[] vels;
@@ -42,6 +42,7 @@ public class Drive {
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 		motionManager = new MotionManager();
 	}
+
 
 
 	public static void init() {
@@ -77,8 +78,9 @@ public class Drive {
 						 boolean useAbsoluteControl) {
 		if (useAbsoluteControl) {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
-			theta = theta - navX_theta;
+			theta = theta - navX_theta - (Math.PI/2);
 		}
+		//Naik is dumb
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi
@@ -145,7 +147,8 @@ public class Drive {
 			SmartDashboard.putNumber("stickVelocity", stickVelocity);
 			SmartDashboard.putNumber("actualVelocity", actualVelocity);
 			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
-			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+
+				if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
 				logger.info("Using traction control...");
 
 				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
@@ -230,7 +233,7 @@ public class Drive {
 
 		//From the mecMove method...
 		//TODO: test and see if this works
-		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[0] =  -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
 		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
 		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
 		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
@@ -254,20 +257,20 @@ public class Drive {
 
 			currentDistance = ((Math.abs(modifiers[i] * distance))* 8192)/(2*Math.PI * Robot.config.wheelRadius);
 			t1 = MAX_VELOCITY / MAX_ACCELERATION;
-			totTime = (t1) + (maxDistance/ MAX_VELOCITY) * 10; //TODO: FIND TOTAL TIME
+			totTime = (t1) + (maxDistance / MAX_VELOCITY) / 10.0; //TODO: FIND TOTAL TIME
 			vmax2 = currentDistance / (totTime - t1) / 10.0;
 			a2 = vmax2 / t1;
 
 
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2 * 10, a2 * 10);
-			} else {
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY * 10, MAX_ACCELERATION * 10);
-			}
+				System.out.println("Max Distance " + maxDistance);
+				System.out.println("TotalTime " + totTime);
+			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 		}
+	}
 		for (int i = 0; i < motions.length; i++) {
-			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
-			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
+		System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
+		motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 	}
 
@@ -295,7 +298,7 @@ public class Drive {
 		for(int i = 0; i < motions.length; i ++) {
 			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY /2, MAX_ACCELERATION /2);
 		}
-
+//comment
 		System.out.println(encoderTicks + "");
 
 		for (int i = 0; i < motions.length; i++) {
