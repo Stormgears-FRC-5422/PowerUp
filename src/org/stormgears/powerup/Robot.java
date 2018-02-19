@@ -21,9 +21,7 @@ import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 
 import java.util.ArrayList;
 
@@ -126,6 +124,7 @@ public class Robot extends BaseStormgearsRobot {
 		if (autonomousCommand != null) {
 			logger.info("starting the autonomous command...from autonomousInit()");
 			autonomousCommand.start();
+			
 		} else {
 			logger.info("AUTONOMOUS COMMAND IS NOT INITIALIZED");
 		}		
@@ -169,7 +168,7 @@ public class Robot extends BaseStormgearsRobot {
 		super.autonomousPeriodic();
 		
 		if (autonomousCommand != null) {			
-			Scheduler.getInstance().run();
+			StormScheduler.getInstance().run();
 		}
 
 	}
