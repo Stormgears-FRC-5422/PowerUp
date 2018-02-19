@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class StormTalon extends WPI_TalonSRX {
 	public StormTalon(int deviceNumber) {
 		super(deviceNumber);
+
+		System.out.println("Talon " + deviceNumber + " being initialized");
 	}
 
 	private double previousSet = Double.MAX_VALUE;

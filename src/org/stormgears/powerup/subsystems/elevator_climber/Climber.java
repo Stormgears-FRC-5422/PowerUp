@@ -27,16 +27,16 @@ public class Climber extends Subsystem {
 	public void climb() {
 		// TODO: Implement this better
 		int throttleValue = 0;
-		talons.getLeftMotor().set(ControlMode.Velocity, throttleValue);
-		talons.getRightMotor().set(ControlMode.Velocity, throttleValue);
+		talons.getMasterMotor().set(ControlMode.Velocity, throttleValue);
+		talons.getSlaveMotor().set(ControlMode.Velocity, throttleValue);
 	}
 
 	/**
 	 * Stops motor
 	 */
 	public void stop() {
-		talons.getLeftMotor().set(0);
-		talons.getRightMotor().set(0);
+		talons.getMasterMotor().set(0);
+		talons.getSlaveMotor().set(0);
 	}
 
 	@Override

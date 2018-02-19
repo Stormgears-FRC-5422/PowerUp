@@ -16,10 +16,12 @@ public class Gripper extends Subsystem {
 	}
 
 	//TODO: Change to correct value
-	private static final int TALON_ID = 4;
+	private static final int TALON_ID = 0;
 
 	private static final double GRIPPER_POWER = 0.5;
-	private static final double CURRENT_LIMIT = 5.0;
+	private static final double CLOSE_CURRENT_LIMIT = 3.0;
+	private static final double OPEN_CURRENT_LIMIT = 1.5;
+	private static final int CURRENT_CHECK_START_TIME = 50;
 
 	private StormTalon talon;
 	private final Object lock = new Object();
@@ -38,12 +40,20 @@ public class Gripper extends Subsystem {
 			boolean shouldTerminate = false;
 
 			logger.info("Gripper Closing");
-			talon.set(ControlMode.PercentOutput, -GRIPPER_POWER);
+			talon.set(ControlMode.PercentOutput, -1);
+			boolean shouldTrackCurrent = false;
+			int iteration = 0;
 
-			while (!shouldTerminate && talon.getOutputCurrent() <= CURRENT_LIMIT) {
+			while (!shouldTerminate && (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent)) {
+				iteration++;
+
 				synchronized (lock) {
 					shouldTerminate = this.shouldTerminate;
-//						logger.info("shouldTerminate: {}", shouldTerminate);
+				}
+
+				if (iteration > CURRENT_CHECK_START_TIME) {
+					shouldTrackCurrent = true;
+					talon.set(ControlMode.PercentOutput, -GRIPPER_POWER);
 				}
 
 				waitMs(20);
@@ -62,11 +72,20 @@ public class Gripper extends Subsystem {
 			boolean shouldTerminate = false;
 
 			logger.info("Gripper Opening");
-			talon.set(ControlMode.PercentOutput, GRIPPER_POWER);
+			talon.set(ControlMode.PercentOutput, 1);
+			boolean shouldTrackCurrent = false;
+			int iteration = 0;
 
-			while (!shouldTerminate && talon.getOutputCurrent() <= CURRENT_LIMIT) {
+			while (!shouldTerminate && (talon.getOutputCurrent() <= OPEN_CURRENT_LIMIT || !shouldTrackCurrent)) {
+				iteration++;
+
 				synchronized (lock) {
 					shouldTerminate = this.shouldTerminate;
+				}
+
+				if (iteration > CURRENT_CHECK_START_TIME) {
+					shouldTrackCurrent = true;
+					talon.set(ControlMode.PercentOutput, GRIPPER_POWER);
 				}
 
 				waitMs(20);
