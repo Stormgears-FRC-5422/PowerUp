@@ -23,8 +23,8 @@ public class Drive {
 	private static final int MAX_VELOCITY_ENCODER_TICKS = 6300;
 	private static final ControlMode MODE = ControlMode.Velocity;
 
-	private static final int MAX_VELOCITY = 5000;
-	private static final int MAX_ACCELERATION = 2500;
+	private static final int MAX_VELOCITY = 25000;
+	private static final int MAX_ACCELERATION = 750;
 
 	private StormTalon[] talons;
 	private double[] vels;
@@ -42,6 +42,7 @@ public class Drive {
 		motions = new MotionMagic[Robot.driveTalons.getTalons().length];
 		motionManager = new MotionManager();
 	}
+
 
 
 	public static void init() {
@@ -230,7 +231,7 @@ public class Drive {
 
 		//From the mecMove method...
 		//TODO: test and see if this works
-		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[0] =  -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
 		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
 		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
 		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
@@ -262,21 +263,12 @@ public class Drive {
 			if ((Math.abs(modifiers[i] * distance) != maxDistance)) {
 				System.out.println("Max Distance " + maxDistance);
 				System.out.println("TotalTime " + totTime);
-				System.out.println("T1 " + t1);
-				System.out.println("A2 " + a2);
-				System.out.println("vmax2 " + vmax2);
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], vmax2 , a2 );
-			} else {
-				System.out.println("TotalTime " + totTime);
-				System.out.println("T1 " + t1);
-				System.out.println("A2 " + a2);
-				System.out.println("vmax2 " + vmax2);
-				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
-			}
+			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 		}
+	}
 		for (int i = 0; i < motions.length; i++) {
-			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
-			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
+		System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
+		motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 	}
 
