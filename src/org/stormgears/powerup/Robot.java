@@ -125,9 +125,10 @@ public class Robot extends BaseStormgearsRobot {
 	 * Runs once right at the start of teleopPeriodic
 	 */
 	@Override
-//	public void afterTeleopInit() {
-//		elevator.moveElevatorToPosition(80);
-//	}
+	public void afterTeleopInit() {
+
+		//		elevator.moveElevatorToPosition(80);
+	}
 
 	/**
 	 * This function is called periodically during autonomous
