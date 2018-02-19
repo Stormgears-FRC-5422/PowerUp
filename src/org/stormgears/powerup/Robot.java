@@ -101,10 +101,6 @@ public class Robot extends IterativeRobot {
 
 		Gripper.init();
 		gripper = Gripper.getInstance();
-
-		for(int i = 0; i < driveTalons.getTalons().length; i ++) {
-			driveTalons.getTalons()[i].setInverted(true);
-		}
 	}
 
 	/**
@@ -119,7 +115,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		driveTalons.getTalons()[3].setSensorPhase(true);
+		drive.setVelocityPID();
 	}
 
 	int i = 0;
