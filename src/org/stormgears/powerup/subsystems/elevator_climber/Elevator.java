@@ -3,7 +3,6 @@ package org.stormgears.powerup.subsystems.elevator_climber;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.stormgears.powerup.Robot;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.utils.StormTalon;
 
 public class Elevator extends Subsystem {
@@ -39,8 +38,8 @@ public class Elevator extends Subsystem {
 	private ElevatorSharedTalons talons;
 
 	// Side shift stuff
-	private static final int SIDE_SHIFT_TALON_ID = 1;
-	private StormTalon sideShiftTalon;
+	private static final int SIDE_SHIFT_TALON_ID = 7;
+	public StormTalon sideShiftTalon;
 	private int sideShiftPosition = 0;
 	public static final int LEFT = -1, CENTER = 0, RIGHT = 1;
 	private static final double SIDE_SHIFT_POWER = 0.7;
@@ -123,11 +122,16 @@ public class Elevator extends Subsystem {
 			multiplier = 1;
 		}
 
+		boolean limitSwitchReachedInCenter = false;
 		sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier);
-		while (sideShiftTalon.getOutputCurrent() <= 20.0 || (position == CENTER && sideShiftTalon.getSensorCollection().isFwdLimitSwitchClosed())) {
+
+		while (sideShiftTalon.getOutputCurrent() <= 20.0 && !limitSwitchReachedInCenter) {
+			if (position == CENTER && sideShiftTalon.getSensorCollection().isFwdLimitSwitchClosed()) {
+				limitSwitchReachedInCenter = true;
+			}
 			waitMs(20);
 		}
-		sideShiftTalon.set(0);
+		sideShiftTalon.set(ControlMode.PercentOutput, 0);
 		System.out.println("Side shift current limit reached or reached center");
 
 		sideShiftPosition = position;

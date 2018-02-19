@@ -31,7 +31,7 @@ public class Drive {
 	private StormTalon[] talons;
 	private double[] vels;
 
-	public boolean useAbsoluteControl = true;
+	public boolean useAbsoluteControl = false;
 	public boolean useTractionControl = true;
 
 	private MotionMagic[] motions;
@@ -69,6 +69,15 @@ public class Drive {
 		}
 	}
 
+	public void setVelocityPID() {
+		for(StormTalon t : Robot.driveTalons.getTalons()) {
+			t.config_kP(0, Robot.config.velocityP, 10);
+			t.config_kI(0, Robot.config.velocityI, 10);
+			t.config_kD(0, Robot.config.velocityD, 10);
+			t.config_IntegralZone(0, Robot.config.velocityIzone, 10);
+		}
+	}
+
 	// Run mecanum math on each raw speed and set talons accordingly
 	private void mecMove(double tgtVel,
 						 double x,
@@ -76,6 +85,15 @@ public class Drive {
 						 double changeVel,
 						 double theta,
 						 boolean useAbsoluteControl) {
+
+		for(int i = 0; i < talons.length; i ++) {
+			talons[i].setInverted(true);
+		}
+
+		talons[3].setSensorPhase(true);
+		talons[0].setSensorPhase(true);
+		talons[2].setSensorPhase(true);
+
 		if (useAbsoluteControl) {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navX_theta - (Math.PI/2);
@@ -176,7 +194,7 @@ public class Drive {
 
 	public void driveMotionProfile(double rotations, double theta) {
 		double navX_theta = Robot.sensors.getNavX().getTheta();
-		theta = theta + navX_theta;
+		theta = theta - navX_theta - Math.PI / 2.0;
 
 		double[][] profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300, theta, 0);
 		motionManager.pushProfile(profile, false, true);
@@ -219,7 +237,8 @@ public class Drive {
 
 
 		if (useAbsoluteControl) {
-			double navX_theta = Robot.sensors.getNavX().getTheta();theta = theta - navX_theta;
+			double navX_theta = Robot.sensors.getNavX().getTheta();
+			theta = theta - navX_theta;
 		}
 
 		//TODO: make wheel diameter and other constants that im just making up

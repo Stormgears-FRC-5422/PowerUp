@@ -33,8 +33,6 @@ public class DriveTalons {
 			t.setSensorPhase(true);
 		}
 
-
-
 	}
 
 	public static void init() {
