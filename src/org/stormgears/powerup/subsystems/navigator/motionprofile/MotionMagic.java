@@ -33,10 +33,6 @@ public class MotionMagic {
 
 		/* set closed loop gains in slot0 - see documentation */
 		talon.selectProfileSlot(0, 0);
-		talon.config_kF(0, config.velocityF, TALON_FPID_TIMEOUT);
-		talon.config_kP(0, config.velocityP, TALON_FPID_TIMEOUT);
-		talon.config_kI(0, config.velocityI, TALON_FPID_TIMEOUT);
-		talon.config_kD(0, config.velocityD, TALON_FPID_TIMEOUT);
 		/* set acceleration and vcruise velocity - see documentation */
 
 
@@ -59,8 +55,8 @@ public class MotionMagic {
 		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT);
 		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT);
 		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT);
-
 		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT);
+
 		talon.set(ControlMode.MotionMagic, targetPos);
 
 		//TODO: figure out what this try-catch actually does

@@ -9,31 +9,37 @@ public class ElevatorSharedTalons {
 		return instance;
 	}
 
+	public static final int TALON_FPID_TIMEOUT = 10;
+
 	// TODO: Set these to correct elevator_climber ids
-	private static final int LEFT_MOTOR_TALON_ID = 0;
-	private static final int RIGHT_MOTOR_TALON_ID = 0;
+	private static final int MASTER_MOTOR_TALON_ID = 11;
+	private static final int SLAVE_MOTOR_TALON_ID = 10;
 
 	// TODO: Rename these if needed
-	private StormTalon leftMotor;
-	private StormTalon rightMotor;
+	private StormTalon masterMotor;
+	private StormTalon slaveMotor;
 
-	private ElevatorSharedTalons(int leftMotorId, int rightMotorId) {
+	private ElevatorSharedTalons(int masterMotorId, int slaveMotorId) {
+		System.out.println("Initializing elevator talons");
 		// TODO: Correctly setup talons
-		leftMotor = new StormTalon(leftMotorId);
-		rightMotor = new StormTalon(rightMotorId);
-		rightMotor.set(ControlMode.Follower, leftMotorId);
+		masterMotor = new StormTalon(masterMotorId);
+		slaveMotor = new StormTalon(slaveMotorId);
+		slaveMotor.set(ControlMode.Follower, masterMotorId);
+		masterMotor.setInverted(true);
+		masterMotor.setSensorPhase(true);
+		slaveMotor.setInverted(true);
 
 	}
 
 	public static void init() {
-		instance = new ElevatorSharedTalons(LEFT_MOTOR_TALON_ID, RIGHT_MOTOR_TALON_ID);
+		instance = new ElevatorSharedTalons(MASTER_MOTOR_TALON_ID, SLAVE_MOTOR_TALON_ID);
 	}
 
-	StormTalon getLeftMotor() {
-		return leftMotor;
+	public StormTalon getMasterMotor() {
+		return masterMotor;
 	}
 
-	StormTalon getRightMotor() {
-		return rightMotor;
+	public StormTalon getSlaveMotor() {
+		return slaveMotor;
 	}
 }
