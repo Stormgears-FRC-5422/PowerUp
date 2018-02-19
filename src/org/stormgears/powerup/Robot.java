@@ -3,10 +3,12 @@ package org.stormgears.powerup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
+import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
@@ -19,6 +21,9 @@ import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
+
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 import java.util.ArrayList;
 
@@ -53,6 +58,14 @@ public class Robot extends BaseStormgearsRobot {
 	public static Climber climber;
 	public static Gripper gripper;
 
+	private Command autonomousCommand = null;
+
+	private FieldPositions.Alliance selectedAlliance;
+	private FieldPositions.StartingSpots selectedStartSpot;
+	private FieldPositions.PlacementSpot selectedPlacementSpot;
+	private FieldPositions.LeftRight selectedOwnSwitchPlateAssignment;
+	private FieldPositions.LeftRight selectedScalePlateAssignment;
+	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -97,7 +110,26 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		//get all the selected autonomous command properties for this run
+		getSelectedAutonomousCommand();
+		
+		//if any residual commands exist, cancel them
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
 
+		logger.info("creating autonomous command group");
+
+		autonomousCommand = new AutonomousCommandGroup(selectedAlliance, selectedStartSpot, selectedPlacementSpot, selectedOwnSwitchPlateAssignment, selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);
+		
+		//execute autonomous command
+		if (autonomousCommand != null) {
+			logger.info("starting the autonomous command...from autonomousInit()");
+			autonomousCommand.start();
+		} else {
+			logger.info("AUTONOMOUS COMMAND IS NOT INITIALIZED");
+		}		
+		
 	}
 
 	/**
@@ -135,6 +167,10 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
+		
+		if (autonomousCommand != null) {			
+			Scheduler.getInstance().run();
+		}
 
 	}
 
@@ -171,5 +207,22 @@ public class Robot extends BaseStormgearsRobot {
 			rn.stop();
 		}
 	}
+	
+	private void getSelectedAutonomousCommand() {
+		selectedAlliance = dsio.choosers.getAlliance();
+		selectedStartSpot = dsio.choosers.getStartingSpot();
+		selectedPlacementSpot = dsio.choosers.getPlacementSpot();
+		selectedScalePlateAssignment = dsio.choosers.getScalePlateAssignmentChooser();
+		selectedOwnSwitchPlateAssignment = dsio.choosers.getOwnSwitchPlateAssignmentChooser();
+		selectedOpponentSwitchPlateAssignmentChooser = dsio.choosers.getOpponentSwitchPlateAssignmentChooser();
+				
+		logger.info("Selected Alliance: " + selectedAlliance.toString());
+		logger.info("Selected Starting Spot: " + selectedStartSpot.toString());
+		logger.info("Selected Placement Spot: " + selectedPlacementSpot.toString());
+		logger.info("Selected Scale Plate Assignment: " + selectedScalePlateAssignment.toString());
+		logger.info("Selected Own Switch Plate Assignment: " + selectedOwnSwitchPlateAssignment.toString());
+		logger.info("Selected Opponent Switch Plate Assignment: " + selectedOpponentSwitchPlateAssignmentChooser.toString());
+	}
+	
 }
 
