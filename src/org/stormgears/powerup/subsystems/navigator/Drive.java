@@ -80,6 +80,7 @@ public class Drive {
 			double navX_theta = Robot.sensors.getNavX().getTheta();
 			theta = theta - navX_theta - (Math.PI/2);
 		}
+		//Naik is dumb
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
 		// TODO: constrain theta to be from -pi to pi

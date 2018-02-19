@@ -166,6 +166,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 
+	//Naik is dumb
 	@Override
 	public void teleopPeriodic() {
 		StormScheduler.getInstance().run();
