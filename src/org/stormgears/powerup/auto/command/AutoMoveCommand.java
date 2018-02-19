@@ -235,7 +235,7 @@ public class AutoMoveCommand extends Command {
 	    					" to " + selectedPlacementSpot.toString() + 
 	    					" on the " + selectedOwnSwitchPlateAssignment.toString());
 			    	//move straight forward on Y-axis by 132.0in using Motion Magic  	
-			    	//straffe left on X-axis by -18.0 in using Motion Magic
+			    	//strafe left on X-axis by -18.0 in using Motion Magic
 			    	Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
 			    	try{
 				    	TimeUnit.SECONDS.sleep(10);			    		
