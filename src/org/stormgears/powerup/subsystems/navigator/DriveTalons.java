@@ -28,7 +28,11 @@ public class DriveTalons {
 			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
 			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
 			t.setNeutralMode(NeutralMode.Brake);
+
+			t.setInverted(true);
+			t.setSensorPhase(true);
 		}
+
 	}
 
 	public static void init() {
