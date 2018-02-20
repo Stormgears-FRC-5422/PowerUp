@@ -2,9 +2,6 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import java.text.FieldPosition;
-
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 
 public class Choosers {
@@ -28,7 +25,7 @@ public class Choosers {
 	 * Remember to create a getter for the data. To access data from a chooser elsewhere,
 	 * use Robot.dsio.choosers.getWhatever() where Whatever is what you want to get
 	 */
-	Choosers() {		
+	Choosers() {
 		startingSpotChooser = new SendableChooser<>();
 		startingSpotChooser.addDefault("Left Side of the Field", FieldPositions.StartingSpots.LEFT);
 		startingSpotChooser.addObject("Center of the Field", FieldPositions.StartingSpots.CENTER);
@@ -63,7 +60,7 @@ public class Choosers {
 
 		typeOfPlateAssignmentChooser = new SendableChooser<>();
 		typeOfPlateAssignmentChooser.addDefault("Use FMS", "FMS");
-		typeOfPlateAssignmentChooser.addObject("Use Chooser", "CHOOSER");				
+		typeOfPlateAssignmentChooser.addObject("Use Chooser", "CHOOSER");
 		SmartDashboard.putData("Type of Plate Assignment", typeOfPlateAssignmentChooser);
 	}
 
@@ -86,21 +83,21 @@ public class Choosers {
 			scalePlateAssignmentChooser.getSelected().name() +
 			opponentSwitchPlateAssignmentChooser.getSelected().name();
 	}
-	
+
 	public FieldPositions.LeftRight getOwnSwitchPlateAssignmentChooser() {
 		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
 			return ownSwitchPlateAssignmentChooser.getSelected();
 		} else {//Using FMS interface
 			return FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE;
 		}
-		
+
 	}
 
 	public FieldPositions.LeftRight getScalePlateAssignmentChooser() {
 		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
 			return scalePlateAssignmentChooser.getSelected();
 		} else { //Using FMS interface
-			return FieldPositions.SCALE_PLATE_ASSIGNMENT_CHOICE;			
+			return FieldPositions.SCALE_PLATE_ASSIGNMENT_CHOICE;
 		}
 	}
 
@@ -108,7 +105,7 @@ public class Choosers {
 		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
 			return opponentSwitchPlateAssignmentChooser.getSelected();
 		} else { //Using FMS interface
-			return FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;			
+			return FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;
 		}
 	}
 }

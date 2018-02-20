@@ -20,7 +20,8 @@ public class MotionMagic {
 		/* first choose the sensor */
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, TALON_FPID_TIMEOUT);
 		talon.setSensorPhase(true);
-		talon.setInverted(false);
+		talon.setInverted(true);
+
 
 		/* Set relevant frame periods to be at least as fast as periodic rate */
 		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, TALON_FPID_TIMEOUT, TALON_FPID_TIMEOUT);

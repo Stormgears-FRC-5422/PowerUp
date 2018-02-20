@@ -6,11 +6,11 @@ public class StormNet {
 
 	public StormNet() {
 		// TODO - get these values from configuration
-	//	EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
-	//	I2CEthernetVoice i2cEthernetVoice = new I2CEthernetVoice(ethernetVoice, 11);
+		//	EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
+		//	I2CEthernetVoice i2cEthernetVoice = new I2CEthernetVoice(ethernetVoice, 11);
 
-	//	m_lidar = new EthernetLidar(ethernetVoice);
-	//	m_lineIR = new LineIR(i2cEthernetVoice);
+		//	m_lidar = new EthernetLidar(ethernetVoice);
+		//	m_lineIR = new LineIR(i2cEthernetVoice);
 	}
 
 	public boolean test() {
@@ -22,9 +22,13 @@ public class StormNet {
 		return true;
 	}
 
-	public int getLidarDistance(int sensorNumber) {return m_lidar.getDistance(sensorNumber);}
+	public int getLidarDistance(int sensorNumber) {
+		return m_lidar.getDistance(sensorNumber);
+	}
 
-	public int getLineIRDistance(int sensorNumber) {return m_lineIR.getDistance(sensorNumber);}
+	public int getLineIRDistance(int sensorNumber) {
+		return m_lineIR.getDistance(sensorNumber);
+	}
 
 	// TODO: when the serial line is connected to the arduino then the socket needs to reconnect
 }

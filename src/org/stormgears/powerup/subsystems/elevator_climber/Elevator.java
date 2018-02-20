@@ -1,12 +1,13 @@
 package org.stormgears.powerup.subsystems.elevator_climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
+import org.stormgears.utils.TerminatableSubsystem;
 
-public class Elevator extends Subsystem {
+public class Elevator extends TerminatableSubsystem {
 	private static Elevator instance;
+
 	public static Elevator getInstance() {
 		return instance;
 	}
@@ -23,14 +24,8 @@ public class Elevator extends Subsystem {
 	private static final double LOWER_D = 1;
 
 	// TODO: Fine Tune Positions (ALL IN INCHES)
-	public static final int SWITCH_POSITION_1 = 20;
-	public static final int SWITCH_POSITION_2 = 30;
-	public static final int SWITCH_POSITION_3 = 43;
-	public static final int SCALE_POSITION_1 = 52;
-	public static final int SCALE_POSITION_2 = 64;
-	public static final int SCALE_POSITION_3 = 78;
-	public static final int SCALE_POSITION_4 = 92;
-	public static final int SCALE_POSITION_5 = 106;
+	public static final int[] SWITCH_POSITIONS = {20, 30, 43};
+	public static final int[] SCALE_POSITIONS = {52, 64, 78, 92, 106};
 	private static final int START = 0; // inches elevator starts off the ground
 
 	private int currentElevatorPosition = START; // current number of inches off the ground
@@ -39,7 +34,7 @@ public class Elevator extends Subsystem {
 
 	// Side shift stuff
 	private static final int SIDE_SHIFT_TALON_ID = 7;
-	public StormTalon sideShiftTalon;
+	private StormTalon sideShiftTalon;
 	private int sideShiftPosition = 0;
 	public static final int LEFT = -1, CENTER = 0, RIGHT = 1;
 	private static final double SIDE_SHIFT_POWER = 0.7;
@@ -49,7 +44,7 @@ public class Elevator extends Subsystem {
 	 */
 	private Elevator() {
 		talons = Robot.elevatorSharedTalons;
-		
+
 		sideShiftTalon = new StormTalon(SIDE_SHIFT_TALON_ID);
 	}
 
@@ -68,11 +63,11 @@ public class Elevator extends Subsystem {
 	 */
 	public void moveElevatorToPosition(int position) {
 		position = toEncoderTicks(position);
-		if (position < currentElevatorPosition) {	 // Raising elevator
+		if (position < currentElevatorPosition) {     // Raising elevator
 			talons.getMasterMotor().config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
 			talons.getMasterMotor().config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
 			talons.getMasterMotor().config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
-		} else {	// Lowering elevator
+		} else {    // Lowering elevator
 			talons.getMasterMotor().config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
 			talons.getMasterMotor().config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
 			talons.getMasterMotor().config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
@@ -81,10 +76,16 @@ public class Elevator extends Subsystem {
 		System.out.println("Desired position: " + position);
 		talons.getMasterMotor().set(ControlMode.Position, position);
 
+		shouldTerminate = false;
+		while (!shouldTerminate && Math.abs(talons.getMasterMotor().getSensorCollection().getQuadratureVelocity()) > 10) {
+			waitMs(20);
+		}
+
+		System.out.println("Elevator has moved to position: " + position);
 		currentElevatorPosition = position;
 	}
 
-	 /**
+	/**
 	 * Bring the elevator to the lowest position
 	 */
 	public void resetElevator() {
@@ -103,7 +104,6 @@ public class Elevator extends Subsystem {
 	 */
 	public void stopElevator() {
 		talons.getMasterMotor().set(0);
-		talons.getSlaveMotor().set(0);
 	}
 
 	/**
@@ -125,8 +125,11 @@ public class Elevator extends Subsystem {
 		boolean limitSwitchReachedInCenter = false;
 		sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier);
 
-		while (sideShiftTalon.getOutputCurrent() <= 20.0 && !limitSwitchReachedInCenter) {
-			if (position == CENTER && sideShiftTalon.getSensorCollection().isFwdLimitSwitchClosed()) {
+		shouldTerminate = false;
+		while (!shouldTerminate && sideShiftTalon.getOutputCurrent() <= 20.0 && !limitSwitchReachedInCenter) {
+			if (position == CENTER && sideShiftTalon.getSensorCollection().isRevLimitSwitchClosed()) {
+				// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
+				// and vice versa
 				limitSwitchReachedInCenter = true;
 			}
 			waitMs(20);
