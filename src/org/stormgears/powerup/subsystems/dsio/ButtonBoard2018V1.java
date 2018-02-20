@@ -85,7 +85,7 @@ public class ButtonBoard2018V1 implements IButtonBoard {
 			new EnhancedButton(logitech, 8),
 			new EnhancedButton(logitech, 5),
 			new EnhancedButton(logitech, 7),
-			new EnhancedButton(logitech, 10),
+			new EnhancedButton(logitech, 9),
 			new EnhancedButton(logitech, 6)
 		};
 	}
