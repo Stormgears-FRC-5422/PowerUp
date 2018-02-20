@@ -1,10 +1,6 @@
 package org.stormgears.powerup.subsystems.dsio;
 
-import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
-import org.stormgears.utils.dsio.EnhancedButton;
-import org.stormgears.utils.dsio.StormButton;
-import org.stormgears.utils.dsio.SwitchControl;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -21,90 +17,55 @@ public class DSIO {
 
 	public Choosers choosers;
 
-	// If you want to change the channel, change it here
-	// We need 2 buttonBoards because the 2018 revision takes 2 joysticks to use, and then 1 normal joystick
-	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1, BUTTON_BOARD_2_CHANNEL = 2;
+//	// If you want to change the channel, change it here
+//	// We need 2 buttonBoards because the 2018 revision takes 2 joysticks to use, and then 1 normal joystick
+//	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1, BUTTON_BOARD_2_CHANNEL = 2;
 
-	// Don't instantiate any other joysticks
-	private Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
-		buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL),
-		buttonBoard2;
+//	// Don't instantiate any other joysticks
+//	private Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
+//		buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL),
+//		buttonBoard2;
 
 	private boolean joystickEnabled = true;
 
-	/*
-	 * year <= 2017 buttons
-	 */
-	private final StormButton
-		bigBlueButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.BIG_BLUE),
-		redButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.RED),
-		yellowButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.YELLOW),
-		greenButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.GREEN),
-		smallBlueButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.SMALL_BLUE),
-		blackButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.BLACK),
-		whiteButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.WHITE);
-	private final SwitchControl
-		greenSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.GREEN_SWITCH),
-		orangeSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.ORANGE_SWITCH),
-		redSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.RED_SWITCH);
-
-	/*
-	 * year == 2018 buttons
-	 */
-	private final StormButton[] scaleButtons = {
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[0]),
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[1]),
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[2]),
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[3]),
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[4])
-	};
-	private final StormButton[] switchButtons = {
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_0),
-		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_1),
-	};
+	private IButtonBoard buttonBoard;
 
 	private DSIO() {
 		setupButtonsAndSwitches();
 		choosers = new Choosers();
 
-		if (using2018Board) {
-			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
-		}
+//		if (using2018Board) {
+//			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
+//		}
 	}
 
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
 	private void setupButtonsAndSwitches() {
-		if (using2018Board) {
+		// RED
+		buttonBoard.getGripCloseButton().whenPressed(() -> { //closes gripper
+			Robot.gripper.closeGripper();
+		});
 
-		} else {
-			// RED
-			redButton.whenPressed(() -> { //closes gripper
-				Robot.gripper.closeGripper();
-			});
+		// YELLOW
+		buttonBoard.getGripOpenButton().whenPressed(() -> { //opens gripper
+			Robot.gripper.openGripper();
+		});
 
-			// YELLOW
-			yellowButton.whenPressed(() -> { //opens gripper
-				Robot.gripper.openGripper();
-			});
+		// GREEN SWITCH // TODO
+//			greenSwitch.whenFlipped(isUp -> {
+//				if (isOn) {
+//					Robot.intake.enableIntake();
+//				} else {
+//					Robot.intake.disableIntake();
+//				}
+//			});
 
-			// GREEN SWITCH
-			greenSwitch.whenFlipped(isOn -> {
-				if (isOn) {
-					Robot.intake.enableIntake();
-				} else {
-					Robot.intake.disableIntake();
-				}
-			});
-
-			// ORANGE SWITCH
-			orangeSwitch.whenFlipped(isOn -> Robot.drive.useAbsoluteControl = isOn);
-
-			// RED SWITCH
-			redSwitch.whenFlipped(isOn -> Robot.drive.useTractionControl = isOn);
-		}
+		// ORANGE SWITCH
+//			orangeSwitch.whenFlipped(isOn -> Robot.drive.useAbsoluteControl = isOn);
 	}
+
 
 	// Joystick related methods
 

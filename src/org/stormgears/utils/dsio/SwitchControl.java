@@ -30,7 +30,7 @@ public class SwitchControl extends JoystickButton {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch {} flipped off on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
+				logger.info("Switch {} flipped off - {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
 			}
 		});
 
@@ -42,7 +42,7 @@ public class SwitchControl extends JoystickButton {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch {} flipped on on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
+				logger.info("Switch {} flipped on - {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
 			}
 		});
 	}
@@ -74,7 +74,7 @@ public class SwitchControl extends JoystickButton {
 	}
 
 	@FunctionalInterface
-	public static interface FlipListener {
+	public interface FlipListener {
 		void flipped(boolean on);
 	}
 }
