@@ -1,16 +1,15 @@
 package org.stormgears.powerup.subsystems.dsio.controls;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Button;
 
 public abstract class BaseControl {
-	protected JoystickButton wpiInstance;
+	protected Button button;
 	protected int number;
 
-	public BaseControl(Joystick joystick, int number) {
+	public BaseControl(Button button) {
 		this.number = number;
 
-		wpiInstance = new JoystickButton(joystick, number);
+		this.button = button;
 
 		setupCommand();
 	}

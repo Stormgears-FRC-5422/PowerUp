@@ -2,8 +2,8 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
-import org.stormgears.powerup.subsystems.dsio.controls.Button;
-import org.stormgears.powerup.subsystems.dsio.controls.Switch;
+import org.stormgears.utils.dsio.EnhancedButton;
+import org.stormgears.utils.dsio.SwitchControl;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -34,32 +34,32 @@ public class DSIO {
 	/*
 	 * year <= 2017 buttons
 	 */
-	private final Button
-		bigBlueButton = new Button(ButtonIds.Board.Rev2017.BIG_BLUE, buttonBoard),
-		redButton = new Button(ButtonIds.Board.Rev2017.RED, buttonBoard),
-		yellowButton = new Button(ButtonIds.Board.Rev2017.YELLOW, buttonBoard),
-		greenButton = new Button(ButtonIds.Board.Rev2017.GREEN, buttonBoard),
-		smallBlueButton = new Button(ButtonIds.Board.Rev2017.SMALL_BLUE, buttonBoard),
-		blackButton = new Button(ButtonIds.Board.Rev2017.BLACK, buttonBoard),
-		whiteButton = new Button(ButtonIds.Board.Rev2017.WHITE, buttonBoard);
-	private final Switch
-		greenSwitch = new Switch(ButtonIds.Board.Rev2017.GREEN_SWITCH, buttonBoard),
-		orangeSwitch = new Switch(ButtonIds.Board.Rev2017.ORANGE_SWITCH, buttonBoard),
-		redSwitch = new Switch(ButtonIds.Board.Rev2017.RED_SWITCH, buttonBoard);
+	private final EnhancedButton
+		bigBlueButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.BIG_BLUE),
+		redButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.RED),
+		yellowButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.YELLOW),
+		greenButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.GREEN),
+		smallBlueButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.SMALL_BLUE),
+		blackButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.BLACK),
+		whiteButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.WHITE);
+	private final SwitchControl
+		greenSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.GREEN_SWITCH),
+		orangeSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.ORANGE_SWITCH),
+		redSwitch = new SwitchControl(buttonBoard, ButtonIds.Board.Rev2017.RED_SWITCH);
 
 	/*
 	 * year == 2018 buttons
 	 */
-	private final Button[] scaleButtons = {
-		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_2, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_3, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_4, buttonBoard2)
+	private final EnhancedButton[] scaleButtons = {
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[0]),
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[1]),
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[2]),
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[3]),
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[4])
 	};
-	private final Button[] switchButtons = {
-		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
+	private final EnhancedButton[] switchButtons = {
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_0),
+		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_1),
 	};
 
 	private DSIO() {
@@ -78,43 +78,18 @@ public class DSIO {
 		if (using2018Board) {
 
 		} else {
-			// BIG BLUE
-			bigBlueButton.setOnButtonTouchUpListener(() -> {
-
-			});
-
 			// RED
-			redButton.setOnButtonTouchUpListener(() -> { //closes gripper
+			redButton.whenPressed(() -> { //closes gripper
 				Robot.gripper.closeGripper();
 			});
 
 			// YELLOW
-			yellowButton.setOnButtonTouchUpListener(() -> { //opens gripper
+			yellowButton.whenPressed(() -> { //opens gripper
 				Robot.gripper.openGripper();
 			});
 
-			// GREEN
-			greenButton.setOnButtonTouchUpListener(() -> {
-
-			});
-
-			// SMALL BLUE
-			smallBlueButton.setOnButtonTouchUpListener(() -> {
-
-			});
-
-			// BLACK
-			blackButton.setOnButtonTouchUpListener(() -> {
-
-			});
-
-			// WHITE
-			whiteButton.setOnButtonTouchUpListener(() -> {
-
-			});
-
 			// GREEN SWITCH
-			greenSwitch.setOnSwitchFlippedListener(isOn -> {
+			greenSwitch.whenFlipped(isOn -> {
 				if (isOn) {
 					Robot.intake.enableIntake();
 				} else {
@@ -123,10 +98,10 @@ public class DSIO {
 			});
 
 			// ORANGE SWITCH
-			orangeSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useAbsoluteControl = isOn);
+			orangeSwitch.whenFlipped(isOn -> Robot.drive.useAbsoluteControl = isOn);
 
 			// RED SWITCH
-			redSwitch.setOnSwitchFlippedListener(isOn -> Robot.drive.useTractionControl = isOn);
+			redSwitch.whenFlipped(isOn -> Robot.drive.useTractionControl = isOn);
 		}
 	}
 

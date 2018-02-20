@@ -16,11 +16,7 @@ class ButtonIds {
 		}
 
 		public static class Rev2018 {
-			public static final int SCALE_0 = 8;			// log
-			public static final int SCALE_1 = 5;			// log
-			public static final int SCALE_2 = 7;			// log
-			public static final int SCALE_3 = 10;			// log
-			public static final int SCALE_4 = 6;			// log
+			public static final int[] SCALE = {8, 5, 7, 10, 6}; // log
 			public static final int SWITCH_0 = 10;  		// msp
 			public static final int SWITCH_1 = 1;			// log
 			public static final int DROP = 14;				// log
