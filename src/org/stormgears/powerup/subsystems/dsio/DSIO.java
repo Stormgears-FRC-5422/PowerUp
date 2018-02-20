@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import org.stormgears.powerup.Robot;
+import org.stormgears.utils.dsio.IRawJoystick;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -25,6 +26,8 @@ public class DSIO {
 //	private Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
 //		buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL),
 //		buttonBoard2;
+
+	private IRawJoystick joystick;
 
 	private boolean joystickEnabled = true;
 
@@ -84,19 +87,19 @@ public class DSIO {
 	public double getJoystickX() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(joystick.getX(), X_NULLZONE);
+		return processJoystick(joystick.getJoystickX(), X_NULLZONE);
 	}
 
 	public double getJoystickY() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(joystick.getY(), Y_NULLZONE);
+		return processJoystick(joystick.getJoystickY(), Y_NULLZONE);
 	}
 
 	public double getJoystickZ() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(-joystick.getZ(), Z_NULLZONE);
+		return processJoystick(joystick.getJoystickZ(), Z_NULLZONE);
 	}
 
 	private double processJoystick(double val, final double nullzone) {
