@@ -1,3 +1,4 @@
+
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
 import org.apache.logging.log4j.LogManager;

@@ -19,6 +19,7 @@ import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.navigator.Position;
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
@@ -61,6 +62,10 @@ public class Robot extends IterativeRobot {
 	public static Gripper gripper;
 
 
+	MotionMagic m1;
+	MotionMagic m2;
+	MotionMagic m3;
+	MotionMagic m4;
 
 
 	/**
@@ -108,8 +113,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		m1 = new MotionMagic(driveTalons.getTalons()[0], 25000, 300);
+		m2 = new MotionMagic(driveTalons.getTalons()[1], 25000, 300);
+		m3 = new MotionMagic(driveTalons.getTalons()[2], 25000, 300);
+		m4 = new MotionMagic(driveTalons.getTalons()[3], 25000, 300);
 	}
+
 	/**
 	 * Runs when operator control starts
 	 */
@@ -125,14 +134,22 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if(drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if(!sensors.getNavX().thetaIsSet())
+		if (drive != null) {
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet())
 					sensors.getNavX().setInitialTheta();
-				if(i == 0) {
-					i ++;
-					drive.moveStraight(120, 0);
+				if (i == 0) {
+					i++;
+					drive.moveStraight(60, 0);
 				}
+				for (int i = 0; i < driveTalons.getTalons().length; i++) {
+					SmartDashboard.putNumber("Talon Position: " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
+					SmartDashboard.putNumber("Talon Velocity: " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadratureVelocity());
+
+				}
+
+
+
 			}
 		}
 	}
@@ -143,9 +160,9 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		if(drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if(!sensors.getNavX().thetaIsSet())
+		if (drive != null) {
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet())
 					sensors.getNavX().setInitialTheta();
 				drive.move();
 			}
@@ -164,9 +181,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called whenever the robot is disabled.
 	 */
 	public void disabledInit() {
-		for(int i = 0; i < driveTalons.getTalons().length; i ++) {
-			System.out.println(driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
-		}
+
 		i = 0;
 	}
 }
