@@ -7,6 +7,7 @@ public class LineIR extends StormNetSensor {
 
 	public LineIR(StormNetVoice voice) {
 		super(voice);
+
 		// TODO magic number
 		setSensorCount(2);
 		sensorValues = new short[m_numSensors];
@@ -17,9 +18,8 @@ public class LineIR extends StormNetSensor {
 		boolean superResult = super.test(sleep);
 
 		try {
-			short[] sensorValues = new short[2];  // 2 sensor values
 			for (int i = 0; i < sleep; i++) {
-				fetchShorts("C", "Color", sensorValues);
+				pollDistance();
 				log("IR test returned [ " +
 					sensorValues[0] + " ] [ " +
 					sensorValues[1] + " ]");
@@ -33,12 +33,13 @@ public class LineIR extends StormNetSensor {
 	}
 
 	public void pollDistance() {
-		fetchShorts("L", "Lidar", sensorValues);
+		fetchShorts("C", "Color", sensorValues);
 	}
 
 	// Distance in ???
 	public int getDistance(int sensorNumber) {
-		return (0xFFFF & sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
+		pollDistance();
+		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
 
 }

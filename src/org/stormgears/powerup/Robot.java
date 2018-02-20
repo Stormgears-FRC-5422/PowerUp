@@ -1,16 +1,14 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
+import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
@@ -18,22 +16,19 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
-import org.stormgears.powerup.subsystems.navigator.Position;
-import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
+import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
+import edu.wpi.first.wpilibj.command.Command;
 
 import java.util.ArrayList;
-
-import java.util.concurrent.TimeUnit;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
  */
-public class Robot extends IterativeRobot {
+public class Robot extends BaseStormgearsRobot {
 	static {
 		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}
@@ -61,12 +56,14 @@ public class Robot extends IterativeRobot {
 	public static Climber climber;
 	public static Gripper gripper;
 
+	private Command autonomousCommand = null;
 
-	MotionMagic m1;
-	MotionMagic m2;
-	MotionMagic m3;
-	MotionMagic m4;
-
+	private FieldPositions.Alliance selectedAlliance;
+	private FieldPositions.StartingSpots selectedStartSpot;
+	private FieldPositions.PlacementSpot selectedPlacementSpot;
+	private FieldPositions.LeftRight selectedOwnSwitchPlateAssignment;
+	private FieldPositions.LeftRight selectedScalePlateAssignment;
+	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -76,12 +73,13 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
 
-		boolean sensorBot = false;
-
 		StormScheduler.init();
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+
+		GlobalMapping.init();
+		globalMapping = GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -92,20 +90,17 @@ public class Robot extends IterativeRobot {
 		Intake.init();
 		intake = Intake.getInstance();
 
-		ElevatorSharedTalons.init();
-		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+//		ElevatorSharedTalons.init();
+//		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
-		Elevator.init();
-		elevator = Elevator.getInstance();
+//		Elevator.init();
+//		elevator = Elevator.getInstance();
 
-		Climber.init();
-		climber = Climber.getInstance();
+//		Climber.init();
+//		climber = Climber.getInstance();
 
-		//GlobalMapping.init();
-		//globalMapping = GlobalMapping.getInstance();
-
-		Gripper.init();
-		gripper = Gripper.getInstance();
+//		Gripper.init();
+//		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -113,10 +108,39 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m1 = new MotionMagic(driveTalons.getTalons()[0], 25000, 300);
-		m2 = new MotionMagic(driveTalons.getTalons()[1], 25000, 300);
-		m3 = new MotionMagic(driveTalons.getTalons()[2], 25000, 300);
-		m4 = new MotionMagic(driveTalons.getTalons()[3], 25000, 300);
+		//get all the selected autonomous command properties for this run
+		getSelectedAutonomousCommand();
+		
+		//if any residual commands exist, cancel them
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
+		}
+
+		logger.info("creating autonomous command group");
+
+		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
+			selectedStartSpot,
+			selectedPlacementSpot,
+			selectedOwnSwitchPlateAssignment,
+			selectedScalePlateAssignment,
+			selectedOpponentSwitchPlateAssignmentChooser);
+		
+		//execute autonomous command
+		logger.info("starting the autonomous command...from autonomousInit()");
+		autonomousCommand.start();
+	}
+
+	/**
+	 * Runs once right at the start of autonomousPeriodic
+	 */
+	@Override
+	public void afterAutonomousInit() {
+		if (drive != null) {
+			if(!sensors.getNavX().isCalibrating()) {
+				if(!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.moveStraight(120, 0);
+			}
+		}
 	}
 
 	/**
@@ -127,31 +151,25 @@ public class Robot extends IterativeRobot {
 		drive.setVelocityPID();
 	}
 
-	int i = 0;
+	/**
+	 * Runs once right at the start of teleopPeriodic
+	 */
+	@Override
+	public void afterTeleopInit() {
+
+	}
 
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet())
-					sensors.getNavX().setInitialTheta();
-				if (i == 0) {
-					i++;
-					drive.moveStraight(60, 0);
-				}
-				for (int i = 0; i < driveTalons.getTalons().length; i++) {
-					SmartDashboard.putNumber("Talon Position: " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadraturePosition());
-					SmartDashboard.putNumber("Talon Velocity: " + i, driveTalons.getTalons()[i].getSensorCollection().getQuadratureVelocity());
-
-				}
-
-
-
-			}
+		super.autonomousPeriodic();
+		
+		if (autonomousCommand != null) {			
+			StormScheduler.getInstance().run();
 		}
+
 	}
 
 	/**
@@ -160,12 +178,17 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
+		super.teleopPeriodic();
+
+		StormScheduler.getInstance().run();
+
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet())
-					sensors.getNavX().setInitialTheta();
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
 			}
+		} else {
+			logger.fatal("Robot.drive is null; that's a problem!");
 		}
 	}
 
@@ -173,16 +196,30 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during sendTestData mode
 	 */
 	@Override
-	public void testPeriodic() {
-
-	}
-
-	/**
-	 * This function is called whenever the robot is disabled.
-	 */
 	public void disabledInit() {
+		super.disabledInit();
 
-		i = 0;
+//		fmsInterface.startPollingForData();
+
+		for (RegisteredNotifier rn : notifierRegistry) {
+			rn.stop();
+		}
+	}
+	
+	private void getSelectedAutonomousCommand() {
+		selectedAlliance = dsio.choosers.getAlliance();
+		selectedStartSpot = dsio.choosers.getStartingSpot();
+		selectedPlacementSpot = dsio.choosers.getPlacementSpot();
+		selectedScalePlateAssignment = dsio.choosers.getScalePlateAssignmentChooser();
+		selectedOwnSwitchPlateAssignment = dsio.choosers.getOwnSwitchPlateAssignmentChooser();
+		selectedOpponentSwitchPlateAssignmentChooser = dsio.choosers.getOpponentSwitchPlateAssignmentChooser();
+				
+		logger.info("Selected Alliance: " + selectedAlliance.toString());
+		logger.info("Selected Starting Spot: " + selectedStartSpot.toString());
+		logger.info("Selected Placement Spot: " + selectedPlacementSpot.toString());
+		logger.info("Selected Scale Plate Assignment: " + selectedScalePlateAssignment.toString());
+		logger.info("Selected Own Switch Plate Assignment: " + selectedOwnSwitchPlateAssignment.toString());
+		logger.info("Selected Opponent Switch Plate Assignment: " + selectedOpponentSwitchPlateAssignmentChooser.toString());
 	}
 }
 

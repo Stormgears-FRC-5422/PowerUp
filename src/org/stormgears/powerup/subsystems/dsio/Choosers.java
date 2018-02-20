@@ -2,6 +2,9 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import java.text.FieldPosition;
+
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 
 public class Choosers {
@@ -9,12 +12,12 @@ public class Choosers {
 	 * Declare private choosers here
 	 */
 	private SendableChooser<FieldPositions.StartingSpots> startingSpotChooser;
-	//	private SendableChooser<FieldPositions.StartingDirections> startingDirectionChooser;
 	private SendableChooser<FieldPositions.PlacementSpot> placementSpotChooser;
 	private SendableChooser<FieldPositions.Alliance> allianceChooser;
 	private SendableChooser<FieldPositions.LeftRight> ownSwitchPlateAssignmentChooser;
 	private SendableChooser<FieldPositions.LeftRight> scalePlateAssignmentChooser;
 	private SendableChooser<FieldPositions.LeftRight> opponentSwitchPlateAssignmentChooser;
+	private SendableChooser<String> typeOfPlateAssignmentChooser;
 
 	/*
 	 * In this constructor:
@@ -25,18 +28,12 @@ public class Choosers {
 	 * Remember to create a getter for the data. To access data from a chooser elsewhere,
 	 * use Robot.dsio.choosers.getWhatever() where Whatever is what you want to get
 	 */
-	Choosers() {
+	Choosers() {		
 		startingSpotChooser = new SendableChooser<>();
 		startingSpotChooser.addDefault("Left Side of the Field", FieldPositions.StartingSpots.LEFT);
 		startingSpotChooser.addObject("Center of the Field", FieldPositions.StartingSpots.CENTER);
 		startingSpotChooser.addObject("Right Side of the Field", FieldPositions.StartingSpots.RIGHT);
 		SmartDashboard.putData("Starting Spot", startingSpotChooser);
-
-//		startingDirectionChooser = new SendableChooser<>();
-//		startingDirectionChooser.addDefault("Turn Left Direction", FieldPositions.StartingDirections.LEFT);
-//		startingDirectionChooser.addObject("Go Straight", FieldPositions.StartingDirections.STRAIGHT);
-//		startingDirectionChooser.addObject("Turn Right Direction", FieldPositions.StartingDirections.RIGHT);
-//		SmartDashboard.putData("Starting Direction", startingDirectionChooser);
 
 		placementSpotChooser = new SendableChooser<>();
 		placementSpotChooser.addDefault("Cross Base Line", FieldPositions.PlacementSpot.JUST_CROSS);
@@ -63,6 +60,11 @@ public class Choosers {
 		opponentSwitchPlateAssignmentChooser.addDefault("Opponent Switch Plate Assignment: L", FieldPositions.LeftRight.L);
 		opponentSwitchPlateAssignmentChooser.addObject("Opponent Switch Plate Assignment: R", FieldPositions.LeftRight.R);
 		SmartDashboard.putData("Opponent Switch Plate Assignment", opponentSwitchPlateAssignmentChooser);
+
+		typeOfPlateAssignmentChooser = new SendableChooser<>();
+		typeOfPlateAssignmentChooser.addDefault("Use FMS", "FMS");
+		typeOfPlateAssignmentChooser.addObject("Use Chooser", "CHOOSER");				
+		SmartDashboard.putData("Type of Plate Assignment", typeOfPlateAssignmentChooser);
 	}
 
 	// Getters go below here
@@ -70,10 +72,6 @@ public class Choosers {
 	public FieldPositions.StartingSpots getStartingSpot() {
 		return startingSpotChooser.getSelected();
 	}
-
-//	public FieldPositions.StartingDirections getStartingDirections() {
-//		return startingDirectionChooser.getSelected();
-//	}
 
 	public FieldPositions.PlacementSpot getPlacementSpot() {
 		return placementSpotChooser.getSelected();
@@ -87,5 +85,30 @@ public class Choosers {
 		return ownSwitchPlateAssignmentChooser.getSelected().name() +
 			scalePlateAssignmentChooser.getSelected().name() +
 			opponentSwitchPlateAssignmentChooser.getSelected().name();
+	}
+	
+	public FieldPositions.LeftRight getOwnSwitchPlateAssignmentChooser() {
+		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
+			return ownSwitchPlateAssignmentChooser.getSelected();
+		} else {//Using FMS interface
+			return FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE;
+		}
+		
+	}
+
+	public FieldPositions.LeftRight getScalePlateAssignmentChooser() {
+		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
+			return scalePlateAssignmentChooser.getSelected();
+		} else { //Using FMS interface
+			return FieldPositions.SCALE_PLATE_ASSIGNMENT_CHOICE;			
+		}
+	}
+
+	public FieldPositions.LeftRight getOpponentSwitchPlateAssignmentChooser() {
+		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
+			return opponentSwitchPlateAssignmentChooser.getSelected();
+		} else { //Using FMS interface
+			return FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;			
+		}
 	}
 }

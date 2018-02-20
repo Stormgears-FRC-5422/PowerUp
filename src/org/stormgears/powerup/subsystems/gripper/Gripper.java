@@ -1,13 +1,13 @@
 package org.stormgears.powerup.subsystems.gripper;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.StormTalon;
+import org.stormgears.utils.TerminatableSubsystem;
 
-public class Gripper extends Subsystem {
+public class Gripper extends TerminatableSubsystem {
 	private static final Logger logger = LogManager.getLogger(Gripper.class);
 	private static Gripper instance;
 
@@ -16,11 +16,11 @@ public class Gripper extends Subsystem {
 	}
 
 	//TODO: Change to correct value
-	private static final int TALON_ID = 0;
+	private static final int TALON_ID = 11;
 
 	private static final double GRIPPER_POWER = 0.5;
 	private static final double CLOSE_CURRENT_LIMIT = 3.0;
-	private static final double OPEN_CURRENT_LIMIT = 1.5;
+	private static final double OPEN_CURRENT_LIMIT = 1.25;
 	private static final int CURRENT_CHECK_START_TIME = 50;
 
 	private StormTalon talon;
@@ -28,7 +28,6 @@ public class Gripper extends Subsystem {
 
 	private boolean gripperClosing = false;
 	private boolean gripperOpening = false;
-	private boolean shouldTerminate = false;
 
 	private Runnable closeThread, openThread;
 
@@ -36,8 +35,9 @@ public class Gripper extends Subsystem {
 		talon = new StormTalon(TalonId);
 
 		closeThread = () -> {
-			logger.info("Sending new close command");
-			boolean shouldTerminate = false;
+			synchronized (lock) {
+				shouldTerminate = false;
+			}
 
 			logger.info("Gripper Closing");
 			talon.set(ControlMode.PercentOutput, -1);
@@ -46,10 +46,6 @@ public class Gripper extends Subsystem {
 
 			while (!shouldTerminate && (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent)) {
 				iteration++;
-
-				synchronized (lock) {
-					shouldTerminate = this.shouldTerminate;
-				}
 
 				if (iteration > CURRENT_CHECK_START_TIME) {
 					shouldTrackCurrent = true;
@@ -64,12 +60,13 @@ public class Gripper extends Subsystem {
 				talon.set(ControlMode.PercentOutput, 0);
 
 				gripperClosing = false;
-				this.shouldTerminate = false;
 			}
 		};
 
 		openThread = () -> {
-			boolean shouldTerminate = false;
+			synchronized (lock) {
+				shouldTerminate = false;
+			}
 
 			logger.info("Gripper Opening");
 			talon.set(ControlMode.PercentOutput, 1);
@@ -78,10 +75,6 @@ public class Gripper extends Subsystem {
 
 			while (!shouldTerminate && (talon.getOutputCurrent() <= OPEN_CURRENT_LIMIT || !shouldTrackCurrent)) {
 				iteration++;
-
-				synchronized (lock) {
-					shouldTerminate = this.shouldTerminate;
-				}
 
 				if (iteration > CURRENT_CHECK_START_TIME) {
 					shouldTrackCurrent = true;
@@ -96,7 +89,6 @@ public class Gripper extends Subsystem {
 				talon.set(ControlMode.PercentOutput, 0);
 
 				gripperOpening = false;
-				this.shouldTerminate = false;
 			}
 		};
 	}
@@ -119,10 +111,6 @@ public class Gripper extends Subsystem {
 
 			StormScheduler.getInstance().async(closeThread);
 		}
-	}
-
-	public void disableGripper() {
-		shouldTerminate = true;
 	}
 
 	private void waitMs(int ms) {
