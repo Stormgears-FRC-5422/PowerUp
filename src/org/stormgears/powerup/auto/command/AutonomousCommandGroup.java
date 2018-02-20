@@ -49,5 +49,7 @@ public class AutonomousCommandGroup extends CommandGroup {
     										  selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);
 		addSequential(autoMoveCommand);
 //		addSequential(autoCloseGripperCommand);
+//		addSequential(autoLiftElevatorCommand);
+//		addSequential(autoShiftSideCommand);		
     }    
 }
