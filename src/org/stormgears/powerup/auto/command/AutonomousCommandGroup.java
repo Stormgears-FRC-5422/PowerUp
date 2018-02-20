@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCommandGroup extends CommandGroup {
 	private static final Logger logger = LogManager.getLogger(AutonomousCommandGroup.class);
 	public Command autoMoveCommand;
+	public Command autoPlaceCubeCommand;
 
     public AutonomousCommandGroup() {
         // Add Commands here:
@@ -43,9 +44,10 @@ public class AutonomousCommandGroup extends CommandGroup {
 									FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser) {
 //		requires(Robot.navigatorSubsystem);
     	logger.info("initiating autonomous command group");
-    	autoMoveCommand = new AutoMoveCommand(selectedAlliance, selectedStartingSpot,
+    	autoMoveCommand = new AutoMoveDriveCommand(selectedAlliance, selectedStartingSpot,
     										  selectedPlacementSpot, selectedOwnSwitchPlateAssignment,
     										  selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);
 		addSequential(autoMoveCommand);
+//		addSequential(autoCloseGripperCommand);
     }    
 }
