@@ -11,9 +11,9 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 		Down(180, 135, 225),
 		Left(270, 315, 225);
 
-		final int deg;
-		final int upper;
-		final int lower;
+		private final int deg;
+		private final int upper;
+		private final int lower;
 
 		Direction(int deg, int lower, int upper) {
 			this.deg = deg;
@@ -21,7 +21,7 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 			this.upper = upper;
 		}
 
-		boolean match(int d) {
+		private boolean match(int d) {
 			return d >= lower && d <= upper;
 		}
 	}

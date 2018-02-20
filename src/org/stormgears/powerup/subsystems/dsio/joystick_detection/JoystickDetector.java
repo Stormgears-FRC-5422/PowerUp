@@ -2,6 +2,12 @@ package org.stormgears.powerup.subsystems.dsio.joystick_detection;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
+import org.stormgears.powerup.subsystems.dsio.ButtonBoard2017;
+import org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1;
+import org.stormgears.powerup.subsystems.dsio.IButtonBoard;
+import org.stormgears.utils.dsio.IRawJoystick;
+import org.stormgears.utils.dsio.LogitechJoystick;
+import org.stormgears.utils.dsio.XboxJoystick;
 
 public class JoystickDetector {
 	private Thread detectionThread;
@@ -10,7 +16,7 @@ public class JoystickDetector {
 
 	private String[] names;
 	private Joystick[] joysticks;
-	private int normalJoystickChannel = -1, mspChannel = -1, buttonBoard2018Channel = -1;
+	private int drivingJoystickChannel = -1, mspChannel = -1, buttonBoard2018Channel = -1, xboxChannel = -1;
 
 	public JoystickDetector() {
 		detectionThread = new Thread(this::detect);
@@ -49,18 +55,21 @@ public class JoystickDetector {
 			}
 
 			for (int i = 0; i < joysticks.length; i++) {
-				if (joysticks[i] != null) {
-					if (joysticks[i].getName().contains("MSP")) {    // Match MSP-430 board
-						System.out.println("MSP-430 Guess: " + i);
+				Joystick joystick = joysticks[i];
+				if (joystick != null) {
+					if (joystick.getName().contains("MSP")) {    // Match MSP-430 board
+//						System.out.println("MSP-430 Guess: " + i);
 						mspChannel = i;
-					} else if (joysticks[i].getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
-						if (joysticks[i].getX() < -0.98 && joysticks[i].getY() < -0.98) {
-							System.out.println("New Button Board Guess: " + i);
+					} else if (joystick.getName().toUpperCase().contains("XBOX")) {
+//						System.out.println("XBOX Guess: " + i);
+						xboxChannel = i;
+					} else if (joystick.getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
+						if (joystick.getX() < -0.98 && joystick.getY() < -0.98) {
+//							System.out.println("New Button Board Guess: " + i);
 							buttonBoard2018Channel = i;
-
 						} else {
-							System.out.println("Normal Joystick Guess: " + i);
-							normalJoystickChannel = i;
+//							System.out.println("Normal Joystick Guess: " + i);
+							drivingJoystickChannel = i;
 						}
 					}
 				}
@@ -74,16 +83,20 @@ public class JoystickDetector {
 		}
 	}
 
-	public int getNormalJoystickChannel() {
-		return normalJoystickChannel;
+	public IRawJoystick getDrivingJoystick() {
+		if (xboxChannel != -1) {
+			return new XboxJoystick(xboxChannel);
+		} else {
+			return new LogitechJoystick(drivingJoystickChannel);
+		}
 	}
 
-	public int getMspChannel() {
-		return mspChannel;
-	}
-
-	public int getButtonBoard2018Channel() {
-		return buttonBoard2018Channel;
+	public IButtonBoard getButtonBoard() {
+		if (buttonBoard2018Channel != -1) {
+			return new ButtonBoard2018V1(new Joystick(mspChannel), new Joystick(buttonBoard2018Channel));
+		} else {
+			return new ButtonBoard2017(new Joystick(mspChannel), new Joystick(drivingJoystickChannel));
+		}
 	}
 
 	public String[] getNames() {

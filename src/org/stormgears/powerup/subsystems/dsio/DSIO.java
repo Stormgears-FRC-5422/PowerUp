@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.dsio;
 
 import org.stormgears.powerup.Robot;
-import org.stormgears.utils.dsio.IRawJoystick;
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector;
 import org.stormgears.utils.dsio.IRawJoystick;
 
@@ -12,32 +11,20 @@ public class DSIO {
 		return instance;
 	}
 
-	/*
-	 * If using a 2017 or older button board, set this to false
-	 */
-	private boolean using2018Board = true;
-
-
-	public Choosers choosers;
+	//		init();
+	public Choosers choosers = new Choosers();
 
 //	// If you want to change the channel, change it here
 //	// We need 2 buttonBoards because the 2018 revision takes 2 joysticks to use, and then 1 normal joystick
 //	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1, BUTTON_BOARD_2_CHANNEL = 2;
 
-
 	private IRawJoystick joystick;
-
-	public JoystickDetector detector;
-
+	public JoystickDetector detector = new JoystickDetector();
 	private boolean joystickEnabled = true;
 
 	private IButtonBoard buttonBoard;
 
 	private DSIO() {
-		setupButtonsAndSwitches();
-		choosers = new Choosers();
-		detector = new JoystickDetector();
-
 //		if (using2018Board) {
 //			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
 //		}
@@ -46,7 +33,10 @@ public class DSIO {
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
-	private void setupButtonsAndSwitches() {
+	private void init() {
+		joystick = detector.getDrivingJoystick();
+
+
 		// RED
 		buttonBoard.getGripCloseButton().whenPressed(() -> { //closes gripper
 			Robot.gripper.closeGripper();
