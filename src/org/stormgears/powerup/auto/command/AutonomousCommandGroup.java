@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 
 /**
@@ -38,7 +39,7 @@ public class AutonomousCommandGroup extends CommandGroup {
 	                              FieldPositions.LeftRight selectedOwnSwitchPlateAssignment,
 	                              FieldPositions.LeftRight selectedScalePlateAssignment,
 	                              FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser) {
-//		requires(Robot.navigatorSubsystem);
+		requires(Robot.drive);
 		logger.info("initiating autonomous command group");
 		autoDriveMoveCommand = new AutoDriveMoveCommand(selectedAlliance, selectedStartingSpot,
 			selectedPlacementSpot, selectedOwnSwitchPlateAssignment,
