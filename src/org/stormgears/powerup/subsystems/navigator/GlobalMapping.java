@@ -67,8 +67,8 @@ public class GlobalMapping {
 		AHRS.BoardYawAxis yawAxis = ahrs.getBoardYawAxis();
 		ahrs.zeroYaw();
 		SmartDashboard.putNumber("YawAxis", yawAxis.board_axis.getValue());
-		SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
-		SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
+		//SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
+		//SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
 
 	}
 
@@ -91,8 +91,8 @@ public class GlobalMapping {
 		SmartDashboard.putNumber("ENC_BL", enc_bl);
 		gpTable.getEntry("ENC_BL").setNumber(enc_bl);
 
-		SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
-		SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
+		//SmartDashboard.putNumber("NavX Angle", ahrs.getAngle());
+		//SmartDashboard.putNumber("NavX Yaw", ahrs.getYaw());
 
 		gpTable.getEntry("GP_THETA").setNumber(getTheta());
 		gpTable.getEntry("GP_X_POS").setNumber(x);
