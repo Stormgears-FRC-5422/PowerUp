@@ -26,7 +26,7 @@ public class Log4jConfigurationFactory extends ConfigurationFactory {
 			.newAppender("Stdout", "CONSOLE")
 			.addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
 		appenderBuilder.add(builder.newLayout("PatternLayout")
-			.addAttribute("pattern", "%d{HH:mm:ss.SSS} [%t] %-5level %class{36}.%M:%L - %msg%xEx%n"));
+			.addAttribute("pattern", "%d{HH:mm:ss.SSS} [%t] %-5level %c{1.}.%M:%L - %msg%xEx%n"));
 		builder.add(appenderBuilder);
 
 //		builder.add(builder.newLogger("org.stormgears.utils.TestDrive", Level.TRACE).add(builder.newAppenderRef("Stdout")));
