@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
@@ -9,7 +8,6 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.sensor_drivers.NavX;
 
 public class Drive {
 	private static Drive instance;
@@ -153,27 +151,27 @@ public class Drive {
 			vels[i] *= tgtVel;
 		}
 
-		// Traction control
-		if (useTractionControl && driverInputEligibleForTractionControl()) {
-			NavX navX = Robot.sensors.getNavX();
-			float nx = navX.getVelocityX();
-			float ny = navX.getVelocityY();
-			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
-			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
-
-			SmartDashboard.putNumber("stickVelocity", stickVelocity);
-			SmartDashboard.putNumber("actualVelocity", actualVelocity);
-			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
-
-			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
-				logger.info("Using traction control...");
-
-				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
-				for (int i = 0; i < vels.length; i++) {
-					vels[i] *= multiplier;
-				}
-			}
-		}
+//		// Traction control
+//		if (useTractionControl && driverInputEligibleForTractionControl()) {
+//			NavX navX = Robot.sensors.getNavX();
+//			float nx = navX.getVelocityX();
+//			float ny = navX.getVelocityY();
+//			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
+//			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
+//
+//			SmartDashboard.putNumber("stickVelocity", stickVelocity);
+//			SmartDashboard.putNumber("actualVelocity", actualVelocity);
+//			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
+//
+//			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+//				logger.info("Using traction control...");
+//
+//				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
+//				for (int i = 0; i < vels.length; i++) {
+//					vels[i] *= multiplier;
+//				}
+//			}
+//		}
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].set(MODE, vels[i]);

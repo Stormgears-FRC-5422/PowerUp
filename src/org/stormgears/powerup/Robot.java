@@ -78,8 +78,8 @@ public class Robot extends BaseStormgearsRobot {
 		Sensors.init();
 		sensors = Sensors.getInstance();
 
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -87,8 +87,8 @@ public class Robot extends BaseStormgearsRobot {
 		Drive.init();
 		drive = Drive.getInstance();
 
-		Intake.init();
-		intake = Intake.getInstance();
+//		Intake.init();
+//		intake = Intake.getInstance();
 
 //		ElevatorSharedTalons.init();
 //		elevatorSharedTalons = ElevatorSharedTalons.getInstance();

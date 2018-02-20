@@ -50,25 +50,25 @@ public class DSIO {
 	/*
 	 * year == 2018 buttons
 	 */
-	private final Button[] scaleButtons = {
-		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_2, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_3, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_4, buttonBoard2)
-	};
-	private final Button[] switchButtons = {
-		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
-		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
-	};
+//	private final Button[] scaleButtons = {
+//		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
+//		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
+//		new Button(ButtonIds.Board.Rev2018.SCALE_2, buttonBoard2),
+//		new Button(ButtonIds.Board.Rev2018.SCALE_3, buttonBoard2),
+//		new Button(ButtonIds.Board.Rev2018.SCALE_4, buttonBoard2)
+//	};
+//	private final Button[] switchButtons = {
+//		new Button(ButtonIds.Board.Rev2018.SCALE_0, buttonBoard2),
+//		new Button(ButtonIds.Board.Rev2018.SCALE_1, buttonBoard2),
+//	};
 
 	private DSIO() {
 		setupButtonsAndSwitches();
 		choosers = new Choosers();
 
-		if (using2018Board) {
-			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
-		}
+//		if (using2018Board) {
+//			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
+//		}
 	}
 
 	/*
@@ -147,19 +147,19 @@ public class DSIO {
 	public double getJoystickX() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(joystick.getX(), X_NULLZONE);
+		return processJoystick(joystick.getRawAxis(0), X_NULLZONE);
 	}
 
 	public double getJoystickY() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(joystick.getY(), Y_NULLZONE);
+		return processJoystick(joystick.getRawAxis(5), Y_NULLZONE);
 	}
 
 	public double getJoystickZ() {
 		if (!joystickEnabled) return 0;
 
-		return processJoystick(-joystick.getZ(), Z_NULLZONE);
+		return processJoystick(joystick.getRawAxis(4), Z_NULLZONE);
 	}
 
 	private double processJoystick(double val, final double nullzone) {
