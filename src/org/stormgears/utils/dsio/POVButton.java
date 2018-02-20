@@ -1,9 +1,10 @@
-package org.stormgears.utils;
+package org.stormgears.utils.dsio;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.command.Command;
 
-public class POVButton extends Button /* WPI button! */ {
+public class POVButton extends Button /* WPI button! */ implements StormButton {
 	enum Direction {
 		Up(0, 315, 45),
 		Right(90, 45, 135),
@@ -37,5 +38,20 @@ public class POVButton extends Button /* WPI button! */ {
 	public boolean get() {
 		int d = this.joystick.getPOV();
 		return d != -1 && direction.match(d);
+	}
+
+	@Override
+	public void whenPressed(Runnable callback) {
+		super.whenPressed(new Command() {
+			@Override
+			protected boolean isFinished() {
+				return true;
+			}
+
+			@Override
+			protected void execute() {
+				callback.run();
+			}
+		});
 	}
 }

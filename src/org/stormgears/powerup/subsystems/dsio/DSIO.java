@@ -3,6 +3,7 @@ package org.stormgears.powerup.subsystems.dsio;
 import edu.wpi.first.wpilibj.Joystick;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.dsio.EnhancedButton;
+import org.stormgears.utils.dsio.StormButton;
 import org.stormgears.utils.dsio.SwitchControl;
 
 public class DSIO {
@@ -34,7 +35,7 @@ public class DSIO {
 	/*
 	 * year <= 2017 buttons
 	 */
-	private final EnhancedButton
+	private final StormButton
 		bigBlueButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.BIG_BLUE),
 		redButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.RED),
 		yellowButton = new EnhancedButton(buttonBoard, ButtonIds.Board.Rev2017.YELLOW),
@@ -50,14 +51,14 @@ public class DSIO {
 	/*
 	 * year == 2018 buttons
 	 */
-	private final EnhancedButton[] scaleButtons = {
+	private final StormButton[] scaleButtons = {
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[0]),
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[1]),
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[2]),
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[3]),
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SCALE[4])
 	};
-	private final EnhancedButton[] switchButtons = {
+	private final StormButton[] switchButtons = {
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_0),
 		new EnhancedButton(buttonBoard2, ButtonIds.Board.Rev2018.SWITCH_1),
 	};
