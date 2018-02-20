@@ -46,7 +46,7 @@ public class DSIO {
 		greenSwitch = new Switch(ButtonIds.Board.Rev2017.GREEN_SWITCH, buttonBoard),
 		orangeSwitch = new Switch(ButtonIds.Board.Rev2017.ORANGE_SWITCH, buttonBoard),
 		redSwitch = new Switch(ButtonIds.Board.Rev2017.RED_SWITCH, buttonBoard);
-	
+
 	/*
 	 * year == 2018 buttons
 	 */

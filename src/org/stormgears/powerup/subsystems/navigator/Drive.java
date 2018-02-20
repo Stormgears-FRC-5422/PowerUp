@@ -80,11 +80,11 @@ public class Drive {
 
 	// Run mecanum math on each raw speed and set talons accordingly
 	private void mecMove(double tgtVel,
-						 double x,
-						 double y,
-						 double changeVel,
-						 double theta,
-						 boolean useAbsoluteControl) {
+	                     double x,
+	                     double y,
+	                     double changeVel,
+	                     double theta,
+	                     boolean useAbsoluteControl) {
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].setInverted(true);
@@ -243,7 +243,7 @@ public class Drive {
 		if (Math.abs(theta) == Math.PI / 2.0) {
 			distance = distance / 0.833333;
 			System.out.println(distance);
-			System.out.println((distance*8192)/(2 * Robot.config.wheelRadius * Math.PI));
+			System.out.println((distance * 8192) / (2 * Robot.config.wheelRadius * Math.PI));
 		}
 
 		//TODO: make wheel diameter and other constants that im just making up
@@ -251,7 +251,6 @@ public class Drive {
 		//TODO: constant for encoder ticks
 		double ticks = distance / wheelCircumference * 8192.0;
 		// motions[0].runMotionMagic((int) ticks);
-
 
 
 		double[] modifiers = new double[motions.length];

@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
@@ -21,7 +22,6 @@ import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
-import edu.wpi.first.wpilibj.command.Command;
 
 import java.util.ArrayList;
 
@@ -110,7 +110,7 @@ public class Robot extends BaseStormgearsRobot {
 	public void autonomousInit() {
 		//get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
-		
+
 		//if any residual commands exist, cancel them
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
@@ -124,7 +124,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
-		
+
 		//execute autonomous command
 		logger.info("starting the autonomous command...from autonomousInit()");
 		autonomousCommand.start();
@@ -136,8 +136,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void afterAutonomousInit() {
 		if (drive != null) {
-			if(!sensors.getNavX().isCalibrating()) {
-				if(!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.moveStraight(120, 0);
 			}
 		}
@@ -165,8 +165,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
-		
-		if (autonomousCommand != null) {			
+
+		if (autonomousCommand != null) {
 			StormScheduler.getInstance().run();
 		}
 
@@ -205,7 +205,7 @@ public class Robot extends BaseStormgearsRobot {
 			rn.stop();
 		}
 	}
-	
+
 	private void getSelectedAutonomousCommand() {
 		selectedAlliance = dsio.choosers.getAlliance();
 		selectedStartSpot = dsio.choosers.getStartingSpot();
@@ -213,7 +213,7 @@ public class Robot extends BaseStormgearsRobot {
 		selectedScalePlateAssignment = dsio.choosers.getScalePlateAssignmentChooser();
 		selectedOwnSwitchPlateAssignment = dsio.choosers.getOwnSwitchPlateAssignmentChooser();
 		selectedOpponentSwitchPlateAssignmentChooser = dsio.choosers.getOpponentSwitchPlateAssignmentChooser();
-				
+
 		logger.info("Selected Alliance: " + selectedAlliance.toString());
 		logger.info("Selected Starting Spot: " + selectedStartSpot.toString());
 		logger.info("Selected Placement Spot: " + selectedPlacementSpot.toString());

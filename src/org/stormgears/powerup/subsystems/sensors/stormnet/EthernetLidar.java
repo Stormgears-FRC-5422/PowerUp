@@ -26,10 +26,10 @@ public class EthernetLidar extends StormNetSensor {
 			for (int i = 0; i < sleep; i++) {
 				pollDistance();
 				log("Lidar test returned [ " +
-				sensorValues[0] + " ] [ " +
-				sensorValues[1] + " ] [ " +
-				sensorValues[2] + " ] [ " +
-				sensorValues[3] + " ]");
+					sensorValues[0] + " ] [ " +
+					sensorValues[1] + " ] [ " +
+					sensorValues[2] + " ] [ " +
+					sensorValues[3] + " ]");
 				TimeUnit.SECONDS.sleep(1);
 			}
 		} catch (Exception e) {
@@ -68,7 +68,6 @@ public class EthernetLidar extends StormNetSensor {
 		pollDistance();
 		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
-
 
 
 }

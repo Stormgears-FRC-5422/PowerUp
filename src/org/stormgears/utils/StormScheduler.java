@@ -37,7 +37,7 @@ public class StormScheduler {
 	}
 
 	public void async(Runnable runnable) {
-		new Thread(runnable).run();	// TODO: This could be dangerous. We might want to use Notifiers.
+		new Thread(runnable).run();    // TODO: This could be dangerous. We might want to use Notifiers.
 	}
 
 	public void run() {
