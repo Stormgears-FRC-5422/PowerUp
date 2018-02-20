@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector;
+import org.stormgears.utils.TerminatableSubsystem;
 import org.stormgears.utils.dsio.IRawJoystick;
 
 public class DSIO {
@@ -28,10 +29,10 @@ public class DSIO {
 	private IRawJoystick joystick;
 	private IButtonBoard buttonBoard;
 
-	public JoystickDetector detector = new JoystickDetector();
-
 	private DSIO() {
+		JoystickDetector detector = new JoystickDetector();
 		detector.detect();
+
 		joystick = detector.getDrivingJoystick();
 		buttonBoard = detector.getButtonBoard();
 
@@ -42,14 +43,19 @@ public class DSIO {
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
 	private void setupButtonsAndSwitches() {
-		// RED
-		buttonBoard.getGripCloseButton().whenPressed(() -> {
-//			Robot.gripper.closeGripper();
-		});
+		buttonBoard.getGripCloseButton().whenPressed(() -> Robot.gripper.closeGripper());
 
-		// YELLOW
-		buttonBoard.getGripOpenButton().whenPressed(() -> {
-//			Robot.gripper.openGripper();
+		buttonBoard.getGripOpenButton().whenPressed(() -> Robot.gripper.openGripper());
+
+
+
+
+		buttonBoard.getOverrideSwitch().whenFlipped(on -> {
+			if (on) {
+				TerminatableSubsystem.terminateCurrentLongRunningOperations();
+			} else {
+				TerminatableSubsystem.allowLongRunningOperations();
+			}
 		});
 	}
 

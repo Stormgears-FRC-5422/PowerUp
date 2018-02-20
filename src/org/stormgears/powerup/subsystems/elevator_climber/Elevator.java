@@ -76,8 +76,7 @@ public class Elevator extends TerminatableSubsystem {
 		System.out.println("Desired position: " + position);
 		talons.getMasterMotor().set(ControlMode.Position, position);
 
-		shouldTerminate = false;
-		while (!shouldTerminate && Math.abs(talons.getMasterMotor().getSensorCollection().getQuadratureVelocity()) > 10) {
+		while (isAllowed() && Math.abs(talons.getMasterMotor().getSensorCollection().getQuadratureVelocity()) > 10) {
 			waitMs(20);
 		}
 
@@ -125,8 +124,7 @@ public class Elevator extends TerminatableSubsystem {
 		boolean limitSwitchReachedInCenter = false;
 		sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier);
 
-		shouldTerminate = false;
-		while (!shouldTerminate && sideShiftTalon.getOutputCurrent() <= 20.0 && !limitSwitchReachedInCenter) {
+		while (isAllowed() && sideShiftTalon.getOutputCurrent() <= 20.0 && !limitSwitchReachedInCenter) {
 			if (position == CENTER && sideShiftTalon.getSensorCollection().isRevLimitSwitchClosed()) {
 				// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
 				// and vice versa

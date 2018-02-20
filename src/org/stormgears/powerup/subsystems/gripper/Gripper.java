@@ -23,6 +23,7 @@ public class Gripper extends TerminatableSubsystem {
 	private static final double OPEN_CURRENT_LIMIT = 3.0;
 	private static final int CURRENT_CHECK_START_TIME = 12;
 	private static final double BREAK_JAM_SPEED = 0.75;
+	private static final double SLOW_DOWN_FACTOR = 0.005;
 
 	private StormTalon talon;
 	private final Object lock = new Object();
@@ -36,16 +37,12 @@ public class Gripper extends TerminatableSubsystem {
 		talon = new StormTalon(TalonId);
 
 		closeThread = () -> {
-			synchronized (lock) {
-				shouldTerminate = false;
-			}
-
 			logger.info("Gripper Closing");
 			talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED);
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 
-			while (!shouldTerminate && (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent)) {
+			while (isAllowed() && (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent)) {
 				iteration++;
 
 				if (iteration > CURRENT_CHECK_START_TIME) {
@@ -65,16 +62,13 @@ public class Gripper extends TerminatableSubsystem {
 		};
 
 		openThread = () -> {
-			synchronized (lock) {
-				shouldTerminate = false;
-			}
-
 			logger.info("Gripper Opening");
 			talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED);
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 
-			while (!shouldTerminate && (talon.getOutputCurrent() <= OPEN_CURRENT_LIMIT || !shouldTrackCurrent)) {
+			while (isAllowed() && talon.getSensorCollection().isRevLimitSwitchClosed() &&
+				(talon.getOutputCurrent() <= OPEN_CURRENT_LIMIT || !shouldTrackCurrent)) {
 				iteration++;
 
 				if (iteration > CURRENT_CHECK_START_TIME) {

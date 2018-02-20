@@ -75,29 +75,29 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-		Sensors.init();
-		sensors = Sensors.getInstance();
-
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
-
-		DriveTalons.init();
-		driveTalons = DriveTalons.getInstance();
-
-		Drive.init();
-		drive = Drive.getInstance();
-
-		Intake.init();
-		intake = Intake.getInstance();
-
-		ElevatorSharedTalons.init();
-		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
-
-		Elevator.init();
-		elevator = Elevator.getInstance();
-
-		Climber.init();
-		climber = Climber.getInstance();
+//		Sensors.init();
+//		sensors = Sensors.getInstance();
+//
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
+//
+//		DriveTalons.init();
+//		driveTalons = DriveTalons.getInstance();
+//
+//		Drive.init();
+//		drive = Drive.getInstance();
+//
+//		Intake.init();
+//		intake = Intake.getInstance();
+//
+//		ElevatorSharedTalons.init();
+//		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+//
+//		Elevator.init();
+//		elevator = Elevator.getInstance();
+//
+//		Climber.init();
+//		climber = Climber.getInstance();
 
 		Gripper.init();
 		gripper = Gripper.getInstance();
@@ -153,7 +153,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		drive.setVelocityPID();
+//		drive.setVelocityPID();
 
 		if (dsio == null) {
 			DSIO.init();
@@ -191,7 +191,7 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		StormScheduler.getInstance().run();
-//
+
 //		if (drive != null) {
 //			if (!sensors.getNavX().isCalibrating()) {
 //				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
