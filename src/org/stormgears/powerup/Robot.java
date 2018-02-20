@@ -78,8 +78,8 @@ public class Robot extends BaseStormgearsRobot {
 		Sensors.init();
 		sensors = Sensors.getInstance();
 
-//		GlobalMapping.init();
-//		globalMapping = GlobalMapping.getInstance();
+		GlobalMapping.init();
+		globalMapping = GlobalMapping.getInstance();
 
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
@@ -90,15 +90,15 @@ public class Robot extends BaseStormgearsRobot {
 		Intake.init();
 		intake = Intake.getInstance();
 
-		ElevatorSharedTalons.init();
-		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+//		ElevatorSharedTalons.init();
+//		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
 //		Elevator.init();
 //		elevator = Elevator.getInstance();
-//
+
 //		Climber.init();
 //		climber = Climber.getInstance();
-//
+
 //		Gripper.init();
 //		gripper = Gripper.getInstance();
 	}
@@ -118,17 +118,16 @@ public class Robot extends BaseStormgearsRobot {
 
 		logger.info("creating autonomous command group");
 
-		autonomousCommand = new AutonomousCommandGroup(selectedAlliance, selectedStartSpot, selectedPlacementSpot, selectedOwnSwitchPlateAssignment, selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);
+		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
+			selectedStartSpot,
+			selectedPlacementSpot,
+			selectedOwnSwitchPlateAssignment,
+			selectedScalePlateAssignment,
+			selectedOpponentSwitchPlateAssignmentChooser);
 		
 		//execute autonomous command
-		if (autonomousCommand != null) {
-			logger.info("starting the autonomous command...from autonomousInit()");
-			autonomousCommand.start();
-			
-		} else {
-			logger.info("AUTONOMOUS COMMAND IS NOT INITIALIZED");
-		}		
-		
+		logger.info("starting the autonomous command...from autonomousInit()");
+		autonomousCommand.start();
 	}
 
 	/**
@@ -157,7 +156,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterTeleopInit() {
-		elevator.moveElevatorToPosition(80);
+
 	}
 
 	/**
@@ -222,6 +221,5 @@ public class Robot extends BaseStormgearsRobot {
 		logger.info("Selected Own Switch Plate Assignment: " + selectedOwnSwitchPlateAssignment.toString());
 		logger.info("Selected Opponent Switch Plate Assignment: " + selectedOpponentSwitchPlateAssignmentChooser.toString());
 	}
-	
 }
 
