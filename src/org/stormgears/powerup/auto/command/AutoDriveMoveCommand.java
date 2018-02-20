@@ -36,6 +36,7 @@ public class AutoDriveMoveCommand extends Command {
 		this.selectedAlliance = selectedAlliance;
 		this.selectedStartingSpot = selectedStartingSpot;
 		this.selectedPlacementSpot = selectedPlacementSpot;
+		this.selectedOwnSwitchPlateAssignment = selectedOwnSwitchPlateAssignment;
 		this.selectedScalePlateAssignment = selectedScalePlateAssignment;
 		this.selectedOpponentSwitchPlateAssignmentChooser = selectedOpponentSwitchPlateAssignmentChooser;
 	}
@@ -51,8 +52,11 @@ public class AutoDriveMoveCommand extends Command {
 			if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
 				if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
 					logger.info("Moving from " + selectedStartingSpot.toString() +
-						"to " + selectedPlacementSpot.toString() +
-						"on the " + selectedScalePlateAssignment.toString());
+						" to " + selectedPlacementSpot.toString() + " (" +  selectedStartingSpot.getPosition().getX() + "," +  selectedStartingSpot.getPosition().getY() + ")" +
+						" on the " + selectedScalePlateAssignment.toString() + "( " +
+						FieldPositions.SCALE_LEFT_PLATE.getX() + ", " + 	FieldPositions.SCALE_LEFT_PLATE.getY() + ")"
+
+					);
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
