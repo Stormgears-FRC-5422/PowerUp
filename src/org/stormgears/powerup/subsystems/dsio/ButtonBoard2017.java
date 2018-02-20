@@ -57,8 +57,7 @@ public class ButtonBoard2017 implements IButtonBoard {
 	private final StormButton overrideLeft;
 	private final StormButton overrideRight;
 
-
-	public ButtonBoard2017(Joystick buttonBoard, Joystick joystick) {
+	private ButtonBoard2017(Joystick buttonBoard, Joystick joystick) {
 		this.buttonBoard = buttonBoard;
 		this.joystick = joystick;
 

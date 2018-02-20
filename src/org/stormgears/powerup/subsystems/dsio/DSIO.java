@@ -1,10 +1,14 @@
 package org.stormgears.powerup.subsystems.dsio;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector;
 import org.stormgears.utils.dsio.IRawJoystick;
 
 public class DSIO {
+	private static final Logger logger = LogManager.getLogger(DSIO.class);
+
 	private static DSIO instance;
 
 	public static DSIO getInstance() {
@@ -12,58 +16,42 @@ public class DSIO {
 	}
 
 	public static void init() {
-		if (instance != null) {
+		if (instance == null) {
 			instance = new DSIO();
 		}
 	}
 
-	public Choosers choosers = new Choosers();
-
-//	// If you want to change the channel, change it here
-//	// We need 2 buttonBoards because the 2018 revision takes 2 joysticks to use, and then 1 normal joystick
-//	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1, BUTTON_BOARD_2_CHANNEL = 2;
-
-	private IRawJoystick joystick;
-	public JoystickDetector detector = new JoystickDetector();
 	private boolean joystickEnabled = true;
 
+	public Choosers choosers = new Choosers();
+
+	private IRawJoystick joystick;
 	private IButtonBoard buttonBoard;
+
+	public JoystickDetector detector = new JoystickDetector();
 
 	private DSIO() {
 		detector.detect();
 		joystick = detector.getDrivingJoystick();
 		buttonBoard = detector.getButtonBoard();
 
-		// RED
-		buttonBoard.getGripCloseButton().whenPressed(() -> { //closes gripper
-//			Robot.gripper.closeGripper();
-		});
-
-		// YELLOW
-		buttonBoard.getGripOpenButton().whenPressed(() -> { //opens gripper
-//			Robot.gripper.openGripper();
-		});
-
-		// GREEN SWITCH // TODO
-//			greenSwitch.whenFlipped(isUp -> {
-//				if (isOn) {
-//					Robot.intake.enableIntake();
-//				} else {
-//					Robot.intake.disableIntake();
-//				}
-//			});
-
-		// ORANGE SWITCH
-//			orangeSwitch.whenFlipped(isOn -> Robot.drive.useAbsoluteControl = isOn);
-
-		//		if (using2018Board) {
-//			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
-//		}
+		setupButtonsAndSwitches();
 	}
 
 	/*
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
+	private void setupButtonsAndSwitches() {
+		// RED
+		buttonBoard.getGripCloseButton().whenPressed(() -> {
+//			Robot.gripper.closeGripper();
+		});
+
+		// YELLOW
+		buttonBoard.getGripOpenButton().whenPressed(() -> {
+//			Robot.gripper.openGripper();
+		});
+	}
 
 
 	// Joystick related methods

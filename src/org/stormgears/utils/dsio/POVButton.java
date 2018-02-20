@@ -3,8 +3,12 @@ package org.stormgears.utils.dsio;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class POVButton extends Button /* WPI button! */ implements StormButton {
+	private static final Logger logger = LogManager.getLogger(POVButton.class);
+
 	public enum Direction {
 		Up(0, 315, 45),
 		Right(90, 45, 135),
@@ -22,7 +26,7 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 		}
 
 		private boolean match(int d) {
-			return d >= lower && d <= upper;
+			return d == deg || d == lower || d == upper;
 		}
 	}
 
@@ -32,6 +36,8 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 	public POVButton(Joystick joystick, Direction direction) {
 		this.joystick = joystick;
 		this.direction = direction;
+
+		this.whenPressed(() -> logger.info("POV button {} pressed - {}", direction, joystick.getName()));
 	}
 
 	@Override

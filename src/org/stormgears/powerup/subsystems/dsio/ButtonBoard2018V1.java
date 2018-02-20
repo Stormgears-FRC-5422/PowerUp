@@ -7,16 +7,16 @@ import org.stormgears.utils.dsio.*;
 
 public class ButtonBoard2018V1 implements IButtonBoard {
 	@Nullable
-	private static ButtonBoard2017 instance = null;
+	private static ButtonBoard2018V1 instance = null;
 
 	@NotNull
-	public static ButtonBoard2017 getInstance(Joystick buttonBoard, Joystick joystick) {
+	public static ButtonBoard2018V1 getInstance(Joystick buttonBoard, Joystick joystick) {
 		if (instance == null) {
 			if (initialized) {
 				throw new IllegalStateException("Only one button board can exist at once.");
 			}
 
-			return instance = new ButtonBoard2017(buttonBoard, joystick);
+			return instance = new ButtonBoard2018V1(buttonBoard, joystick);
 		}
 
 		return instance;
@@ -52,7 +52,7 @@ public class ButtonBoard2018V1 implements IButtonBoard {
 	private final StormButton overrideLeft;
 	private final StormButton overrideRight;
 
-	public ButtonBoard2018V1(Joystick msp, Joystick logitech) {
+	private ButtonBoard2018V1(Joystick msp, Joystick logitech) {
 		this.msp = msp;
 		this.logitech = logitech;
 

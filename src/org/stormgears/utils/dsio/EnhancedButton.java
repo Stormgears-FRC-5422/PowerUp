@@ -21,17 +21,9 @@ public class EnhancedButton extends JoystickButton implements StormButton {
 	public EnhancedButton(GenericHID joystick, int buttonNumber) {
 		super(joystick, buttonNumber);
 
-		super.whenPressed(new Command() {
-			@Override
-			protected boolean isFinished() {
-				return true;
-			}
+//		logger.trace("joystick = {}, buttonNumber = {}", joystick.getName(), buttonNumber);
 
-			@Override
-			protected void execute() {
-				logger.info("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
-			}
-		});
+		this.whenPressed(() -> logger.info("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort())));
 	}
 
 	@Override

@@ -22,29 +22,7 @@ public class SwitchControl extends JoystickButton {
 	public SwitchControl(@NotNull GenericHID joystick, int buttonNumber) {
 		super(joystick, buttonNumber);
 
-		super.whenReleased(new Command() {
-			@Override
-			protected boolean isFinished() {
-				return true;
-			}
-
-			@Override
-			protected void execute() {
-				logger.info("Switch {} flipped off - {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
-			}
-		});
-
-		super.whenPressed(new Command() {
-			@Override
-			protected boolean isFinished() {
-				return true;
-			}
-
-			@Override
-			protected void execute() {
-				logger.info("Switch {} flipped on - {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort()));
-			}
-		});
+		this.whenFlipped(isOn -> logger.info("Switch {} flipped {} - {} ({})", box(buttonNumber), isOn ? "on" : "off", joystick.getName(), box(joystick.getPort())));
 	}
 
 	public void whenFlipped(@NotNull FlipListener listener) {
