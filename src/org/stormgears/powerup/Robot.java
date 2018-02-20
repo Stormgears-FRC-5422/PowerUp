@@ -42,7 +42,7 @@ public class Robot extends BaseStormgearsRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static DSIO dsio = DSIO.getInstance();
+	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
 	public static GlobalMapping globalMapping;
@@ -70,7 +70,6 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
-		dsio.detector.start();
 
 
 //		StormScheduler.init();
@@ -108,8 +107,11 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		if (dsio == null) {
+			DSIO.init();
+			dsio = DSIO.getInstance();
+		}
 		//get all the selected autonomous command properties for this run
-		dsio.detector.stop();
 //		getSelectedAutonomousCommand();
 //
 //		//if any residual commands exist, cancel them
@@ -150,9 +152,10 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void teleopInit() {
 //		drive.setVelocityPID();
-		dsio.detector.stop();
-
-//		drive.setVelocityPID();
+		if (dsio == null) {
+			DSIO.init();
+			dsio = DSIO.getInstance();
+		}
 	}
 
 	/**
@@ -202,7 +205,6 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void disabledInit() {
 		super.disabledInit();
-		dsio.detector.start();
 
 //		fmsInterface.startPollingForData();
 

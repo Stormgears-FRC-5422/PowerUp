@@ -10,78 +10,56 @@ import org.stormgears.utils.dsio.LogitechJoystick;
 import org.stormgears.utils.dsio.XboxJoystick;
 
 public class JoystickDetector {
-	private Thread detectionThread;
 	private DriverStation ds;
-	private boolean shouldStop;
 
 	private String[] names;
 	private Joystick[] joysticks;
 	private int drivingJoystickChannel = -1, mspChannel = -1, buttonBoard2018Channel = -1, xboxChannel = -1;
 
 	public JoystickDetector() {
-		detectionThread = new Thread(this::detect);
 		ds = DriverStation.getInstance();
 		names = new String[5];
 		joysticks = new Joystick[5];
 	}
 
-	public void start() {
-		System.out.println("Starting joystick detection!");
-		shouldStop = false;
-		detectionThread.run();
-	}
+	public void detect() {
 
-	public void stop() {
-		System.out.println("Stopping joystick detection!");
-		shouldStop = true;
-	}
+		for (int channel = 0; channel < names.length; channel++) {
+			names[channel] = ds.getJoystickName(channel);
 
-	public void forceStop() {
-		detectionThread.interrupt();
-		System.out.println("Force stopping joystick detection!");
-	}
-
-	private void detect() {
-
-		while (!shouldStop && ds.isDisabled()) {
-			if (Thread.interrupted()) return;    // Exit immediately
-
-			for (int channel = 0; channel < names.length; channel++) {
-				names[channel] = ds.getJoystickName(channel);
-
-				if (names[channel].length() > 1) {
-					joysticks[channel] = new Joystick(channel);
-				}
+			if (names[channel].length() > 1) {
+				joysticks[channel] = new Joystick(channel);
 			}
+		}
 
-			for (int i = 0; i < joysticks.length; i++) {
-				Joystick joystick = joysticks[i];
-				if (joystick != null) {
-					if (joystick.getName().contains("MSP")) {    // Match MSP-430 board
+		for (int i = 0; i < joysticks.length; i++) {
+			Joystick joystick = joysticks[i];
+			if (joystick != null) {
+				if (joystick.getName().contains("MSP")) {    // Match MSP-430 board
 //						System.out.println("MSP-430 Guess: " + i);
-						mspChannel = i;
-					} else if (joystick.getName().toUpperCase().contains("XBOX")) {
+					mspChannel = i;
+				} else if (joystick.getName().toUpperCase().contains("XBOX")) {
 //						System.out.println("XBOX Guess: " + i);
-						xboxChannel = i;
-					} else if (joystick.getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
-						if (joystick.getX() < -0.98 && joystick.getY() < -0.98) {
+					xboxChannel = i;
+				} else if (joystick.getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
+					if (joystick.getX() < -0.98 && joystick.getY() < -0.98) {
 //							System.out.println("New Button Board Guess: " + i);
-							buttonBoard2018Channel = i;
-						} else {
+						buttonBoard2018Channel = i;
+					} else {
 //							System.out.println("Normal Joystick Guess: " + i);
-							drivingJoystickChannel = i;
-						}
+						drivingJoystickChannel = i;
 					}
 				}
 			}
+		}
 
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				return;
-			}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			return;
 		}
 	}
+
 
 	public IRawJoystick getDrivingJoystick() {
 		if (xboxChannel != -1) {

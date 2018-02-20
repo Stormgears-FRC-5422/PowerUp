@@ -5,13 +5,18 @@ import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetecto
 import org.stormgears.utils.dsio.IRawJoystick;
 
 public class DSIO {
-	private static DSIO instance = new DSIO();
+	private static DSIO instance;
 
 	public static DSIO getInstance() {
 		return instance;
 	}
 
-	//		init();
+	public static void init() {
+		if (instance != null) {
+			instance = new DSIO();
+		}
+	}
+
 	public Choosers choosers = new Choosers();
 
 //	// If you want to change the channel, change it here
@@ -25,26 +30,18 @@ public class DSIO {
 	private IButtonBoard buttonBoard;
 
 	private DSIO() {
-//		if (using2018Board) {
-//			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
-//		}
-	}
-
-	/*
-	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
-	 */
-	private void init() {
+		detector.detect();
 		joystick = detector.getDrivingJoystick();
-
+		buttonBoard = detector.getButtonBoard();
 
 		// RED
 		buttonBoard.getGripCloseButton().whenPressed(() -> { //closes gripper
-			Robot.gripper.closeGripper();
+//			Robot.gripper.closeGripper();
 		});
 
 		// YELLOW
 		buttonBoard.getGripOpenButton().whenPressed(() -> { //opens gripper
-			Robot.gripper.openGripper();
+//			Robot.gripper.openGripper();
 		});
 
 		// GREEN SWITCH // TODO
@@ -58,7 +55,15 @@ public class DSIO {
 
 		// ORANGE SWITCH
 //			orangeSwitch.whenFlipped(isOn -> Robot.drive.useAbsoluteControl = isOn);
+
+		//		if (using2018Board) {
+//			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
+//		}
 	}
+
+	/*
+	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
+	 */
 
 
 	// Joystick related methods
