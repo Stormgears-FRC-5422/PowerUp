@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
-public class EnhancedButton extends JoystickButton {
+public class EnhancedButton extends JoystickButton implements StormButton {
 	private static final Logger logger = LogManager.getLogger(EnhancedButton.class);
 
 	/**
@@ -34,6 +34,7 @@ public class EnhancedButton extends JoystickButton {
 		});
 	}
 
+	@Override
 	public void whenPressed(Runnable callback) {
 		super.whenPressed(new Command() {
 			@Override

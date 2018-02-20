@@ -1,9 +1,11 @@
 package org.stormgears.powerup.subsystems.dsio;
 
-import org.stormgears.utils.dsio.EnhancedButton;
+import org.stormgears.utils.dsio.StormButton;
 
 public abstract class AbstractButtonBoard {
-	EnhancedButton gripperButton;
+	public abstract StormButton getGripOpenButton();
 
-	abstract EnhancedButton getGripperButton();
+	public abstract StormButton getGripCloseButton();
+
+	public abstract StormButton getDropButton();
 }
