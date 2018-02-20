@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoMoveCommand extends Command {
+public class AutoMoveDriveCommand extends Command {
 	private static final Logger logger = LogManager.getLogger(AutonomousCommandGroup.class);
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartingSpot;
@@ -23,12 +23,12 @@ public class AutoMoveCommand extends Command {
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
-    public AutoMoveCommand() {
+    public AutoMoveDriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
     
-    public AutoMoveCommand(FieldPositions.Alliance selectedAlliance,
+    public AutoMoveDriveCommand(FieldPositions.Alliance selectedAlliance,
 			FieldPositions.StartingSpots selectedStartingSpot,
 			FieldPositions.PlacementSpot selectedPlacementSpot,
 			FieldPositions.LeftRight selectedOwnSwitchPlateAssignment,
