@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
-import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
@@ -24,6 +23,7 @@ import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -72,23 +72,25 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
+		dsio.detector.start();
 
-		StormScheduler.init();
 
-		Sensors.init();
-		sensors = Sensors.getInstance();
-
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
-
-		DriveTalons.init();
-		driveTalons = DriveTalons.getInstance();
-
-		Drive.init();
-		drive = Drive.getInstance();
-
-		Intake.init();
-		intake = Intake.getInstance();
+//		StormScheduler.init();
+//
+//		Sensors.init();
+//		sensors = Sensors.getInstance();
+//
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
+//
+//		DriveTalons.init();
+//		driveTalons = DriveTalons.getInstance();
+//
+//		Drive.init();
+//		drive = Drive.getInstance();
+//
+//		Intake.init();
+//		intake = Intake.getInstance();
 
 //		ElevatorSharedTalons.init();
 //		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
@@ -99,8 +101,8 @@ public class Robot extends BaseStormgearsRobot {
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-//		Gripper.init();
-//		gripper = Gripper.getInstance();
+		Gripper.init();
+		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -109,25 +111,28 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void autonomousInit() {
 		//get all the selected autonomous command properties for this run
-		getSelectedAutonomousCommand();
-
-		//if any residual commands exist, cancel them
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
-		}
-
-		logger.info("creating autonomous command group");
-
-		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
-			selectedStartSpot,
-			selectedPlacementSpot,
-			selectedOwnSwitchPlateAssignment,
-			selectedScalePlateAssignment,
-			selectedOpponentSwitchPlateAssignmentChooser);
-
-		//execute autonomous command
-		logger.info("starting the autonomous command...from autonomousInit()");
-		autonomousCommand.start();
+		dsio.detector.stop();
+		System.out.println(Arrays.toString(dsio.detector.getNames()));
+//		getSelectedAutonomousCommand();
+//
+//		//if any residual commands exist, cancel them
+//		if (autonomousCommand != null) {
+//			autonomousCommand.cancel();
+//		}
+//
+//		logger.info("creating autonomous command group");
+//
+//		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
+//			selectedStartSpot,
+//			selectedPlacementSpot,
+//			selectedOwnSwitchPlateAssignment,
+//			selectedScalePlateAssignment,
+//			selectedOpponentSwitchPlateAssignmentChooser);
+//
+//		//execute autonomous command
+//		logger.info("starting the autonomous command...from autonomousInit()");
+//		autonomousCommand.start();
+		gripper.openGripper();
 	}
 
 	/**
@@ -135,12 +140,12 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterAutonomousInit() {
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.moveStraight(120, 0);
-			}
-		}
+//		if (drive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				drive.moveStraight(120, 0);
+//			}
+//		}
 	}
 
 	/**
@@ -148,7 +153,11 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		drive.setVelocityPID();
+//		drive.setVelocityPID();
+		gripper.closeGripper();
+		dsio.detector.stop();
+
+//		drive.setVelocityPID();
 	}
 
 	/**
@@ -166,9 +175,9 @@ public class Robot extends BaseStormgearsRobot {
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
 
-		if (autonomousCommand != null) {
-			StormScheduler.getInstance().run();
-		}
+//		if (autonomousCommand != null) {
+//			StormScheduler.getInstance().run();
+//		}
 
 	}
 
@@ -180,16 +189,16 @@ public class Robot extends BaseStormgearsRobot {
 	public void teleopPeriodic() {
 		super.teleopPeriodic();
 
-		StormScheduler.getInstance().run();
-
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
-			}
-		} else {
-			logger.fatal("Robot.drive is null; that's a problem!");
-		}
+//		StormScheduler.getInstance().run();
+//
+//		if (drive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				drive.move();
+//			}
+//		} else {
+//			logger.fatal("Robot.drive is null; that's a problem!");
+//		}
 	}
 
 	/**
@@ -198,6 +207,7 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void disabledInit() {
 		super.disabledInit();
+		dsio.detector.start();
 
 //		fmsInterface.startPollingForData();
 

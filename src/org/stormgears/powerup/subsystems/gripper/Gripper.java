@@ -18,10 +18,11 @@ public class Gripper extends TerminatableSubsystem {
 	//TODO: Change to correct value
 	private static final int TALON_ID = 11;
 
-	private static final double GRIPPER_POWER = 0.5;
-	private static final double CLOSE_CURRENT_LIMIT = 3.0;
-	private static final double OPEN_CURRENT_LIMIT = 1.25;
-	private static final int CURRENT_CHECK_START_TIME = 50;
+	private static final double GRIPPER_POWER = 0.25;
+	private static final double CLOSE_CURRENT_LIMIT = 4.5;
+	private static final double OPEN_CURRENT_LIMIT = 3.0;
+	private static final int CURRENT_CHECK_START_TIME = 12;
+	private static final double BREAK_JAM_SPEED = 0.75;
 
 	private StormTalon talon;
 	private final Object lock = new Object();
@@ -40,7 +41,7 @@ public class Gripper extends TerminatableSubsystem {
 			}
 
 			logger.info("Gripper Closing");
-			talon.set(ControlMode.PercentOutput, -1);
+			talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED);
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 
@@ -69,7 +70,7 @@ public class Gripper extends TerminatableSubsystem {
 			}
 
 			logger.info("Gripper Opening");
-			talon.set(ControlMode.PercentOutput, 1);
+			talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED);
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 

@@ -2,6 +2,8 @@ package org.stormgears.powerup.subsystems.dsio;
 
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.dsio.IRawJoystick;
+import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector;
+import org.stormgears.utils.dsio.IRawJoystick;
 
 public class DSIO {
 	private static DSIO instance = new DSIO();
@@ -22,12 +24,10 @@ public class DSIO {
 //	// We need 2 buttonBoards because the 2018 revision takes 2 joysticks to use, and then 1 normal joystick
 //	private static final byte JOYSTICK_CHANNEL = 0, BUTTON_BOARD_CHANNEL = 1, BUTTON_BOARD_2_CHANNEL = 2;
 
-//	// Don't instantiate any other joysticks
-//	private Joystick joystick = new Joystick(JOYSTICK_CHANNEL),
-//		buttonBoard = new Joystick(BUTTON_BOARD_CHANNEL),
-//		buttonBoard2;
 
 	private IRawJoystick joystick;
+
+	public JoystickDetector detector;
 
 	private boolean joystickEnabled = true;
 
@@ -36,6 +36,7 @@ public class DSIO {
 	private DSIO() {
 		setupButtonsAndSwitches();
 		choosers = new Choosers();
+		detector = new JoystickDetector();
 
 //		if (using2018Board) {
 //			buttonBoard2 = new Joystick(BUTTON_BOARD_2_CHANNEL);
