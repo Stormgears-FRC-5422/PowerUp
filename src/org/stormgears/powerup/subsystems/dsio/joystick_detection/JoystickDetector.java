@@ -38,7 +38,7 @@ public class JoystickDetector {
 	private void detect() {
 
 		while (!shouldStop && ds.isDisabled()) {
-			if (Thread.interrupted()) return;	// Exit immediately
+			if (Thread.interrupted()) return;    // Exit immediately
 
 			for (int channel = 0; channel < names.length; channel++) {
 				names[channel] = ds.getJoystickName(channel);
@@ -50,19 +50,26 @@ public class JoystickDetector {
 
 			for (int i = 0; i < joysticks.length; i++) {
 				if (joysticks[i] != null) {
-					if (joysticks[i].getName().contains("MSP")) {	// Match MSP-430 board
+					if (joysticks[i].getName().contains("MSP")) {    // Match MSP-430 board
 						System.out.println("MSP-430 Guess: " + i);
 						mspChannel = i;
-					} else if (joysticks[i].getName().contains("Log")) {	// Match Logitech Extreme 3D joystick
+					} else if (joysticks[i].getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
 						if (joysticks[i].getX() < -0.98 && joysticks[i].getY() < -0.98) {
 							System.out.println("New Button Board Guess: " + i);
 							buttonBoard2018Channel = i;
-						} else if (Math.abs(joysticks[i].getX()) < 0.5 || Math.abs(joysticks[i].getY()) < 0.5) {
+
+						} else {
 							System.out.println("Normal Joystick Guess: " + i);
 							normalJoystickChannel = i;
 						}
 					}
 				}
+			}
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				return;
 			}
 		}
 	}

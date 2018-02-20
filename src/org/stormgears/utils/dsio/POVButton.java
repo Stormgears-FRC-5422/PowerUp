@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class POVButton extends Button /* WPI button! */ implements StormButton {
-	enum Direction {
+	public enum Direction {
 		Up(0, 315, 45),
 		Right(90, 45, 135),
 		Down(180, 135, 225),

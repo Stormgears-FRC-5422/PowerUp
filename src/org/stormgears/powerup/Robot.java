@@ -19,11 +19,9 @@ import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -101,8 +99,8 @@ public class Robot extends BaseStormgearsRobot {
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-		Gripper.init();
-		gripper = Gripper.getInstance();
+//		Gripper.init();
+//		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -112,7 +110,6 @@ public class Robot extends BaseStormgearsRobot {
 	public void autonomousInit() {
 		//get all the selected autonomous command properties for this run
 		dsio.detector.stop();
-		System.out.println(Arrays.toString(dsio.detector.getNames()));
 //		getSelectedAutonomousCommand();
 //
 //		//if any residual commands exist, cancel them
@@ -132,7 +129,6 @@ public class Robot extends BaseStormgearsRobot {
 //		//execute autonomous command
 //		logger.info("starting the autonomous command...from autonomousInit()");
 //		autonomousCommand.start();
-		gripper.openGripper();
 	}
 
 	/**
@@ -154,7 +150,6 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void teleopInit() {
 //		drive.setVelocityPID();
-		gripper.closeGripper();
 		dsio.detector.stop();
 
 //		drive.setVelocityPID();
