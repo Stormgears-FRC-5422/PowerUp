@@ -36,8 +36,6 @@ public class Drive {
 	private MotionMagic[] motions;
 	private MotionManager motionManager;
 
-
-
 	private Drive() {
 		talons = Robot.driveTalons.getTalons();
 		vels = new double[talons.length];
