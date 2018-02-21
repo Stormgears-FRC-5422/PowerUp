@@ -68,6 +68,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+		Sensors.startPublishingToNetwork();
 		//sensors.getStormNet().test();
 
 		if(sensorBot == true) {
@@ -174,7 +175,6 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		StormScheduler.getInstance().run();
-		Sensors.startPublishingToNetwork();
 //		sensors.getStormNet().getLidarDistance(0);
 //		sensors.getStormNet().getLidarDistance(1);
 //		sensors.getStormNet().getLidarDistance(2);
