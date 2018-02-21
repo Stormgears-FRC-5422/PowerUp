@@ -99,10 +99,11 @@ public class Elevator extends TerminatableSubsystem {
 	}
 
 	/**
-	 * Stop all elevator motion
+	 * Stop all motion
 	 */
-	public void stopElevator() {
-		talons.getMasterMotor().set(0);
+	public void stop() {
+		talons.getMasterMotor().set(ControlMode.PercentOutput, 0);
+		sideShiftTalon.set(ControlMode.PercentOutput, 0);
 	}
 
 	/**
@@ -136,6 +137,30 @@ public class Elevator extends TerminatableSubsystem {
 		System.out.println("Side shift current limit reached or reached center");
 
 		sideShiftPosition = position;
+	}
+
+	public void moveSideShiftOverLeft() {
+		if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1);
+	}
+
+	public void moveSideShiftOverRight() {
+		if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1);
+	}
+
+	public void moveUpManual() {
+		talons.getMasterMotor().set(ControlMode.PercentOutput, -0.33);
+	}
+
+	public void moveDownManual() {
+		talons.getMasterMotor().set(ControlMode.PercentOutput, 0.33);
+	}
+
+	public void moveLeftManual() {
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.33);
+	}
+
+	public void moveRightManual() {
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.33);
 	}
 
 	private void waitMs(int ms) {

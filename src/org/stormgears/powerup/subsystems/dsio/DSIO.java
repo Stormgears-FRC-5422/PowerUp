@@ -4,8 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector;
+import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
+import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.utils.TerminatableSubsystem;
 import org.stormgears.utils.dsio.IRawJoystick;
+import org.stormgears.utils.dsio.TernarySwitch;
 
 public class DSIO {
 	private static final Logger logger = LogManager.getLogger(DSIO.class);
@@ -47,9 +50,49 @@ public class DSIO {
 	private void setupButtonsAndSwitches() {
 		logger.trace("setting up buttons");
 
-		buttonBoard.getGripCloseButton().whenPressed(() -> Robot.gripper.closeGripper());
+		for (int i = 0; i < buttonBoard.getScaleButtons().length; i++) {
+			int finalI = i;
+			buttonBoard.getScaleButtons()[i].whenPressed(() -> Robot.elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[finalI]));
+		}
 
+		buttonBoard.getSwitch0Button().whenPressed(() -> Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]));
+		buttonBoard.getSwitch1Button().whenPressed(() -> Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1]));
+
+		buttonBoard.getDropButton().whenPressed(() -> Robot.gripper.openGripper()); // TODO: What does this button do?
+
+		buttonBoard.getSideLeftButton().whenPressed(() -> Robot.elevator.moveSideShiftOverLeft());
+		buttonBoard.getSideRightButton().whenPressed(() -> Robot.elevator.moveSideShiftOverRight());
+
+		buttonBoard.getIntakeGrabButton().whenPressed(() -> { });
+		((TernarySwitch) buttonBoard.getIntakeWheelsSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
+			switch (state) {
+				case Up: Robot.intake.startWheelsOut(); break;
+				case Neutral: Robot.intake.stopWheels(); break;
+				case Down: Robot.intake.startWheelsIn(); break;
+			}
+		});
+		((TernarySwitch) buttonBoard.getIntakeLiftSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
+			switch (state) {
+				case Up: Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL); break;
+				case Neutral: Robot.intake.moveIntakeToPosition(Intake.DIAGONAL); break;
+				case Down: Robot.intake.moveIntakeToPosition(Intake.VERTICAL); break;
+			}
+		});
+
+		buttonBoard.getGripCloseButton().whenPressed(() -> Robot.gripper.closeGripper());
 		buttonBoard.getGripOpenButton().whenPressed(() -> Robot.gripper.openGripper());
+
+		buttonBoard.getClimbUpButton().whenPressed(() -> { /* Raise Climber */ });
+		buttonBoard.getClimbDownButton().whenPressed(() -> { /* Lower Climber */ });
+
+		buttonBoard.getOverrideUp().whenPressed(() -> Robot.elevator.moveUpManual());
+		buttonBoard.getOverrideDown().whenPressed(() -> Robot.elevator.moveDownManual());
+		buttonBoard.getOverrideLeft().whenPressed(() -> Robot.elevator.moveLeftManual());
+		buttonBoard.getOverrideRight().whenPressed(() -> Robot.elevator.moveRightManual());
+		buttonBoard.getOverrideUp().whenReleased(() -> Robot.elevator.stop());
+		buttonBoard.getOverrideDown().whenReleased(() -> Robot.elevator.stop());
+		buttonBoard.getOverrideLeft().whenReleased(() -> Robot.elevator.stop());
+		buttonBoard.getOverrideRight().whenReleased(() -> Robot.elevator.stop());
 
 		buttonBoard.getOverrideSwitch().whenFlipped(on -> {
 			if (on) {

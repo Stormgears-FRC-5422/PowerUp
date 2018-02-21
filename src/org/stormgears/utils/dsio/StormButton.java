@@ -11,6 +11,8 @@ public interface StormButton {
 
 	void whenReleased(final Command command);
 
+	void whenReleased(final Runnable callback);
+
 	void toggleWhenPressed(final Command command);
 
 	void cancelWhenPressed(final Command command);

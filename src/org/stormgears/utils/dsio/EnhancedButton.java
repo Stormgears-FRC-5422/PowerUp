@@ -40,4 +40,19 @@ public class EnhancedButton extends JoystickButton implements StormButton {
 			}
 		});
 	}
+
+	@Override
+	public void whenReleased(Runnable callback) {
+		super.whenReleased(new Command() {
+			@Override
+			protected boolean isFinished() {
+				return true;
+			}
+
+			@Override
+			protected void execute() {
+				callback.run();
+			}
+		});
+	}
 }
