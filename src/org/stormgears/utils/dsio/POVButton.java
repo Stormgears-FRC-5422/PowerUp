@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class POVButton extends Button /* WPI button! */ implements StormButton {
+public class POVButton extends Button /* WPI button! */ implements IButton {
 	private static final Logger logger = LogManager.getLogger(POVButton.class);
 
 	public enum Direction {
@@ -49,6 +49,21 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 	@Override
 	public void whenPressed(Runnable callback) {
 		super.whenPressed(new Command() {
+			@Override
+			protected boolean isFinished() {
+				return true;
+			}
+
+			@Override
+			protected void execute() {
+				callback.run();
+			}
+		});
+	}
+
+	@Override
+	public void whenReleased(Runnable callback) {
+		super.whenReleased(new Command() {
 			@Override
 			protected boolean isFinished() {
 				return true;

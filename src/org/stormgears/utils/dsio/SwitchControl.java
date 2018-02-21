@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
-public class SwitchControl extends JoystickButton {
+public class SwitchControl extends JoystickButton implements ISwitch {
 	private static final Logger logger = LogManager.getLogger(SwitchControl.class);
 
 	/**
@@ -25,6 +25,7 @@ public class SwitchControl extends JoystickButton {
 		this.whenFlipped(isOn -> logger.trace("Switch {} flipped {} - {} ({})", box(buttonNumber), isOn ? "on" : "off", joystick.getName(), box(joystick.getPort())));
 	}
 
+	@Override
 	public void whenFlipped(@NotNull FlipListener listener) {
 		super.whenReleased(new Command() {
 			@Override

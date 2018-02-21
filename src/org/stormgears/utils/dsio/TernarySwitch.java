@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
-public class TernarySwitch extends SwitchControl {
+public class TernarySwitch extends SwitchControl implements ITernarySwitch {
 	private static final Logger logger = LogManager.getLogger(TernarySwitch.class);
 
 	private JoystickButton downButton;
@@ -49,12 +49,6 @@ public class TernarySwitch extends SwitchControl {
 				logger.trace("Switch {}/{} flipped down - {} ({})", box(buttonUp), box(buttonDown), joystick.getName(), box(joystick.getPort()));
 			}
 		});
-	}
-
-	public enum SwitchState {
-		Up,
-		Neutral,
-		Down
 	}
 
 	public void whenFlippedTernary(TernaryFlipListener listener) {
@@ -112,8 +106,4 @@ public class TernarySwitch extends SwitchControl {
 	}
 
 
-	@FunctionalInterface
-	public interface TernaryFlipListener {
-		void flipped(SwitchState state);
-	}
 }

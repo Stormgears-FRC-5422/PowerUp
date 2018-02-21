@@ -3,10 +3,7 @@ package org.stormgears.powerup.subsystems.dsio;
 import edu.wpi.first.wpilibj.Joystick;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.stormgears.utils.dsio.EnhancedButton;
-import org.stormgears.utils.dsio.POVButton;
-import org.stormgears.utils.dsio.StormButton;
-import org.stormgears.utils.dsio.SwitchControl;
+import org.stormgears.utils.dsio.*;
 
 // I'm sorry this is so verbose. Maybe things will be better when you future people upgrade to Kotlin.
 
@@ -15,7 +12,7 @@ public class ButtonBoard2017 implements IButtonBoard {
 	private static ButtonBoard2017 instance = null;
 
 	@NotNull
-	public static ButtonBoard2017 getInstance(Joystick buttonBoard, Joystick joystick) {
+	public static IButtonBoard getInstance(Joystick buttonBoard, Joystick joystick) {
 		if (instance == null) {
 			if (initialized) {
 				throw new IllegalStateException("Only one button board can exist at once.");
@@ -30,32 +27,32 @@ public class ButtonBoard2017 implements IButtonBoard {
 	private final Joystick buttonBoard;
 	private final Joystick joystick;
 
-	private final StormButton gripOpenButton;
-	private final StormButton gripCloseButton;
+	private final IButton gripOpenButton;
+	private final IButton gripCloseButton;
 
-	private final StormButton dropButton;
+	private final IButton dropButton;
 
-	private final StormButton switch0Button;
-	private final StormButton switch1Button;
+	private final IButton switch0Button;
+	private final IButton switch1Button;
 
-	private final StormButton sideLeftButton;
-	private final StormButton sideRightButton;
+	private final IButton sideLeftButton;
+	private final IButton sideRightButton;
 
-	private final StormButton intakeGrabButton;
+	private final IButton intakeGrabButton;
 
-	private final StormButton climbUpButton;
-	private final StormButton climbDownButton;
+	private final IButton climbUpButton;
+	private final IButton climbDownButton;
 
-	private final StormButton[] scaleButtons;
+	private final IButton[] scaleButtons;
 
-	private final SwitchControl intakeWheelsSwitch;
-	private final SwitchControl intakeLiftSwitch;
+	private final ISwitch intakeWheelsSwitch;
+	private final ISwitch intakeLiftSwitch;
 
-	private final SwitchControl overrideSwitch;
-	private final StormButton overrideUp;
-	private final StormButton overrideDown;
-	private final StormButton overrideLeft;
-	private final StormButton overrideRight;
+	private final ISwitch overrideSwitch;
+	private final IButton overrideUp;
+	private final IButton overrideDown;
+	private final IButton overrideLeft;
+	private final IButton overrideRight;
 
 	private ButtonBoard2017(Joystick buttonBoard, Joystick joystick) {
 		this.buttonBoard = buttonBoard;
@@ -88,7 +85,7 @@ public class ButtonBoard2017 implements IButtonBoard {
 		climbUpButton = new EnhancedButton(joystick, 5);
 		climbDownButton = new EnhancedButton(joystick, 6);
 
-		scaleButtons = new StormButton[]{
+		scaleButtons = new IButton[]{
 			new EnhancedButton(joystick, 7),
 			new EnhancedButton(joystick, 8),
 			new EnhancedButton(joystick, 9),
@@ -98,92 +95,92 @@ public class ButtonBoard2017 implements IButtonBoard {
 	}
 
 	@Override
-	public StormButton getGripOpenButton() {
+	public IButton getGripOpenButton() {
 		return gripOpenButton;
 	}
 
 	@Override
-	public StormButton getGripCloseButton() {
+	public IButton getGripCloseButton() {
 		return gripCloseButton;
 	}
 
 	@Override
-	public StormButton getDropButton() {
+	public IButton getDropButton() {
 		return dropButton;
 	}
 
 	@Override
-	public StormButton[] getScaleButtons() {
+	public IButton[] getScaleButtons() {
 		return scaleButtons;
 	}
 
 	@Override
-	public StormButton getSwitch0Button() {
+	public IButton getSwitch0Button() {
 		return switch0Button;
 	}
 
 	@Override
-	public StormButton getSwitch1Button() {
+	public IButton getSwitch1Button() {
 		return switch1Button;
 	}
 
 	@Override
-	public StormButton getSideLeftButton() {
+	public IButton getSideLeftButton() {
 		return sideLeftButton;
 	}
 
 	@Override
-	public StormButton getSideRightButton() {
+	public IButton getSideRightButton() {
 		return sideRightButton;
 	}
 
 	@Override
-	public StormButton getIntakeGrabButton() {
+	public IButton getIntakeGrabButton() {
 		return intakeGrabButton;
 	}
 
 	@Override
-	public StormButton getClimbUpButton() {
+	public IButton getClimbUpButton() {
 		return climbUpButton;
 	}
 
 	@Override
-	public StormButton getClimbDownButton() {
+	public IButton getClimbDownButton() {
 		return climbDownButton;
 	}
 
 	@Override
-	public SwitchControl getIntakeWheelsSwitch() {
+	public ISwitch getIntakeWheelsSwitch() {
 		return intakeWheelsSwitch;
 	}
 
 	@Override
-	public SwitchControl getIntakeLiftSwitch() {
+	public ISwitch getIntakeLiftSwitch() {
 		return intakeLiftSwitch;
 	}
 
 	@Override
-	public SwitchControl getOverrideSwitch() {
+	public ISwitch getOverrideSwitch() {
 		return overrideSwitch;
 	}
 
 	@Override
-	public StormButton getOverrideUp() {
+	public IButton getOverrideUp() {
 		return overrideUp;
 	}
 
 	@Override
-	public StormButton getOverrideDown() {
+	public IButton getOverrideDown() {
 		return overrideDown;
 	}
 
 	@Override
-	public StormButton getOverrideLeft() {
+	public IButton getOverrideLeft() {
 		return overrideLeft;
 	}
 
 	@Override
-	public StormButton getOverrideRight() {
+	public IButton getOverrideRight() {
 		return overrideRight;
 	}
 

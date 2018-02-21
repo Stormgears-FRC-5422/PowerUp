@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
-public class EnhancedButton extends JoystickButton implements StormButton {
+public class EnhancedButton extends JoystickButton implements IButton {
 	private static final Logger logger = LogManager.getLogger(EnhancedButton.class);
 
 	/**

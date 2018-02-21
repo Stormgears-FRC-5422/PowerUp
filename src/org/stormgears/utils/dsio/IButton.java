@@ -2,7 +2,7 @@ package org.stormgears.utils.dsio;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public interface StormButton {
+public interface IButton {
 	void whenPressed(Runnable callback);
 
 	void whenPressed(final Command command);
