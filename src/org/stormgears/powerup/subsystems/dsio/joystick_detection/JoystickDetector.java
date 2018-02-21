@@ -51,7 +51,7 @@ public class JoystickDetector {
 					logger.info("XBOX controller guess: {}", box(i));
 					xboxChannel = i;
 				} else if (joystick.getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
-					if (joystick.getX() < -0.98 && joystick.getY() < -0.98) {
+					if (joystick.getRawAxis(0) < -0.98 && joystick.getRawAxis(1) < -0.98) {
 						logger.info("Button board joystick guess: {}", box(i));
 						buttonBoard2018Channel = i;
 					} else {
