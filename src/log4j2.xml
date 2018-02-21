@@ -10,7 +10,7 @@
 			<Policies>
 				<OnStartupTriggeringPolicy/>
 			</Policies>
-			<DefaultRolloverStrategy compressionLevel="1" maxFiles="20"/>
+			<DefaultRolloverStrategy compressionLevel="1" max="20"/>
 		</RollingFile>
 	</Appenders>
 	<Loggers>

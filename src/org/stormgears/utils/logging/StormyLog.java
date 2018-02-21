@@ -25,7 +25,7 @@ public class StormyLog {
 				"\t\t\t<Policies>\n" +
 				"\t\t\t\t<OnStartupTriggeringPolicy/>\n" +
 				"\t\t\t</Policies>\n" +
-				"\t\t\t<DefaultRolloverStrategy compressionLevel=\"1\" maxFiles=\"20\"/>\n" +
+				"\t\t\t<DefaultRolloverStrategy compressionLevel=\"1\" max=\"20\"/>\n" +
 				"\t\t</RollingFile>\n" +
 				"\t</Appenders>\n" +
 				"\t<Loggers>\n" +
