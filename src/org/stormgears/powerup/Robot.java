@@ -75,17 +75,17 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-//		Sensors.init();
-//		sensors = Sensors.getInstance();
+		Sensors.init();
+		sensors = Sensors.getInstance();
 //
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
 //
-//		DriveTalons.init();
-//		driveTalons = DriveTalons.getInstance();
-//
-//		Drive.init();
-//		drive = Drive.getInstance();
+		DriveTalons.init();
+		driveTalons = DriveTalons.getInstance();
+
+		Drive.init();
+		drive = Drive.getInstance();
 //
 //		Intake.init();
 //		intake = Intake.getInstance();
@@ -140,12 +140,12 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterAutonomousInit() {
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.moveStraight(120, 0);
-			}
-		}
+//		if (drive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				drive.moveStraight(120, 0);
+//			}
+//		}
 	}
 
 	/**
@@ -217,6 +217,7 @@ public class Robot extends BaseStormgearsRobot {
 	}
 
 	private void getSelectedAutonomousCommand() {
+		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
 		selectedAlliance = dsio.choosers.getAlliance();
 		selectedStartSpot = dsio.choosers.getStartingSpot();
 		selectedPlacementSpot = dsio.choosers.getPlacementSpot();

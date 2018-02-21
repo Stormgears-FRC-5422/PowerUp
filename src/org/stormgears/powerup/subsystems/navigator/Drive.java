@@ -29,7 +29,7 @@ public class Drive extends TerminatableSubsystem {
 
 
 	private static final int MAX_VELOCITY = 25000;
-	private static final int MAX_ACCELERATION = 1200;
+	private static final int MAX_ACCELERATION = 1200/2;
 
 	private StormTalon[] talons;
 	private double[] vels;
@@ -311,8 +311,7 @@ public class Drive extends TerminatableSubsystem {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 
-		shouldTerminate = false;
-		while (!shouldTerminate && !timer.hasPeriodPassed(totTime)) {
+		while (isAllowed() && !timer.hasPeriodPassed(totTime)) {
 			waitMs(20);
 		}
 		timer.stop();
@@ -395,8 +394,7 @@ public class Drive extends TerminatableSubsystem {
 			}
 		}
 
-		shouldTerminate = false;
-		while (!shouldTerminate && !timer.hasPeriodPassed(totTime)) {
+		while (isAllowed() && !timer.hasPeriodPassed(totTime)) {
 			waitMs(20);
 		}
 		timer.stop();

@@ -14,7 +14,6 @@ public class Choosers {
 	private SendableChooser<FieldPositions.LeftRight> ownSwitchPlateAssignmentChooser;
 	private SendableChooser<FieldPositions.LeftRight> scalePlateAssignmentChooser;
 	private SendableChooser<FieldPositions.LeftRight> opponentSwitchPlateAssignmentChooser;
-	private SendableChooser<String> typeOfPlateAssignmentChooser;
 
 	/*
 	 * In this constructor:
@@ -58,10 +57,6 @@ public class Choosers {
 		opponentSwitchPlateAssignmentChooser.addObject("Opponent Switch Plate Assignment: R", FieldPositions.LeftRight.R);
 		SmartDashboard.putData("Opponent Switch Plate Assignment", opponentSwitchPlateAssignmentChooser);
 
-		typeOfPlateAssignmentChooser = new SendableChooser<>();
-		typeOfPlateAssignmentChooser.addDefault("Use FMS", "FMS");
-		typeOfPlateAssignmentChooser.addObject("Use Chooser", "CHOOSER");
-		SmartDashboard.putData("Type of Plate Assignment", typeOfPlateAssignmentChooser);
 	}
 
 	// Getters go below here
@@ -85,27 +80,15 @@ public class Choosers {
 	}
 
 	public FieldPositions.LeftRight getOwnSwitchPlateAssignmentChooser() {
-		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
-			return ownSwitchPlateAssignmentChooser.getSelected();
-		} else {//Using FMS interface
-			return FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE;
-		}
+		return ownSwitchPlateAssignmentChooser.getSelected();
 
 	}
 
 	public FieldPositions.LeftRight getScalePlateAssignmentChooser() {
-		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
-			return scalePlateAssignmentChooser.getSelected();
-		} else { //Using FMS interface
-			return FieldPositions.SCALE_PLATE_ASSIGNMENT_CHOICE;
-		}
+		return scalePlateAssignmentChooser.getSelected();
 	}
 
 	public FieldPositions.LeftRight getOpponentSwitchPlateAssignmentChooser() {
-		if (typeOfPlateAssignmentChooser.getSelected().equalsIgnoreCase("CHOOSER")) {
-			return opponentSwitchPlateAssignmentChooser.getSelected();
-		} else { //Using FMS interface
-			return FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;
-		}
+		return opponentSwitchPlateAssignmentChooser.getSelected();
 	}
 }
