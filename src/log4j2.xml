@@ -4,7 +4,7 @@
 		<Console name="Console" target="SYSTEM_OUT" direct="true">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %class{1.}.%M:%L - %msg%xEx%n"/>
 		</Console>
-		<RollingFile name="File" bufferedIO="true" fileName="/home/lvuser/FRC_Trace.log"
+		<RollingFile name="File" bufferedIO="true" immediateFlush="true" fileName="/home/lvuser/FRC_Trace.log"
 					 filePattern="/home/lvuser/logs/FRC_Trace_%d{yyyy-MM-dd-HH-mm-ss}-%i.log.gz">
 			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %class.%M:%L - %msg%xEx%n"/>
 			<Policies>
