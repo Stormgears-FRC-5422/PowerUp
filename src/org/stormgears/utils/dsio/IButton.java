@@ -26,4 +26,6 @@ public interface IButton {
 	void toggleWhenActive(final Command command);
 
 	void cancelWhenActive(final Command command);
+
+	boolean get();
 }

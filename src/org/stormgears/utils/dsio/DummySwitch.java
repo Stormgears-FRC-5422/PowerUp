@@ -58,4 +58,9 @@ public class DummySwitch implements ISwitch {
 	public void cancelWhenActive(Command command) {
 
 	}
+
+	@Override
+	public boolean get() {
+		return false;
+	}
 }

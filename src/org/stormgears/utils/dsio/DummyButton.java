@@ -62,4 +62,9 @@ public class DummyButton implements IButton {
 	public void cancelWhenActive(Command command) {
 
 	}
+
+	@Override
+	public boolean get() {
+		return false;
+	}
 }
