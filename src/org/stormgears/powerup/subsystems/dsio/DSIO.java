@@ -8,6 +8,7 @@ import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.utils.TerminatableSubsystem;
 import org.stormgears.utils.dsio.IRawJoystick;
+import org.stormgears.utils.dsio.ITernarySwitch;
 import org.stormgears.utils.dsio.TernarySwitch;
 
 public class DSIO {
@@ -64,14 +65,14 @@ public class DSIO {
 		buttonBoard.getSideRightButton().whenPressed(() -> Robot.elevator.moveSideShiftOverRight());
 
 		buttonBoard.getIntakeGrabButton().whenPressed(() -> { });
-		((TernarySwitch) buttonBoard.getIntakeWheelsSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
+		((ITernarySwitch) buttonBoard.getIntakeWheelsSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
 			switch (state) {
 				case Up: Robot.intake.startWheelsOut(); break;
 				case Neutral: Robot.intake.stopWheels(); break;
 				case Down: Robot.intake.startWheelsIn(); break;
 			}
 		});
-		((TernarySwitch) buttonBoard.getIntakeLiftSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
+		((ITernarySwitch) buttonBoard.getIntakeLiftSwitch()).whenFlippedTernary((TernarySwitch.SwitchState state) -> {
 			switch (state) {
 				case Up: Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL); break;
 				case Neutral: Robot.intake.moveIntakeToPosition(Intake.DIAGONAL); break;

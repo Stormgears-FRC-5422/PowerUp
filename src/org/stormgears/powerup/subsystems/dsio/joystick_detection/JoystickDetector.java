@@ -81,7 +81,7 @@ public class JoystickDetector {
 		if (buttonBoard2018Channel != -1 && mspChannel != -1) {
 			logger.info("Selecting ButtonBoard2018v1");
 			return ButtonBoard2018V1.getInstance(new Joystick(mspChannel), new Joystick(buttonBoard2018Channel));
-		} else if (mspChannel != 1 && drivingJoystickChannel != -1) {
+		} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
 			logger.info("Selecting ButtonBoard2017");
 			return ButtonBoard2017.getInstance(new Joystick(mspChannel), new Joystick(drivingJoystickChannel));
 		} else {
