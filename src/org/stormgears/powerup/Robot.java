@@ -44,7 +44,7 @@ public class Robot extends BaseStormgearsRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static DSIO dsio = DSIO.getInstance();
+	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
 	public static GlobalMapping globalMapping;
@@ -75,32 +75,32 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-		Sensors.init();
-		sensors = Sensors.getInstance();
-
-		GlobalMapping.init();
-		globalMapping = GlobalMapping.getInstance();
-
-		DriveTalons.init();
-		driveTalons = DriveTalons.getInstance();
-
-		Drive.init();
-		drive = Drive.getInstance();
-
-		Intake.init();
-		intake = Intake.getInstance();
-
+//		Sensors.init();
+//		sensors = Sensors.getInstance();
+//
+//		GlobalMapping.init();
+//		globalMapping = GlobalMapping.getInstance();
+//
+//		DriveTalons.init();
+//		driveTalons = DriveTalons.getInstance();
+//
+//		Drive.init();
+//		drive = Drive.getInstance();
+//
+//		Intake.init();
+//		intake = Intake.getInstance();
+//
 //		ElevatorSharedTalons.init();
 //		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
-
+//
 //		Elevator.init();
 //		elevator = Elevator.getInstance();
-
+//
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-//		Gripper.init();
-//		gripper = Gripper.getInstance();
+		Gripper.init();
+		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -108,7 +108,12 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//get all the selected autonomous command properties for this run
+		if (dsio == null) {
+			DSIO.init();
+			dsio = DSIO.getInstance();
+		}
+
+		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
 
 		//if any residual commands exist, cancel them
@@ -148,7 +153,12 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void teleopInit() {
-		drive.setVelocityPID();
+//		drive.setVelocityPID();
+
+		if (dsio == null) {
+			DSIO.init();
+			dsio = DSIO.getInstance();
+		}
 	}
 
 	/**
@@ -166,9 +176,9 @@ public class Robot extends BaseStormgearsRobot {
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
 
-		if (autonomousCommand != null) {
-			StormScheduler.getInstance().run();
-		}
+//		if (autonomousCommand != null) {
+		StormScheduler.getInstance().run();
+//		}
 
 	}
 
@@ -182,14 +192,14 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
-			}
-		} else {
-			logger.fatal("Robot.drive is null; that's a problem!");
-		}
+//		if (drive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				drive.move();
+//			}
+//		} else {
+//			logger.fatal("Robot.drive is null; that's a problem!");
+//		}
 	}
 
 	/**
