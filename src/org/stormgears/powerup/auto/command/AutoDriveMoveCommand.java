@@ -55,19 +55,22 @@ public class AutoDriveMoveCommand extends Command {
 						" to " + selectedPlacementSpot.toString() + " (" +  selectedStartingSpot.getPosition().getX() + "," +  selectedStartingSpot.getPosition().getY() + ")" +
 						" on the " + selectedScalePlateAssignment.toString() + "( " +
 						FieldPositions.SCALE_LEFT_PLATE.getX() + ", " + 	FieldPositions.SCALE_LEFT_PLATE.getY() + ")"
-
 					);
+
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					//strafe right on X-axis
-					Robot.drive.moveToPos(FieldPositions.SCALE_PLATE_ASSIGNMENT,
-						new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() + FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SCALE,
-							FieldPositions.SCALE_PLATE_ASSIGNMENT.getY()));
+					Position newStrafePos = new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() + FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SCALE,
+							FieldPositions.SCALE_PLATE_ASSIGNMENT.getY()); 
+					logger.info("Moving from " + "(" +  FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() + "," +  FieldPositions.SCALE_PLATE_ASSIGNMENT.getY() + ")" +
+							" to " + "( " + newStrafePos.getX() + ", " + 	newStrafePos.getY() + ")");
+					Robot.drive.moveToPos(FieldPositions.SCALE_PLATE_ASSIGNMENT, newStrafePos);
+
 				} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R) 
 					logger.info("Moving from " + selectedStartingSpot.toString() +
 						"to " + selectedPlacementSpot.toString() +
@@ -75,7 +78,7 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -89,7 +92,7 @@ public class AutoDriveMoveCommand extends Command {
 
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -106,7 +109,7 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -122,25 +125,22 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
-					}
-					//strafe right on X-axis
+					}					//strafe right on X-axis
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT);
 					try {
 						TimeUnit.SECONDS.sleep(10);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT,
 						new Position(FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT.getX() - FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SWITCH,
 							FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT.getY()));
@@ -164,25 +164,22 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(8);
 					} catch (Exception e) {
 						e.printStackTrace();
-					}
-					//strafe right on X-axis
+					}					//strafe right on X-axis
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.SCALE_PLATE_ASSIGNMENT,
 						new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() + FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SWITCH,
 							FieldPositions.SCALE_PLATE_ASSIGNMENT.getY()));
@@ -193,11 +190,10 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
-					}
-					//strafe right on X-axis
+					}					//strafe right on X-axis
 					Robot.drive.moveToPos(FieldPositions.SCALE_PLATE_ASSIGNMENT,
 						new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() - FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SCALE,
 							FieldPositions.SCALE_PLATE_ASSIGNMENT.getY()));
@@ -210,25 +206,22 @@ public class AutoDriveMoveCommand extends Command {
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
-					}
-					//strafe right on X-axis
+					}					//strafe right on X-axis
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-
 					Robot.drive.moveToPos(FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT,
 						new Position(FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT.getX() + FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SWITCH,
 							FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT.getY()));
@@ -240,7 +233,7 @@ public class AutoDriveMoveCommand extends Command {
 					//strafe left on X-axis by -18.0 in using Motion Magic
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT);
 					try {
-						TimeUnit.SECONDS.sleep(10);
+						TimeUnit.SECONDS.sleep(7);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

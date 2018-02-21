@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -44,6 +45,7 @@ public class Robot extends BaseStormgearsRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static Timer timer = new Timer();
 	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
@@ -175,7 +177,9 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
-
+		
+//		logger.info("Current timer value: " + timer.get());
+		
 //		if (autonomousCommand != null) {
 		StormScheduler.getInstance().run();
 //		}

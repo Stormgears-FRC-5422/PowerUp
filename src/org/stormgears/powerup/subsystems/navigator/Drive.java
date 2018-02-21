@@ -40,8 +40,6 @@ public class Drive extends TerminatableSubsystem {
 	private MotionMagic[] motions;
 	private MotionManager motionManager;
 
-	Timer timer = new Timer();
-
 	private Drive() {
 		talons = Robot.driveTalons.getTalons();
 		vels = new double[talons.length];
@@ -305,16 +303,17 @@ public class Drive extends TerminatableSubsystem {
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 			}
 		}
-		timer.start();
+		Robot.timer.start();
 		for (int i = 0; i < motions.length; i++) {
 			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 
-		while (isAllowed() && !timer.hasPeriodPassed(totTime)) {
+		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime/10.0)) {
 			waitMs(20);
 		}
-		timer.stop();
+		Robot.timer.stop();
+		Robot.timer.reset();
 	}
 
 	/**
@@ -382,7 +381,7 @@ public class Drive extends TerminatableSubsystem {
 		}
 
 		System.out.println(encoderTicks + "");
-		timer.start();
+		Robot.timer.start();
 		for (int i = 0; i < motions.length; i++) {
 			if (i == 0 || i == 2) {
 				System.out.println("Talon " + i + " Commanded: " + (encoderTicks));
@@ -394,10 +393,11 @@ public class Drive extends TerminatableSubsystem {
 			}
 		}
 
-		while (isAllowed() && !timer.hasPeriodPassed(totTime)) {
+		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime / 10.0)) {
 			waitMs(20);
 		}
-		timer.stop();
+		Robot.timer.stop();
+		Robot.timer.reset();
 	}
 
 
@@ -412,7 +412,7 @@ public class Drive extends TerminatableSubsystem {
 		double deltaX = p2.getX() - p1.getX();
 		double deltaY = p2.getY() - p1.getY();
 
-		double theta = Math.atan(deltaY / deltaX);
+		double theta = -Math.atan(deltaY / deltaX) + Math.PI/2;
 
 		double hyp = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
 		System.out.println(hyp);
