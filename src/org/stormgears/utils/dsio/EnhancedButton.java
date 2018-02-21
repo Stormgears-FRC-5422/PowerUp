@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
-public class EnhancedButton extends JoystickButton implements StormButton {
+public class EnhancedButton extends JoystickButton implements IButton {
 	private static final Logger logger = LogManager.getLogger(EnhancedButton.class);
 
 	/**
@@ -23,12 +23,27 @@ public class EnhancedButton extends JoystickButton implements StormButton {
 
 //		logger.trace("joystick = {}, buttonNumber = {}", joystick.getName(), buttonNumber);
 
-		this.whenPressed(() -> logger.info("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort())));
+		this.whenPressed(() -> logger.trace("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort())));
 	}
 
 	@Override
 	public void whenPressed(Runnable callback) {
 		super.whenPressed(new Command() {
+			@Override
+			protected boolean isFinished() {
+				return true;
+			}
+
+			@Override
+			protected void execute() {
+				callback.run();
+			}
+		});
+	}
+
+	@Override
+	public void whenReleased(Runnable callback) {
+		super.whenReleased(new Command() {
 			@Override
 			protected boolean isFinished() {
 				return true;

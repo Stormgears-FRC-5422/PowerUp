@@ -6,7 +6,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.subsystems.dsio.ButtonBoard2017;
 import org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1;
+import org.stormgears.powerup.subsystems.dsio.DummyButtonBoard;
 import org.stormgears.powerup.subsystems.dsio.IButtonBoard;
+import org.stormgears.utils.dsio.DummyJoystick;
 import org.stormgears.utils.dsio.IRawJoystick;
 import org.stormgears.utils.dsio.LogitechJoystick;
 import org.stormgears.utils.dsio.XboxJoystick;
@@ -29,6 +31,8 @@ public class JoystickDetector {
 	}
 
 	public void detect() {
+		logger.trace("searching for joysticks");
+
 		for (int channel = 0; channel < names.length; channel++) {
 			names[channel] = ds.getJoystickName(channel);
 
@@ -47,7 +51,8 @@ public class JoystickDetector {
 					logger.info("XBOX controller guess: {}", box(i));
 					xboxChannel = i;
 				} else if (joystick.getName().contains("Logitech")) {    // Match Logitech Extreme 3D joystick
-					if (joystick.getX() < -0.98 && joystick.getY() < -0.98) {
+					logger.trace("Axis 0: {}; Axis 1: {}", box(joystick.getRawAxis(0)), box(joystick.getRawAxis(1)));
+					if (joystick.getRawAxis(0) < -0.9 && joystick.getRawAxis(1) < -0.9 && joystick.getRawAxis(2) > 0.9) {
 						logger.info("Button board joystick guess: {}", box(i));
 						buttonBoard2018Channel = i;
 					} else {
@@ -62,19 +67,27 @@ public class JoystickDetector {
 
 	public IRawJoystick getDrivingJoystick() {
 		if (xboxChannel != -1) {
+			logger.info("Selecting XBOX joystick");
 			return new XboxJoystick(xboxChannel);
-		} else {
+		} else if (drivingJoystickChannel != -1) {
+			logger.info("Selecting Logitech joystick");
 			return new LogitechJoystick(drivingJoystickChannel);
+		} else {
+			logger.warn("Joystick not found! Using dummy joystick.");
+			return new DummyJoystick();
 		}
 	}
 
 	public IButtonBoard getButtonBoard() {
-		if (buttonBoard2018Channel != -1) {
+		if (buttonBoard2018Channel != -1 && mspChannel != -1) {
 			logger.info("Selecting ButtonBoard2018v1");
 			return ButtonBoard2018V1.getInstance(new Joystick(mspChannel), new Joystick(buttonBoard2018Channel));
-		} else {
+		} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
 			logger.info("Selecting ButtonBoard2017");
 			return ButtonBoard2017.getInstance(new Joystick(mspChannel), new Joystick(drivingJoystickChannel));
+		} else {
+			logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.");
+			return new DummyButtonBoard();
 		}
 	}
 

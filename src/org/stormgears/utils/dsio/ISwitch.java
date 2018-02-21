@@ -1,9 +1,10 @@
 package org.stormgears.utils.dsio;
 
 import edu.wpi.first.wpilibj.command.Command;
+import org.jetbrains.annotations.NotNull;
 
-public interface StormButton {
-	void whenPressed(Runnable callback);
+public interface ISwitch {
+	void whenFlipped(@NotNull SwitchControl.FlipListener listener);
 
 	void whenPressed(final Command command);
 
@@ -24,4 +25,6 @@ public interface StormButton {
 	void toggleWhenActive(final Command command);
 
 	void cancelWhenActive(final Command command);
+
+	boolean get();
 }

@@ -1,45 +1,45 @@
 package org.stormgears.powerup.subsystems.dsio;
 
-import org.stormgears.utils.dsio.StormButton;
-import org.stormgears.utils.dsio.SwitchControl;
+import org.stormgears.utils.dsio.IButton;
+import org.stormgears.utils.dsio.ISwitch;
 
 public interface IButtonBoard {
 	boolean initialized = false;
 
-	StormButton getDropButton();
+	IButton getDropButton();
 
-	StormButton getSwitch0Button();
+	IButton getSwitch0Button();
 
-	StormButton getSwitch1Button();
+	IButton getSwitch1Button();
 
-	StormButton[] getScaleButtons();
+	IButton[] getScaleButtons();
 
-	StormButton getSideLeftButton();
+	IButton getSideLeftButton();
 
-	StormButton getSideRightButton();
+	IButton getSideRightButton();
 
-	StormButton getIntakeGrabButton();
+	IButton getIntakeGrabButton();
 
-	StormButton getGripOpenButton();
+	IButton getGripOpenButton();
 
-	StormButton getGripCloseButton();
+	IButton getGripCloseButton();
 
-	StormButton getClimbUpButton();
+	IButton getClimbUpButton();
 
-	StormButton getClimbDownButton();
+	IButton getClimbDownButton();
 
-	SwitchControl getIntakeWheelsSwitch();
+	ISwitch getIntakeWheelsSwitch();
 
-	SwitchControl getIntakeLiftSwitch();
+	ISwitch getIntakeLiftSwitch();
 
-	SwitchControl getOverrideSwitch();
+	ISwitch getOverrideSwitch();
 
-	StormButton getOverrideUp();
+	IButton getOverrideUp();
 
-	StormButton getOverrideDown();
+	IButton getOverrideDown();
 
-	StormButton getOverrideLeft();
+	IButton getOverrideLeft();
 
-	StormButton getOverrideRight();
+	IButton getOverrideRight();
 
 }
