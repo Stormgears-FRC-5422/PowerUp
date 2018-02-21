@@ -25,14 +25,14 @@ public class Drive {
 
 
 
-	private static final int MAX_VELOCITY = 25000;
-	private static final int MAX_ACCELERATION = 750;
+	private static final int MAX_VELOCITY = 25000; // Originally 25k
+	private static final int MAX_ACCELERATION = 750; // Originally 750
 
 	private StormTalon[] talons;
 	private double[] vels;
 
 	public boolean useAbsoluteControl = false;
-	public boolean useTractionControl = true;
+	public boolean useTractionControl = false;
 
 	private MotionMagic[] motions;
 	private MotionManager motionManager;

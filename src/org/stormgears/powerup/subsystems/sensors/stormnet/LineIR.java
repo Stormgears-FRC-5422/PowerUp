@@ -19,7 +19,7 @@ public class LineIR extends StormNetSensor {
 
 		try {
 			for (int i = 0; i < sleep; i++) {
-				pollDistance();
+				pollColor();
 				log("IR test returned [ " +
 					sensorValues[0] + " ] [ " +
 					sensorValues[1] + " ]");
@@ -32,13 +32,11 @@ public class LineIR extends StormNetSensor {
 		return true;
 	}
 
-	public void pollDistance() {
+	public void pollColor() {
 		fetchShorts("C", "Color", sensorValues);
 	}
 
-	// Distance in ???
-	public int getDistance(int sensorNumber) {
-		pollDistance();
+	public int getColor(int sensorNumber) {
 		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
 

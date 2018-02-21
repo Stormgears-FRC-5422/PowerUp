@@ -8,6 +8,7 @@ public class EthernetLidar extends StormNetSensor {
 
 	public EthernetLidar(StormNetVoice voice) {
 		super(voice);
+		this.setDebug(true);
 
 		// TODO magic number
 		setSensorCount(4);
@@ -65,7 +66,6 @@ public class EthernetLidar extends StormNetSensor {
 
 	// Distance in millimeters
 	public int getDistance(int sensorNumber) {
-		pollDistance();
 		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
 

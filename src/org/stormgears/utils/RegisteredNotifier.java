@@ -15,6 +15,7 @@ public class RegisteredNotifier extends Notifier {
 
 	public RegisteredNotifier(Runnable run, String name) {
 		super(run);
+		System.out.println("1");
 		synchronized (Robot.notifierRegistry) {
 			Robot.notifierRegistry.add(this);
 		}
@@ -24,9 +25,10 @@ public class RegisteredNotifier extends Notifier {
 		if (run == null) {
 			logger.warn("{} runnable IS NULL", name);
 		} else {
+			System.out.println("2");
 			logger.warn("{} runnable IS NOT NULL", name);
 		}
-
+		System.out.println("3");
 	}
 
 	public String getName() {

@@ -21,6 +21,7 @@ import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.logging.Log4jConfigurationFactory;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -61,11 +62,36 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.robotName);
+		boolean sensorBot = false;
 
 		StormScheduler.init();
 
 		Sensors.init();
 		sensors = Sensors.getInstance();
+		//sensors.getStormNet().test();
+
+		if(sensorBot == true) {
+			while(true) {
+				try {
+					if(!sensors.getNavX().isCalibrating()) {
+						if(!sensors.getNavX().thetaIsSet()) {
+							sensors.getNavX().setInitialTheta();
+						}
+					}
+					System.out.println("NavX theta: " + sensors.getNavX().getTheta());
+					System.out.println("LIDAR Distances:  " + sensors.getStormNet().getLidarDistance(0) + ", "
+						+ sensors.getStormNet().getLidarDistance(1) + ", "
+						+ sensors.getStormNet().getLidarDistance(2) + ", "
+						+ sensors.getStormNet().getLidarDistance(3) + ", ");
+					System.out.println("IR Voltage: " + sensors.getStormNet().getLineIRColor(0) + " & "
+						+ sensors.getStormNet().getLineIRColor(1));
+					TimeUnit.SECONDS.sleep(1);
+				}
+				catch(Exception e) {
+					e.printStackTrace();;
+				}
+			}
+		}
 
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
@@ -148,10 +174,27 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		StormScheduler.getInstance().run();
+		Sensors.startPublishingToNetwork();
+//		sensors.getStormNet().getLidarDistance(0);
+//		sensors.getStormNet().getLidarDistance(1);
+//		sensors.getStormNet().getLidarDistance(2);
+//		sensors.getStormNet().getLidarDistance(3);
+//
+//		sensors.getStormNet().getLineIRColor(0);
+//		sensors.getStormNet().getLineIRColor(1);
+
+
+		System.out.println("LIDAR Distances:  " + sensors.getStormNet().getLidarDistance(0) + ", "
+			+ sensors.getStormNet().getLidarDistance(1) + ", "
+			+ sensors.getStormNet().getLidarDistance(2) + ", "
+			+ sensors.getStormNet().getLidarDistance(3) + ", ");
+		System.out.println("IR Voltage: " + sensors.getStormNet().getLineIRColor(0) + " & "
+			+ sensors.getStormNet().getLineIRColor(1));
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				if (!sensors.getNavX().thetaIsSet())
+					sensors.getNavX().setInitialTheta();
 				drive.move();
 			}
 		} else {
