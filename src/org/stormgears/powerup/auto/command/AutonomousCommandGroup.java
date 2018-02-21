@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 
 /**
@@ -11,8 +12,7 @@ import org.stormgears.powerup.subsystems.field.FieldPositions;
  */
 public class AutonomousCommandGroup extends CommandGroup {
 	private static final Logger logger = LogManager.getLogger(AutonomousCommandGroup.class);
-	public Command autoMoveCommand;
-	public Command autoPlaceCubeCommand;
+	public Command autoDriveMoveCommand;
 
 	public AutonomousCommandGroup() {
 		// Add Commands here:
@@ -39,12 +39,14 @@ public class AutonomousCommandGroup extends CommandGroup {
 	                              FieldPositions.LeftRight selectedOwnSwitchPlateAssignment,
 	                              FieldPositions.LeftRight selectedScalePlateAssignment,
 	                              FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser) {
-//		requires(Robot.navigatorSubsystem);
+		requires(Robot.drive);
 		logger.info("initiating autonomous command group");
-		autoMoveCommand = new AutoMoveDriveCommand(selectedAlliance, selectedStartingSpot,
+		autoDriveMoveCommand = new AutoDriveMoveCommand(selectedAlliance, selectedStartingSpot,
 			selectedPlacementSpot, selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);
-		addSequential(autoMoveCommand);
+		addSequential(autoDriveMoveCommand);
 //		addSequential(autoCloseGripperCommand);
-	}
+//		addSequential(autoLiftElevatorCommand);
+//		addSequential(autoShiftSideCommand);		
+    }    
 }

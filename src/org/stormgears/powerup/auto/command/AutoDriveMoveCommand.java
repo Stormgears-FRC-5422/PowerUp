@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  *
  */
-public class AutoMoveDriveCommand extends Command {
+public class AutoDriveMoveCommand extends Command {
 	private static final Logger logger = LogManager.getLogger(AutonomousCommandGroup.class);
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartingSpot;
@@ -21,12 +21,12 @@ public class AutoMoveDriveCommand extends Command {
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
-	public AutoMoveDriveCommand() {
+	public AutoDriveMoveCommand() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
 
-	public AutoMoveDriveCommand(FieldPositions.Alliance selectedAlliance,
+	public AutoDriveMoveCommand(FieldPositions.Alliance selectedAlliance,
 	                            FieldPositions.StartingSpots selectedStartingSpot,
 	                            FieldPositions.PlacementSpot selectedPlacementSpot,
 	                            FieldPositions.LeftRight selectedOwnSwitchPlateAssignment,
@@ -36,6 +36,7 @@ public class AutoMoveDriveCommand extends Command {
 		this.selectedAlliance = selectedAlliance;
 		this.selectedStartingSpot = selectedStartingSpot;
 		this.selectedPlacementSpot = selectedPlacementSpot;
+		this.selectedOwnSwitchPlateAssignment = selectedOwnSwitchPlateAssignment;
 		this.selectedScalePlateAssignment = selectedScalePlateAssignment;
 		this.selectedOpponentSwitchPlateAssignmentChooser = selectedOpponentSwitchPlateAssignmentChooser;
 	}
@@ -51,8 +52,11 @@ public class AutoMoveDriveCommand extends Command {
 			if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
 				if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
 					logger.info("Moving from " + selectedStartingSpot.toString() +
-						"to " + selectedPlacementSpot.toString() +
-						"on the " + selectedScalePlateAssignment.toString());
+						" to " + selectedPlacementSpot.toString() + " (" +  selectedStartingSpot.getPosition().getX() + "," +  selectedStartingSpot.getPosition().getY() + ")" +
+						" on the " + selectedScalePlateAssignment.toString() + "( " +
+						FieldPositions.SCALE_LEFT_PLATE.getX() + ", " + 	FieldPositions.SCALE_LEFT_PLATE.getY() + ")"
+
+					);
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
