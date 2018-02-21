@@ -17,15 +17,15 @@ public class StormyLog {
 				"<Configuration status=\"WARN\">\n" +
 				"\t<Appenders>\n" +
 				"\t\t<Console name=\"Console\" target=\"SYSTEM_OUT\" direct=\"true\">\n" +
-				"\t\t\t<PatternLayout pattern=\"%d{HH:mm:ss.SSS} [%t] %-5level %c{1.}.%M:%L - %msg%xEx%n\"/>\n" +
+				"\t\t\t<PatternLayout pattern=\"%d{HH:mm:ss.SSS} [%t] %-5level %class{1.}.%M:%L - %msg%xEx%n\"/>\n" +
 				"\t\t</Console>\n" +
 				"\t\t<RollingFile name=\"File\" bufferedIO=\"true\" fileName=\"/home/lvuser/FRC_Trace.log\"\n" +
-				"\t\t\t\t\t filePattern=\"/home/lvuser/FRC_Trace_%i.log.gz\">\n" +
+				"\t\t\t\t\t filePattern=\"/home/lvuser/logs/FRC_Trace_%d{yyyy-MM-dd-HH-mm-ss}-%i.log.gz\">\n" +
 				"\t\t\t<PatternLayout pattern=\"%d{HH:mm:ss.SSS} [%t] %-5level %class.%M:%L - %msg%xEx%n\"/>\n" +
 				"\t\t\t<Policies>\n" +
 				"\t\t\t\t<OnStartupTriggeringPolicy/>\n" +
 				"\t\t\t</Policies>\n" +
-				"\t\t\t<DefaultRolloverStrategy compressionLevel=\"1\"/>\n" +
+				"\t\t\t<DefaultRolloverStrategy compressionLevel=\"1\" maxFiles=\"20\"/>\n" +
 				"\t\t</RollingFile>\n" +
 				"\t</Appenders>\n" +
 				"\t<Loggers>\n" +
