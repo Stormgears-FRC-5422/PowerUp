@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,7 @@ public class Drive extends TerminatableSubsystem {
 
 
 	private static final int MAX_VELOCITY = 25000;
-	private static final int MAX_ACCELERATION = 4800;
+	private static final int MAX_ACCELERATION = 1200;
 
 	private StormTalon[] talons;
 	private double[] vels;
@@ -39,6 +40,7 @@ public class Drive extends TerminatableSubsystem {
 	private MotionMagic[] motions;
 	private MotionManager motionManager;
 
+	Timer timer = new Timer();
 
 	private Drive() {
 		talons = Robot.driveTalons.getTalons();
@@ -83,11 +85,11 @@ public class Drive extends TerminatableSubsystem {
 
 	// Run mecanum math on each raw speed and set talons accordingly
 	private void mecMove(double tgtVel,
-	                     double x,
-	                     double y,
-	                     double changeVel,
-	                     double theta,
-	                     boolean useAbsoluteControl) {
+						 double x,
+						 double y,
+						 double changeVel,
+						 double theta,
+						 boolean useAbsoluteControl) {
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].setInverted(true);
@@ -120,14 +122,16 @@ public class Drive extends TerminatableSubsystem {
 			theta = 3.0 * Math.PI / 2.0;
 		}
 
-		vels[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
-		vels[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		vels[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		vels[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+
+		vels[0] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		vels[1] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+		vels[2] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+		vels[3] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		//TODO: Flip signs for REAL BOT
 
 		if (Math.abs(changeVel) > 0.5) {
 			for (int i = 0; i < vels.length; i++) {
-				vels[i] -= changeVel;
+				vels[i] += changeVel;
 			}
 		}
 
@@ -148,7 +152,7 @@ public class Drive extends TerminatableSubsystem {
 		//Turning in place
 		if (x == 0 && y == 0) {
 			for (int i = 0; i < vels.length; i++) {
-				vels[i] = -changeVel;
+				vels[i] = changeVel;
 			}
 		}
 
@@ -260,10 +264,10 @@ public class Drive extends TerminatableSubsystem {
 
 		//From the mecMove method...
 		//TODO: test and see if this works
-		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
-		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
-		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
+		modifiers[1] = (Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0));
+		modifiers[3] = (Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0));
 
 		int max = 0;
 		for (int i = 0; i < modifiers.length; i++) {
@@ -274,7 +278,7 @@ public class Drive extends TerminatableSubsystem {
 
 		double currentDistance;
 		double t1;
-		double totTime;
+		double totTime = 0;
 		double vmax2;
 		double a2;
 
@@ -301,11 +305,33 @@ public class Drive extends TerminatableSubsystem {
 				motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY, MAX_ACCELERATION);
 			}
 		}
+		timer.start();
 		for (int i = 0; i < motions.length; i++) {
 			System.out.println("Talon " + i + " Commanded: " + (ticks * modifiers[i]));
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
+
+		shouldTerminate = false;
+		while (!shouldTerminate && !timer.hasPeriodPassed(totTime)) {
+			waitMs(20);
+		}
+		timer.stop();
 	}
+
+	/**
+	 * This method makes the thread sleep for a given amount of time.
+	 *
+	 * @param ms - amount of milliseconds to make the thread
+	 *           wait for.
+	 */
+	private void waitMs(int ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * This method takes in an angle, theta, and turns the robot to the
@@ -319,7 +345,7 @@ public class Drive extends TerminatableSubsystem {
 			theta = theta - navX_theta;
 		}
 
-		double negative = 1.0;
+		double negative = -1.0;
 
 
 		theta = theta % (2 * Math.PI);
@@ -329,7 +355,7 @@ public class Drive extends TerminatableSubsystem {
 		}
 
 		if (theta > Math.PI) {
-			negative = -1.0;
+			negative = 1.0;
 			System.out.println("Theta 1 " + theta);
 			theta -= Math.PI;
 
@@ -348,12 +374,16 @@ public class Drive extends TerminatableSubsystem {
 		encoderTicks *= Math.sqrt(2);
 
 
+		double t1 = MAX_VELOCITY / MAX_ACCELERATION;
+		double totTime = (t1) + (s / MAX_VELOCITY) / 10.0; //TODO: FIND TOTAL
+
+
 		for (int i = 0; i < motions.length; i++) {
 			motions[i] = new MotionMagic(Robot.driveTalons.getTalons()[i], MAX_VELOCITY / 2, MAX_ACCELERATION / 2);
 		}
 
 		System.out.println(encoderTicks + "");
-
+		timer.start();
 		for (int i = 0; i < motions.length; i++) {
 			if (i == 0 || i == 2) {
 				System.out.println("Talon " + i + " Commanded: " + (encoderTicks));
@@ -364,7 +394,14 @@ public class Drive extends TerminatableSubsystem {
 
 			}
 		}
+
+		shouldTerminate = false;
+		while (!shouldTerminate && !timer.hasPeriodPassed(totTime)) {
+			waitMs(20);
+		}
+		timer.stop();
 	}
+
 
 	/**
 	 * MoveToPos Method; Moves robot between two positions
