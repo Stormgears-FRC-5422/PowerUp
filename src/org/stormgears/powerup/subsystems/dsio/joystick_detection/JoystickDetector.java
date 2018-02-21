@@ -29,6 +29,8 @@ public class JoystickDetector {
 	}
 
 	public void detect() {
+		logger.trace("searching for joysticks");
+
 		for (int channel = 0; channel < names.length; channel++) {
 			names[channel] = ds.getJoystickName(channel);
 
@@ -62,8 +64,10 @@ public class JoystickDetector {
 
 	public IRawJoystick getDrivingJoystick() {
 		if (xboxChannel != -1) {
+			logger.info("Selecting XBOX joystick");
 			return new XboxJoystick(xboxChannel);
 		} else {
+			logger.info("Selecting Logitech joystick");
 			return new LogitechJoystick(drivingJoystickChannel);
 		}
 	}

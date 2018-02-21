@@ -30,6 +30,8 @@ public class DSIO {
 	private IButtonBoard buttonBoard;
 
 	private DSIO() {
+		logger.trace("constructing DSIO");
+
 		JoystickDetector detector = new JoystickDetector();
 		detector.detect();
 
@@ -43,12 +45,11 @@ public class DSIO {
 	 * If you want a button/switch to do something, write it in the appropriate Lambda block below.
 	 */
 	private void setupButtonsAndSwitches() {
+		logger.trace("setting up buttons");
+
 		buttonBoard.getGripCloseButton().whenPressed(() -> Robot.gripper.closeGripper());
 
 		buttonBoard.getGripOpenButton().whenPressed(() -> Robot.gripper.openGripper());
-
-
-
 
 		buttonBoard.getOverrideSwitch().whenFlipped(on -> {
 			if (on) {
@@ -67,10 +68,12 @@ public class DSIO {
 	private static final double Z_NULLZONE = 0.1;
 
 	public void enableDriveControls() {
+		logger.info("Enabling drive controls");
 		joystickEnabled = true;
 	}
 
 	public void disableDriveControls() {
+		logger.info("Disabling drive controls");
 		joystickEnabled = false;
 	}
 

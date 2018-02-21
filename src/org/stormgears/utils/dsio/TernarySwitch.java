@@ -34,7 +34,7 @@ public class TernarySwitch extends SwitchControl {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch {}/{} flipped off - {} ({})", box(buttonUp), box(buttonDown), joystick.getName(), box(joystick.getPort()));
+				logger.trace("Switch {}/{} flipped off - {} ({})", box(buttonUp), box(buttonDown), joystick.getName(), box(joystick.getPort()));
 			}
 		});
 
@@ -46,7 +46,7 @@ public class TernarySwitch extends SwitchControl {
 
 			@Override
 			protected void execute() {
-				logger.info("Switch {}/{} flipped down - {} ({})", box(buttonUp), box(buttonDown), joystick.getName(), box(joystick.getPort()));
+				logger.trace("Switch {}/{} flipped down - {} ({})", box(buttonUp), box(buttonDown), joystick.getName(), box(joystick.getPort()));
 			}
 		});
 	}

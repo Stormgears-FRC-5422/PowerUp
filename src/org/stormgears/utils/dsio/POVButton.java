@@ -37,7 +37,7 @@ public class POVButton extends Button /* WPI button! */ implements StormButton {
 		this.joystick = joystick;
 		this.direction = direction;
 
-		this.whenPressed(() -> logger.info("POV button {} pressed - {}", direction, joystick.getName()));
+		this.whenPressed(() -> logger.trace("POV button {} pressed - {}", direction, joystick.getName()));
 	}
 
 	@Override

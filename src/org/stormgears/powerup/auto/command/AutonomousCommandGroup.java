@@ -40,7 +40,7 @@ public class AutonomousCommandGroup extends CommandGroup {
 	                              FieldPositions.LeftRight selectedScalePlateAssignment,
 	                              FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser) {
 		requires(Robot.drive);
-		logger.info("initiating autonomous command group");
+		logger.trace("initiating autonomous command group");
 		autoDriveMoveCommand = new AutoDriveMoveCommand(selectedAlliance, selectedStartingSpot,
 			selectedPlacementSpot, selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser);

@@ -25,6 +25,8 @@ public abstract class AbstractRobotConfiguration {
 	protected SafeProperties properties;
 
 	public AbstractRobotConfiguration() {
+		logger.trace("Reading configuration");
+
 		properties = new SafeProperties();
 
 		FileInputStream inputStream = null;

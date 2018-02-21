@@ -23,7 +23,7 @@ public class EnhancedButton extends JoystickButton implements StormButton {
 
 //		logger.trace("joystick = {}, buttonNumber = {}", joystick.getName(), buttonNumber);
 
-		this.whenPressed(() -> logger.info("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort())));
+		this.whenPressed(() -> logger.trace("Button {} pressed on {} ({})", box(buttonNumber), joystick.getName(), box(joystick.getPort())));
 	}
 
 	@Override

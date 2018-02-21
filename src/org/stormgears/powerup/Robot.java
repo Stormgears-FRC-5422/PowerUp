@@ -3,7 +3,6 @@ package org.stormgears.powerup;
 import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
@@ -21,7 +20,7 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.logging.Log4jConfigurationFactory;
+import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
 
@@ -30,7 +29,7 @@ import java.util.ArrayList;
  */
 public class Robot extends BaseStormgearsRobot {
 	static {
-		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
+		StormyLog.init();
 	}
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
@@ -108,6 +107,8 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		logger.trace("autonomous init");
+
 		if (dsio == null) {
 			DSIO.init();
 			dsio = DSIO.getInstance();
@@ -121,7 +122,7 @@ public class Robot extends BaseStormgearsRobot {
 			autonomousCommand.cancel();
 		}
 
-		logger.info("creating autonomous command group");
+		logger.trace("creating autonomous command group");
 
 		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
 			selectedStartSpot,
@@ -131,7 +132,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedOpponentSwitchPlateAssignmentChooser);
 
 		//execute autonomous command
-		logger.info("starting the autonomous command...from autonomousInit()");
+		logger.trace("starting the autonomous command");
 		autonomousCommand.start();
 	}
 
@@ -153,6 +154,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void teleopInit() {
+		logger.trace("teleop init");
 //		drive.setVelocityPID();
 
 		if (dsio == null) {
@@ -207,6 +209,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		logger.trace("disabled init");
 		super.disabledInit();
 
 //		fmsInterface.startPollingForData();
