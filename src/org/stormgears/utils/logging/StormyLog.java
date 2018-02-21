@@ -41,6 +41,7 @@ public class StormyLog {
 			e.printStackTrace();
 		}
 
+		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
 
 //		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}

@@ -74,8 +74,8 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-		Sensors.init();
-		sensors = Sensors.getInstance();
+//		Sensors.init();
+//		sensors = Sensors.getInstance();
 //
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
