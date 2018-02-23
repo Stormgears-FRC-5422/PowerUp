@@ -26,7 +26,7 @@ class TernarySwitch
 		}
 	}
 
-	fun whenFlippedTernary(listener: (state: ITernarySwitch.SwitchState) -> Unit) {
+	override fun whenFlippedTernary(listener: (state: ITernarySwitch.SwitchState) -> Unit) {
 		super.whenReleased(LambdaCommand { listener(SwitchState.Neutral) })
 		super.whenPressed(LambdaCommand { listener(SwitchState.Up) })
 

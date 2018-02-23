@@ -50,20 +50,33 @@ object DSIO {
 		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
 
 		buttonBoard.intakeGrabButton.whenPressed { }
-		(buttonBoard.intakeWheelsSwitch as ITernarySwitch).whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
-			when (state) {
-				ITernarySwitch.SwitchState.Up -> Robot.intake.startWheelsOut()
-				ITernarySwitch.SwitchState.Neutral -> Robot.intake.stopWheels()
-				ITernarySwitch.SwitchState.Down -> Robot.intake.startWheelsIn()
-			}
-		})
-		(buttonBoard.intakeLiftSwitch as ITernarySwitch).whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
-			when (state) {
-				ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
-				ITernarySwitch.SwitchState.Neutral -> Robot.intake.moveIntakeToPosition(Intake.DIAGONAL)
-				ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
-			}
-		})
+
+
+		val intakeWheelsSwitch = buttonBoard.intakeWheelsSwitch
+		if (intakeWheelsSwitch is ITernarySwitch) {
+			intakeWheelsSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
+				when (state) {
+					ITernarySwitch.SwitchState.Up -> Robot.intake.startWheelsOut()
+					ITernarySwitch.SwitchState.Neutral -> Robot.intake.stopWheels()
+					ITernarySwitch.SwitchState.Down -> Robot.intake.startWheelsIn()
+				}
+			})
+		} else {
+			logger.warn("Intake wheels switch is not ternary, not sure what to do!") // TODO
+		}
+
+		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
+		if (intakeLiftSwitch is ITernarySwitch) {
+			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
+				when (state) {
+					ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
+					ITernarySwitch.SwitchState.Neutral -> Robot.intake.moveIntakeToPosition(Intake.DIAGONAL)
+					ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
+				}
+			})
+		} else {
+			logger.warn("Intake lift switch is not ternary, not sure what to do!") // TODO
+		}
 
 		buttonBoard.gripCloseButton.whenPressed { Robot.gripper.closeGripper() }
 		buttonBoard.gripOpenButton.whenPressed { Robot.gripper.openGripper() }
