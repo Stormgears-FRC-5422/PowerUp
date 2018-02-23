@@ -177,8 +177,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void autonomousPeriodic() {
 		super.autonomousPeriodic();
-		
-//		logger.info("Current timer value: " + timer.get());
+
+//		logger.info("Current timer value: {}", timer.get());
 		
 //		if (autonomousCommand != null) {
 		StormScheduler.getInstance().run();
@@ -230,12 +230,12 @@ public class Robot extends BaseStormgearsRobot {
 		selectedOwnSwitchPlateAssignment = dsio.getChoosers().getOwnSwitchPlateAssignmentChooser();
 		selectedOpponentSwitchPlateAssignmentChooser = dsio.getChoosers().getOpponentSwitchPlateAssignmentChooser();
 
-		logger.info("Selected Alliance: " + selectedAlliance.toString());
-		logger.info("Selected Starting Spot: " + selectedStartSpot.toString());
-		logger.info("Selected Placement Spot: " + selectedPlacementSpot.toString());
-		logger.info("Selected Scale Plate Assignment: " + selectedScalePlateAssignment.toString());
-		logger.info("Selected Own Switch Plate Assignment: " + selectedOwnSwitchPlateAssignment.toString());
-		logger.info("Selected Opponent Switch Plate Assignment: " + selectedOpponentSwitchPlateAssignmentChooser.toString());
+		logger.info("Selected Alliance: {}", selectedAlliance.toString());
+		logger.info("Selected Starting Spot: {}", selectedStartSpot.toString());
+		logger.info("Selected Placement Spot: {}", selectedPlacementSpot.toString());
+		logger.info("Selected Scale Plate Assignment: {}", selectedScalePlateAssignment.toString());
+		logger.info("Selected Own Switch Plate Assignment: {}", selectedOwnSwitchPlateAssignment.toString());
+		logger.info("Selected Opponent Switch Plate Assignment: {}", selectedOpponentSwitchPlateAssignmentChooser.toString());
 	}
 }
 
