@@ -14,7 +14,7 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<!--<Logger name="org.stormgears.utils.TestDrive" level="trace" />-->
+		<!--<Logger name="org.stormgears.utils.graveyard.TestDrive" level="trace" />-->
 		<asyncRoot level="trace" includeLocation="true">
 			<AppenderRef ref="Console" level="info"/>
 			<AppenderRef ref="File"/>

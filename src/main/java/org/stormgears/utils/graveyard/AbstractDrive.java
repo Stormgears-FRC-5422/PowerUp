@@ -1,4 +1,4 @@
-package org.stormgears.utils;
+package org.stormgears.utils.graveyard;
 
 public abstract class AbstractDrive {
 	/**

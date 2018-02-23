@@ -1,4 +1,4 @@
-package org.stormgears.utils;
+package org.stormgears.utils.graveyard;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

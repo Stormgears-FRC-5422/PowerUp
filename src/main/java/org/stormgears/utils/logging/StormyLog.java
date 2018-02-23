@@ -30,7 +30,7 @@ public class StormyLog {
 					"\t\t</RollingFile>\n" +
 					"\t</Appenders>\n" +
 					"\t<Loggers>\n" +
-					"\t\t<!--<Logger name=\"org.stormgears.utils.TestDrive\" level=\"trace\" />-->\n" +
+					"\t\t<!--<Logger name=\"org.stormgears.utils.graveyard.TestDrive\" level=\"trace\" />-->\n" +
 					"\t\t<asyncRoot level=\"trace\" includeLocation=\"true\">\n" +
 					"\t\t\t<AppenderRef ref=\"Console\" level=\"info\"/>\n" +
 					"\t\t\t<AppenderRef ref=\"File\"/>\n" +
