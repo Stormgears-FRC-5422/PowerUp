@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command
 
 interface ISwitch {
 	fun whenFlipped(listener: FlipListener)
-	fun whenFlipped(listener: (Boolean) -> Unit)
+	fun whenFlipped(listener: (on: Boolean) -> Unit)
 
 	fun whenPressed(command: Command)
 

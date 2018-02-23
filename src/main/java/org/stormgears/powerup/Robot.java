@@ -112,8 +112,7 @@ public class Robot extends BaseStormgearsRobot {
 		logger.trace("autonomous init");
 
 		if (dsio == null) {
-			DSIO.init();
-			dsio = DSIO.getInstance();
+			dsio = DSIO.INSTANCE;
 		}
 
 		// Get all the selected autonomous command properties for this run
@@ -160,8 +159,7 @@ public class Robot extends BaseStormgearsRobot {
 //		drive.setVelocityPID();
 
 		if (dsio == null) {
-			DSIO.init();
-			dsio = DSIO.getInstance();
+			dsio = DSIO.INSTANCE;
 		}
 	}
 
@@ -224,13 +222,13 @@ public class Robot extends BaseStormgearsRobot {
 	}
 
 	private void getSelectedAutonomousCommand() {
-		fmsInterface.sendTestData(dsio.choosers.getPlateAssignmentData());
-		selectedAlliance = dsio.choosers.getAlliance();
-		selectedStartSpot = dsio.choosers.getStartingSpot();
-		selectedPlacementSpot = dsio.choosers.getPlacementSpot();
-		selectedScalePlateAssignment = dsio.choosers.getScalePlateAssignmentChooser();
-		selectedOwnSwitchPlateAssignment = dsio.choosers.getOwnSwitchPlateAssignmentChooser();
-		selectedOpponentSwitchPlateAssignmentChooser = dsio.choosers.getOpponentSwitchPlateAssignmentChooser();
+		fmsInterface.sendTestData(dsio.getChoosers().getPlateAssignmentData());
+		selectedAlliance = dsio.getChoosers().getAlliance();
+		selectedStartSpot = dsio.getChoosers().getStartingSpot();
+		selectedPlacementSpot = dsio.getChoosers().getPlacementSpot();
+		selectedScalePlateAssignment = dsio.getChoosers().getScalePlateAssignmentChooser();
+		selectedOwnSwitchPlateAssignment = dsio.getChoosers().getOwnSwitchPlateAssignmentChooser();
+		selectedOpponentSwitchPlateAssignmentChooser = dsio.getChoosers().getOpponentSwitchPlateAssignmentChooser();
 
 		logger.info("Selected Alliance: " + selectedAlliance.toString());
 		logger.info("Selected Starting Spot: " + selectedStartSpot.toString());
