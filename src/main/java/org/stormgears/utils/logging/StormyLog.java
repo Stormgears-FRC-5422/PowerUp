@@ -11,39 +11,6 @@ public class StormyLog {
 		System.setProperty("log4j2.contextSelector", "org.apache.logging.log4j.core.async.AsyncLoggerContextSelector");
 //		System.setProperty("log4j2.asyncLoggerWaitStrategy", "Sleep"); // TODO: This is fast, but driverstation gets clogged up...
 
-		try {
-			// TODO: Figure out how to load this stupid thing from a file
-			ConfigurationSource source = new ConfigurationSource(new ByteArrayInputStream(
-				("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-					"<Configuration status=\"WARN\">\n" +
-					"\t<Appenders>\n" +
-					"\t\t<Console name=\"Console\" target=\"SYSTEM_OUT\" direct=\"true\">\n" +
-					"\t\t\t<PatternLayout pattern=\"%d{HH:mm:ss.SSS} [%t] %-5level %class{1.}.%M:%L - %msg%xEx%n\"/>\n" +
-					"\t\t</Console>\n" +
-					"\t\t<RollingFile name=\"File\" bufferedIO=\"true\" immediateFlush=\"true\" fileName=\"/home/lvuser/FRC_Trace.log\"\n" +
-					"\t\t\t\t\t filePattern=\"/home/lvuser/logs/FRC_Trace_%d{yyyy-MM-dd-HH-mm-ss}-%i.log.gz\">\n" +
-					"\t\t\t<PatternLayout pattern=\"%d{HH:mm:ss.SSS} [%t] %-5level %class.%M:%L - %msg%xEx%n\"/>\n" +
-					"\t\t\t<Policies>\n" +
-					"\t\t\t\t<OnStartupTriggeringPolicy/>\n" +
-					"\t\t\t</Policies>\n" +
-					"\t\t\t<DefaultRolloverStrategy compressionLevel=\"1\" max=\"20\"/>\n" +
-					"\t\t</RollingFile>\n" +
-					"\t</Appenders>\n" +
-					"\t<Loggers>\n" +
-					"\t\t<!--<Logger name=\"org.stormgears.utils.graveyard.TestDrive\" level=\"trace\" />-->\n" +
-					"\t\t<asyncRoot level=\"trace\" includeLocation=\"true\">\n" +
-					"\t\t\t<AppenderRef ref=\"Console\" level=\"info\"/>\n" +
-					"\t\t\t<AppenderRef ref=\"File\"/>\n" +
-					"\t\t</asyncRoot>\n" +
-					"\t</Loggers>\n" +
-					"</Configuration>\n").getBytes()));
-			Configurator.initialize(null, source);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
-
-//		ConfigurationFactory.setConfigurationFactory(new Log4jConfigurationFactory());
 	}
 }
