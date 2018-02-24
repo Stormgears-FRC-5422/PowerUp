@@ -2,9 +2,11 @@ package org.stormgears.powerup.subsystems.dsio
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.Robot.shooter
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
+import org.stormgears.powerup.subsystems.shooter.Shooter
 import org.stormgears.utils.TerminatableSubsystem
 import org.stormgears.utils.dsio.IRawJoystick
 import org.stormgears.utils.dsio.ITernarySwitch
@@ -62,7 +64,15 @@ object DSIO {
 				}
 			})
 		} else {
-			logger.warn("Intake wheels switch is not ternary, not sure what to do!") // TODO
+			logger.warn("Assuming this is the 2017 board!")
+			intakeWheelsSwitch.whenFlipped({ on: Boolean ->
+				when (on) {
+					true ->  {logger.warn("Shooter flipped on!")
+						      Shooter.getInstance().shoot()}
+					false -> {logger.warn("Shooter flipped off!")
+							  Shooter.getInstance().stop()}
+				}
+			})
 		}
 
 		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
@@ -75,7 +85,16 @@ object DSIO {
 				}
 			})
 		} else {
-			logger.warn("Intake lift switch is not ternary, not sure what to do!") // TODO
+			logger.warn("Assuming this is the 2017 board!")
+			intakeLiftSwitch.whenFlipped({ on: Boolean ->
+				when (on) {
+					true ->  {logger.warn("Intake flipped on!")
+						Shooter.getInstance().startIntake()}
+					false -> {logger.warn("Intake flipped off!")
+						Shooter.getInstance().stopIntake()}
+				}
+			})
+
 		}
 
 		buttonBoard.gripCloseButton.whenPressed { Robot.gripper.closeGripper() }
@@ -94,11 +113,19 @@ object DSIO {
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on ->
-			if (on) {
-				TerminatableSubsystem.terminateCurrentLongRunningOperations()
-			} else {
-				TerminatableSubsystem.allowLongRunningOperations()
+//			if (on) {
+//				TerminatableSubsystem.terminateCurrentLongRunningOperations()
+//			} else {
+//				TerminatableSubsystem.allowLongRunningOperations()
+//			}
+			when (on) {
+				true ->  {logger.warn("Climber flipped on!")
+					Shooter.getInstance().startClimber()}
+				false -> {logger.warn("Climber flipped off!")
+					Shooter.getInstance().stopClimber()}
 			}
+
+
 		}
 	}
 

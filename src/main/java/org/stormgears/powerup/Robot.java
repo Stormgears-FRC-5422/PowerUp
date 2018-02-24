@@ -18,6 +18,7 @@ import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
+import org.stormgears.powerup.subsystems.shooter.Shooter;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
@@ -56,6 +57,7 @@ public class Robot extends BaseStormgearsRobot {
 	public static Elevator elevator;
 	public static Climber climber;
 	public static Gripper gripper;
+	public static Shooter shooter;
 
 	private Command autonomousCommand = null;
 
@@ -76,8 +78,11 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-//		Sensors.init();
-//		sensors = Sensors.getInstance();
+		Shooter.init();
+		shooter = Shooter.getInstance();
+
+		Sensors.init();
+		sensors = Sensors.getInstance();
 //
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
@@ -100,8 +105,8 @@ public class Robot extends BaseStormgearsRobot {
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-		Gripper.init();
-		gripper = Gripper.getInstance();
+//		Gripper.init();
+//		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -161,6 +166,7 @@ public class Robot extends BaseStormgearsRobot {
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
 		}
+
 	}
 
 	/**
@@ -195,6 +201,7 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		StormScheduler.getInstance().run();
+		drive.move();
 
 //		if (drive != null) {
 //			if (!sensors.getNavX().isCalibrating()) {

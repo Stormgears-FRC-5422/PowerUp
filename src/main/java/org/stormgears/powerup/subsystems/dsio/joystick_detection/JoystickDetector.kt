@@ -43,16 +43,23 @@ class JoystickDetector {
 
 	val buttonBoard: IButtonBoard
 		get() {
-			if (buttonBoard2018Channel != -1 && mspChannel != -1) {
-				logger.info("Selecting ButtonBoard2018v1")
-				return ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel))
-			} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
-				logger.info("Selecting ButtonBoard2017")
-				return ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
-			} else {
-				logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.")
-				return DummyButtonBoard()
-			}
+
+//			if (buttonBoard2018Channel != -1 && mspChannel != -1) {
+//				logger.info("Selecting ButtonBoard2018v1")
+//				return ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel))
+//			} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
+//				logger.info("Selecting ButtonBoard2017")
+//				return ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
+//			} else {
+//				logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.")
+//				return DummyButtonBoard()
+//			}
+
+			mspChannel = 0
+			drivingJoystickChannel = 1
+			return ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
+
+
 		}
 
 	fun detect() {
