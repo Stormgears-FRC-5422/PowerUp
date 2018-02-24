@@ -80,4 +80,7 @@ public class NavX {
 		return true;
 	}
 
+	public AHRS getAhrs() {
+		return ahrs;
+	}
 }
