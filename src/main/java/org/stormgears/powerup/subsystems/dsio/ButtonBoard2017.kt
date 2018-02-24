@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.dsio
 
 import edu.wpi.first.wpilibj.Joystick
+import org.stormgears.powerup.subsystems.dsio.IButtonBoard.Companion.initialized
 import org.stormgears.utils.dsio.*
 
 
@@ -41,16 +42,16 @@ class ButtonBoard2017 private constructor(buttonBoard: Joystick, joystick: Joyst
 	)
 
 	object Ids {
-		val BIG_BLUE = 10
-		val RED = 15
-		val YELLOW = 14
-		val GREEN = 13
-		val SMALL_BLUE = 12
-		val BLACK = 9
-		val WHITE = 8
-		val GREEN_SWITCH = 5
-		val ORANGE_SWITCH = 4
-		val RED_SWITCH = 3
+		const val BIG_BLUE = 10
+		const val RED = 15
+		const val YELLOW = 14
+		const val GREEN = 13
+		const val SMALL_BLUE = 12
+		const val BLACK = 9
+		const val WHITE = 8
+		const val GREEN_SWITCH = 5
+		const val ORANGE_SWITCH = 4
+		const val RED_SWITCH = 3
 	}
 
 	companion object {
@@ -59,11 +60,11 @@ class ButtonBoard2017 private constructor(buttonBoard: Joystick, joystick: Joyst
 		@JvmStatic
 		fun getInstance(buttonBoard: Joystick, joystick: Joystick): IButtonBoard {
 			if (instance == null) {
-				if (IButtonBoard.initialized) {
+				if (initialized) {
 					throw IllegalStateException("Only one button board can exist at once.")
 				}
 
-				IButtonBoard.initialized = true
+				initialized = true
 
 				instance = ButtonBoard2017(buttonBoard, joystick)
 				return instance as IButtonBoard
