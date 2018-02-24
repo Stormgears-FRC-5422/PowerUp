@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" direct="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %class{1.}.%M:%L - %msg%xEx%n"/>
+		</Console>
+		<RollingFile name="File" bufferedIO="true" immediateFlush="true" fileName="/home/lvuser/FRC_Trace.log"
+					 filePattern="/home/lvuser/logs/FRC_Trace_%d{yyyy-MM-dd-HH-mm-ss}-%i.log.gz">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %class.%M:%L - %msg%xEx%n"/>
+			<Policies>
+				<OnStartupTriggeringPolicy/>
+			</Policies>
+			<DefaultRolloverStrategy compressionLevel="1" max="20"/>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<!--<Logger name="org.stormgears.utils.graveyard.TestDrive" level="trace" />-->
+		<asyncRoot level="trace" includeLocation="true">
+			<AppenderRef ref="Console" level="info"/>
+			<AppenderRef ref="File"/>
+		</asyncRoot>
+	</Loggers>
+</Configuration>
