@@ -63,6 +63,10 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 	}
 }
 
+configurations {
+	jar.archiveName = 'FRCUserProgram.jar'
+}
+
 jar {
 	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 	manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
