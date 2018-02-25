@@ -75,13 +75,26 @@ public class FieldPositions {
 	@Nullable
 	public static Position OPPONENT_SWITCH_PLATE_ASSIGNMENT = null;
 
+// TODO: Remove from here once coding is complete
+// These are StartingSpots from the enum above
+//		LEFT(new Position(47, 19.5)),
+//		CENTER(new Position(222, 19.5)),
+//		RIGHT(new Position(311, 19.5));
+
 	// TODO: Update these to the right positions
-	public static final Position OWN_SWITCH_LEFT_PLATE = new Position(47, 167);
-	public static final Position OWN_SWITCH_RIGHT_PLATE = new Position(277, 167);
-	public static final Position SCALE_LEFT_PLATE = new Position(47, 303);
-	public static final Position SCALE_RIGHT_PLATE = new Position(277, 303);
+	public static final Position OWN_SWITCH_LEFT_PLATE = new Position(65, 167); //new Position(47, 167);
+	public static final Position OWN_SWITCH_RIGHT_PLATE = new Position(259, 167);//new Position(277, 167);
+	public static final Position SPOT_TO_OWN_SWITCH_LEFT_PLATE = new Position(47, 167); //new Position(47, 167);
+	public static final Position SPOT_TO_OWN_SWITCH_RIGHT_PLATE = new Position(277, 167);//new Position(277, 167);
+
+	public static final Position SCALE_LEFT_PLATE = new Position(54, 303); //new Position(47, 303);
+	public static final Position SCALE_RIGHT_PLATE = new Position(270, 303);//new Position(277, 303);
+	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(47, 303);
+	public static final Position SPOT_TO_SCALE_RIGHT_PLATE = new Position(277, 303);
+
 	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);
 	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
+
 	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(47, 234);
 	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(277, 234);
 
@@ -115,6 +128,4 @@ public class FieldPositions {
 
 	public static final double X_DISTANCE_TO_STRAFFE_TO_SCALE = 5.0;
 	public static final double X_DISTANCE_TO_STRAFFE_TO_SWITCH = 18.0;
-
-
 }
