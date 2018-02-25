@@ -58,7 +58,6 @@ public class AutoDriveMoveCommand extends Command {
 						box(selectedStartingSpot.getPosition().getY()), selectedScalePlateAssignment,
 						box(FieldPositions.SCALE_LEFT_PLATE.getX()), box(FieldPositions.SCALE_LEFT_PLATE.getY())
 					);
-
 					//move straight forward on Y-axis
 					Robot.drive.moveToPos(selectedStartingSpot.getPosition(), FieldPositions.SCALE_PLATE_ASSIGNMENT);
 					try {
@@ -101,7 +100,7 @@ public class AutoDriveMoveCommand extends Command {
 					}
 
 					Robot.drive.moveToPos(FieldPositions.SCALE_PLATE_ASSIGNMENT,
-						new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() - FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SWITCH,
+						new Position(FieldPositions.SCALE_PLATE_ASSIGNMENT.getX() - FieldPositions.X_DISTANCE_TO_STRAFFE_TO_SCALE,
 							FieldPositions.SCALE_PLATE_ASSIGNMENT.getY()));
 				}
 			} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
