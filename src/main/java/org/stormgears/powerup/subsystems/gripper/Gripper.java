@@ -5,7 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.TerminatableSubsystem;
+import org.stormgears.utils.concurrency.TerminatableSubsystem;
 
 public class Gripper extends TerminatableSubsystem {
 	private static final Logger logger = LogManager.getLogger(Gripper.class);
@@ -42,7 +42,7 @@ public class Gripper extends TerminatableSubsystem {
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 
-			while (isAllowed() && (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent)) {
+			while (talon.getOutputCurrent() <= CLOSE_CURRENT_LIMIT || !shouldTrackCurrent) {
 				iteration++;
 
 				if (iteration > CURRENT_CHECK_START_TIME) {
@@ -67,7 +67,7 @@ public class Gripper extends TerminatableSubsystem {
 			boolean shouldTrackCurrent = false;
 			int iteration = 0;
 
-			while (isAllowed() && talon.getSensorCollection().isRevLimitSwitchClosed() &&
+			while (talon.getSensorCollection().isRevLimitSwitchClosed() &&
 				(talon.getOutputCurrent() <= OPEN_CURRENT_LIMIT || !shouldTrackCurrent)) {
 				iteration++;
 

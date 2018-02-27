@@ -21,6 +21,7 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
+import org.stormgears.utils.concurrency.TerminatableSubsystem;
 import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
@@ -76,32 +77,31 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-//		Sensors.init();
-//		sensors = Sensors.getInstance();
-//
+		Sensors.init();
+		sensors = Sensors.getInstance();
+
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
-//
+
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
 		Drive.init();
 		drive = Drive.getInstance();
-//
-//		Intake.init();
-//		intake = Intake.getInstance();
-//
+
+		Intake.init();
+		intake = Intake.getInstance();
+
 //		ElevatorSharedTalons.init();
 //		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
-//
-//		Elevator.init();
-//		elevator = Elevator.getInstance();
-//
+
+//		elevator = Elevator.INSTANCE;
+
 //		Climber.init();
 //		climber = Climber.getInstance();
 
-		Gripper.init();
-		gripper = Gripper.getInstance();
+//		Gripper.init();
+//		gripper = Gripper.getInstance();
 	}
 
 	/**
@@ -156,7 +156,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void teleopInit() {
 		logger.trace("teleop init");
-//		drive.setVelocityPID();
+
+		drive.setVelocityPID();
 
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
@@ -196,14 +197,18 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-//		if (drive != null) {
-//			if (!sensors.getNavX().isCalibrating()) {
-//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-//				drive.move();
-//			}
-//		} else {
-//			logger.fatal("Robot.drive is null; that's a problem!");
-//		}
+		if (dsio.getShouldOverride()) {
+			TerminatableSubsystem.Companion.terminateCurrentLongRunningOperations();
+		}
+
+		if (drive != null) {
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.move();
+			}
+		} else {
+			logger.fatal("Robot.drive is null; that's a problem!");
+		}
 	}
 
 	/**

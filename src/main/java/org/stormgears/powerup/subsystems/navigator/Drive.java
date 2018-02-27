@@ -2,8 +2,6 @@ package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +10,7 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.TerminatableSubsystem;
+import org.stormgears.utils.concurrency.TerminatableSubsystem;
 import org.stormgears.utils.sensor_drivers.NavX;
 
 public class Drive extends TerminatableSubsystem {
@@ -309,7 +307,7 @@ public class Drive extends TerminatableSubsystem {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 
-		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime/10.0)) {
+		while (!Robot.timer.hasPeriodPassed(totTime/10.0)) {
 			waitMs(20);
 		}
 		Robot.timer.stop();
@@ -393,7 +391,7 @@ public class Drive extends TerminatableSubsystem {
 			}
 		}
 
-		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime / 10.0)) {
+		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
 			waitMs(20);
 		}
 		Robot.timer.stop();
