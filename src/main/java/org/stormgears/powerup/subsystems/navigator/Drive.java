@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,10 +9,10 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.concurrency.TerminatableSubsystem;
+import org.stormgears.utils.concurrency.TerminableSubsystem;
 import org.stormgears.utils.sensor_drivers.NavX;
 
-public class Drive extends TerminatableSubsystem {
+public class Drive extends TerminableSubsystem {
 	private static Drive instance;
 
 	public static Drive getInstance() {

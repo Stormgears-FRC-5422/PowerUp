@@ -5,9 +5,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.concurrency.TerminatableSubsystem;
+import org.stormgears.utils.concurrency.TerminableSubsystem;
 
-public class Gripper extends TerminatableSubsystem {
+public class Gripper extends TerminableSubsystem {
 	private static final Logger logger = LogManager.getLogger(Gripper.class);
 	private static Gripper instance;
 

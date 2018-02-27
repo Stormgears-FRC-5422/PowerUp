@@ -3,13 +3,12 @@ package org.stormgears.powerup.subsystems.elevator_climber
 import com.ctre.phoenix.motorcontrol.ControlMode
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.StormTalon
-import org.stormgears.utils.concurrency.TerminatableSubsystem
-import org.stormgears.utils.concurrency.launch
+import org.stormgears.utils.concurrency.TerminableSubsystem
 
 /**
  * Default constructor for the creation of the elevator
  */
-object Elevator : TerminatableSubsystem() {
+object Elevator : TerminableSubsystem() {
     private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
 	private val sideShiftTalon: StormTalon
     private var sideShiftPosition = 0
@@ -69,7 +68,7 @@ object Elevator : TerminatableSubsystem() {
         talons.masterMotor.set(ControlMode.Position, position.toDouble())
 
 		// Launch a coroutine that waits til the elevator finishes
-		launchRegistered("Elevator Auto Move") {
+		launch("Elevator Auto Move") {
 			while (Math.abs(talons.masterMotor.sensorCollection.quadratureVelocity) > 10) {
 
 			}
@@ -115,7 +114,7 @@ object Elevator : TerminatableSubsystem() {
         sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
 
 		// Coroutines again!
-		launchRegistered("Side Shift Auto Move") {
+		launch("Side Shift Auto Move") {
 			while (sideShiftTalon.outputCurrent <= 20.0 && !limitSwitchReachedInCenter) {
 				if (position == CENTER && sideShiftTalon.sensorCollection.isRevLimitSwitchClosed) {
 					// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed

@@ -21,7 +21,6 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.concurrency.TerminatableSubsystem;
 import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
@@ -198,7 +197,7 @@ public class Robot extends BaseStormgearsRobot {
 		StormScheduler.getInstance().run();
 
 		if (dsio.getShouldOverride()) {
-			TerminatableSubsystem.Companion.terminateCurrentLongRunningOperations();
+//			TerminableSubsystem.Companion.terminate(); TODO
 		}
 
 		if (drive != null) {
