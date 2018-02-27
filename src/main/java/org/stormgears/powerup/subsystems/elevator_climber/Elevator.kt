@@ -13,28 +13,28 @@ object Elevator : TerminableSubsystem() {
 	private val sideShiftTalon: StormTalon
     private var sideShiftPosition = 0
 
-	private val TICKS_TO_REVS = 8192 // Number of encoder ticks:Number of Revolutions of the Motor
-	private val REVS_TO_INCHES = -1.0 // 4.925; // Number of revs/in
+	private const val TICKS_TO_REVS = 8192 // Number of encoder ticks:Number of Revolutions of the Motor
+	private const val REVS_TO_INCHES = -1.0 // 4.925; // Number of revs/in
 
 	// PID values for elevator
-	private val RAISE_P = 0.1
-	private val RAISE_I = 0.0001
-	private val RAISE_D = 8.0
-	private val LOWER_P = 0.01
-	private val LOWER_I = 0.00001
-	private val LOWER_D = 1.0
+	private const val RAISE_P = 0.1
+	private const val RAISE_I = 0.0001
+	private const val RAISE_D = 8.0
+	private const val LOWER_P = 0.01
+	private const val LOWER_I = 0.00001
+	private const val LOWER_D = 1.0
 
 	// TODO: Fine Tune Positions (ALL IN INCHES)
 	val SWITCH_POSITIONS = intArrayOf(20, 30, 43)
 	val SCALE_POSITIONS = intArrayOf(52, 64, 78, 92, 106)
-	private val START = 0 // inches elevator starts off the ground
+	private const val START = 0 // inches elevator starts off the ground
 
 	// Side shift stuff
-	private val SIDE_SHIFT_TALON_ID = 10
-	val LEFT = -1
-	val CENTER = 0
-	val RIGHT = 1
-	private val SIDE_SHIFT_POWER = 0.7
+	private const val SIDE_SHIFT_TALON_ID = 10
+	const val LEFT = -1
+	const val CENTER = 0
+	const val RIGHT = 1
+	private const val SIDE_SHIFT_POWER = 0.7
 
 	/**
 	 * @return the current number of encoder ticks the elevator is above the base
@@ -43,7 +43,6 @@ object Elevator : TerminableSubsystem() {
 		private set
 
     init {
-
 		sideShiftTalon = StormTalon(SIDE_SHIFT_TALON_ID)
     }
 
