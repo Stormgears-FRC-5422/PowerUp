@@ -1,4 +1,4 @@
-package org.stormgears.utils
+package org.stormgears.utils.concurrency
 
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.CoroutineStart
@@ -12,11 +12,10 @@ val globalContext = newSingleThreadContext("CoroutineThread");
 
 interface WithCoroutines
 
-fun launch(
-	context: CoroutineContext = globalContext,
-	start: CoroutineStart = CoroutineStart.DEFAULT,
-	parent: Job? = null,
-	block: suspend CoroutineScope.() -> Unit
+fun launch(context: CoroutineContext = globalContext,
+		   start: CoroutineStart = CoroutineStart.DEFAULT,
+		   parent: Job? = null,
+		   block: suspend CoroutineScope.() -> Unit
 ) = kotlinx.coroutines.experimental.launch(context = context, start = start, parent = parent, block = block);
 
 fun <T> async(
