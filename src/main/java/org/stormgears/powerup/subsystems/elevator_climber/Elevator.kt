@@ -71,7 +71,7 @@ object Elevator : TerminatableSubsystem() {
 		// Launch a coroutine that waits til the elevator finishes
 		launchRegistered("Elevator Auto Move") {
 			while (Math.abs(talons.masterMotor.sensorCollection.quadratureVelocity) > 10) {
-				waitMs(20)
+
 			}
 
 			println("Elevator has moved to encoder position: " + positionTicks)
@@ -122,7 +122,6 @@ object Elevator : TerminatableSubsystem() {
 					// and vice versa
 					limitSwitchReachedInCenter = true
 				}
-				waitMs(20)
 			}
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 			println("Side shift current limit reached or reached center")
