@@ -23,5 +23,8 @@ public class ProximitySensor {
 		return ( ai.getAverageVoltage() < threshold );
 	}
 
+	public double getOutput() {
+		return (ai.getAverageVoltage());
+	}
 
 }
