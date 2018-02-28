@@ -1,10 +1,12 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
 public class StormNet {
+	private static StormNet instance;
+
 	private EthernetLidar m_lidar;
 	private LineIR m_lineIR;
 
-	public StormNet() {
+	private StormNet() {
 		// TODO - get these values from configuration
 		//	EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
 		//	I2CEthernetVoice i2cEthernetVoice = new I2CEthernetVoice(ethernetVoice, 11);
@@ -12,6 +14,12 @@ public class StormNet {
 		//	m_lidar = new EthernetLidar(ethernetVoice);
 		//	m_lineIR = new LineIR(i2cEthernetVoice);
 	}
+
+	public static void init() {
+		instance = new StormNet();
+	}
+
+	public static StormNet getInstance() {return instance;}
 
 	public boolean test() {
 		System.out.println("In Stormnet Test");

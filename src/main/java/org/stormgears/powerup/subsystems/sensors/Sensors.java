@@ -14,11 +14,17 @@ public class Sensors {
 	private Vision vision;
 	private NavX navX;
 	private StormNet stormNet;
+	private ProximitySensor proximitySensor;
 
 	private Sensors() {
 //		vision = new Vision();
 		navX = new NavX();
-		stormNet = new StormNet();
+
+		StormNet.init();
+		stormNet = StormNet.getInstance();
+
+		ProximitySensor.init();
+		proximitySensor = ProximitySensor.getInstance();
 	}
 
 	public static void init() {
@@ -37,4 +43,7 @@ public class Sensors {
 		return stormNet;
 	}
 
+	public ProximitySensor getProximitySensor() {
+		return proximitySensor;
+	}
 }
