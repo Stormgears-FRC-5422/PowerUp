@@ -27,12 +27,13 @@ public class Drive extends TerminableSubsystem {
 
 	private static final int MAX_VELOCITY = 25000;
 	private static final int MAX_ACCELERATION = 1200/2;
+	private static final double TURN_SENSITIVITY_FACTOR = 0.8;
 
 	private StormTalon[] talons;
 	private double[] vels;
 
 	public boolean useAbsoluteControl = false;
-	public boolean useTractionControl = true;
+	public boolean useTractionControl = false;
 
 	private MotionMagic[] motions;
 	private MotionManager motionManager;
@@ -63,7 +64,7 @@ public class Drive extends TerminableSubsystem {
 			setDriveTalonsZeroVelocity();
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
-				x, y, z,
+				x, y, z * TURN_SENSITIVITY_FACTOR,
 				theta,
 				useAbsoluteControl);
 		}
@@ -157,24 +158,24 @@ public class Drive extends TerminableSubsystem {
 
 		// Traction control
 		if (useTractionControl && driverInputEligibleForTractionControl()) {
-			NavX navX = Robot.sensors.getNavX();
-			float nx = navX.getVelocityX();
-			float ny = navX.getVelocityY();
-			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
-			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
-
-			SmartDashboard.putNumber("stickVelocity", stickVelocity);
-			SmartDashboard.putNumber("actualVelocity", actualVelocity);
-			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
-
-			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
-				logger.info("Using traction control...");
-
-				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
-				for (int i = 0; i < vels.length; i++) {
-					vels[i] *= multiplier;
-				}
-			}
+//			NavX navX = Robot.sensors.getNavX();
+//			float nx = navX.getVelocityX();
+//			float ny = navX.getVelocityY();
+//			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
+//			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
+//
+//			SmartDashboard.putNumber("stickVelocity", stickVelocity);
+//			SmartDashboard.putNumber("actualVelocity", actualVelocity);
+//			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
+//
+//			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+//				logger.info("Using traction control...");
+//
+//				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
+//				for (int i = 0; i < vels.length; i++) {
+//					vels[i] *= multiplier;
+//				}
+//			}
 		}
 
 		for (int i = 0; i < talons.length; i++) {
