@@ -7,8 +7,6 @@ import org.stormgears.powerup.Robot;
 import org.stormgears.powerup.subsystems.field.AutoRoutes;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.Segment;
-import org.stormgears.powerup.subsystems.navigator.Position;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
@@ -101,7 +99,7 @@ public class AutoDriveMoveCommand extends Command {
 		}
 	}
 
-	public void move(ArrayList path) {
+	public void move(ArrayList<Segment> path) {
 		Iterator<Segment> segmentIterator = path.iterator();
 		while (segmentIterator.hasNext()) {
 			Segment segment = segmentIterator.next();
