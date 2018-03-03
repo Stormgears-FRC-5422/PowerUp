@@ -21,7 +21,7 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.concurrency.TerminableSubsystem;
+import org.stormgears.utils.concurrency.Terminator;
 import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
@@ -112,11 +112,7 @@ public class Robot extends BaseStormgearsRobot {
 			dsio = DSIO.INSTANCE;
 		}
 
-		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
-			TerminableSubsystem.Companion.terminate();
-		} else {
-			TerminableSubsystem.Companion.enable();
-		}
+		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
@@ -162,11 +158,7 @@ public class Robot extends BaseStormgearsRobot {
 			dsio = DSIO.INSTANCE;
 		}
 
-		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
-			TerminableSubsystem.Companion.terminate();
-		} else {
-			TerminableSubsystem.Companion.enable();
-		}
+		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 	}
 
 	/**
@@ -226,7 +218,7 @@ public class Robot extends BaseStormgearsRobot {
 
 //		fmsInterface.startPollingForData();
 
-		TerminableSubsystem.Companion.terminate();
+		Terminator.INSTANCE.setDisabled(true);
 
 		if (elevatorSharedTalons != null) {
 			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
