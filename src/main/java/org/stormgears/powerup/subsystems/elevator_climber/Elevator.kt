@@ -40,7 +40,7 @@ object Elevator : TerminableSubsystem() {
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1
-	private const val SIDE_SHIFT_POWER = 0.4
+	private const val SIDE_SHIFT_POWER = 0.8
 	private const val FULL_LEFT_TICKS = 181000
 	private const val FULL_RIGHT_TICKS = -181000
 
@@ -52,13 +52,17 @@ object Elevator : TerminableSubsystem() {
 	/**
 	 * @return the current number of encoder ticks the elevator is above the base
 	 */
-	var currentElevatorPosition = START
+	var currentElevatorPosition = 0
 		private set
 
     init {
 		sideShiftTalon = StormTalon(SIDE_SHIFT_TALON_ID)
 		sideShiftTalon.inverted = true
     }
+
+	fun updatePosition() {
+		currentElevatorPosition = talons.masterMotor.sensorCollection.quadraturePosition
+	}
 
     /**
      * Move the elevator to a position
@@ -73,7 +77,7 @@ object Elevator : TerminableSubsystem() {
 
 		elevatorJob = launch("Elevator Auto Move") {
 			val positionTicks = toEncoderTicks(position.toDouble())
-			if (position < currentElevatorPosition) {     // Raising elevator
+			if (positionTicks < currentElevatorPosition) {     // Raising elevator
 				talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 				talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 				talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
@@ -85,16 +89,16 @@ object Elevator : TerminableSubsystem() {
 			talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
 
 			logger.trace("Desired encoder position: {}", box(positionTicks))
-			talons.masterMotor.set(ControlMode.Position, positionTicks)
+			talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
 
 			// wait until elevator finishes
-			while (Math.abs(position.toDouble() - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
+			while (Math.abs(positionTicks - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
 				logger.trace(talons.masterMotor.sensorCollection.quadraturePosition)
 				delay(20)
 			}
 
 			logger.trace("Elevator has moved to encoder position: {}", box(positionTicks))
-			currentElevatorPosition = position
+			currentElevatorPosition = positionTicks
 		}
 	}
 
@@ -112,6 +116,11 @@ object Elevator : TerminableSubsystem() {
     fun stop() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
         sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
+
+		updatePosition()
+
+		// Hold current elevator position
+		talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
     }
 
     /**
@@ -179,19 +188,19 @@ object Elevator : TerminableSubsystem() {
     }
 
     fun moveLeftManual() {
-        sideShiftTalon.set(ControlMode.PercentOutput, -0.33)
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.6)
     }
 
     fun moveRightManual() {
-        sideShiftTalon.set(ControlMode.PercentOutput, 0.33)
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.6)
     }
 
     /**
      * @param inches number of inches
      * @return number of encoder ticks necessary to go that many inches
      */
-	private fun toEncoderTicks(inches: Double): Double =
-		inches * ELEVATOR_DISTANCE_MULTIPLIER * REVS_TO_TICKS.toDouble()
+	private fun toEncoderTicks(inches: Double): Int =
+		Math.round(inches * ELEVATOR_DISTANCE_MULTIPLIER * REVS_TO_TICKS).toInt()
 
 
     override fun initDefaultCommand() {
