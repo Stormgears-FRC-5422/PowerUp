@@ -122,18 +122,14 @@ public class Robot extends BaseStormgearsRobot {
 			autonomousCommand.cancel();
 		}
 
-		logger.trace("creating autonomous command group");
 
-		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
+		logger.trace("starting the autonomous command");
+		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
 			selectedStartSpot,
 			selectedPlacementSpot,
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
-
-		//execute autonomous command
-		logger.trace("starting the autonomous command");
-		autonomousCommand.start();
 	}
 
 	/**
