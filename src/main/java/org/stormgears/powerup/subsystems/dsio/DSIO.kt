@@ -97,6 +97,8 @@ object DSIO {
 			run {
 				if (on) {
 					TerminableSubsystem.terminate()
+				} else {
+					TerminableSubsystem.enable()
 				}
 			}
 		}

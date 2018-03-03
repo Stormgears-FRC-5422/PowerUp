@@ -15,8 +15,15 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 
 		private val parentJob = Job()
 
+		private var disabled = false;
+
 		fun terminate() {
 			parentJob.cancelChildren()
+			disabled = true;
+		}
+
+		fun enable() {
+			disabled = false;
 		}
 	}
 
@@ -38,6 +45,13 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 		parent: Job?,
 		block: suspend CoroutineScope.() -> Unit
 	): Job {
+		if (disabled) {
+			val job = Job()
+			job.cancel()
+			logger.warn("Cannot launch in {}; subsystems are disabled", subclassName)
+			return job;
+		}
+
 		if (parent != null && parent != parentJob) {
 			throw IllegalArgumentException("Cannot specify parent job in terminable subsystem")
 		}
@@ -46,14 +60,29 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 	}
 
 	override fun <T> async(context: CoroutineContext, start: CoroutineStart, parent: Job?, block: suspend CoroutineScope.() -> T): Deferred<T> {
+		if (disabled) {
+			logger.error("Cannot run async in {}; subsystems are disabled", subclassName)
+			throw IllegalStateException()
+		}
+
 		return super.async(context = context, start = start, parent = parentJob, block = block)
 	}
 
 	override fun <E> produce(context: CoroutineContext, capacity: Int, parent: Job?, block: suspend ProducerScope<E>.() -> Unit): ReceiveChannel<E> {
+		if (disabled) {
+			logger.error("Cannot run produce in {}; subsystems are disabled", subclassName)
+			throw IllegalStateException()
+		}
+
 		return super.produce(context = context, capacity = capacity, parent = parentJob, block = block)
 	}
 
 	override fun <E> actor(context: CoroutineContext, capacity: Int, start: CoroutineStart, parent: Job?, block: suspend ActorScope<E>.() -> Unit): SendChannel<E> {
+		if (disabled) {
+			logger.error("Cannot run actor in {}; subsystems are disabled", subclassName)
+			throw IllegalStateException()
+		}
+
 		return super.actor(context = context, capacity = capacity, start = start, parent = parentJob, block = block)
 	}
 }
