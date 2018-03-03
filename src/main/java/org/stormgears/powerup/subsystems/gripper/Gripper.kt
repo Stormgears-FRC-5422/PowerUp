@@ -95,8 +95,8 @@ object Gripper : TerminableSubsystem() {
 	}
 
 	fun debug() {
-//		println("Forward switch: ${talon.sensorCollection.isFwdLimitSwitchClosed}")
-//		println("Reverse switch: ${talon.sensorCollection.isRevLimitSwitchClosed}")
+		println("Forward switch: ${talon.sensorCollection.isFwdLimitSwitchClosed}")
+		println("Reverse switch: ${talon.sensorCollection.isRevLimitSwitchClosed}")
 //		println("Output current: ${talon.outputCurrent}")
 	}
 }

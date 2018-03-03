@@ -1,6 +1,5 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
@@ -89,16 +88,15 @@ public class Robot extends BaseStormgearsRobot {
 
 		drive = Drive.INSTANCE;
 
-		Intake.init();
-		intake = Intake.getInstance();
+		intake = Intake.INSTANCE;
 
 		ElevatorSharedTalons.init();
 		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
 		elevator = Elevator.INSTANCE;
 
-		Climber.init();
-		climber = Climber.getInstance();
+//		Climber.init();
+//		climber = Climber.getInstance();
 
 		gripper = Gripper.INSTANCE;
 	}
@@ -112,6 +110,12 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
+		}
+
+		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
+			TerminableSubsystem.Companion.terminate();
+		} else {
+			TerminableSubsystem.Companion.enable();
 		}
 
 		// Get all the selected autonomous command properties for this run
@@ -157,6 +161,12 @@ public class Robot extends BaseStormgearsRobot {
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
 		}
+
+		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
+			TerminableSubsystem.Companion.terminate();
+		} else {
+			TerminableSubsystem.Companion.enable();
+		}
 	}
 
 	/**
@@ -192,7 +202,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
+//		gripper.debug();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
@@ -224,6 +234,10 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevator != null) {
 			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
+		}
+
+		if (intake != null) {
+//			intake.getArticulatorTalon().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {
