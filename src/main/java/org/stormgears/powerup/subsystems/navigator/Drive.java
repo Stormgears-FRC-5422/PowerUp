@@ -1,9 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,10 +9,10 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
-import org.stormgears.utils.TerminatableSubsystem;
+import org.stormgears.utils.concurrency.TerminableSubsystem;
 import org.stormgears.utils.sensor_drivers.NavX;
 
-public class Drive extends TerminatableSubsystem {
+public class Drive extends TerminableSubsystem {
 	private static Drive instance;
 
 	public static Drive getInstance() {
@@ -30,12 +27,13 @@ public class Drive extends TerminatableSubsystem {
 
 	private static final int MAX_VELOCITY = 25000;
 	private static final int MAX_ACCELERATION = 1200/2;
+	private static final double TURN_SENSITIVITY_FACTOR = 0.8;
 
 	private StormTalon[] talons;
 	private double[] vels;
 
 	public boolean useAbsoluteControl = false;
-	public boolean useTractionControl = true;
+	public boolean useTractionControl = false;
 
 	private MotionMagic[] motions;
 	private MotionManager motionManager;
@@ -66,7 +64,7 @@ public class Drive extends TerminatableSubsystem {
 			setDriveTalonsZeroVelocity();
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
-				x, y, z,
+				x, y, z * TURN_SENSITIVITY_FACTOR,
 				theta,
 				useAbsoluteControl);
 		}
@@ -160,24 +158,24 @@ public class Drive extends TerminatableSubsystem {
 
 		// Traction control
 		if (useTractionControl && driverInputEligibleForTractionControl()) {
-			NavX navX = Robot.sensors.getNavX();
-			float nx = navX.getVelocityX();
-			float ny = navX.getVelocityY();
-			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
-			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
-
-			SmartDashboard.putNumber("stickVelocity", stickVelocity);
-			SmartDashboard.putNumber("actualVelocity", actualVelocity);
-			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
-
-			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
-				logger.info("Using traction control...");
-
-				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
-				for (int i = 0; i < vels.length; i++) {
-					vels[i] *= multiplier;
-				}
-			}
+//			NavX navX = Robot.sensors.getNavX();
+//			float nx = navX.getVelocityX();
+//			float ny = navX.getVelocityY();
+//			double actualVelocity = convertToEncoderUnits(Math.sqrt(nx * nx + ny * ny));
+//			double stickVelocity = MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y);
+//
+//			SmartDashboard.putNumber("stickVelocity", stickVelocity);
+//			SmartDashboard.putNumber("actualVelocity", actualVelocity);
+//			SmartDashboard.putNumber("tractiontest", ((actualVelocity - stickVelocity) / stickVelocity));
+//
+//			if (stickVelocity > 700 && Math.abs((actualVelocity - stickVelocity) / stickVelocity) > 0.1) {
+//				logger.info("Using traction control...");
+//
+//				double multiplier = 0.5; // (actualVelocity + 0.1) / (vels[0] + 0.1) * 1.1;
+//				for (int i = 0; i < vels.length; i++) {
+//					vels[i] *= multiplier;
+//				}
+//			}
 		}
 
 		for (int i = 0; i < talons.length; i++) {
@@ -309,7 +307,7 @@ public class Drive extends TerminatableSubsystem {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 
-		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime/10.0)) {
+		while (!Robot.timer.hasPeriodPassed(totTime/10.0)) {
 			waitMs(20);
 		}
 		Robot.timer.stop();
@@ -393,7 +391,7 @@ public class Drive extends TerminatableSubsystem {
 			}
 		}
 
-		while (isAllowed() && !Robot.timer.hasPeriodPassed(totTime / 10.0)) {
+		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
 			waitMs(20);
 		}
 		Robot.timer.stop();

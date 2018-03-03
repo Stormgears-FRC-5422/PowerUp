@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +22,7 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
+import org.stormgears.utils.concurrency.TerminableSubsystem;
 import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
@@ -76,32 +78,30 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-//		Sensors.init();
-//		sensors = Sensors.getInstance();
-//
+		Sensors.init();
+		sensors = Sensors.getInstance();
+
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
-//
+
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
 		Drive.init();
 		drive = Drive.getInstance();
-//
-//		Intake.init();
-//		intake = Intake.getInstance();
-//
-//		ElevatorSharedTalons.init();
-//		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
-//
-//		Elevator.init();
-//		elevator = Elevator.getInstance();
-//
-//		Climber.init();
-//		climber = Climber.getInstance();
 
-		Gripper.init();
-		gripper = Gripper.getInstance();
+		Intake.init();
+		intake = Intake.getInstance();
+
+		ElevatorSharedTalons.init();
+		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+
+		elevator = Elevator.INSTANCE;
+
+		Climber.init();
+		climber = Climber.getInstance();
+
+		gripper = Gripper.INSTANCE;
 	}
 
 	/**
@@ -156,7 +156,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void teleopInit() {
 		logger.trace("teleop init");
-//		drive.setVelocityPID();
+
+		drive.setVelocityPID();
 
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
@@ -196,14 +197,18 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-//		if (drive != null) {
-//			if (!sensors.getNavX().isCalibrating()) {
-//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-//				drive.move();
-//			}
-//		} else {
-//			logger.fatal("Robot.drive is null; that's a problem!");
-//		}
+		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
+
+		if (drive != null) {
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+				drive.move();
+			} else {
+				logger.fatal("NavX theta is not set! Cannot drive!");
+			}
+		} else {
+			logger.fatal("Robot.drive is null; that's a problem!");
+		}
 	}
 
 	/**
@@ -215,6 +220,16 @@ public class Robot extends BaseStormgearsRobot {
 		super.disabledInit();
 
 //		fmsInterface.startPollingForData();
+
+		TerminableSubsystem.Companion.terminate();
+
+		if (elevatorSharedTalons != null) {
+			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
+		}
+
+		if (elevator != null) {
+			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
+		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {
 			rn.stop();
