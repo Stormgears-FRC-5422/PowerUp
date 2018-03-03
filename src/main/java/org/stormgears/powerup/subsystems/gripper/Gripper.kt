@@ -8,7 +8,7 @@ import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object Gripper : TerminableSubsystem() {
-	private val logger = LogManager.getLogger(Gripper::class.java)
+	private val logger = LogManager.getLogger(this::class.java)
 
 	var instance: Gripper? = null
 		private set
@@ -39,7 +39,7 @@ object Gripper : TerminableSubsystem() {
 	fun openGripper() {
 		if (job != null) {
 			job!!.cancel()
-			println("Canceled gripper job")
+			logger.trace("Canceled gripper job")
 		}
 
 		job = launch("Gripper Open") {
@@ -68,7 +68,7 @@ object Gripper : TerminableSubsystem() {
 	fun closeGripper() {
 		if (job != null) {
 			job!!.cancel()
-			println("Canceled gripper job")
+			logger.trace("Canceled gripper job")
 		}
 
 		job = launch("Gripper Close") {
