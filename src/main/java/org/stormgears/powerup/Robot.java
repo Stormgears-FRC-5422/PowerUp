@@ -87,7 +87,8 @@ public class Robot extends BaseStormgearsRobot {
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
-		drive = Drive.INSTANCE;
+		Drive.init();
+		drive = Drive.getInstance();
 
 		Intake.init();
 		intake = Intake.getInstance();
