@@ -43,11 +43,29 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 		double x = Robot.dsio.getJoystickX(),
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
-
-		//call in teleOp
+		
 		this.driveCartesian(-x, y, z, 0);
-//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
+	}
+	
+	public void moveFieldOriented() {
+		double x = Robot.dsio.getJoystickX(),
+			y = Robot.dsio.getJoystickY(),
+			z = Robot.dsio.getJoystickZ();
 
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		
+		this.driveCartesian(-x, y, z, navX_theta);
+	}
+	
+	
+	//this function is NOT tested
+	public void turnTo(double theta) {
+		double navX_theta = Robot.sensors.getNavX().getTheta();
+		double x = Robot.dsio.getJoystickX(),
+				y = Robot.dsio.getJoystickY(),
+				z = Robot.dsio.getJoystickZ();
+
+		this.driveCartesian(-x, y, z, navX_theta);
 	}
 	
 }

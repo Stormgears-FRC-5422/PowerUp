@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
@@ -10,7 +9,6 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager;
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile;
 import org.stormgears.utils.StormTalon;
 import org.stormgears.utils.concurrency.TerminableSubsystem;
-import org.stormgears.utils.sensor_drivers.NavX;
 
 public class Drive extends TerminableSubsystem {
 	private static Drive instance;
@@ -26,7 +24,7 @@ public class Drive extends TerminableSubsystem {
 
 
 	private static final int MAX_VELOCITY = 25000;
-	private static final int MAX_ACCELERATION = 1200/2;
+	private static final int MAX_ACCELERATION = 1200 / 2;
 	private static final double TURN_SENSITIVITY_FACTOR = 0.8;
 
 	private StormTalon[] talons;
@@ -81,11 +79,11 @@ public class Drive extends TerminableSubsystem {
 
 	// Run mecanum math on each raw speed and set talons accordingly
 	private void mecMove(double tgtVel,
-						 double x,
-						 double y,
-						 double changeVel,
-						 double theta,
-						 boolean useAbsoluteControl) {
+	                     double x,
+	                     double y,
+	                     double changeVel,
+	                     double theta,
+	                     boolean useAbsoluteControl) {
 
 		for (int i = 0; i < talons.length; i++) {
 			talons[i].setInverted(true);
@@ -307,7 +305,7 @@ public class Drive extends TerminableSubsystem {
 			motions[i].runMotionMagic((int) (ticks * modifiers[i]));
 		}
 
-		while (!Robot.timer.hasPeriodPassed(totTime/10.0)) {
+		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
 			waitMs(20);
 		}
 		Robot.timer.stop();
@@ -410,7 +408,7 @@ public class Drive extends TerminableSubsystem {
 		double deltaX = p2.getX() - p1.getX();
 		double deltaY = p2.getY() - p1.getY();
 
-		double theta = -Math.atan(deltaY / deltaX) + Math.PI/2;
+		double theta = -Math.atan(deltaY / deltaX) + Math.PI / 2;
 
 		double hyp = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
 		System.out.println(hyp);
