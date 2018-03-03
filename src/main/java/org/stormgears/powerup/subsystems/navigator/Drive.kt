@@ -381,9 +381,4 @@ object Drive : TerminableSubsystem() {
 
 		moveStraight(hyp, theta)
 	}
-
-	override fun initDefaultCommand() {
-
-	}
-
 }

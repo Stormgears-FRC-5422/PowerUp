@@ -1,6 +1,5 @@
 package org.stormgears.utils.concurrency
 
-import edu.wpi.first.wpilibj.command.Subsystem
 import kotlinx.coroutines.experimental.CoroutineScope
 import kotlinx.coroutines.experimental.CoroutineStart
 import kotlinx.coroutines.experimental.Deferred
@@ -14,7 +13,7 @@ import org.stormgears.utils.concurrency.Terminator.disabled
 import org.stormgears.utils.concurrency.Terminator.parentJob
 import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
+abstract class TerminableSubsystem : WithCoroutines {
 	companion object {
 		private val logger = LogManager.getLogger(TerminableSubsystem::class.java)
 	}

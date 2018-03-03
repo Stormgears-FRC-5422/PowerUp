@@ -5,10 +5,6 @@ import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
-	override fun initDefaultCommand() {
-		TODO("not implemented")
-	}
-
 	fun run(selectedAlliance: FieldPositions.Alliance,
 			selectedStartingSpot: FieldPositions.StartingSpots,
 			selectedPlacementSpot: FieldPositions.PlacementSpot,

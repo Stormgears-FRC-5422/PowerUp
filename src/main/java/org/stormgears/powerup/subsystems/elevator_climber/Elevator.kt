@@ -192,9 +192,4 @@ object Elevator : TerminableSubsystem() {
      */
 	private fun toEncoderTicks(inches: Double): Double =
 		inches * ELEVATOR_DISTANCE_MULTIPLIER * REVS_TO_TICKS.toDouble()
-
-
-    override fun initDefaultCommand() {
-
-    }
 }
