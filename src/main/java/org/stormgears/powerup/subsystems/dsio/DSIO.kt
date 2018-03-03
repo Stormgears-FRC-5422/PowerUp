@@ -94,12 +94,10 @@ object DSIO {
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on ->
-			run {
-				if (on) {
-					TerminableSubsystem.terminate()
-				} else {
-					TerminableSubsystem.enable()
-				}
+			if (on) {
+				TerminableSubsystem.terminate()
+			} else {
+				TerminableSubsystem.enable()
 			}
 		}
 	}
