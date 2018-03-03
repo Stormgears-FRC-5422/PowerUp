@@ -5,6 +5,7 @@ import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
+import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.dsio.IRawJoystick
 import org.stormgears.utils.dsio.ITernarySwitch
 
@@ -45,8 +46,8 @@ object DSIO {
 
 		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() } // TODO: What does this button do?
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
+		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.CENTER) }
+		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.RIGHT) }
 
 		buttonBoard.intakeGrabButton.whenPressed { }
 
@@ -91,6 +92,14 @@ object DSIO {
 		buttonBoard.overrideDown.whenReleased { Robot.elevator.stop() }
 		buttonBoard.overrideLeft.whenReleased { Robot.elevator.stop() }
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
+
+		buttonBoard.overrideSwitch.whenFlipped { on ->
+			run {
+				if (on) {
+					TerminableSubsystem.terminate()
+				}
+			}
+		}
 	}
 
 	val shouldOverride: Boolean

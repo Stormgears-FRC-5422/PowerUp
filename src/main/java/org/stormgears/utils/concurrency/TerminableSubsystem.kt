@@ -12,9 +12,14 @@ import kotlin.coroutines.experimental.CoroutineContext
 abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 	companion object {
 		private val logger = LogManager.getLogger(TerminableSubsystem::class.java)
+
+		private val parentJob = Job()
+
+		fun terminate() {
+			parentJob.cancelChildren()
+		}
 	}
 
-	private val parentJob = Job()
 	private val subclassName = this.javaClass.canonicalName
 
 	fun launch(
@@ -23,7 +28,7 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 		parent: Job? = null,
 		block: suspend CoroutineScope.() -> Unit
 	): Job {
-		logger.trace("Starting coroutine job {} in terminable subsystem {}", jobName, subclassName)
+		logger.info("Starting coroutine job {} in terminable subsystem {}", jobName, subclassName)
 		return launch(context = context, start = start, parent = parent, block = block);
 	}
 
@@ -50,9 +55,5 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 
 	override fun <E> actor(context: CoroutineContext, capacity: Int, start: CoroutineStart, parent: Job?, block: suspend ActorScope<E>.() -> Unit): SendChannel<E> {
 		return super.actor(context = context, capacity = capacity, start = start, parent = parentJob, block = block)
-	}
-
-	fun terminate() {
-		parentJob.cancelChildren()
 	}
 }

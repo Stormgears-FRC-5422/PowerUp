@@ -1,6 +1,8 @@
 package org.stormgears.powerup.subsystems.elevator_climber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
@@ -10,11 +12,11 @@ import org.stormgears.utils.concurrency.TerminableSubsystem
  */
 object Elevator : TerminableSubsystem() {
     private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
-	private val sideShiftTalon: StormTalon
-    private var sideShiftPosition = 0
+	val sideShiftTalon: StormTalon
+	private var sideShiftPosition = 0
 
-	private const val TICKS_TO_REVS = 8192 // Number of encoder ticks:Number of Revolutions of the Motor
-	private const val REVS_TO_INCHES = -1.0 // 4.925; // Number of revs/in
+	private const val REVS_TO_TICKS = 8192 // Number of encoder ticks:Number of Revolutions of the Motor
+	private const val ELEVATOR_DISTANCE_MULTIPLIER = -1.0 // 4.925; // Number of revs/in
 
 	// PID values for elevator
 	private const val RAISE_P = 0.1
@@ -30,11 +32,18 @@ object Elevator : TerminableSubsystem() {
 	private const val START = 0 // inches elevator starts off the ground
 
 	// Side shift stuff
-	private const val SIDE_SHIFT_TALON_ID = 10
+	private const val SIDE_SHIFT_TALON_ID = 5
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1
-	private const val SIDE_SHIFT_POWER = 0.7
+	private const val SIDE_SHIFT_POWER = 0.4
+	private const val FULL_LEFT_TICKS = 181000
+	private const val FULL_RIGHT_TICKS = -181000
+
+
+	// Jobs
+	private var sideShiftJob: Job? = null
+	private var elevatorJob: Job? = null
 
 	/**
 	 * @return the current number of encoder ticks the elevator is above the base
@@ -44,6 +53,7 @@ object Elevator : TerminableSubsystem() {
 
     init {
 		sideShiftTalon = StormTalon(SIDE_SHIFT_TALON_ID)
+		sideShiftTalon.inverted = true
     }
 
     /**
@@ -52,30 +62,35 @@ object Elevator : TerminableSubsystem() {
      * @param position = encoder ticks of the position where the elevator should move
      */
     fun moveElevatorToPosition(position: Int) {
-        val positionTicks = toEncoderTicks(position.toDouble())
-        if (position < currentElevatorPosition) {     // Raising elevator
-            talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-            talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-            talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-        } else {    // Lowering elevator
-            talons.masterMotor.config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-            talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-            talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-        }
+		if (elevatorJob != null) elevatorJob!!.cancel()
 
-        println("Desired encoder position: " + positionTicks)
-        talons.masterMotor.set(ControlMode.Position, position.toDouble())
+		val positionTicks = toEncoderTicks(position.toDouble())
+		if (position < currentElevatorPosition) {     // Raising elevator
+			talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+		} else {    // Lowering elevator
+			talons.masterMotor.config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+		}
+		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
+
+		println("Desired encoder position: " + positionTicks)
+		talons.masterMotor.set(ControlMode.Position, positionTicks)
 
 		// Launch a coroutine that waits til the elevator finishes
-		launch("Elevator Auto Move") {
-			while (Math.abs(talons.masterMotor.sensorCollection.quadratureVelocity) > 10) {
-
+		elevatorJob = launch("Elevator Auto Move") {
+			while (Math.abs(position.toDouble() - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
+				println(talons.masterMotor.sensorCollection.quadraturePosition)
+				delay(20)
 			}
 
 			println("Elevator has moved to encoder position: " + positionTicks)
 			currentElevatorPosition = position
 		}
-    }
+	}
+
 
     /**
      * Bring the elevator to the lowest position
@@ -88,45 +103,57 @@ object Elevator : TerminableSubsystem() {
      * Stop all motion
      */
     fun stop() {
-        //		talons.getMasterMotor().set(ControlMode.PercentOutput, 0);
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
         sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
     }
 
     /**
      * Move side shift to position
      */
-    private fun moveSideShiftToPosition(position: Int) {
-        if (sideShiftPosition == position) return
-
-        var multiplier = 0
-        if (position == LEFT) {
-            multiplier = -1
-        } else if (position == CENTER) {
-            if (sideShiftPosition == LEFT)
-                multiplier = 1
-            else if (sideShiftPosition == RIGHT) multiplier = -1
-        } else if (position == RIGHT) {
-            multiplier = 1
-        }
-
-        var limitSwitchReachedInCenter = false
-        sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
+	fun moveSideShiftToPosition(position: Int) {
+		if (sideShiftJob != null) {
+			sideShiftJob!!.cancel()
+			println("Canceled side shift job")
+		}
 
 		// Coroutines again!
-		launch("Side Shift Auto Move") {
-			while (sideShiftTalon.outputCurrent <= 20.0 && !limitSwitchReachedInCenter) {
-				if (position == CENTER && sideShiftTalon.sensorCollection.isRevLimitSwitchClosed) {
-					// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
-					// and vice versa
-					limitSwitchReachedInCenter = true
+		sideShiftJob = launch("Side Shift Auto Move") {
+			if (sideShiftPosition != position) {
+				var multiplier = 0
+				if (position == LEFT) {
+					multiplier = -1
+				} else if (position == CENTER) {
+					if (sideShiftPosition == LEFT) multiplier = 1
+					else if (sideShiftPosition == RIGHT) multiplier = -1
+				} else if (position == RIGHT) {
+					multiplier = 1
 				}
-			}
-			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
-			println("Side shift current limit reached or reached center")
 
-			sideShiftPosition = position
+				var reachedCenter = false
+				println("Moving side shift to position: " + position)
+				if (position == CENTER) println("Moving to center.")
+				sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
+
+				while (sideShiftTalon.outputCurrent <= 15.0 && !reachedCenter) {
+					println(sideShiftTalon.outputCurrent)
+					if (position == CENTER) {
+						// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
+						// and vice versa
+						reachedCenter = sideShiftTalon.sensorCollection.isRevLimitSwitchClosed ||
+							Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 25000
+						println(sideShiftTalon.sensorCollection.quadraturePosition)
+					}
+
+					delay(20)
+				}
+				sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
+				println("Side shift current limit reached or reached center")
+
+				sideShiftPosition = position
+			}
 		}
-    }
+	}
+
 
     fun moveSideShiftOverLeft() {
         if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
@@ -152,20 +179,12 @@ object Elevator : TerminableSubsystem() {
         sideShiftTalon.set(ControlMode.PercentOutput, 0.33)
     }
 
-    private fun waitMs(ms: Int) {
-        try {
-            Thread.sleep(ms.toLong())
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-    }
-
     /**
      * @param inches number of inches
      * @return number of encoder ticks necessary to go that many inches
      */
-    private fun toEncoderTicks(inches: Double): Int =
-		Math.round(inches * REVS_TO_INCHES * TICKS_TO_REVS.toDouble()).toInt()
+	private fun toEncoderTicks(inches: Double): Double =
+		inches * ELEVATOR_DISTANCE_MULTIPLIER * REVS_TO_TICKS.toDouble()
 
 
     override fun initDefaultCommand() {

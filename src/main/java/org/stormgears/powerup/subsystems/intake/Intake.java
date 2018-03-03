@@ -24,9 +24,9 @@ public class Intake extends Subsystem {
 	private static final double POS_HORIZONTAL = 0;
 
 	//TODO: Change these to correct values
-	private static final int LEFT_TALON_ID = 20;
+	private static final int LEFT_TALON_ID = 23;
 	private static final int RIGHT_TALON_ID = 3;
-	private static final int ARTICULATOR_TALON_ID = 1;
+	private static final int ARTICULATOR_TALON_ID = 20;
 
 
 	private static final int SPEED = 8000;
@@ -43,7 +43,7 @@ public class Intake extends Subsystem {
 
 	private static final int TALON_FPID_TIMEOUT = 10;
 
-	private StormTalon leftTalon, rightTalon, articulatorTalon;
+	public StormTalon leftTalon, rightTalon, articulatorTalon;
 
 	private Intake(int leftTalonId, int rightTalonId, int articulatorTalonId) {
 		leftTalon = new StormTalon(leftTalonId);
