@@ -18,6 +18,7 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
+import org.stormgears.powerup.subsystems.navigator.PowerUpMecanumDrive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
@@ -68,6 +69,10 @@ public class Robot extends BaseStormgearsRobot {
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
+//	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//	private PowerUpMecanumDrive wpiMecanumDrive;
+//	**END**FOR USE WITH WPI MECANUM DRIVE API
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code
@@ -89,7 +94,12 @@ public class Robot extends BaseStormgearsRobot {
 
 		Drive.init();
 		drive = Drive.getInstance();
-
+		
+//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//		PowerUpMecanumDrive.init();
+//		wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
+//		**END**FOR USE WITH WPI MECANUM DRIVE API
+		
 		Intake.init();
 		intake = Intake.getInstance();
 
@@ -199,6 +209,20 @@ public class Robot extends BaseStormgearsRobot {
 
 		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
 
+//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API 		
+//		if (wpiMecanumDrive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				wpiMecanumDrive.move();
+//			} else {
+//				logger.fatal("NavX theta is not set! Cannot drive!");
+//			}
+//		} else {
+//			logger.fatal("Robot.drive is null; that's a problem!");
+//		}
+//		**END**FOR USE WITH WPI MECANUM DRIVE API
+		
+		
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
