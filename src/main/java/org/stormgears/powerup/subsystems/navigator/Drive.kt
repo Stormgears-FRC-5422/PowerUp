@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
@@ -40,7 +39,7 @@ object Drive : TerminableSubsystem() {
 		//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
 
 		var theta = Math.atan2(x, y)
-		if (theta < 0) theta += 2 * Math.PI
+		if (theta < 0) theta = 2 * Math.PI + theta
 
 		if (x == 0.0 && y == 0.0 && z == 0.0) {
 			setDriveTalonsZeroVelocity()
@@ -191,7 +190,7 @@ object Drive : TerminableSubsystem() {
 	fun debug() {
 		val talons = Robot.driveTalons.talons
 		for (t in talons) {
-			logger.debug("Real Velocities: {}", box(t.sensorCollection.quadratureVelocity))
+			logger.debug("Real Velocities: {}", t.sensorCollection.quadratureVelocity)
 		}
 	}
 
@@ -229,8 +228,8 @@ object Drive : TerminableSubsystem() {
 
 		if (Math.abs(theta) == Math.PI / 2.0) {
 			distance = distance / 0.833333
-			logger.trace("distance: {}", box(distance))
-			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
+			println(distance)
+			println(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI))
 		}
 
 		//TODO: make wheel diameter and other constants that im just making up
@@ -276,23 +275,26 @@ object Drive : TerminableSubsystem() {
 
 
 			if (Math.abs(modifiers[i] * distance) != maxDistance) {
-				logger.trace("Vmax2 {}", box(vmax2))
-				logger.trace("A2 {}", box(a2))
+				println("Vmax2 $vmax2")
+				println("A2 $a2")
 				motions[i] = MotionMagic(Robot.driveTalons.talons[i], vmax2, a2)
 			} else {
-				logger.trace("MAX VEL {}", box(MAX_VELOCITY))
-				logger.trace("MAX ACCEL {}", box(MAX_ACCELERATION))
+				println("MAX VEL $MAX_VELOCITY")
+				println("MAX ACCEL $MAX_ACCELERATION")
 				motions[i] = MotionMagic(Robot.driveTalons.talons[i], MAX_VELOCITY.toDouble(), MAX_ACCELERATION.toDouble())
 			}
 		}
-
+		Robot.timer.start()
 		for (i in motions.indices) {
-			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
+			println("Talon " + i + " Commanded: " + ticks * modifiers[i])
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
 		}
 
-		// TODO: wtf is this doing?
-		delay((totTime / 10.0 * 1000).toInt())
+		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
+			delay(20)
+		}
+		Robot.timer.stop()
+		Robot.timer.reset()
 	}
 
 
@@ -315,15 +317,15 @@ object Drive : TerminableSubsystem() {
 		theta = theta % (2 * Math.PI)
 		if (theta < 0) {
 			theta += 2 * Math.PI
-			logger.trace("Theta 2 {}", box(theta))
+			println("Theta 2 $theta")
 		}
 
 		if (theta > Math.PI) {
 			negative = 1.0
-			logger.trace("Theta 1 {}", theta)
+			println("Theta 1 $theta")
 			theta -= Math.PI
 
-			logger.trace(box(theta))
+			println(theta)
 		}
 
 		val robotLength = java.lang.Double.parseDouble(Robot.config.robotLength)
@@ -346,21 +348,24 @@ object Drive : TerminableSubsystem() {
 			motions[i] = MotionMagic(Robot.driveTalons.talons[i], (MAX_VELOCITY / 2).toDouble(), (MAX_ACCELERATION / 2).toDouble())
 		}
 
-		logger.trace(box(encoderTicks))
-
+		println(encoderTicks.toString() + "")
+		Robot.timer.start()
 		for (i in motions.indices) {
 			if (i == 0 || i == 2) {
-				logger.trace("Talon {} Commanded: {}", box(i), box(encoderTicks))
+				println("Talon $i Commanded: $encoderTicks")
 				motions[i]?.runMotionMagic((negative * encoderTicks).toInt())
 			} else {
-				logger.trace("Talon {} Commanded: {}", box(i), box(encoderTicks))
+				println("Talon $i Commanded: $encoderTicks")
 				motions[i]?.runMotionMagic((negative * encoderTicks).toInt())
 
 			}
 		}
 
-		// TODO: wtf?
-		delay((totTime / 10.0 * 1000).toInt())
+		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
+			delay(20)
+		}
+		Robot.timer.stop()
+		Robot.timer.reset()
 	}
 
 
@@ -378,7 +383,7 @@ object Drive : TerminableSubsystem() {
 		val theta = -Math.atan(deltaY / deltaX) + Math.PI / 2
 
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
-		logger.trace("hyp: {}", box(hyp))
+		println(hyp)
 
 		return launch { moveStraight(hyp, theta) }
 	}
