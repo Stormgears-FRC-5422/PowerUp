@@ -14,7 +14,7 @@ public class ElevatorSharedTalons {
 
 	// TODO: Set these to correct elevator_climber ids
 	private static final int MASTER_MOTOR_TALON_ID = 11;
-	private static final int SLAVE_MOTOR_TALON_ID = 10;
+	private static final int SLAVE_MOTOR_TALON_ID = 0;
 
 	// TODO: Rename these if needed
 	private StormTalon masterMotor;

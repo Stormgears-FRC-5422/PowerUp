@@ -5,7 +5,7 @@ import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
-import org.stormgears.utils.TerminatableSubsystem
+import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.dsio.IRawJoystick
 import org.stormgears.utils.dsio.ITernarySwitch
 
@@ -46,8 +46,8 @@ object DSIO {
 
 		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() } // TODO: What does this button do?
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
+		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.CENTER) }
+		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.RIGHT) }
 
 		buttonBoard.intakeGrabButton.whenPressed { }
 
@@ -94,13 +94,16 @@ object DSIO {
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on ->
-			if (on) {
-				TerminatableSubsystem.terminateCurrentLongRunningOperations()
-			} else {
-				TerminatableSubsystem.allowLongRunningOperations()
+			run {
+				if (on) {
+					TerminableSubsystem.terminate()
+				}
 			}
 		}
 	}
+
+	val shouldOverride: Boolean
+		get() = buttonBoard.overrideSwitch.get()
 
 	// Joystick related methods
 
@@ -128,23 +131,23 @@ object DSIO {
 	}
 
 	private fun processJoystick(value: Double, nullzone: Double): Double {
-		var value = value
-		if (Math.abs(value) < nullzone) {
+		var processedValue = value
+		if (Math.abs(processedValue) < nullzone) {
 			return 0.0
 		} else {
-			value = (value - Math.copySign(nullzone, value)) / (1 - nullzone)
+			processedValue = (processedValue - Math.copySign(nullzone, processedValue)) / (1 - nullzone)
 		}
 
 		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
-			return 0.2 * value
+			return 0.2 * processedValue
 		}
 
-		value *= Math.abs(value)
+		processedValue *= Math.abs(processedValue)
 
 		return if (Robot.config.reverseJoystick) {
-			-value
+			-processedValue
 		} else {
-			value
+			processedValue
 		}
 	}
 }
