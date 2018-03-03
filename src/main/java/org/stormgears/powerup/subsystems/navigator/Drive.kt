@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
@@ -370,7 +369,7 @@ object Drive : TerminableSubsystem() {
 	 * @param p1 first position
 	 * @param p2 second position
 	 */
-	fun moveToPos(p1: Position, p2: Position): Job {
+	suspend fun moveToPos(p1: Position, p2: Position) {
 
 		val deltaX = p2.x - p1.x
 		val deltaY = p2.y - p1.y
@@ -380,7 +379,7 @@ object Drive : TerminableSubsystem() {
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
 		logger.trace("hyp: {}", box(hyp))
 
-		return launch { moveStraight(hyp, theta) }
+		moveStraight(hyp, theta)
 	}
 
 	override fun initDefaultCommand() {
