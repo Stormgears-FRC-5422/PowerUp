@@ -134,7 +134,7 @@ public class MotionManager {
 			synchronized (MotionManager.this) {
 				logger.trace("in PIDWrite - rotateToAngleRate = {}", output);
 				logger.trace("Error: {} Output: {} Set: {}",
-					box(MotionManager.this.turnController.getAvgError()),
+					box(MotionManager.this.turnController.getError()),
 					box(MotionManager.this.turnController.get()),
 					box(MotionManager.this.turnController.getSetpoint()));
 				rotateToAngleRate = output;
