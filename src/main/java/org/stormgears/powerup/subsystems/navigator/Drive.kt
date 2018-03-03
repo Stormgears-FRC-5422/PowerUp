@@ -1,8 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
@@ -218,7 +216,7 @@ object Drive : TerminableSubsystem() {
 	 * @param distance - the distance to move the robot in inches
 	 * @param theta    - the angle at which to move the robot
 	 */
-	suspend fun moveStraight(distance: Double, theta: Double) {
+	fun moveStraight(distance: Double, theta: Double) {
 		var distance = distance
 
 		//		if (useAbsoluteControl) {
@@ -291,10 +289,25 @@ object Drive : TerminableSubsystem() {
 		}
 
 		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
-			delay(20)
+			waitMs(20)
 		}
 		Robot.timer.stop()
 		Robot.timer.reset()
+	}
+
+	/**
+	 * This method makes the thread sleep for a given amount of time.
+	 *
+	 * @param ms - amount of milliseconds to make the thread
+	 * wait for.
+	 */
+	private fun waitMs(ms: Int) {
+		try {
+			Thread.sleep(ms.toLong())
+		} catch (e: InterruptedException) {
+			e.printStackTrace()
+		}
+
 	}
 
 
@@ -304,7 +317,7 @@ object Drive : TerminableSubsystem() {
 	 *
 	 * @param theta Angle desired for robot turn
 	 */
-	suspend fun turnTo(theta: Double) {
+	fun turnTo(theta: Double) {
 		var theta = theta
 		if (useAbsoluteControl) {
 			val navX_theta = Robot.sensors.navX.theta
@@ -325,7 +338,7 @@ object Drive : TerminableSubsystem() {
 			println("Theta 1 $theta")
 			theta -= Math.PI
 
-			println(theta)
+			println("Rohan blows massive pterodactyl cock$theta")
 		}
 
 		val robotLength = java.lang.Double.parseDouble(Robot.config.robotLength)
@@ -362,7 +375,7 @@ object Drive : TerminableSubsystem() {
 		}
 
 		while (!Robot.timer.hasPeriodPassed(totTime / 10.0)) {
-			delay(20)
+			waitMs(20)
 		}
 		Robot.timer.stop()
 		Robot.timer.reset()
@@ -375,7 +388,7 @@ object Drive : TerminableSubsystem() {
 	 * @param p1 first position
 	 * @param p2 second position
 	 */
-	fun moveToPos(p1: Position, p2: Position): Job {
+	fun moveToPos(p1: Position, p2: Position) {
 
 		val deltaX = p2.x - p1.x
 		val deltaY = p2.y - p1.y
@@ -385,7 +398,9 @@ object Drive : TerminableSubsystem() {
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
 		println(hyp)
 
-		return launch { moveStraight(hyp, theta) }
+		moveStraight(hyp, theta)
+
+
 	}
 
 	override fun initDefaultCommand() {
