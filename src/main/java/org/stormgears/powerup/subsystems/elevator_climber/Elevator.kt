@@ -19,20 +19,20 @@ object Elevator : TerminableSubsystem() {
 	val sideShiftTalon: StormTalon
 	private var sideShiftPosition = 0
 
-	private const val REVS_TO_TICKS = 8192 // Number of encoder ticks:Number of Revolutions of the Motor
+	private const val TICKS_PER_INCH = 13000
 	private const val ELEVATOR_DISTANCE_MULTIPLIER = -1.0 // 4.925; // Number of revs/in
 
 	// PID values for elevator
-	private const val RAISE_P = 0.1
-	private const val RAISE_I = 0.0001
-	private const val RAISE_D = 8.0
-	private const val LOWER_P = 0.01
-	private const val LOWER_I = 0.00001
-	private const val LOWER_D = 1.0
+	private const val RAISE_P = 0.088
+	private const val RAISE_I = 0.00000076
+	private const val RAISE_D = 3.2
+	private const val LOWER_P = 0.088
+	private const val LOWER_I = 0.00000076
+	private const val LOWER_D = 3.2
 
 	// TODO: Fine Tune Positions (ALL IN INCHES)
-	val SWITCH_POSITIONS = intArrayOf(20, 30, 43)
-	val SCALE_POSITIONS = intArrayOf(52, 64, 78, 92, 106)
+	val SWITCH_POSITIONS = intArrayOf(22, 37, 40)
+	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 91)
 	private const val START = 0 // inches elevator starts off the ground
 
 	// Side shift stuff
@@ -102,7 +102,6 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
-
     /**
      * Bring the elevator to the lowest position
      */
@@ -110,17 +109,24 @@ object Elevator : TerminableSubsystem() {
         moveElevatorToPosition(START)
     }
 
+	var overridenSide = false
     /**
      * Stop all motion
      */
     fun stop() {
-		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
-        sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
+		launch("Slowing down from manual override") {
+			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
-		updatePosition()
+			if (!overridenSide) {
+				talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
-		// Hold current elevator position
-		talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
+				delay(300)
+				updatePosition()
+
+				// Hold current elevator position
+				talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
+			}
+		}
     }
 
     /**
@@ -150,7 +156,7 @@ object Elevator : TerminableSubsystem() {
 				if (position == CENTER) logger.trace("Moving to center.")
 				sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
 
-				while (sideShiftTalon.outputCurrent <= 15.0 && !reachedCenter) {
+				while (sideShiftTalon.outputCurrent <= 17.0 && !reachedCenter) {
 					logger.trace(box(sideShiftTalon.outputCurrent))
 					if (position == CENTER) {
 						// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
@@ -180,27 +186,31 @@ object Elevator : TerminableSubsystem() {
     }
 
     fun moveUpManual() {
-        talons.masterMotor.set(ControlMode.PercentOutput, -0.33)
+		talons.masterMotor.set(ControlMode.PercentOutput, -0.5)
+		overridenSide = false
     }
 
     fun moveDownManual() {
         talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
-    }
+		overridenSide = false
+	}
 
     fun moveLeftManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, -0.6)
-    }
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.8)
+		overridenSide = true
+	}
 
     fun moveRightManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, 0.6)
-    }
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.8)
+		overridenSide = true
+	}
 
     /**
      * @param inches number of inches
      * @return number of encoder ticks necessary to go that many inches
      */
 	private fun toEncoderTicks(inches: Double): Int =
-		Math.round(inches * ELEVATOR_DISTANCE_MULTIPLIER * REVS_TO_TICKS).toInt()
+		Math.round(inches * TICKS_PER_INCH * ELEVATOR_DISTANCE_MULTIPLIER).toInt()
 
 
     override fun initDefaultCommand() {
