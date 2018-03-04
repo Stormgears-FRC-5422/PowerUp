@@ -72,7 +72,7 @@ public class Robot extends BaseStormgearsRobot {
 //	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //	private PowerUpMecanumDrive wpiMecanumDrive;
 //	**END**FOR USE WITH WPI MECANUM DRIVE API
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code
@@ -94,22 +94,21 @@ public class Robot extends BaseStormgearsRobot {
 
 		Drive.init();
 		drive = Drive.getInstance();
-		
+
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //		PowerUpMecanumDrive.init();
 //		wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
-		
-		Intake.init();
-		intake = Intake.getInstance();
+
+		intake = Intake.INSTANCE;
 
 		ElevatorSharedTalons.init();
 		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
 		elevator = Elevator.INSTANCE;
 
-		Climber.init();
-		climber = Climber.getInstance();
+//		Climber.init();
+//		climber = Climber.getInstance();
 
 		gripper = Gripper.INSTANCE;
 	}
@@ -123,6 +122,12 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
+		}
+
+		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
+			TerminableSubsystem.Companion.terminate();
+		} else {
+			TerminableSubsystem.Companion.enable();
 		}
 
 		// Get all the selected autonomous command properties for this run
@@ -172,6 +177,12 @@ public class Robot extends BaseStormgearsRobot {
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
 		}
+
+		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
+			TerminableSubsystem.Companion.terminate();
+		} else {
+			TerminableSubsystem.Companion.enable();
+		}
 	}
 
 	/**
@@ -207,9 +218,9 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
+//		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
 
-//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API 		
+//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //		if (wpiMecanumDrive != null) {
 //			if (!sensors.getNavX().isCalibrating()) {
 //				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
@@ -221,8 +232,8 @@ public class Robot extends BaseStormgearsRobot {
 //			logger.fatal("Robot.drive is null; that's a problem!");
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
-		
-		
+
+
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
@@ -253,6 +264,10 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevator != null) {
 			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
+		}
+
+		if (intake != null) {
+//			intake.getArticulatorTalon().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {

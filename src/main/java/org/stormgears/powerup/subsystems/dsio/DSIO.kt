@@ -17,7 +17,7 @@ object DSIO {
 	var choosers = Choosers()
 
 	private val joystick: IRawJoystick
-	private val buttonBoard: IButtonBoard
+	val buttonBoard: IButtonBoard
 
 	init {
 		logger.trace("constructing DSIO")
@@ -46,8 +46,8 @@ object DSIO {
 
 		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() } // TODO: What does this button do?
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.CENTER) }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftToPosition(Elevator.RIGHT) }
+		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
+		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
 
 		buttonBoard.intakeGrabButton.whenPressed { }
 
@@ -70,7 +70,6 @@ object DSIO {
 			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
 				when (state) {
 					ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
-					ITernarySwitch.SwitchState.Neutral -> Robot.intake.moveIntakeToPosition(Intake.DIAGONAL)
 					ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
 				}
 			})
