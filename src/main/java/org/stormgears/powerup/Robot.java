@@ -1,7 +1,6 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
@@ -9,6 +8,7 @@ import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
+import org.stormgears.powerup.subsystems.field.AutoRoutes;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
@@ -21,7 +21,7 @@ import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
-import org.stormgears.utils.concurrency.TerminableSubsystem;
+import org.stormgears.utils.concurrency.Terminator;
 import org.stormgears.utils.logging.StormyLog;
 
 import java.util.ArrayList;
@@ -58,8 +58,6 @@ public class Robot extends BaseStormgearsRobot {
 	public static Climber climber;
 	public static Gripper gripper;
 
-	private Command autonomousCommand = null;
-
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartSpot;
 	private FieldPositions.PlacementSpot selectedPlacementSpot;
@@ -90,8 +88,7 @@ public class Robot extends BaseStormgearsRobot {
 		DriveTalons.init();
 		driveTalons = DriveTalons.getInstance();
 
-		Drive.init();
-		drive = Drive.getInstance();
+		drive = Drive.INSTANCE;
 
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //		PowerUpMecanumDrive.init();
@@ -122,32 +119,20 @@ public class Robot extends BaseStormgearsRobot {
 			dsio = DSIO.INSTANCE;
 		}
 
-		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
-			TerminableSubsystem.Companion.terminate();
-		} else {
-			TerminableSubsystem.Companion.enable();
-		}
+		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
 
-		//if any residual commands exist, cancel them
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
-		}
+		AutoRoutes.initialize();
 
-		logger.trace("creating autonomous command group");
-
-		autonomousCommand = new AutonomousCommandGroup(selectedAlliance,
+		logger.trace("starting the autonomous command");
+		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
 			selectedStartSpot,
 			selectedPlacementSpot,
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
-
-		// Execute autonomous command
-		logger.trace("starting the autonomous command");
-		autonomousCommand.start();
 	}
 
 	/**
@@ -176,11 +161,7 @@ public class Robot extends BaseStormgearsRobot {
 			dsio = DSIO.INSTANCE;
 		}
 
-		if (DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get()) {
-			TerminableSubsystem.Companion.terminate();
-		} else {
-			TerminableSubsystem.Companion.enable();
-		}
+		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 	}
 
 	/**
@@ -199,7 +180,7 @@ public class Robot extends BaseStormgearsRobot {
 		super.autonomousPeriodic();
 
 //		logger.info("Current timer value: {}", timer.get());
-		
+
 		StormScheduler.getInstance().run();
 	}
 
@@ -250,7 +231,7 @@ public class Robot extends BaseStormgearsRobot {
 
 //		fmsInterface.startPollingForData();
 
-		TerminableSubsystem.Companion.terminate();
+		Terminator.INSTANCE.setDisabled(true);
 
 		if (elevatorSharedTalons != null) {
 			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
