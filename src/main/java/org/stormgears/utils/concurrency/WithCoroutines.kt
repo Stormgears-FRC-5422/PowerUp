@@ -8,7 +8,7 @@ import kotlinx.coroutines.experimental.channels.ProducerScope
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlin.coroutines.experimental.CoroutineContext
 
-val globalContext = newSingleThreadContext("CoroutineThread");
+val globalContext = newSingleThreadContext("Coroutine Thread");
 
 interface WithCoroutines {
 	fun launch(context: CoroutineContext = globalContext,

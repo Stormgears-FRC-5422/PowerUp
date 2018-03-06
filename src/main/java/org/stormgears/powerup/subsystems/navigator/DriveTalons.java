@@ -32,7 +32,6 @@ public class DriveTalons {
 			t.setInverted(true);
 			t.setSensorPhase(true);
 		}
-
 	}
 
 	public static void init() {

@@ -17,7 +17,7 @@ object Gripper : TerminableSubsystem() {
 	private val TALON_ID = 21
 
 	private const val GRIPPER_POWER = 0.5
-	private const val CLOSE_CURRENT_LIMIT = 4.5
+	private const val CLOSE_CURRENT_LIMIT = 7
 	private const val OPEN_CURRENT_LIMIT = 4.5
 	private const val CURRENT_CHECK_START_TIME = 15
 	private const val BREAK_JAM_SPEED = 0.75

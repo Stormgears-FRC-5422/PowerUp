@@ -67,6 +67,10 @@ public class Robot extends BaseStormgearsRobot {
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
+//	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//	private PowerUpMecanumDrive wpiMecanumDrive;
+//	**END**FOR USE WITH WPI MECANUM DRIVE API
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code
@@ -87,6 +91,11 @@ public class Robot extends BaseStormgearsRobot {
 		driveTalons = DriveTalons.getInstance();
 
 		drive = Drive.INSTANCE;
+
+//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//		PowerUpMecanumDrive.init();
+//		wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
+//		**END**FOR USE WITH WPI MECANUM DRIVE API
 
 		intake = Intake.INSTANCE;
 
@@ -130,6 +139,10 @@ public class Robot extends BaseStormgearsRobot {
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
+
+		// Execute autonomous command
+		logger.trace("starting the autonomous command");
+		autonomousCommand.start();
 	}
 
 	/**
@@ -177,11 +190,8 @@ public class Robot extends BaseStormgearsRobot {
 		super.autonomousPeriodic();
 
 //		logger.info("Current timer value: {}", timer.get());
-		
-//		if (autonomousCommand != null) {
-		StormScheduler.getInstance().run();
-//		}
 
+		StormScheduler.getInstance().run();
 	}
 
 	/**
@@ -194,12 +204,25 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.getInstance().run();
 
-//		gripper.debug();
+//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//		if (wpiMecanumDrive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				wpiMecanumDrive.move();
+//			} else {
+//				logger.fatal("NavX theta is not set! Cannot drive!");
+//			}
+//		} else {
+//			logger.fatal("Robot.drive is null; that's a problem!");
+//		}
+//		**END**FOR USE WITH WPI MECANUM DRIVE API
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
+
+				drive.debug();
 			} else {
 				logger.fatal("NavX theta is not set! Cannot drive!");
 			}
@@ -225,6 +248,7 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		if (elevator != null) {
+			elevator.turnOffElevator();
 			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
