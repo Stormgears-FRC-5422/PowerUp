@@ -19,11 +19,11 @@ abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
 
 		fun terminate() {
 			parentJob.cancelChildren()
-			disabled = true;
+			disabled = true
 		}
 
 		fun enable() {
-			disabled = false;
+			disabled = false
 		}
 	}
 

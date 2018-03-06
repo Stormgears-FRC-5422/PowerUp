@@ -33,14 +33,14 @@ object Elevator : TerminableSubsystem() {
 	// TODO: Fine Tune Positions (ALL IN INCHES)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40)
 	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 91)
-	private const val START = 0 // inches elevator starts off the ground
 
 	// Side shift stuff
 	private const val SIDE_SHIFT_TALON_ID = 5
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1
-	private const val SIDE_SHIFT_POWER = 0.8
+	private const val SIDE_SHIFT_POWER = 0.6
+	private const val SLOW_DOWN = -0.05
 	private const val FULL_LEFT_TICKS = 181000
 	private const val FULL_RIGHT_TICKS = -181000
 
@@ -102,22 +102,15 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
-    /**
-     * Bring the elevator to the lowest position
-     */
-    fun resetElevator() {
-        moveElevatorToPosition(START)
-    }
-
-	var overridenSide = false
+	private var overrodeSide = false
     /**
      * Stop all motion
      */
     fun stop() {
-		launch("Slowing down from manual override") {
+		launch("Override slow down", parent = null) {
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
-			if (!overridenSide) {
+			if (!overrodeSide) {
 				talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
 				delay(300)
@@ -161,8 +154,13 @@ object Elevator : TerminableSubsystem() {
 					if (position == CENTER) {
 						// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
 						// and vice versa
+						if (Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 30000) {
+							sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier + SLOW_DOWN * multiplier)
+						}
+
 						reachedCenter = sideShiftTalon.sensorCollection.isRevLimitSwitchClosed ||
-							Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 25000
+							Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 10000
+
 						logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
 					}
 
@@ -176,6 +174,9 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
+	fun turnOffElevator() {
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+	}
 
     fun moveSideShiftOverLeft() {
         if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
@@ -187,22 +188,22 @@ object Elevator : TerminableSubsystem() {
 
     fun moveUpManual() {
 		talons.masterMotor.set(ControlMode.PercentOutput, -0.5)
-		overridenSide = false
+		overrodeSide = false
     }
 
     fun moveDownManual() {
         talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
-		overridenSide = false
+		overrodeSide = false
 	}
 
     fun moveLeftManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, -0.8)
-		overridenSide = true
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.5)
+		overrodeSide = true
 	}
 
     fun moveRightManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, 0.8)
-		overridenSide = true
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.5)
+		overrodeSide = true
 	}
 
     /**

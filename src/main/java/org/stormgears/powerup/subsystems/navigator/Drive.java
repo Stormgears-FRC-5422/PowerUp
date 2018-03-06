@@ -203,10 +203,10 @@ public class Drive extends TerminableSubsystem {
 	}
 
 	public void debug() {
-		StormTalon[] talons = Robot.driveTalons.getTalons();
-		for (StormTalon t : talons) {
-			logger.debug("Real Velocities: {}", t.getSensorCollection().getQuadratureVelocity());
-		}
+		logger.debug("Real Velocities 3: {}", talons[3].getSensorCollection().getQuadratureVelocity());
+		logger.debug("Real Positions 3: {}", talons[3].getSensorCollection().getQuadraturePosition());
+//		logger.debug("Real Velocities 2: {}", talons[2].getSensorCollection().getQuadratureVelocity());
+//		logger.debug("Real Positions 2: {}", talons[2].getSensorCollection().getQuadraturePosition());
 	}
 
 	private boolean driverInputEligibleForTractionControl() {

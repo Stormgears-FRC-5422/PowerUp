@@ -1,6 +1,5 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
@@ -18,7 +17,6 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
-import org.stormgears.powerup.subsystems.navigator.PowerUpMecanumDrive;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
@@ -147,7 +145,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
 
-		//execute autonomous command
+		// Execute autonomous command
 		logger.trace("starting the autonomous command");
 		autonomousCommand.start();
 	}
@@ -202,10 +200,7 @@ public class Robot extends BaseStormgearsRobot {
 
 //		logger.info("Current timer value: {}", timer.get());
 		
-//		if (autonomousCommand != null) {
 		StormScheduler.getInstance().run();
-//		}
-
 	}
 
 	/**
@@ -217,8 +212,6 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		StormScheduler.getInstance().run();
-
-//		intake.articulatorTalon.set(ControlMode.PercentOutput, dsio.getJoystickY() * 0.75);
 
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //		if (wpiMecanumDrive != null) {
@@ -233,11 +226,12 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
+
+				drive.debug();
 			} else {
 				logger.fatal("NavX theta is not set! Cannot drive!");
 			}
@@ -263,6 +257,7 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		if (elevator != null) {
+			elevator.turnOffElevator();
 			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
