@@ -31,6 +31,7 @@ object AutoDriveMoveCommand {
 					move(AutoRoutes.path2RightSwitchFromLeftSpot)
 				}
 			} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
+				logger.trace("BLAH")
 				move(AutoRoutes.path2CrossLineFromLeftSpot)
 			}
 		} else if (selectedStartingSpot == FieldPositions.StartingSpots.RIGHT) {
@@ -65,9 +66,8 @@ object AutoDriveMoveCommand {
 	}
 
 	suspend fun move(path: ArrayList<Segment>) {
-		val segmentIterator = path.iterator()
-
-		for (segment in segmentIterator) {
+		logger.trace(path)
+		for (segment in path) {
 			logger.info("Moving from ({}, {}) to ({}, {})",
 				box(segment.startPos.x), box(segment.startPos.y),
 				box(segment.endPos.x), box(segment.endPos.y))

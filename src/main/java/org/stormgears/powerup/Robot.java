@@ -8,6 +8,7 @@ import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
+import org.stormgears.powerup.subsystems.field.AutoRoutes;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
@@ -122,6 +123,8 @@ public class Robot extends BaseStormgearsRobot {
 
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
+
+		AutoRoutes.initialize();
 
 		logger.trace("starting the autonomous command");
 		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
