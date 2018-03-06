@@ -113,8 +113,4 @@ object Intake : TerminableSubsystem() {
 	fun debug() {
 		println("Articulator position ticks: ${articulatorTalon.sensorCollection.quadraturePosition}")
 	}
-
-	override fun initDefaultCommand() {
-
-	}
 }

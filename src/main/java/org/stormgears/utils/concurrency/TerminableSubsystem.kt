@@ -1,30 +1,21 @@
 package org.stormgears.utils.concurrency
 
-import edu.wpi.first.wpilibj.command.Subsystem
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.CoroutineScope
+import kotlinx.coroutines.experimental.CoroutineStart
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.channels.ActorScope
 import kotlinx.coroutines.experimental.channels.ProducerScope
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.SendChannel
 import org.apache.logging.log4j.LogManager
+import org.stormgears.utils.concurrency.Terminator.disabled
+import org.stormgears.utils.concurrency.Terminator.parentJob
 import kotlin.coroutines.experimental.CoroutineContext
 
-abstract class TerminableSubsystem : Subsystem(), WithCoroutines {
+abstract class TerminableSubsystem : WithCoroutines {
 	companion object {
 		private val logger = LogManager.getLogger(TerminableSubsystem::class.java)
-
-		private val parentJob = Job()
-
-		private var disabled = false;
-
-		fun terminate() {
-			parentJob.cancelChildren()
-			disabled = true
-		}
-
-		fun enable() {
-			disabled = false
-		}
 	}
 
 	private val subclassName = this.javaClass.canonicalName

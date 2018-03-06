@@ -99,8 +99,4 @@ object Gripper : TerminableSubsystem() {
 		println("Reverse switch: ${talon.sensorCollection.isRevLimitSwitchClosed}")
 //		println("Output current: ${talon.outputCurrent}")
 	}
-
-	override fun initDefaultCommand() {
-
-	}
 }
