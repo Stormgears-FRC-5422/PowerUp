@@ -2,8 +2,11 @@ package org.stormgears.powerup.subsystems.navigator;
 
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.StormTalon;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.drive.Vector2d;
 
 public class PowerUpMecanumDrive extends MecanumDrive {
 
@@ -12,7 +15,6 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 //talons[1] = new WPI_TalonSRX(2);//left back
 //talons[2] = new WPI_TalonSRX(1);//right front
 //talons[3] = new WPI_TalonSRX(3);//right back
-	
 	
 	private static PowerUpMecanumDrive instance;
 	private StormTalon[] talons;
@@ -68,4 +70,32 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 		this.driveCartesian(-x, y, z, navX_theta);
 	}
 	
+	
+	//To run in Velocity Mode
+	public void driveCartesian(double ySpeed, double xSpeed, double zRotation, double gyroAngle) {	
+		ySpeed = limit(ySpeed);
+		ySpeed = applyDeadband(ySpeed, m_deadband);
+		
+		xSpeed = limit(xSpeed);
+		xSpeed = applyDeadband(xSpeed, m_deadband);
+		
+		// Compensate for gyro angle.
+		Vector2d input = new Vector2d(ySpeed, xSpeed);
+		input.rotate(-gyroAngle);
+		
+		double[] wheelSpeeds = new double[4];
+		wheelSpeeds[MotorType.kFrontLeft.value] = input.x + input.y + zRotation;
+		wheelSpeeds[MotorType.kFrontRight.value] = input.x - input.y + zRotation;
+		wheelSpeeds[MotorType.kRearLeft.value] = -input.x + input.y + zRotation;
+		wheelSpeeds[MotorType.kRearRight.value] = -input.x - input.y + zRotation;
+		
+		normalize(wheelSpeeds);
+		
+		talons[0].set(ControlMode.Velocity, wheelSpeeds[MotorType.kFrontLeft.value] * m_maxOutput);
+		talons[1].set(ControlMode.Velocity, wheelSpeeds[MotorType.kFrontRight.value] * m_maxOutput);
+		talons[2].set(ControlMode.Velocity, wheelSpeeds[MotorType.kRearLeft.value] * m_maxOutput);
+		talons[3].set(ControlMode.Velocity, wheelSpeeds[MotorType.kRearRight.value] * m_maxOutput);
+		
+		m_safetyHelper.feed();
+	}
 }
