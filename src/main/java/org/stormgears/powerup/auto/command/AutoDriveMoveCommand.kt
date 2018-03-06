@@ -7,6 +7,7 @@ import org.stormgears.powerup.subsystems.field.AutoRoutes
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.Segment
 
+// TODO: Cleanup
 object AutoDriveMoveCommand {
 	private val logger = LogManager.getLogger(AutonomousCommandGroup::class.java)
 

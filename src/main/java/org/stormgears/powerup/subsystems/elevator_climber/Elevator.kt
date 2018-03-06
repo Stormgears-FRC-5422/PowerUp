@@ -76,30 +76,34 @@ object Elevator : TerminableSubsystem() {
 		}
 
 		elevatorJob = launch("Elevator Auto Move") {
-			val positionTicks = toEncoderTicks(position.toDouble())
-			if (positionTicks < currentElevatorPosition) {     // Raising elevator
-				talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-				talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-				talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			} else {    // Lowering elevator
-				talons.masterMotor.config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-				talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-				talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			}
-			talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
-
-			logger.trace("Desired encoder position: {}", box(positionTicks))
-			talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
-
-			// wait until elevator finishes
-			while (Math.abs(positionTicks - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
-				logger.trace(talons.masterMotor.sensorCollection.quadraturePosition)
-				delay(20)
-			}
-
-			logger.trace("Elevator has moved to encoder position: {}", box(positionTicks))
-			currentElevatorPosition = positionTicks
+			elevatorAutoMove(position)
 		}
+	}
+
+	suspend fun elevatorAutoMove(position: Int) {
+		val positionTicks = toEncoderTicks(position.toDouble())
+		if (positionTicks < currentElevatorPosition) {     // Raising elevator
+			talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+		} else {    // Lowering elevator
+			talons.masterMotor.config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+		}
+		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
+
+		logger.trace("Desired encoder position: {}", box(positionTicks))
+		talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
+
+		// wait until elevator finishes
+		while (Math.abs(positionTicks - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
+			logger.trace(talons.masterMotor.sensorCollection.quadraturePosition)
+			delay(20)
+		}
+
+		logger.trace("Elevator has moved to encoder position: {}", box(positionTicks))
+		currentElevatorPosition = positionTicks
 	}
 
 	private var overrodeSide = false
@@ -133,44 +137,48 @@ object Elevator : TerminableSubsystem() {
 
 		// Coroutines again!
 		sideShiftJob = launch("Side Shift Auto Move") {
-			if (sideShiftPosition != position) {
-				var multiplier = 0
-				if (position == LEFT) {
-					multiplier = -1
-				} else if (position == CENTER) {
-					if (sideShiftPosition == LEFT) multiplier = 1
-					else if (sideShiftPosition == RIGHT) multiplier = -1
-				} else if (position == RIGHT) {
-					multiplier = 1
-				}
+			moveSideShift(position)
+		}
+	}
 
-				var reachedCenter = false
-				logger.trace("Moving side shift to position: {}", box(position))
-				if (position == CENTER) logger.trace("Moving to center.")
-				sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
+	suspend fun moveSideShift(position: Int) {
+		if (sideShiftPosition != position) {
+			var multiplier = 0
+			if (position == LEFT) {
+				multiplier = -1
+			} else if (position == CENTER) {
+				if (sideShiftPosition == LEFT) multiplier = 1
+				else if (sideShiftPosition == RIGHT) multiplier = -1
+			} else if (position == RIGHT) {
+				multiplier = 1
+			}
 
-				while (sideShiftTalon.outputCurrent <= 17.0 && !reachedCenter) {
-					logger.trace(box(sideShiftTalon.outputCurrent))
-					if (position == CENTER) {
-						// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
-						// and vice versa
-						if (Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 30000) {
-							sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier + SLOW_DOWN * multiplier)
-						}
+			var reachedCenter = false
+			logger.trace("Moving side shift to position: {}", box(position))
+			if (position == CENTER) logger.trace("Moving to center.")
+			sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
 
-						reachedCenter = sideShiftTalon.sensorCollection.isRevLimitSwitchClosed ||
-							Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 10000
-
-						logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
+			while (sideShiftTalon.outputCurrent <= 17.0 && !reachedCenter) {
+				logger.trace(box(sideShiftTalon.outputCurrent))
+				if (position == CENTER) {
+					// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
+					// and vice versa
+					if (Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 30000) {
+						sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier + SLOW_DOWN * multiplier)
 					}
 
-					delay(20)
-				}
-				sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
-				logger.trace("Side shift current limit reached or reached center")
+					reachedCenter = sideShiftTalon.sensorCollection.isRevLimitSwitchClosed ||
+						Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 10000
 
-				sideShiftPosition = position
+					logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
+				}
+
+				delay(20)
 			}
+			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
+			logger.trace("Side shift current limit reached or reached center")
+
+			sideShiftPosition = position
 		}
 	}
 

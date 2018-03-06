@@ -17,6 +17,7 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
+import org.stormgears.powerup.subsystems.navigator.TalonDebuggerKt;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
@@ -124,7 +125,7 @@ public class Robot extends BaseStormgearsRobot {
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
 
-		AutoRoutes.initialize();
+		AutoRoutes.INSTANCE.initialize();
 
 		logger.trace("starting the autonomous command");
 		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
@@ -181,6 +182,8 @@ public class Robot extends BaseStormgearsRobot {
 
 //		logger.info("Current timer value: {}", timer.get());
 
+		TalonDebuggerKt.dashboardify(driveTalons);
+
 		StormScheduler.getInstance().run();
 	}
 
@@ -207,12 +210,14 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
+		TalonDebuggerKt.dashboardify(driveTalons);
+
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
 
-				drive.debug();
+//				drive.debug();
 			} else {
 				logger.fatal("NavX theta is not set! Cannot drive!");
 			}

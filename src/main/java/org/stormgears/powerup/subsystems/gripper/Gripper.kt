@@ -43,26 +43,30 @@ object Gripper : TerminableSubsystem() {
 		}
 
 		job = launch("Gripper Open") {
-			logger.info("Gripper Opening")
-			talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED)
-
-			iteration = 0
-			while (!talon.sensorCollection.isFwdLimitSwitchClosed) {
-				delay(20)
-
-				if (iteration++ > CURRENT_CHECK_START_TIME) {
-					talon.set(ControlMode.PercentOutput, GRIPPER_POWER)
-					if (talon.outputCurrent > OPEN_CURRENT_LIMIT) break;
-				}
-			}
-
-			logger.info("Gripper limit is reached or terminated early")
-			talon.set(ControlMode.PercentOutput, BRAKE_SPEED)
-			delay(300)
-			talon.set(ControlMode.PercentOutput, 0.0)
-
-			gripperOpening = false
+			openGripperSuspend()
 		}
+	}
+
+	suspend fun openGripperSuspend() {
+		logger.info("Gripper Opening")
+		talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED)
+
+		iteration = 0
+		while (!talon.sensorCollection.isFwdLimitSwitchClosed) {
+			delay(20)
+
+			if (iteration++ > CURRENT_CHECK_START_TIME) {
+				talon.set(ControlMode.PercentOutput, GRIPPER_POWER)
+				if (talon.outputCurrent > OPEN_CURRENT_LIMIT) break;
+			}
+		}
+
+		logger.info("Gripper limit is reached or terminated early")
+		talon.set(ControlMode.PercentOutput, BRAKE_SPEED)
+		delay(300)
+		talon.set(ControlMode.PercentOutput, 0.0)
+
+		gripperOpening = false
 	}
 
 	fun closeGripper() {
@@ -72,26 +76,30 @@ object Gripper : TerminableSubsystem() {
 		}
 
 		job = launch("Gripper Close") {
-			logger.info("Gripper Closing")
-			talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED)
-
-			iteration = 0
-			while (!talon.sensorCollection.isRevLimitSwitchClosed) {
-				delay(20)
-
-				if (iteration++ > CURRENT_CHECK_START_TIME) {
-					talon.set(ControlMode.PercentOutput, -GRIPPER_POWER)
-					if (talon.outputCurrent > CLOSE_CURRENT_LIMIT) break
-				}
-			}
-
-			logger.info("Cube is being hugged or terminated early")
-			talon.set(ControlMode.PercentOutput, -BRAKE_SPEED)
-			delay(300)
-			talon.set(ControlMode.PercentOutput, 0.0)
-
-			gripperClosing = false
+			closeGripperSuspend()
 		}
+	}
+
+	suspend fun closeGripperSuspend() {
+		logger.info("Gripper Closing")
+		talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED)
+
+		iteration = 0
+		while (!talon.sensorCollection.isRevLimitSwitchClosed) {
+			delay(20)
+
+			if (iteration++ > CURRENT_CHECK_START_TIME) {
+				talon.set(ControlMode.PercentOutput, -GRIPPER_POWER)
+				if (talon.outputCurrent > CLOSE_CURRENT_LIMIT) break
+			}
+		}
+
+		logger.info("Cube is being hugged or terminated early")
+		talon.set(ControlMode.PercentOutput, -BRAKE_SPEED)
+		delay(300)
+		talon.set(ControlMode.PercentOutput, 0.0)
+
+		gripperClosing = false
 	}
 
 	fun debug() {
