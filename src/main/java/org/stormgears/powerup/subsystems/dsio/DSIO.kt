@@ -5,7 +5,7 @@ import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
-import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.concurrency.Terminator
 import org.stormgears.utils.dsio.IRawJoystick
 import org.stormgears.utils.dsio.ITernarySwitch
 
@@ -93,11 +93,7 @@ object DSIO {
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on ->
-			if (on) {
-				TerminableSubsystem.terminate()
-			} else {
-				TerminableSubsystem.enable()
-			}
+			Terminator.disabled = on
 		}
 	}
 

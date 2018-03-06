@@ -1,7 +1,6 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
@@ -57,8 +56,6 @@ public class Robot extends BaseStormgearsRobot {
 	public static Elevator elevator;
 	public static Climber climber;
 	public static Gripper gripper;
-
-	private Command autonomousCommand = null;
 
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartSpot;
@@ -126,12 +123,6 @@ public class Robot extends BaseStormgearsRobot {
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
 
-		//if any residual commands exist, cancel them
-		if (autonomousCommand != null) {
-			autonomousCommand.cancel();
-		}
-
-
 		logger.trace("starting the autonomous command");
 		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
 			selectedStartSpot,
@@ -139,10 +130,6 @@ public class Robot extends BaseStormgearsRobot {
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
-
-		// Execute autonomous command
-		logger.trace("starting the autonomous command");
-		autonomousCommand.start();
 	}
 
 	/**

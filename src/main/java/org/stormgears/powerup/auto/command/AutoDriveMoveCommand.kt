@@ -66,16 +66,13 @@ object AutoDriveMoveCommand {
 
 	suspend fun move(path: ArrayList<Segment>) {
 		val segmentIterator = path.iterator()
-		while (segmentIterator.hasNext()) {
-			val segment = segmentIterator.next()
 
+		for (segment in segmentIterator) {
 			logger.info("Moving from ({}, {}) to ({}, {})",
 				box(segment.startPos.x), box(segment.startPos.y),
 				box(segment.endPos.x), box(segment.endPos.y))
 
 			Robot.drive.moveToPos(segment.startPos, segment.endPos)
-
-//			delay(3)
 		}
 	}
 
