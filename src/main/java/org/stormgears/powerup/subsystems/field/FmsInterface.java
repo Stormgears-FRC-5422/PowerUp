@@ -17,7 +17,7 @@ public class FmsInterface {
 	private Thread poller;
 	private String data = "";
 
-	private FmsInterface() {
+	public void startPollingForData() {
 		poller = new Thread(() -> {
 			int tryNum = 0;
 			while (data == null || data.equals("")) {
@@ -34,9 +34,7 @@ public class FmsInterface {
 
 			parseRandomSidesFromData();
 		});
-	}
 
-	public void startPollingForData() {
 		poller.start();
 	}
 

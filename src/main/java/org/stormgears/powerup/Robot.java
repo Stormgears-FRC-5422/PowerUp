@@ -248,7 +248,7 @@ public class Robot extends BaseStormgearsRobot {
 		logger.trace("disabled init");
 		super.disabledInit();
 
-//		fmsInterface.startPollingForData();
+		fmsInterface.startPollingForData();
 
 		TerminableSubsystem.Companion.terminate();
 
