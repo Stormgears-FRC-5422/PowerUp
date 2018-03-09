@@ -23,8 +23,8 @@ class TalonDebugger : WithCoroutines {
 		val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}
 
-	fun start(talons: Array<WPI_TalonSRX>): Job {
-		val filename = "TalonDebug-${LocalDateTime.now()}.csv"
+	fun start(talons: Array<WPI_TalonSRX>, label: String = ""): Job {
+		val filename = "TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
 		logger.info("Starting TalonDebugger, writing to {}", filename);
 		val writer = PrintWriter(filename, "UTF-8")
 		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")

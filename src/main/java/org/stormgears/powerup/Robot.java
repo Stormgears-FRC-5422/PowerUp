@@ -135,7 +135,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
 
-		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons());
+		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons(), "autonomous");
 	}
 
 	/**
@@ -166,7 +166,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
-		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons());
+		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons(), "teleop");
 	}
 
 	/**
