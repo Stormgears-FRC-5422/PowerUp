@@ -16,11 +16,18 @@ object Elevator : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
 
     private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
-	val sideShiftTalon: StormTalon
+	private val sideShiftTalon: StormTalon
 	private var sideShiftPosition = 0
 
 	private const val TICKS_PER_INCH = 13000
-	private const val ELEVATOR_DISTANCE_MULTIPLIER = -1.0 // 4.925; // Number of revs/in
+	private const val ELEVATOR_DISTANCE_MULTIPLIER = -1.0 // Because the encoder is reversed
+
+	var elevatorZeroed = false
+		private set
+
+	// TODO: Change these to real values
+	private const val ZERO_POWER = 0.25
+	private const val ZERO_CURRENT_LIMIT = 3.0
 
 	// PID values for elevator
 	private const val RAISE_P = 0.088
@@ -30,7 +37,7 @@ object Elevator : TerminableSubsystem() {
 	private const val LOWER_I = 0.00000076
 	private const val LOWER_D = 3.2
 
-	// TODO: Fine Tune Positions (ALL IN INCHES)
+	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40)
 	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 91)
 
@@ -41,8 +48,8 @@ object Elevator : TerminableSubsystem() {
 	const val RIGHT = 1
 	private const val SIDE_SHIFT_POWER = 0.6
 	private const val SLOW_DOWN = -0.05
-	private const val FULL_LEFT_TICKS = 181000
-	private const val FULL_RIGHT_TICKS = -181000
+//	private const val FULL_LEFT_TICKS = 181000
+//	private const val FULL_RIGHT_TICKS = -181000
 
 
 	// Jobs
@@ -60,7 +67,7 @@ object Elevator : TerminableSubsystem() {
 		sideShiftTalon.inverted = true
     }
 
-	fun updatePosition() {
+	private fun updatePosition() {
 		currentElevatorPosition = talons.masterMotor.sensorCollection.quadraturePosition
 	}
 
@@ -91,7 +98,7 @@ object Elevator : TerminableSubsystem() {
 			talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 		}
-		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT);
+		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 
 		logger.trace("Desired encoder position: {}", box(positionTicks))
 		talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
@@ -180,6 +187,18 @@ object Elevator : TerminableSubsystem() {
 
 			sideShiftPosition = position
 		}
+	}
+
+	suspend fun zeroElevator() {
+		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
+		println("Zero-ing Elevator. Watch out!")
+
+		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT) delay(20)
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+
+		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
+		elevatorZeroed = true
+		println("Elevator zeroed")
 	}
 
 	fun turnOffElevator() {

@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.Timer;
+import kotlinx.coroutines.experimental.Job;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +44,6 @@ public class Robot extends BaseStormgearsRobot {
 	 * Example: Robot.dsio.
 	 */
 	public static RobotConfiguration config = RobotConfiguration.getInstance();
-	public static Timer timer = new Timer();
 	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
@@ -141,12 +141,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void afterAutonomousInit() {
-//		if (drive != null) {
-//			if (!sensors.getNavX().isCalibrating()) {
-//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-//				drive.moveStraight(120, 0);
-//			}
-//		}
+
 	}
 
 	/**
@@ -213,12 +208,11 @@ public class Robot extends BaseStormgearsRobot {
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
 //		TalonDebuggerKt.dashboardify(driveTalons);
+
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
-
-//				drive.debug();
 			} else {
 				logger.fatal("NavX theta is not set! Cannot drive!");
 			}
@@ -249,11 +243,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevator != null) {
 			elevator.turnOffElevator();
-			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
-		}
-
-		if (intake != null) {
-//			intake.getArticulatorTalon().getSensorCollection().setQuadraturePosition(0, 10);
+//			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {

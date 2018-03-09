@@ -68,56 +68,59 @@ object Intake : TerminableSubsystem() {
 			println("Canceled intake rotation job")
 		}
 
-		if (position == this.position) return
-
 		launch("Articulator Mover") {
-			val positionTicks: Int
-			var multiplier: Double
-			when (position) {
-				VERTICAL -> {
-					logger.info("Moving to vertical position.")
-					positionTicks = POS_VERTICAL
-					multiplier = 15.0
-				}
-				HORIZONTAL -> {
-					logger.info("Moving to horizontal position.")
-					positionTicks = POS_HORIZONTAL
-					multiplier = -4.0
-				}
-				else -> {
-					logger.info("Position value for intake rotation does not match a valid position.")
-					return@launch
-				}
-			}
-
-			var currentLimitReached = false
-
-			var power = 0.0
-			var iteration = 0
-			val increment = 0.005
-			var incrementMultiplier = 1.0
-
-			println("Articulator moving with ${POWER * multiplier}")
-			while (!currentLimitReached) {
-				power += increment * incrementMultiplier
-				articulatorTalon.set(ControlMode.PercentOutput, power * multiplier)
-				if (articulatorTalon.outputCurrent > CURRENT_LIMIT && ++iteration > 100) {
-					currentLimitReached = true
-					println("Articulator reached current limit")
-				}
-
-				if (power > 0.5) {
-					multiplier = 0.0
-				}
-
-				delay(20)
-			}
-
-			this@Intake.position = position
-
-			articulatorTalon.set(ControlMode.PercentOutput, 0.0)
-			println()
+			moveIntakeToPositionSuspend(position)
 		}
+	}
+
+	suspend fun moveIntakeToPositionSuspend(position: Int) {
+		if (position == this@Intake.position) return
+
+		val positionTicks: Int
+		var multiplier: Double
+		when (position) {
+			VERTICAL -> {
+				logger.info("Moving to vertical position.")
+				positionTicks = POS_VERTICAL
+				multiplier = 15.0
+			}
+			HORIZONTAL -> {
+				logger.info("Moving to horizontal position.")
+				positionTicks = POS_HORIZONTAL
+				multiplier = -4.0
+			}
+			else -> {
+				logger.info("Position value for intake rotation does not match a valid position.")
+				return
+			}
+		}
+
+		var currentLimitReached = false
+
+		var power = 0.0
+		var iteration = 0
+		val increment = 0.005
+		var incrementMultiplier = 1.0
+
+		println("Articulator moving with ${POWER * multiplier}")
+		while (!currentLimitReached) {
+			power += increment * incrementMultiplier
+			articulatorTalon.set(ControlMode.PercentOutput, power * multiplier)
+			if (articulatorTalon.outputCurrent > CURRENT_LIMIT && ++iteration > 100) {
+				currentLimitReached = true
+				println("Articulator reached current limit")
+			}
+
+			if (power > 0.5) {
+				multiplier = 0.0
+			}
+
+			delay(20)
+		}
+
+		this@Intake.position = position
+
+		articulatorTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	fun controlWithThrottle() {
