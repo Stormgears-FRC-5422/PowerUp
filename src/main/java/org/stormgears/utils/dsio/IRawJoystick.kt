@@ -7,5 +7,7 @@ interface IRawJoystick {
 
 	val joystickZ: Double
 
+	val throttleV: Double
+
 	fun getRawButton(button: Int): Boolean
 }

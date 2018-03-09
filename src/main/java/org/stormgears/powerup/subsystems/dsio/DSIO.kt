@@ -16,7 +16,7 @@ object DSIO {
 
 	var choosers = Choosers()
 
-	private val joystick: IRawJoystick
+	val joystick: IRawJoystick
 	val buttonBoard: IButtonBoard
 
 	init {

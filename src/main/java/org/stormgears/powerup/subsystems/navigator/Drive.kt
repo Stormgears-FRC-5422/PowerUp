@@ -232,9 +232,7 @@ object Drive : TerminableSubsystem() {
 			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
 		}
 
-		//TODO: make wheel diameter and other constants that im just making up
 		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
-		//TODO: constant for encoder ticks
 		val ticks = distance / wheelCircumference * 8192.0
 		// motions[0].runMotionMagic((int) ticks);
 
@@ -291,6 +289,7 @@ object Drive : TerminableSubsystem() {
 		}
 
 		// TODO: wtf is this doing?
+		logger.trace("totTime: {}", totTime)
 		delay((totTime / 10.0 * 1000).toInt())
 	}
 
@@ -359,6 +358,7 @@ object Drive : TerminableSubsystem() {
 		}
 
 		// TODO: wtf?
+		logger.trace("totTime: {}", totTime)
 		delay((totTime / 10.0 * 1000).toInt())
 	}
 

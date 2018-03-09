@@ -7,6 +7,8 @@ class DummyJoystick : IRawJoystick {
 
 	override val joystickZ: Double = 0.0
 
+	override val throttleV: Double = 0.0
+
 	override fun getRawButton(button: Int): Boolean {
 		return false
 	}

@@ -4,9 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
+import org.stormgears.powerup.Robot
 import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import java.lang.Math.abs
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -26,7 +26,7 @@ object Intake : TerminableSubsystem() {
 
 	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
-	private const val CURRENT_LIMIT = 40
+	private const val CURRENT_LIMIT = 30
 
 	private val leftTalon: StormTalon
 	private val rightTalon: StormTalon
@@ -70,19 +70,19 @@ object Intake : TerminableSubsystem() {
 
 		if (position == this.position) return
 
-		launch("") {
+		launch("Articulator Mover") {
 			val positionTicks: Int
-			val multiplier: Int
+			var multiplier: Double
 			when (position) {
 				VERTICAL -> {
 					logger.info("Moving to vertical position.")
 					positionTicks = POS_VERTICAL
-					multiplier = 1
+					multiplier = 15.0
 				}
 				HORIZONTAL -> {
 					logger.info("Moving to horizontal position.")
 					positionTicks = POS_HORIZONTAL
-					multiplier = -1
+					multiplier = -4.0
 				}
 				else -> {
 					logger.info("Position value for intake rotation does not match a valid position.")
@@ -92,12 +92,22 @@ object Intake : TerminableSubsystem() {
 
 			var currentLimitReached = false
 
-			articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
-			println("Articulator moving")
-			while (abs(articulatorTalon.sensorCollection.quadraturePosition - positionTicks) > 500 && !currentLimitReached) {
-				if (articulatorTalon.outputCurrent > CURRENT_LIMIT) {
+			var power = 0.0
+			var iteration = 0
+			val increment = 0.005
+			var incrementMultiplier = 1.0
+
+			println("Articulator moving with ${POWER * multiplier}")
+			while (!currentLimitReached) {
+				power += increment * incrementMultiplier
+				articulatorTalon.set(ControlMode.PercentOutput, power * multiplier)
+				if (articulatorTalon.outputCurrent > CURRENT_LIMIT && ++iteration > 100) {
 					currentLimitReached = true
 					println("Articulator reached current limit")
+				}
+
+				if (power > 0.5) {
+					multiplier = 0.0
 				}
 
 				delay(20)
@@ -110,7 +120,15 @@ object Intake : TerminableSubsystem() {
 		}
 	}
 
+	fun controlWithThrottle() {
+		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.throttleV)
+	}
+
 	fun debug() {
-		println("Articulator position ticks: ${articulatorTalon.sensorCollection.quadraturePosition}")
+		println("Articulator output current: ${articulatorTalon.outputCurrent}")
+	}
+
+	fun joystickify() {
+		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.joystickY)
 	}
 }

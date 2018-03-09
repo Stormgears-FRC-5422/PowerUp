@@ -19,4 +19,6 @@ class XboxJoystick
 
 	override val joystickZ: Double
 		get() = getRawAxis(4)
+
+	override val throttleV: Double = 0.0
 }

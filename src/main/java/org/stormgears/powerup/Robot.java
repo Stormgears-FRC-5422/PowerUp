@@ -212,18 +212,21 @@ public class Robot extends BaseStormgearsRobot {
 
 		TalonDebuggerKt.dashboardify(driveTalons);
 
-		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
+		intake.debug();
+		intake.controlWithThrottle();
 
-//				drive.debug();
-			} else {
-				logger.fatal("NavX theta is not set! Cannot drive!");
-			}
-		} else {
-			logger.fatal("Robot.drive is null; that's a problem!");
-		}
+//		if (drive != null) {
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//				drive.move();
+//
+////				drive.debug();
+//			} else {
+//				logger.fatal("NavX theta is not set! Cannot drive!");
+//			}
+//		} else {
+//			logger.fatal("Robot.drive is null; that's a problem!");
+//		}
 	}
 
 	/**
@@ -257,7 +260,7 @@ public class Robot extends BaseStormgearsRobot {
 	}
 
 	private void getSelectedAutonomousCommand() {
-		fmsInterface.sendTestData(dsio.getChoosers().getPlateAssignmentData());
+//		fmsInterface.sendTestData(dsio.getChoosers().getPlateAssignmentData());
 		selectedAlliance = dsio.getChoosers().getAlliance();
 		selectedStartSpot = dsio.getChoosers().getStartingSpot();
 		selectedPlacementSpot = dsio.getChoosers().getPlacementSpot();

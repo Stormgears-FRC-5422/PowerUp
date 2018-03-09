@@ -58,5 +58,3 @@ class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Doubl
 		talon.set(ControlMode.MotionMagic, targetPos.toDouble())
 	}
 }
-
-

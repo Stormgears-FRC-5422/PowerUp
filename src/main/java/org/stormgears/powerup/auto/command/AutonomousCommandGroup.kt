@@ -2,10 +2,7 @@ package org.stormgears.powerup.auto.command
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
-import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.navigator.Position
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
@@ -20,17 +17,21 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 		// FIXME: This code is temporary - for testing only
 
 		launch {
-			Gripper.closeGripperSuspend()
+			//			Gripper.closeGripperSuspend()
 
-			AutoDriveMoveCommand.execute(selectedAlliance, selectedStartingSpot,
-				selectedPlacementSpot, selectedOwnSwitchPlateAssignment,
-				selectedScalePlateAssignment, selectedOpponentSwitchPlateAssignmentChooser)
+//			AutoDriveMoveCommand.execute(selectedAlliance,
+//				selectedStartingSpot,
+//				selectedPlacementSpot,
+//				selectedOwnSwitchPlateAssignment,
+//				selectedScalePlateAssignment,
+//				selectedOpponentSwitchPlateAssignmentChooser)
 
-			Robot.drive.moveToPos(Position(0.0, 0.0), Position(-4.0, 0.0))
+			Robot.drive.moveStraight(70.0, 0.0)
+			Robot.drive.moveStraight(50.0, -Math.PI / 2)
 
-			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
-			Elevator.moveSideShift(-1)
-			Gripper.openGripperSuspend()
+//			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
+//			Elevator.moveSideShift(-1)
+//			Gripper.openGripperSuspend()
 		}
 
 		//		addSequential(autoCloseGripperCommand);

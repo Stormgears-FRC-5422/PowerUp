@@ -19,4 +19,7 @@ class LogitechJoystick
 
 	override val joystickZ: Double
 		get() = -super.getZ() // needs to be inverted for some reason
+
+	override val throttleV: Double
+		get() = -super.getThrottle()
 }
