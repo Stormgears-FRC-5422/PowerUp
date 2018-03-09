@@ -1,6 +1,7 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.Timer;
+import kotlinx.coroutines.experimental.Job;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
@@ -14,10 +15,7 @@ import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
-import org.stormgears.powerup.subsystems.navigator.Drive;
-import org.stormgears.powerup.subsystems.navigator.DriveTalons;
-import org.stormgears.powerup.subsystems.navigator.GlobalMapping;
-import org.stormgears.powerup.subsystems.navigator.TalonDebuggerKt;
+import org.stormgears.powerup.subsystems.navigator.*;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.RegisteredNotifier;
@@ -65,6 +63,8 @@ public class Robot extends BaseStormgearsRobot {
 	private FieldPositions.LeftRight selectedOwnSwitchPlateAssignment;
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
+
+	private Job talonDebugger;
 
 //	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //	private PowerUpMecanumDrive wpiMecanumDrive;
@@ -134,6 +134,8 @@ public class Robot extends BaseStormgearsRobot {
 			selectedOwnSwitchPlateAssignment,
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
+
+		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons());
 	}
 
 	/**
@@ -163,6 +165,8 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
+
+		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons());
 	}
 
 	/**
@@ -210,6 +214,7 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
+//		TalonDebuggerKt.dashboardify(driveTalons);
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
@@ -235,6 +240,10 @@ public class Robot extends BaseStormgearsRobot {
 		fmsInterface.startPollingForData();
 
 		Terminator.INSTANCE.setDisabled(true);
+
+		if (talonDebugger != null) {
+			talonDebugger.cancel(null);
+		}
 
 		if (elevatorSharedTalons != null) {
 			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
