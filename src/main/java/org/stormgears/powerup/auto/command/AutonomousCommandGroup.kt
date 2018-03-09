@@ -19,14 +19,14 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 		launch {
 			//			Gripper.closeGripperSuspend()
 
-//			AutoDriveMoveCommand.execute(selectedAlliance,
-//				selectedStartingSpot,
-//				selectedPlacementSpot,
-//				selectedOwnSwitchPlateAssignment,
-//				selectedScalePlateAssignment,
-//				selectedOpponentSwitchPlateAssignmentChooser)
+			AutoDriveMoveCommand.execute(selectedAlliance,
+				selectedStartingSpot,
+				selectedPlacementSpot,
+				selectedOwnSwitchPlateAssignment,
+				selectedScalePlateAssignment,
+				selectedOpponentSwitchPlateAssignmentChooser)
 
-			Robot.drive.moveStraight(60.0, 0.0)
+//			Robot.drive.moveStraight(60.0, 0.0)
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
 //			Elevator.moveSideShift(-1)

@@ -10,7 +10,7 @@ import org.stormgears.utils.StormTalon
 class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Double) {
 	companion object {
 		var config = RobotConfiguration.getInstance()
-		private const val TALON_FPID_TIMEOUT = 10
+		const val TALON_FPID_TIMEOUT = 10
 	}
 
 	init {
