@@ -122,6 +122,7 @@ object Intake : TerminableSubsystem() {
 
 	fun controlWithThrottle() {
 		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.throttleV)
+		if (articulatorTalon.outputCurrent > CURRENT_LIMIT) articulatorTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	fun debug() {
