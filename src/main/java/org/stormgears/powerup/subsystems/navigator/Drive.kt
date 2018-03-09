@@ -73,9 +73,9 @@ object Drive : TerminableSubsystem() {
 			talons[i].inverted = true
 		}
 
-		talons[3].setSensorPhase(true)
-		talons[0].setSensorPhase(true)
-		talons[2].setSensorPhase(true)
+//		talons[3].setSensorPhase(true)
+//		talons[0].setSensorPhase(true)
+//		talons[2].setSensorPhase(true)
 
 		if (useAbsoluteControl) {
 			val navX_theta = Robot.sensors.navX.theta

@@ -16,8 +16,8 @@ class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Doubl
 	init {
 		/* first choose the sensor */
 		talon.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, TALON_FPID_TIMEOUT)
-		talon.setSensorPhase(true)
-		talon.inverted = true
+//		talon.setSensorPhase(true)
+//		talon.inverted = true
 
 
 		/* Set relevant frame periods to be at least as fast as periodic rate */
@@ -37,7 +37,7 @@ class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Doubl
 		talon.configMotionCruiseVelocity(Math.round(maxVel).toInt(), TALON_FPID_TIMEOUT)
 		talon.configMotionAcceleration(Math.round(maxAccel).toInt(), TALON_FPID_TIMEOUT)
 		/* zero the sensor */
-		talon.setSelectedSensorPosition(0, 0, TALON_FPID_TIMEOUT)
+		talon.sensorCollection.setQuadraturePosition(0, TALON_FPID_TIMEOUT)
 	}
 
 	/**
@@ -54,6 +54,7 @@ class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Doubl
 		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT)
 		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT)
 		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT)
+		talon.sensorCollection.setQuadraturePosition(0, TALON_FPID_TIMEOUT)
 
 		talon.set(ControlMode.MotionMagic, targetPos.toDouble())
 	}

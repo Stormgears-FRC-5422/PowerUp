@@ -26,8 +26,7 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 //				selectedScalePlateAssignment,
 //				selectedOpponentSwitchPlateAssignmentChooser)
 
-			Robot.drive.moveStraight(70.0, 0.0)
-			Robot.drive.moveStraight(50.0, -Math.PI / 2)
+			Robot.drive.moveStraight(60.0, 0.0)
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
 //			Elevator.moveSideShift(-1)

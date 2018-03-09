@@ -30,8 +30,13 @@ public class DriveTalons {
 			t.setNeutralMode(NeutralMode.Brake);
 
 			t.setInverted(true);
-			t.setSensorPhase(true);
+//			t.setSensorPhase(true);
 		}
+
+		talons[0].setSensorPhase(true);
+		talons[3].setSensorPhase(true);
+		talons[2].setSensorPhase(true);
+		talons[1].setSensorPhase(true);
 	}
 
 	public static void init() {
