@@ -283,6 +283,7 @@ object Drive : TerminableSubsystem() {
 			}
 		}
 
+		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
@@ -291,6 +292,16 @@ object Drive : TerminableSubsystem() {
 		// TODO: wtf is this doing?
 		logger.trace("totTime: {}", totTime)
 		delay((totTime / 10.0 * 1000).toInt())
+
+		Robot.talonDebugger?.dump();
+
+		logger.trace("Resetting talons")
+		for (talon in Robot.driveTalons.talons) {
+			talon.set(ControlMode.PercentOutput, 0.0)
+			talon.sensorCollection.setQuadraturePosition(0, 250);
+		}
+
+		Robot.talonDebugger?.dump();
 	}
 
 	/**

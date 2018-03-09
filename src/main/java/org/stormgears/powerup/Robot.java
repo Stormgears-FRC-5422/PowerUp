@@ -1,15 +1,14 @@
 package org.stormgears.powerup;
 
 import edu.wpi.first.wpilibj.Timer;
-import kotlinx.coroutines.experimental.Job;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
 import org.stormgears.powerup.subsystems.elevator_climber.Climber;
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
 import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
-import org.stormgears.powerup.subsystems.field.AutoRoutes;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
@@ -64,7 +63,8 @@ public class Robot extends BaseStormgearsRobot {
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
 
-	private Job talonDebugger;
+	@Nullable
+	public static TalonDebugger talonDebugger;
 
 //	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //	private PowerUpMecanumDrive wpiMecanumDrive;
@@ -125,8 +125,6 @@ public class Robot extends BaseStormgearsRobot {
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand();
 
-		AutoRoutes.INSTANCE.initialize();
-
 		logger.trace("starting the autonomous command");
 		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
 			selectedStartSpot,
@@ -135,7 +133,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
 
-		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons(), "autonomous");
+		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
 	}
 
 	/**
@@ -166,7 +164,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
-		this.talonDebugger = new TalonDebugger().start(driveTalons.getTalons(), "teleop");
+		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
 
 	/**
@@ -241,8 +239,8 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(true);
 
-		if (talonDebugger != null) {
-			talonDebugger.cancel(null);
+		if (talonDebugger != null && talonDebugger.getJob() != null) {
+			talonDebugger.getJob().cancel(null);
 		}
 
 		if (elevatorSharedTalons != null) {
