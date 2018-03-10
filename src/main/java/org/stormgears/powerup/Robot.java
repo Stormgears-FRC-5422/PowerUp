@@ -1,7 +1,7 @@
 package org.stormgears.powerup;
 
-import edu.wpi.first.wpilibj.Timer;
-import kotlinx.coroutines.experimental.Job;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -133,10 +133,10 @@ public class Robot extends BaseStormgearsRobot {
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
 
-		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
+//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
 	}
 
-	/**
+	/**++++++++++++
 	 * Runs once right at the start of autonomousPeriodic
 	 */
 	@Override
@@ -159,7 +159,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
-		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
+//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
 
 	/**
@@ -207,7 +207,7 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-//		TalonDebuggerKt.dashboardify(driveTalons);
+//		intake.debug();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
@@ -233,17 +233,13 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(true);
 
-		if (talonDebugger != null && talonDebugger.getJob() != null) {
-			talonDebugger.getJob().cancel(null);
-		}
-
 		if (elevatorSharedTalons != null) {
 			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
 		}
 
 		if (elevator != null) {
 			elevator.turnOffElevator();
-//			elevator.getSideShiftTalon().getSensorCollection().setQuadraturePosition(0, 10);
+			elevator.zeroSideShift();
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {

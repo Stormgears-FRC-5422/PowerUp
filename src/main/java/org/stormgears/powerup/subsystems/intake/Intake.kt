@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.intake
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
@@ -27,7 +28,7 @@ object Intake : TerminableSubsystem() {
 
 	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
-	private const val CURRENT_LIMIT = 30
+	private const val CURRENT_LIMIT = 20
 
 	private val leftTalon: StormTalon
 	private val rightTalon: StormTalon
@@ -45,22 +46,22 @@ object Intake : TerminableSubsystem() {
 	fun startWheelsIn() {
 		logger.info("Intake wheels pulling in")
 
-		leftTalon.set(ControlMode.Velocity, WHEEL_SPEED.toDouble())
-		rightTalon.set(ControlMode.Velocity, (-WHEEL_SPEED).toDouble())
+		leftTalon.set(ControlMode.PercentOutput, 1.0)
+		rightTalon.set(ControlMode.PercentOutput, -1.0)
 	}
 
 	fun startWheelsOut() {
 		logger.info("Intake wheels pushing out")
 
-		leftTalon.set(ControlMode.Velocity, (-WHEEL_SPEED).toDouble())
-		rightTalon.set(ControlMode.Velocity, WHEEL_SPEED.toDouble())
+		leftTalon.set(ControlMode.PercentOutput, -1.0)
+		rightTalon.set(ControlMode.PercentOutput, 1.0)
 	}
 
 	fun stopWheels() {
 		logger.info("Intake wheels off")
 
-		leftTalon.set(ControlMode.Velocity, 0.0)
-		rightTalon.set(ControlMode.Velocity, 0.0)
+		leftTalon.set(ControlMode.PercentOutput, 0.0)
+		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	fun moveIntakeToPosition(position: Int) {
@@ -112,7 +113,7 @@ object Intake : TerminableSubsystem() {
 				println("Articulator reached current limit")
 			}
 
-			if (power > 0.5) {
+			if (power > 0.3) {
 				multiplier = 0.0
 			}
 
@@ -130,7 +131,9 @@ object Intake : TerminableSubsystem() {
 	}
 
 	fun debug() {
-		println("Articulator output current: ${articulatorTalon.outputCurrent}")
+		SmartDashboard.putNumber("Articulator encoder position", articulatorTalon.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Left wheel position", leftTalon.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Right wheel position", rightTalon.sensorCollection.quadraturePosition.toDouble())
 	}
 
 	fun joystickify() {

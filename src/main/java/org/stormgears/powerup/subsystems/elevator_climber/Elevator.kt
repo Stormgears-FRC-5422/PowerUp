@@ -27,8 +27,8 @@ object Elevator : TerminableSubsystem() {
 		private set
 
 	// TODO: Change these to real values
-	private const val ZERO_POWER = 0.25
-	private const val ZERO_CURRENT_LIMIT = 3.0
+	private const val ZERO_POWER = 0.3
+	private const val ZERO_CURRENT_LIMIT = 10.0
 
 	// PID values for elevator
 	private const val RAISE_P = 0.088
@@ -194,12 +194,17 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
 		println("Zero-ing Elevator. Watch out!")
 
-		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT) delay(20)
+		var iteration = 0
+		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT || ++iteration < 40) delay(20)
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
 		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
 		elevatorZeroed = true
 		println("Elevator zeroed")
+	}
+
+	fun zeroSideShift() {
+		sideShiftTalon.sensorCollection.setQuadraturePosition(0, 10)
 	}
 
 	fun turnOffElevator() {

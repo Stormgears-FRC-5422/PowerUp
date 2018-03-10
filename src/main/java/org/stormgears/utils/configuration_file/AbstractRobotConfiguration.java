@@ -24,22 +24,32 @@ public abstract class AbstractRobotConfiguration {
 	private File configFile = new File(PATH, NAME);
 	protected SafeProperties properties;
 
+	protected boolean useBackupIfFileNotFound = true;
+
 	public AbstractRobotConfiguration() {
 		logger.trace("Reading configuration");
 
 		properties = new SafeProperties();
 
 		FileInputStream inputStream = null;
+		boolean available = false;
 		try {
-			if (!configFile.createNewFile()) {    // This block will only run if the file exists already
+			// !configFile.createNewFile()
+			if (false) {    // This block will only run if the file exists already
 				inputStream = new FileInputStream(configFile);
 				properties.load(inputStream);
+				available = true;
+			} else if (useBackupIfFileNotFound){
+				loadBackupDefaults();
+				loadBackupExtras();
 			}
 
 			applyDefaultsIfNotPresent();
 
-			loadDefaults();
-			loadExtras();
+			if (available) {
+				loadDefaults();
+				loadExtras();
+			}
 		} catch (IOException e) {
 			logger.fatal("Error reading/writing {}. NO ROBOT PROPERTIES ARE AVAILABLE! Check file permissions.", NAME);
 			logger.catching(Level.ERROR, e);
@@ -63,6 +73,15 @@ public abstract class AbstractRobotConfiguration {
 		robotHeight = properties.getProperty("robotHeight");
 
 	}
+
+	private void loadBackupDefaults() {
+		robotName = "tej";
+		robotWidth ="24";
+		robotLength = "24";
+		robotHeight = "24";
+	}
+
+	protected abstract void loadBackupExtras();
 
 	protected abstract void loadExtras();
 

@@ -56,4 +56,25 @@ public class RobotConfiguration extends AbstractRobotConfiguration {
 
 		wheelRadius = parseDouble(properties.getProperty("wheelRadius"));
 	}
+
+	@Override
+	protected void loadBackupExtras() {
+		reverseJoystick=false;
+		positionP=0.8;
+		hasNavX=true;
+		velocityP=0.2;
+		positionI=0.00001;
+		frontLeftTalonId=25;
+		rearRightTalonId=31;
+		positionIzone=500;
+		positionD=32;
+		velocityI=0.001;
+		velocityF=0.16;
+		velocityD=8;
+		frontRightTalonId=4;
+		velocityIzone=1500;
+		encoderResolution=2048;
+		rearLeftTalonId=2;
+		wheelRadius=4;
+	}
 }
