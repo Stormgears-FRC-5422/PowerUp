@@ -14,7 +14,7 @@ public class FieldPositions {
 	public enum StartingSpots {
 		// TODO: Put correct coordinates here
 		LEFT(new Position(47, 19.5)),
-		CENTER(new Position(222, 19.5)),
+		CENTER(new Position(150, 19.5)), //X was originally 222
 		RIGHT(new Position(311, 19.5));
 
 		private Position position;
@@ -99,8 +99,9 @@ public class FieldPositions {
 	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 303);//new Position(277, 234);
 
 	public static final Position LEFT_AUTO_LINE_SPOT = new Position(47, 141);
-	public static final Position RIGHT_AUTO_LINE_SPOT = new Position(222, 141);
-	public static final Position CENTER_AUTO_LINE_SPOT = new Position(311, 141);
+	public static final Position CENTER_AUTO_LINE_SPOT = new Position(300,19.5); // RIGHT:  new Position(300, 19.5);
+	public static final Position CENTER_AUTO_LINE_SPOT_2 = new Position(300,145);  // RIGHT:  new Position(311, 145);
+	public static final Position RIGHT_AUTO_LINE_SPOT = new Position(311, 141);
 
 	// TODO: Put the right numbers in
 	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);
@@ -130,6 +131,8 @@ public class FieldPositions {
 	public static final Position OPPONENT_PLATFORM_ELEVATED = new Position(106.2, 331.3);
 	public static final Position OPPONENT_PORTAL_LEFT = new Position(0, 614);
 
-	public static final double X_DISTANCE_TO_STRAFFE_TO_SCALE = 5.0;
-	public static final double X_DISTANCE_TO_STRAFFE_TO_SWITCH = 18.0;
+	public static final double X_DISTANCE_TO_STRAFE_TO_SCALE = 5.0;
+	public static final double X_DISTANCE_TO_STRAFE_TO_SWITCH = 18.0;
+
+	public static final double STRAFING_FACTOR = 1.0 / 0.833333;
 }

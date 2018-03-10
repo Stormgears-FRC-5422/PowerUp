@@ -23,7 +23,7 @@ class TalonDebugger(val talons: Array<WPI_TalonSRX>, label: String = "") : WithC
 		val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}
 
-	val filename = "TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
+	val filename = "/home/lvuser/TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
 	val writer = PrintWriter(filename, "UTF-8")
 	var job: Job? = null;
 
