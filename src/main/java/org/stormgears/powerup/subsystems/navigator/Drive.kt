@@ -228,7 +228,7 @@ object Drive : TerminableSubsystem() {
 		//		}
 
 		if (Math.abs(theta) == Math.PI / 2.0) {
-			distance = distance * FieldPositions.STRAFFING_FACTOR
+			distance *= FieldPositions.STRAFING_FACTOR
 			logger.trace("distance: {}", box(distance))
 			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
 		}
@@ -395,7 +395,7 @@ object Drive : TerminableSubsystem() {
 	suspend fun moveToPos(p1: Position, p2: Position) {
 		logger.info("p1: {}, p2: {}", p1, p2)
 
-		val deltaX = (p2.x - p1.x)  //TODO: Straffing Factor really belongs here!!
+		val deltaX = (p2.x - p1.x)  //TODO: Strafing Factor really belongs here!!
 		val deltaY = p2.y - p1.y
 
 		logger.info("deltaX: {}, deltaY: {}", deltaX, deltaY)

@@ -131,8 +131,8 @@ public class FieldPositions {
 	public static final Position OPPONENT_PLATFORM_ELEVATED = new Position(106.2, 331.3);
 	public static final Position OPPONENT_PORTAL_LEFT = new Position(0, 614);
 
-	public static final double X_DISTANCE_TO_STRAFFE_TO_SCALE = 5.0;
-	public static final double X_DISTANCE_TO_STRAFFE_TO_SWITCH = 18.0;
+	public static final double X_DISTANCE_TO_STRAFE_TO_SCALE = 5.0;
+	public static final double X_DISTANCE_TO_STRAFE_TO_SWITCH = 18.0;
 
-	public static final double STRAFFING_FACTOR = 1.0/0.833333;
+	public static final double STRAFING_FACTOR = 1.0 / 0.833333;
 }
