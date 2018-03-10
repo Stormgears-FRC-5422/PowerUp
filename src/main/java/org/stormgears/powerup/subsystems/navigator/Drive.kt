@@ -284,7 +284,7 @@ object Drive : TerminableSubsystem() {
 			}
 		}
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 
 		for (talon in Robot.driveTalons.talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
@@ -292,7 +292,7 @@ object Drive : TerminableSubsystem() {
 //			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
 			val talon = Robot.driveTalons.talons[i];
@@ -305,7 +305,7 @@ object Drive : TerminableSubsystem() {
 		logger.trace("totTime: {}", totTime)
 		delay((totTime / 10.0 * 1000).toInt())
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 
 		logger.trace("Resetting talons")
 		for (talon in Robot.driveTalons.talons) {
@@ -314,7 +314,7 @@ object Drive : TerminableSubsystem() {
 //			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 	}
 
 	/**
