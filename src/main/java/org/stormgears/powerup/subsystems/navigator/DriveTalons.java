@@ -3,7 +3,7 @@ package org.stormgears.powerup.subsystems.navigator;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.decoupling.ITalon;
-import org.stormgears.utils.decoupling.StormTalon;
+import org.stormgears.utils.decoupling.TalonFactoryKt;
 
 public class DriveTalons {
 	private static DriveTalons instance;
@@ -14,13 +14,13 @@ public class DriveTalons {
 
 	private static final int TALON_FPID_TIMEOUT = 0;
 
-	private final ITalon[] talons = new StormTalon[4];
+	private final ITalon[] talons = new ITalon[4];
 
 	private DriveTalons() {
-		talons[0] = new StormTalon(Robot.config.frontLeftTalonId);
-		talons[1] = new StormTalon(Robot.config.frontRightTalonId);
-		talons[2] = new StormTalon(Robot.config.rearLeftTalonId);
-		talons[3] = new StormTalon(Robot.config.rearRightTalonId);
+		talons[0] = TalonFactoryKt.TalonFactory(Robot.config.frontLeftTalonId);
+		talons[1] = TalonFactoryKt.TalonFactory(Robot.config.frontRightTalonId);
+		talons[2] = TalonFactoryKt.TalonFactory(Robot.config.rearLeftTalonId);
+		talons[3] = TalonFactoryKt.TalonFactory(Robot.config.rearRightTalonId);
 
 		for (ITalon t : talons) {
 			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);

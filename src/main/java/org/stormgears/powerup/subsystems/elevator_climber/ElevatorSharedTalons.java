@@ -2,7 +2,7 @@ package org.stormgears.powerup.subsystems.elevator_climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.stormgears.utils.decoupling.ITalon;
-import org.stormgears.utils.decoupling.StormTalon;
+import org.stormgears.utils.decoupling.TalonFactoryKt;
 
 public class ElevatorSharedTalons {
 	private static ElevatorSharedTalons instance;
@@ -18,14 +18,14 @@ public class ElevatorSharedTalons {
 	private static final int SLAVE_MOTOR_TALON_ID = 0;
 
 	// TODO: Rename these if needed
-	private StormTalon masterMotor;
+	private ITalon masterMotor;
 	private ITalon slaveMotor;
 
 	private ElevatorSharedTalons(int masterMotorId, int slaveMotorId) {
 		System.out.println("Initializing elevator talons");
 		// TODO: Correctly setup talons
-		masterMotor = new StormTalon(masterMotorId);
-		slaveMotor = new StormTalon(slaveMotorId);
+		masterMotor = TalonFactoryKt.TalonFactory(masterMotorId);
+		slaveMotor = TalonFactoryKt.TalonFactory(slaveMotorId);
 		slaveMotor.set(ControlMode.Follower, masterMotorId);
 		masterMotor.setInverted(true);
 		masterMotor.setSensorPhase(true);
@@ -37,7 +37,7 @@ public class ElevatorSharedTalons {
 		instance = new ElevatorSharedTalons(MASTER_MOTOR_TALON_ID, SLAVE_MOTOR_TALON_ID);
 	}
 
-	public StormTalon getMasterMotor() {
+	public ITalon getMasterMotor() {
 		return masterMotor;
 	}
 

@@ -6,7 +6,8 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.decoupling.StormTalon
+import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.TalonFactory
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -28,17 +29,17 @@ object Intake : TerminableSubsystem() {
 	private const val POWER = 1.0
 	private const val CURRENT_LIMIT = 30
 
-	private val leftTalon: StormTalon
-	private val rightTalon: StormTalon
-	private val articulatorTalon: StormTalon
+	private val leftTalon: ITalon
+	private val rightTalon: ITalon
+	private val articulatorTalon: ITalon
 
 	private var position = VERTICAL
 	private var job: Job? = null
 
 	init {
-		leftTalon = StormTalon(LEFT_TALON_ID)
-		rightTalon = StormTalon(RIGHT_TALON_ID)
-		articulatorTalon = StormTalon(ARTICULATOR_TALON_ID)
+		leftTalon = TalonFactory(LEFT_TALON_ID)
+		rightTalon = TalonFactory(RIGHT_TALON_ID)
+		articulatorTalon = TalonFactory(ARTICULATOR_TALON_ID)
 	}
 
 	fun startWheelsIn() {
