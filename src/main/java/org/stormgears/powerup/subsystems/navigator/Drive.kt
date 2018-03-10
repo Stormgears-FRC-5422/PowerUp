@@ -5,6 +5,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile
@@ -227,7 +228,7 @@ object Drive : TerminableSubsystem() {
 		//		}
 
 		if (Math.abs(theta) == Math.PI / 2.0) {
-			distance = distance / 0.833333
+			distance = distance * FieldPositions.STRAFFING_FACTOR
 			logger.trace("distance: {}", box(distance))
 			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
 		}
@@ -393,15 +394,17 @@ object Drive : TerminableSubsystem() {
 	 */
 	suspend fun moveToPos(p1: Position, p2: Position) {
 		logger.info("p1: {}, p2: {}", p1, p2)
-		val deltaX = (p2.x - p1.x) // TODO: it did not point the right direction on the clone bot
+
+		val deltaX = (p2.x - p1.x)  //TODO: Straffing Factor really belongs here!!
 		val deltaY = p2.y - p1.y
 
 		logger.info("deltaX: {}, deltaY: {}", deltaX, deltaY)
 
-		val theta = -Math.atan(deltaY / deltaX) + Math.PI / 2
+		// Robot theta is degrees from vertical clockwise
+		val theta = -(Math.atan2(deltaY, deltaX) - Math.PI/2)
 
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
-		logger.trace("hyp: {}, theta: {}", box(hyp), box(theta))
+		logger.info("hyp: {}, theta: {}", box(hyp), box(theta))
 
 		moveStraight(hyp, theta)
 	}
