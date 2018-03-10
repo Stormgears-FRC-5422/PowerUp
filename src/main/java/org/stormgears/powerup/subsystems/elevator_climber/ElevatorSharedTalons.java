@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.elevator_climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import org.stormgears.powerup.TalonIds;
 import org.stormgears.utils.StormTalon;
 
 public class ElevatorSharedTalons {
@@ -13,8 +14,8 @@ public class ElevatorSharedTalons {
 	public static final int TALON_FPID_TIMEOUT = 10;
 
 	// TODO: Set these to correct elevator_climber ids
-	private static final int MASTER_MOTOR_TALON_ID = 11;
-	private static final int SLAVE_MOTOR_TALON_ID = 0;
+	private static final int MASTER_MOTOR_TALON_ID = TalonIds.ELEVATOR_MASTER;
+	private static final int SLAVE_MOTOR_TALON_ID = TalonIds.ELEVATOR_SLAVE;
 
 	// TODO: Rename these if needed
 	private StormTalon masterMotor;

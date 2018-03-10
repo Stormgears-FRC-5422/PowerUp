@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
+import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
@@ -14,7 +15,7 @@ object Gripper : TerminableSubsystem() {
 		private set
 
 	//TODO: Change to correct value
-	private val TALON_ID = 21
+	private val TALON_ID = TalonIds.GRIPPER
 
 	private const val GRIPPER_POWER = 0.5
 	private const val CLOSE_CURRENT_LIMIT = 7

@@ -5,6 +5,7 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
@@ -20,9 +21,9 @@ object Intake : TerminableSubsystem() {
 	private const val POS_VERTICAL = 0
 	private const val POS_HORIZONTAL = 70000
 
-	private const val LEFT_TALON_ID = 23
-	private const val RIGHT_TALON_ID = 3
-	private const val ARTICULATOR_TALON_ID = 20
+	private const val LEFT_TALON_ID = TalonIds.INTAKE_LEFT
+	private const val RIGHT_TALON_ID = TalonIds.INTAKE_RIGHT
+	private const val ARTICULATOR_TALON_ID = TalonIds.INTAKE_ART
 
 	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
