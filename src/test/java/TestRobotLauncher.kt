@@ -1,11 +1,13 @@
 import edu.wpi.cscore.CameraServerJNI
 import edu.wpi.first.networktables.NetworkTablesJNI
+import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj.hal.HAL
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 import org.powermock.api.mockito.PowerMockito
+import org.powermock.api.support.membermodification.MemberModifier
 import org.powermock.core.classloader.annotations.PrepareForTest
 import org.powermock.core.classloader.annotations.SuppressStaticInitializationFor
 import org.powermock.modules.junit4.PowerMockRunner
@@ -16,7 +18,7 @@ import org.powermock.modules.junit4.PowerMockRunner
 	"edu.wpi.first.networktables.NetworkTablesJNI",
 	"edu.wpi.cscore.CameraServerJNI"
 )
-@PrepareForTest(HAL::class)
+@PrepareForTest(HAL::class, DriverStation::class)
 class TestRobotLauncher {
 	@Test
 	fun launchRobot() {
@@ -26,6 +28,8 @@ class TestRobotLauncher {
 		PowerMockito.mockStatic(CameraServerJNI::class.java)
 
 		Mockito.`when`(HAL.initialize(Mockito.anyInt(), Mockito.anyInt())).thenReturn(true)
+		MemberModifier.suppress(DriverStation::class.java.getDeclaredMethod("sendMatchData"))
+//		PowerMockito.doNothing().`when`(DriverStation::class.java, "sendMatchData");
 
 		RobotBase.main()
 	}
