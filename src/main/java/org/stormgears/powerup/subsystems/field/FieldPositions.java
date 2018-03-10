@@ -99,8 +99,9 @@ public class FieldPositions {
 	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 303);//new Position(277, 234);
 
 	public static final Position LEFT_AUTO_LINE_SPOT = new Position(47, 141);
-	public static final Position RIGHT_AUTO_LINE_SPOT = new Position(222, 141);
-	public static final Position CENTER_AUTO_LINE_SPOT = new Position(311, 141);
+	public static final Position CENTER_AUTO_LINE_SPOT = new Position(300, 19.5);
+	public static final Position CENTER_AUTO_LINE_SPOT_2 = new Position(311, 145);
+	public static final Position RIGHT_AUTO_LINE_SPOT = new Position(311, 141);
 
 	// TODO: Put the right numbers in
 	public static final Position OWN_CUBE_STACK = new Position(139, 99.1);

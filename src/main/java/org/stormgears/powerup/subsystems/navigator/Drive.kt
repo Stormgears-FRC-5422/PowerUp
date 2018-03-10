@@ -284,8 +284,19 @@ object Drive : TerminableSubsystem() {
 		}
 
 		Robot.talonDebugger?.dump();
+
+		for (talon in Robot.driveTalons.talons) {
+			talon.set(ControlMode.PercentOutput, 0.0)
+			talon.sensorCollection.setQuadraturePosition(0, 250);
+//			talon.set(ControlMode.MotionMagic, 0.0)
+		}
+
+		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
+			val talon = Robot.driveTalons.talons[i];
+//			talon.set(ControlMode.PercentOutput, 0.0)
+//			talon.sensorCollection.setQuadraturePosition(0, 250);
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
 		}
 
@@ -299,6 +310,7 @@ object Drive : TerminableSubsystem() {
 		for (talon in Robot.driveTalons.talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
 			talon.sensorCollection.setQuadraturePosition(0, 250);
+//			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
 		Robot.talonDebugger?.dump();
@@ -380,14 +392,16 @@ object Drive : TerminableSubsystem() {
 	 * @param p2 second position
 	 */
 	suspend fun moveToPos(p1: Position, p2: Position) {
-
-		val deltaX = p2.x - p1.x
+		logger.info("p1: {}, p2: {}", p1, p2)
+		val deltaX = (p2.x - p1.x) // TODO: it did not point the right direction on the clone bot
 		val deltaY = p2.y - p1.y
+
+		logger.info("deltaX: {}, deltaY: {}", deltaX, deltaY)
 
 		val theta = -Math.atan(deltaY / deltaX) + Math.PI / 2
 
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
-		logger.trace("hyp: {}", box(hyp))
+		logger.trace("hyp: {}, theta: {}", box(hyp), box(theta))
 
 		moveStraight(hyp, theta)
 	}

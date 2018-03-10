@@ -3,7 +3,6 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
-import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.information.RobotConfiguration
 import org.stormgears.utils.StormTalon
 
@@ -50,10 +49,10 @@ class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Doubl
 	 */
 	fun runMotionMagic(targetPos: Int) {
 		//redundant code
-		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT)
-		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT)
-		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT)
-		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT)
+//		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT)
+//		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT)
+//		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT)
+//		talon.config_IntegralZone(0, Robot.config.positionIzone, TALON_FPID_TIMEOUT)
 		talon.sensorCollection.setQuadraturePosition(0, TALON_FPID_TIMEOUT)
 
 		talon.set(ControlMode.MotionMagic, targetPos.toDouble())
