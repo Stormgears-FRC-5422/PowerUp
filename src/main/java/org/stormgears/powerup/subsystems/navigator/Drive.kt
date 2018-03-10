@@ -5,6 +5,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile
@@ -227,7 +228,7 @@ object Drive : TerminableSubsystem() {
 		//		}
 
 		if (Math.abs(theta) == Math.PI / 2.0) {
-			distance = distance / 0.833333
+			distance *= FieldPositions.STRAFING_FACTOR
 			logger.trace("distance: {}", box(distance))
 			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
 		}
@@ -283,9 +284,20 @@ object Drive : TerminableSubsystem() {
 			}
 		}
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
+
+		for (talon in Robot.driveTalons.talons) {
+			talon.set(ControlMode.PercentOutput, 0.0)
+			talon.sensorCollection.setQuadraturePosition(0, 250);
+//			talon.set(ControlMode.MotionMagic, 0.0)
+		}
+
+//		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
+			val talon = Robot.driveTalons.talons[i];
+//			talon.set(ControlMode.PercentOutput, 0.0)
+//			talon.sensorCollection.setQuadraturePosition(0, 250);
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
 		}
 
@@ -293,15 +305,16 @@ object Drive : TerminableSubsystem() {
 		logger.trace("totTime: {}", totTime)
 		delay((totTime / 10.0 * 1000).toInt())
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 
 		logger.trace("Resetting talons")
 		for (talon in Robot.driveTalons.talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
 			talon.sensorCollection.setQuadraturePosition(0, 250);
+//			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
-		Robot.talonDebugger?.dump();
+//		Robot.talonDebugger?.dump();
 	}
 
 	/**
@@ -380,14 +393,18 @@ object Drive : TerminableSubsystem() {
 	 * @param p2 second position
 	 */
 	suspend fun moveToPos(p1: Position, p2: Position) {
+		logger.info("p1: {}, p2: {}", p1, p2)
 
-		val deltaX = p2.x - p1.x
+		val deltaX = (p2.x - p1.x)  //TODO: Strafing Factor really belongs here!!
 		val deltaY = p2.y - p1.y
 
-		val theta = -Math.atan(deltaY / deltaX) + Math.PI / 2
+		logger.info("deltaX: {}, deltaY: {}", deltaX, deltaY)
+
+		// Robot theta is degrees from vertical clockwise
+		val theta = -(Math.atan2(deltaY, deltaX) - Math.PI/2)
 
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
-		logger.trace("hyp: {}", box(hyp))
+		logger.info("hyp: {}, theta: {}", box(hyp), box(theta))
 
 		moveStraight(hyp, theta)
 	}

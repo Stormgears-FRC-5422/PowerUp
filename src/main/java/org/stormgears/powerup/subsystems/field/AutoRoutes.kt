@@ -74,7 +74,8 @@ object AutoRoutes {
 		override val pathToRightSwitch = emptyArray<Segment>()
 
 		override val pathToCrossLine = arrayOf(
-			Segment(FieldPositions.StartingSpots.CENTER.position, FieldPositions.CENTER_AUTO_LINE_SPOT)
+			Segment(FieldPositions.StartingSpots.CENTER.position, FieldPositions.CENTER_AUTO_LINE_SPOT),
+			Segment(FieldPositions.CENTER_AUTO_LINE_SPOT, FieldPositions.CENTER_AUTO_LINE_SPOT_2)
 		)
 	}
 }
