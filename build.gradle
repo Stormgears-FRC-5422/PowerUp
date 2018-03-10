@@ -26,6 +26,7 @@ deploy {
 	targets {
 		target("roborio", RoboRIO) {
 			team = TEAM
+			addresses = ['10.54.22.2', 'roborio-5422-FRC.local']
 		}
 	}
 	artifacts {
@@ -80,3 +81,4 @@ jar {
 telemetry {
 	reportTelemetry = false
 }
+properties['no-telemetry'] = true
