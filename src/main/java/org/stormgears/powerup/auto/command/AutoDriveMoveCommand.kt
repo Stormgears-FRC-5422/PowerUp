@@ -17,56 +17,30 @@ object AutoDriveMoveCommand {
 						selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight,
 						selectedScalePlateAssignment: FieldPositions.LeftRight,
 						selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight) {
+		val autoRoute = when (selectedStartingSpot) {
+			FieldPositions.StartingSpots.LEFT -> AutoRoutes.FromLeft
+			FieldPositions.StartingSpots.CENTER -> AutoRoutes.FromCenter
+			FieldPositions.StartingSpots.RIGHT -> AutoRoutes.FromRight
+		}
 
-		if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
-			if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
-				if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-					move(AutoRoutes.path2LeftScaleFromLeftSpot)
-				} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-					move(AutoRoutes.path2RightScaleFromLeftSpot)
-				}
-			} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
-				if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-					move(AutoRoutes.path2LeftSwitchFromLeftSpot)
-				} else { //if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.R)
-					move(AutoRoutes.path2RightSwitchFromLeftSpot)
-				}
-			} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
-				logger.trace("BLAH")
-				move(AutoRoutes.path2CrossLineFromLeftSpot)
+		if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
+			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+				move(autoRoute.pathToLeftScale)
+			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+				move(autoRoute.pathToRightScale)
 			}
-		} else if (selectedStartingSpot == FieldPositions.StartingSpots.RIGHT) {
-			if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
-				if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-					move(AutoRoutes.path2LeftScaleFromRightSpot)
-				} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-					move(AutoRoutes.path2RightScaleFromRightSpot)
-				}
-			} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
-				if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-					move(AutoRoutes.path2LeftSwitchFromRightSpot)
-				} else { //if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.R)
-					move(AutoRoutes.path2RightSwitchFromRightSpot)
-				}
-			} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
-				move(AutoRoutes.path2CrossLineFromRightSpot)
+		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
+			if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
+				move(autoRoute.pathToLeftSwitch)
+			} else { //if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.R)
+				move(autoRoute.pathToRightSwitch)
 			}
-		} else { //if (selectedStartSpot == FieldPositions.StartingSpots.CENTER)
-			if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
-				logger.info("Moving from {} to {} on the {}",
-					selectedStartingSpot, selectedPlacementSpot, selectedScalePlateAssignment)
-
-			} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
-				logger.info("Moving from {} to {} on the {}",
-					selectedStartingSpot, selectedPlacementSpot, selectedOwnSwitchPlateAssignment)
-
-			} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
-				move(AutoRoutes.path2CrossLineFromCenterSpot)
-			}
+		} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
+			move(autoRoute.pathToCrossLine)
 		}
 	}
 
-	suspend fun move(path: ArrayList<Segment>) {
+	suspend fun move(path: Array<Segment>) {
 		logger.trace(path)
 		for (segment in path) {
 			logger.info("Moving from ({}, {}) to ({}, {})",

@@ -2,7 +2,6 @@ package org.stormgears.powerup.auto.command
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.subsystems.field.FieldPositions
-import org.stormgears.powerup.subsystems.navigator.Drive
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
@@ -22,14 +21,15 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 
 			// FIXME: This code is temporary - for testing only
 
-//			AutoDriveMoveCommand.execute(selectedAlliance,
-//				selectedStartingSpot,
-//				selectedPlacementSpot,
-//				selectedOwnSwitchPlateAssignment,
-//				selectedScalePlateAssignment,
-//				selectedOpponentSwitchPlateAssignmentChooser)
+			AutoDriveMoveCommand.execute(selectedAlliance,
+				selectedStartingSpot,
+				selectedPlacementSpot,
+				selectedOwnSwitchPlateAssignment,
+				selectedScalePlateAssignment,
+				selectedOpponentSwitchPlateAssignmentChooser)
 
-			Drive.moveStraight(60.0, 0.0)
+//			Robot.drive.moveStraight(60.0, 0.0)
+//			Drive.moveStraight(60.0, 0.0)
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
 //			Elevator.moveSideShift(-1)

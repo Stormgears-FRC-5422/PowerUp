@@ -18,67 +18,81 @@ fun dashboardify(talons: DriveTalons) {
 	}
 }
 
-class TalonDebugger : WithCoroutines {
+class TalonDebugger(val talons: Array<WPI_TalonSRX>, label: String = "") : WithCoroutines {
 	companion object {
 		val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}
 
-	fun start(talons: Array<WPI_TalonSRX>, label: String = ""): Job {
-		val filename = "TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
-		logger.info("Starting TalonDebugger, writing to {}", filename);
-		val writer = PrintWriter(filename, "UTF-8")
-		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")
+	val filename = "TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
+	val writer = PrintWriter(filename, "UTF-8")
+	var job: Job? = null;
 
-		fun add(str: Any) {
-			writer.print(StringEscapeUtils.escapeCsv(str.toString()) + ",")
+	init {
+		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")
+	}
+
+	fun add(str: Any) {
+		writer.print(StringEscapeUtils.escapeCsv(str.toString()) + ",")
+	}
+
+	fun dump() {
+		talons.forEachIndexed { index, talon ->
+			add(LocalDateTime.now())
+			add(index)
+			add(talon.deviceID)
+			add(talon.get())
+			add(talon.description)
+			add(talon.inverted)
+			add(talon.isAlive)
+			add(talon.isSafetyEnabled)
+			add(talon.activeTrajectoryHeading)
+			add(talon.activeTrajectoryPosition)
+			add(talon.activeTrajectoryVelocity)
+			add(talon.baseID)
+			add(talon.busVoltage)
+			add(talon.controlMode)
+			add(talon.firmwareVersion)
+			add(talon.handle)
+			add(talon.lastError)
+			add(talon.motionProfileTopLevelBufferCount)
+			add(talon.motorOutputPercent)
+			add(talon.motorOutputVoltage)
+			add(talon.outputCurrent)
+			add(talon.temperature)
+			add(talon.hasResetOccurred())
+			add(talon.sensorCollection.analogIn)
+			add(talon.sensorCollection.analogInRaw)
+			add(talon.sensorCollection.analogInVel)
+			add(talon.sensorCollection.pinStateQuadA)
+			add(talon.sensorCollection.pinStateQuadB)
+			add(talon.sensorCollection.pinStateQuadIdx)
+			add(talon.sensorCollection.pulseWidthPosition)
+			add(talon.sensorCollection.pulseWidthRiseToFallUs)
+			add(talon.sensorCollection.pulseWidthRiseToRiseUs)
+			add(talon.sensorCollection.pulseWidthVelocity)
+			add(talon.sensorCollection.quadraturePosition)
+			add(talon.sensorCollection.quadratureVelocity)
+			add(talon.sensorCollection.isFwdLimitSwitchClosed())
+			add(talon.sensorCollection.isRevLimitSwitchClosed())
+
+			writer.println()
 		}
 
-		return launch {
+		writer.flush()
+	}
+
+	fun start(): Job {
+		logger.info("Starting TalonDebugger, writing to {}", filename);
+
+		val job = launch {
 			while (true) {
-				talons.forEachIndexed { index, talon ->
-					add(LocalDateTime.now())
-					add(index)
-					add(talon.deviceID)
-					add(talon.get())
-					add(talon.description)
-					add(talon.inverted)
-					add(talon.isAlive)
-					add(talon.isSafetyEnabled)
-					add(talon.activeTrajectoryHeading)
-					add(talon.activeTrajectoryPosition)
-					add(talon.activeTrajectoryVelocity)
-					add(talon.baseID)
-					add(talon.busVoltage)
-					add(talon.controlMode)
-					add(talon.firmwareVersion)
-					add(talon.handle)
-					add(talon.lastError)
-					add(talon.motionProfileTopLevelBufferCount)
-					add(talon.motorOutputPercent)
-					add(talon.motorOutputVoltage)
-					add(talon.outputCurrent)
-					add(talon.temperature)
-					add(talon.hasResetOccurred())
-					add(talon.sensorCollection.analogIn)
-					add(talon.sensorCollection.analogInRaw)
-					add(talon.sensorCollection.analogInVel)
-					add(talon.sensorCollection.pinStateQuadA)
-					add(talon.sensorCollection.pinStateQuadB)
-					add(talon.sensorCollection.pinStateQuadIdx)
-					add(talon.sensorCollection.pulseWidthPosition)
-					add(talon.sensorCollection.pulseWidthRiseToFallUs)
-					add(talon.sensorCollection.pulseWidthRiseToRiseUs)
-					add(talon.sensorCollection.pulseWidthVelocity)
-					add(talon.sensorCollection.quadraturePosition)
-					add(talon.sensorCollection.quadratureVelocity)
-					add(talon.sensorCollection.isFwdLimitSwitchClosed())
-					add(talon.sensorCollection.isRevLimitSwitchClosed())
-
-					writer.println()
-				}
-
+				dump()
 				delay(50)
 			}
 		}
+
+		this.job = job
+
+		return job;
 	}
 }
