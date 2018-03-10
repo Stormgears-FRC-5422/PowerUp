@@ -17,10 +17,10 @@ public class DriveTalons {
 	private final ITalon[] talons = new ITalon[4];
 
 	private DriveTalons() {
-		talons[0] = TalonFactoryKt.TalonFactory(Robot.config.frontLeftTalonId);
-		talons[1] = TalonFactoryKt.TalonFactory(Robot.config.frontRightTalonId);
-		talons[2] = TalonFactoryKt.TalonFactory(Robot.config.rearLeftTalonId);
-		talons[3] = TalonFactoryKt.TalonFactory(Robot.config.rearRightTalonId);
+		talons[0] = TalonFactoryKt.createTalon(Robot.config.frontLeftTalonId);
+		talons[1] = TalonFactoryKt.createTalon(Robot.config.frontRightTalonId);
+		talons[2] = TalonFactoryKt.createTalon(Robot.config.rearLeftTalonId);
+		talons[3] = TalonFactoryKt.createTalon(Robot.config.rearRightTalonId);
 
 		for (ITalon t : talons) {
 			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);

@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
-import org.stormgears.utils.decoupling.TalonFactory
+import org.stormgears.utils.decoupling.createTalon
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -37,9 +37,9 @@ object Intake : TerminableSubsystem() {
 	private var job: Job? = null
 
 	init {
-		leftTalon = TalonFactory(LEFT_TALON_ID)
-		rightTalon = TalonFactory(RIGHT_TALON_ID)
-		articulatorTalon = TalonFactory(ARTICULATOR_TALON_ID)
+		leftTalon = createTalon(LEFT_TALON_ID)
+		rightTalon = createTalon(RIGHT_TALON_ID)
+		articulatorTalon = createTalon(ARTICULATOR_TALON_ID)
 	}
 
 	fun startWheelsIn() {

@@ -6,7 +6,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
-import org.stormgears.utils.decoupling.TalonFactory
+import org.stormgears.utils.decoupling.createTalon
 
 object Gripper : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
@@ -32,7 +32,7 @@ object Gripper : TerminableSubsystem() {
 	private var job: Job? = null
 
 	init {
-		talon = TalonFactory(TALON_ID)
+		talon = createTalon(TALON_ID)
 	}
 
 	private var iteration = 0

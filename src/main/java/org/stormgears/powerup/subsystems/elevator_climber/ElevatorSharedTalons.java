@@ -24,8 +24,8 @@ public class ElevatorSharedTalons {
 	private ElevatorSharedTalons(int masterMotorId, int slaveMotorId) {
 		System.out.println("Initializing elevator talons");
 		// TODO: Correctly setup talons
-		masterMotor = TalonFactoryKt.TalonFactory(masterMotorId);
-		slaveMotor = TalonFactoryKt.TalonFactory(slaveMotorId);
+		masterMotor = TalonFactoryKt.createTalon(masterMotorId);
+		slaveMotor = TalonFactoryKt.createTalon(slaveMotorId);
 		slaveMotor.set(ControlMode.Follower, masterMotorId);
 		masterMotor.setInverted(true);
 		masterMotor.setSensorPhase(true);

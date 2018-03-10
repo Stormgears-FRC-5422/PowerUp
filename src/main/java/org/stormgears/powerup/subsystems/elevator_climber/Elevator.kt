@@ -8,7 +8,7 @@ import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
-import org.stormgears.utils.decoupling.TalonFactory
+import org.stormgears.utils.decoupling.createTalon
 
 /**
  * Default constructor for the creation of the elevator
@@ -64,7 +64,7 @@ object Elevator : TerminableSubsystem() {
 		private set
 
     init {
-		sideShiftTalon = TalonFactory(SIDE_SHIFT_TALON_ID)
+		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
 		sideShiftTalon.inverted = true
     }
 

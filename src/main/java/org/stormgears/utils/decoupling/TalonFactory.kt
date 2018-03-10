@@ -1,6 +1,6 @@
 package org.stormgears.utils.decoupling
 
-fun TalonFactory(deviceNumber: Int): ITalon {
+fun createTalon(deviceNumber: Int): ITalon {
 	if (deviceNumber != -1) {
 		return StormTalon(deviceNumber)
 	} else {
