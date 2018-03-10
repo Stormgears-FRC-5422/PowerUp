@@ -1,12 +1,11 @@
 package org.stormgears.powerup.subsystems.navigator;
 
-import org.stormgears.powerup.Robot;
-import org.stormgears.utils.StormTalon;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
+import org.stormgears.powerup.Robot;
+import org.stormgears.utils.decoupling.ITalon;
 
 public class PowerUpMecanumDrive extends MecanumDrive {
 
@@ -17,7 +16,7 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 //talons[3] = new WPI_TalonSRX(3);//right back
 	
 	private static PowerUpMecanumDrive instance;
-	private StormTalon[] talons;
+	private ITalon[] talons;
 
 	public static PowerUpMecanumDrive getInstance() {
 		return instance;

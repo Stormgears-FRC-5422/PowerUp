@@ -6,8 +6,8 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.decoupling.StormTalon
 
 /**
  * Default constructor for the creation of the elevator

@@ -5,9 +5,9 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.information.RobotConfiguration
-import org.stormgears.utils.StormTalon
+import org.stormgears.utils.decoupling.ITalon
 
-class MotionMagic(private val talon: StormTalon, maxVel: Double, maxAccel: Double) {
+class MotionMagic(private val talon: ITalon, maxVel: Double, maxAccel: Double) {
 	companion object {
 		var config = RobotConfiguration.getInstance()
 		const val TALON_FPID_TIMEOUT = 10

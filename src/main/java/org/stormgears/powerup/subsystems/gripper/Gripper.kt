@@ -4,8 +4,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
-import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.decoupling.StormTalon
 
 object Gripper : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
