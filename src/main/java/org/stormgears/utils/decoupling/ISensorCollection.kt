@@ -154,7 +154,7 @@ interface ISensorCollection {
 	 */
 	fun setPulseWidthPosition(newPosition: Int, timeoutMs: Int): ErrorCode
 
-	class SensorCollectionAdapter(val sensorCollection: SensorCollection) : ISensorCollection {
+	class SensorCollectionAdapter(private val sensorCollection: SensorCollection) : ISensorCollection {
 		override val analogIn
 			get() = sensorCollection.analogIn
 		override val analogInRaw

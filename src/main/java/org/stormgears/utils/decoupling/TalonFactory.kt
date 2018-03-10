@@ -4,7 +4,7 @@ fun createTalon(deviceNumber: Int): ITalon {
 	if (deviceNumber != -1) {
 		return StormTalon(deviceNumber)
 	} else {
-		TODO()
+		return DummyTalon(deviceNumber)
 	}
 }
 

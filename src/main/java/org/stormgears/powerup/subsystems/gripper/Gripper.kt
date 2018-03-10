@@ -33,6 +33,11 @@ object Gripper : TerminableSubsystem() {
 
 	init {
 		talon = createTalon(TALON_ID)
+
+		if (talon.dummy) {
+			logger.warn("Requires physical talon, disabling Gripper!")
+			this.disabled = true
+		}
 	}
 
 	private var iteration = 0

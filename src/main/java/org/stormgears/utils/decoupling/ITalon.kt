@@ -5,7 +5,9 @@ import edu.wpi.first.wpilibj.MotorSafety
 import edu.wpi.first.wpilibj.SpeedController
 
 interface ITalon : IMotorControllerEnhanced, SpeedController, MotorSafety,
-	ITalonHelpers.__DO_NOT_USE_OR_YOU_WILL_BE_FIRED.IControlModeGettable,
-	ITalonHelpers.__DO_NOT_USE_OR_YOU_WILL_BE_FIRED.IHandleGettable {
+	ITalonJavaHelpers.__DO_NOT_USE_OR_YOU_WILL_BE_FIRED.IControlModeGettable,
+	ITalonJavaHelpers.__DO_NOT_USE_OR_YOU_WILL_BE_FIRED.IHandleGettable {
 	val sensorCollection: ISensorCollection
+
+	val dummy: Boolean;
 }

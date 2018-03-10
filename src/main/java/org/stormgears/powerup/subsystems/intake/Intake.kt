@@ -40,6 +40,11 @@ object Intake : TerminableSubsystem() {
 		leftTalon = createTalon(LEFT_TALON_ID)
 		rightTalon = createTalon(RIGHT_TALON_ID)
 		articulatorTalon = createTalon(ARTICULATOR_TALON_ID)
+
+		if (leftTalon.dummy || rightTalon.dummy || articulatorTalon.dummy) {
+			logger.warn("Requires physical talon, disabling Intake!")
+			this.disabled = true
+		}
 	}
 
 	fun startWheelsIn() {

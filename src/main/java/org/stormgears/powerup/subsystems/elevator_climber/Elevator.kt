@@ -66,6 +66,11 @@ object Elevator : TerminableSubsystem() {
     init {
 		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
 		sideShiftTalon.inverted = true
+
+		if (sideShiftTalon.dummy) {
+			logger.warn("Requires physical talon, disabling Elevator!")
+			this.disabled = true
+		}
     }
 
 	private fun updatePosition() {

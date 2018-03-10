@@ -31,8 +31,8 @@ class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCorouti
 		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")
 	}
 
-	fun add(str: Any) {
-		writer.print(StringEscapeUtils.escapeCsv(str.toString()) + ",")
+	fun add(str: Any?) {
+		writer.print(StringEscapeUtils.escapeCsv(str?.toString()) + ",")
 	}
 
 	fun dump() {
