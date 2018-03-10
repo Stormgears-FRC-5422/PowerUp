@@ -1,10 +1,12 @@
 package org.stormgears.utils.decoupling
 
+import org.stormgears.utils.logging.MotorLogger
+
 fun createTalon(deviceNumber: Int): ITalon {
 	if (deviceNumber != -1) {
 		return StormTalon(deviceNumber)
 	} else {
-		return DummyTalon(deviceNumber)
+		return MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber")
 	}
 }
 
