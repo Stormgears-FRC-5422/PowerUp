@@ -1,8 +1,10 @@
 package org.stormgears.powerup.auto.command
 
+import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.subsystems.elevator_climber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
+import org.stormgears.powerup.subsystems.gripper.Gripper
 import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
@@ -18,6 +20,9 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 		logger.trace("initiating autonomous command group")
 
 		launch {
+			async {
+				Gripper.openGripper()
+			}
 			AutoDriveMoveCommand.execute(selectedAlliance,
 				selectedStartingSpot,
 				selectedPlacementSpot,
@@ -26,6 +31,7 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 				selectedOpponentSwitchPlateAssignmentChooser)
 
 			Intake.moveIntakeToPositionSuspend(Intake.HORIZONTAL)
+			delay(500)
 			Elevator.zeroElevator()
 
 			// FIXME: This code is temporary - for testing only

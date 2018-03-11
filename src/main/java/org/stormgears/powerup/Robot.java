@@ -209,6 +209,10 @@ public class Robot extends BaseStormgearsRobot {
 
 //		intake.debug();
 
+//		elevator.debug();
+
+//		gripper.debug();
+
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();

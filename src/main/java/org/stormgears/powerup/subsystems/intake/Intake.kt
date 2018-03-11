@@ -9,6 +9,7 @@ import org.stormgears.powerup.Robot
 import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import java.lang.Math.abs
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -28,7 +29,7 @@ object Intake : TerminableSubsystem() {
 
 	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
-	private const val CURRENT_LIMIT = 20
+	private const val CURRENT_LIMIT = 90
 
 	private val leftTalon: StormTalon
 	private val rightTalon: StormTalon
@@ -84,12 +85,12 @@ object Intake : TerminableSubsystem() {
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
 				positionTicks = POS_VERTICAL
-				multiplier = 15.0
+				multiplier = 1.0
 			}
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
 				positionTicks = POS_HORIZONTAL
-				multiplier = -4.0
+				multiplier = -1.0
 			}
 			else -> {
 				logger.info("Position value for intake rotation does not match a valid position.")
@@ -97,24 +98,18 @@ object Intake : TerminableSubsystem() {
 			}
 		}
 
-		var currentLimitReached = false
-
-		var power = 0.0
+		var stopped = false
 		var iteration = 0
-		val increment = 0.005
-		var incrementMultiplier = 1.0
 
 		println("Articulator moving with ${POWER * multiplier}")
-		while (!currentLimitReached) {
-			power += increment * incrementMultiplier
-			articulatorTalon.set(ControlMode.PercentOutput, power * multiplier)
-			if (articulatorTalon.outputCurrent > CURRENT_LIMIT && ++iteration > 100) {
-				currentLimitReached = true
-				println("Articulator reached current limit")
-			}
-
-			if (power > 0.3) {
-				multiplier = 0.0
+		articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
+		while (articulatorTalon.outputCurrent < CURRENT_LIMIT && !stopped) {
+			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && ++iteration > 170) {
+				stopped = true
+				println("Articulator stopped")
+			} else if (iteration > 120) {
+				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+				println("Articulator power set to 0")
 			}
 
 			delay(20)

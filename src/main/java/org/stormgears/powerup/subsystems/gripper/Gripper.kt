@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.gripper
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
@@ -17,10 +18,11 @@ object Gripper : TerminableSubsystem() {
 	//TODO: Change to correct value
 	private val TALON_ID = TalonIds.GRIPPER
 
-	private const val GRIPPER_POWER = 0.5
+	private const val GRIPPER_POWER = 0.2
+
 	private const val CLOSE_CURRENT_LIMIT = 7
-	private const val OPEN_CURRENT_LIMIT = 4.5
-	private const val CURRENT_CHECK_START_TIME = 15
+	private const val OPEN_CURRENT_LIMIT = 3.5
+	private const val CURRENT_CHECK_START_TIME = 7
 	private const val BREAK_JAM_SPEED = 0.75
 	private const val BRAKE_SPEED = -0.05
 
@@ -106,6 +108,7 @@ object Gripper : TerminableSubsystem() {
 	fun debug() {
 		println("Forward switch: ${talon.sensorCollection.isFwdLimitSwitchClosed}")
 		println("Reverse switch: ${talon.sensorCollection.isRevLimitSwitchClosed}")
+		SmartDashboard.putNumber("Gripper current", talon.outputCurrent)
 //		println("Output current: ${talon.outputCurrent}")
 	}
 }

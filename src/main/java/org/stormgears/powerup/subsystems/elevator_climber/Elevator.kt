@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.elevator_climber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
@@ -28,7 +29,7 @@ object Elevator : TerminableSubsystem() {
 
 	// TODO: Change these to real values
 	private const val ZERO_POWER = 0.3
-	private const val ZERO_CURRENT_LIMIT = 10.0
+	private const val ZERO_CURRENT_LIMIT = 8.7
 
 	// PID values for elevator
 	private const val RAISE_P = 0.088
@@ -47,7 +48,7 @@ object Elevator : TerminableSubsystem() {
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1
-	private const val SIDE_SHIFT_POWER = 0.6
+	private const val SIDE_SHIFT_POWER = 0.9
 	private const val SLOW_DOWN = -0.05
 //	private const val FULL_LEFT_TICKS = 181000
 //	private const val FULL_RIGHT_TICKS = -181000
@@ -122,14 +123,14 @@ object Elevator : TerminableSubsystem() {
 		launch("Override slow down", parent = null) {
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
+			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+
 			if (!overrodeSide) {
-				talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+//				delay(300)
+//				updatePosition()
 
-				delay(300)
-				updatePosition()
-
-				// Hold current elevator position
-				talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
+//				// Hold current elevator position
+//				talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
 			}
 		}
     }
@@ -195,7 +196,10 @@ object Elevator : TerminableSubsystem() {
 		println("Zero-ing Elevator. Watch out!")
 
 		var iteration = 0
-		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT || ++iteration < 40) delay(20)
+		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT || ++iteration < 40) {
+			delay(20)
+			println("Current limit: ${talons.masterMotor.outputCurrent}")
+		}
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
 		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
@@ -220,23 +224,28 @@ object Elevator : TerminableSubsystem() {
     }
 
     fun moveUpManual() {
-		talons.masterMotor.set(ControlMode.PercentOutput, -0.5)
+		talons.masterMotor.set(ControlMode.PercentOutput, -0.9)
 		overrodeSide = false
     }
 
     fun moveDownManual() {
-        talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
+        talons.masterMotor.set(ControlMode.PercentOutput, 0.6)
 		overrodeSide = false
 	}
 
     fun moveLeftManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, -0.5)
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.8)
 		overrodeSide = true
 	}
 
     fun moveRightManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, 0.5)
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.8)
 		overrodeSide = true
+	}
+
+	fun debug() {
+		SmartDashboard.putNumber("Elevator encoder position", talons.masterMotor.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Elevator encoder velocity", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
 	}
 
     /**
