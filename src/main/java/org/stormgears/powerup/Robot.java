@@ -29,8 +29,8 @@ import java.util.ArrayList;
  */
 public class Robot extends BaseStormgearsRobot {
 	static {
-		FixPermissionsKt.fixPermissions();
 		StormyLog.init();
+		FixPermissionsKt.fixPermissions();
 	}
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
