@@ -1,7 +1,5 @@
 package org.stormgears.powerup;
 
-import edu.wpi.first.wpilibj.Timer;
-import kotlinx.coroutines.experimental.Job;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +16,7 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.*;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
+import org.stormgears.utils.FixPermissionsKt;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.concurrency.Terminator;
@@ -30,6 +29,7 @@ import java.util.ArrayList;
  */
 public class Robot extends BaseStormgearsRobot {
 	static {
+		FixPermissionsKt.fixPermissions();
 		StormyLog.init();
 	}
 
