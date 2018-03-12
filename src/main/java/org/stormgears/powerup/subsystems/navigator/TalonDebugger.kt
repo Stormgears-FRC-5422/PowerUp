@@ -1,24 +1,24 @@
 package org.stormgears.powerup.subsystems.navigator
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.commons.text.StringEscapeUtils
 import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.concurrency.WithCoroutines
+import org.stormgears.utils.decoupling.ITalon
 import java.io.PrintWriter
 import java.time.LocalDateTime
 
 fun dashboardify(talons: DriveTalons) {
-	talons.talons.forEachIndexed { index, stormTalon ->
-		val sensorCollection = stormTalon.sensorCollection
-		SmartDashboard.putNumber("Talon $index (ID ${stormTalon.deviceID}) position", sensorCollection.quadraturePosition.toDouble())
-		SmartDashboard.putNumber("Talon $index (ID ${stormTalon.deviceID}) velocity", sensorCollection.quadratureVelocity.toDouble())
+	talons.talons.forEachIndexed { index, talon ->
+		val sensorCollection = talon.sensorCollection
+		SmartDashboard.putNumber("Talon $index (ID ${talon.deviceID}) position", sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Talon $index (ID ${talon.deviceID}) velocity", sensorCollection.quadratureVelocity.toDouble())
 	}
 }
 
-class TalonDebugger(val talons: Array<WPI_TalonSRX>, label: String = "") : WithCoroutines {
+class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCoroutines {
 	companion object {
 		val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}
@@ -31,8 +31,8 @@ class TalonDebugger(val talons: Array<WPI_TalonSRX>, label: String = "") : WithC
 		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")
 	}
 
-	fun add(str: Any) {
-		writer.print(StringEscapeUtils.escapeCsv(str.toString()) + ",")
+	fun add(str: Any?) {
+		writer.print(StringEscapeUtils.escapeCsv(str?.toString()) + ",")
 	}
 
 	fun dump() {
@@ -72,8 +72,8 @@ class TalonDebugger(val talons: Array<WPI_TalonSRX>, label: String = "") : WithC
 			add(talon.sensorCollection.pulseWidthVelocity)
 			add(talon.sensorCollection.quadraturePosition)
 			add(talon.sensorCollection.quadratureVelocity)
-			add(talon.sensorCollection.isFwdLimitSwitchClosed())
-			add(talon.sensorCollection.isRevLimitSwitchClosed())
+			add(talon.sensorCollection.isFwdLimitSwitchClosed)
+			add(talon.sensorCollection.isRevLimitSwitchClosed)
 
 			writer.println()
 		}

@@ -6,8 +6,9 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.createTalon
 
 /**
  * Default constructor for the creation of the elevator
@@ -16,7 +17,7 @@ object Elevator : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
 
     private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
-	private val sideShiftTalon: StormTalon
+	private val sideShiftTalon: ITalon
 	private var sideShiftPosition = 0
 
 	private const val TICKS_PER_INCH = 13000
@@ -63,8 +64,13 @@ object Elevator : TerminableSubsystem() {
 		private set
 
     init {
-		sideShiftTalon = StormTalon(SIDE_SHIFT_TALON_ID)
+		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
 		sideShiftTalon.inverted = true
+
+		if (sideShiftTalon.dummy) {
+			logger.warn("Requires physical talon, disabling Elevator!")
+			this.disabled = true
+		}
     }
 
 	private fun updatePosition() {

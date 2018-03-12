@@ -5,8 +5,9 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.createTalon
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -28,17 +29,22 @@ object Intake : TerminableSubsystem() {
 	private const val POWER = 1.0
 	private const val CURRENT_LIMIT = 30
 
-	private val leftTalon: StormTalon
-	private val rightTalon: StormTalon
-	private val articulatorTalon: StormTalon
+	private val leftTalon: ITalon
+	private val rightTalon: ITalon
+	private val articulatorTalon: ITalon
 
 	private var position = VERTICAL
 	private var job: Job? = null
 
 	init {
-		leftTalon = StormTalon(LEFT_TALON_ID)
-		rightTalon = StormTalon(RIGHT_TALON_ID)
-		articulatorTalon = StormTalon(ARTICULATOR_TALON_ID)
+		leftTalon = createTalon(LEFT_TALON_ID)
+		rightTalon = createTalon(RIGHT_TALON_ID)
+		articulatorTalon = createTalon(ARTICULATOR_TALON_ID)
+
+		if (leftTalon.dummy || rightTalon.dummy || articulatorTalon.dummy) {
+			logger.warn("Requires physical talon, disabling Intake!")
+			this.disabled = true
+		}
 	}
 
 	fun startWheelsIn() {

@@ -4,8 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
-import org.stormgears.utils.StormTalon
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.createTalon
 
 object Gripper : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
@@ -23,7 +24,7 @@ object Gripper : TerminableSubsystem() {
 	private const val BREAK_JAM_SPEED = 0.75
 	private const val BRAKE_SPEED = -0.05
 
-	private val talon: StormTalon
+	private val talon: ITalon
 
 	private var gripperClosing = false
 	private var gripperOpening = false
@@ -31,7 +32,12 @@ object Gripper : TerminableSubsystem() {
 	private var job: Job? = null
 
 	init {
-		talon = StormTalon(TALON_ID)
+		talon = createTalon(TALON_ID)
+
+		if (talon.dummy) {
+			logger.warn("Requires physical talon, disabling Gripper!")
+			this.disabled = true
+		}
 	}
 
 	private var iteration = 0

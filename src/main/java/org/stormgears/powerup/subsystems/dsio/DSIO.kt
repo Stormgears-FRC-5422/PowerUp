@@ -71,6 +71,8 @@ object DSIO {
 				when (state) {
 					ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
 					ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
+					ITernarySwitch.SwitchState.Neutral -> {
+					} // TODO
 				}
 			})
 		} else {

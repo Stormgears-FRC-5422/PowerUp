@@ -9,7 +9,6 @@ import kotlinx.coroutines.experimental.channels.ProducerScope
 import kotlinx.coroutines.experimental.channels.ReceiveChannel
 import kotlinx.coroutines.experimental.channels.SendChannel
 import org.apache.logging.log4j.LogManager
-import org.stormgears.utils.concurrency.Terminator.disabled
 import org.stormgears.utils.concurrency.Terminator.parentJob
 import kotlin.coroutines.experimental.CoroutineContext
 
@@ -19,6 +18,12 @@ abstract class TerminableSubsystem : WithCoroutines {
 	}
 
 	private val subclassName = this.javaClass.canonicalName
+	private var localDisable = false;
+	var disabled: Boolean
+		get() = Terminator.disabled || localDisable
+		set(value) {
+			localDisable = value
+		}
 
 	fun launch(
 		jobName: String, context: CoroutineContext = globalContext,
@@ -39,7 +44,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 		if (disabled) {
 			val job = Job()
 			job.cancel()
-			logger.warn("Cannot launch in {}; subsystems are disabled", subclassName)
+			logger.warn("Cannot launch in {}; subsystem is disabled", subclassName)
 			return job;
 		}
 
@@ -52,7 +57,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 
 	override fun <T> async(context: CoroutineContext, start: CoroutineStart, parent: Job?, block: suspend CoroutineScope.() -> T): Deferred<T> {
 		if (disabled) {
-			logger.error("Cannot run async in {}; subsystems are disabled", subclassName)
+			logger.error("Cannot run async in {}; subsystem is disabled", subclassName)
 			throw IllegalStateException()
 		}
 
@@ -61,7 +66,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 
 	override fun <E> produce(context: CoroutineContext, capacity: Int, parent: Job?, block: suspend ProducerScope<E>.() -> Unit): ReceiveChannel<E> {
 		if (disabled) {
-			logger.error("Cannot run produce in {}; subsystems are disabled", subclassName)
+			logger.error("Cannot run produce in {}; subsystem is disabled", subclassName)
 			throw IllegalStateException()
 		}
 
@@ -70,7 +75,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 
 	override fun <E> actor(context: CoroutineContext, capacity: Int, start: CoroutineStart, parent: Job?, block: suspend ActorScope<E>.() -> Unit): SendChannel<E> {
 		if (disabled) {
-			logger.error("Cannot run actor in {}; subsystems are disabled", subclassName)
+			logger.error("Cannot run actor in {}; subsystem is disabled", subclassName)
 			throw IllegalStateException()
 		}
 
