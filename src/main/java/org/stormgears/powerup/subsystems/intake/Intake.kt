@@ -107,7 +107,7 @@ object Intake : TerminableSubsystem() {
 			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && ++iteration > 170) {
 				stopped = true
 				println("Articulator stopped")
-			} else if (iteration > 120) {
+			} else if (iteration > 130) {
 				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
 				println("Articulator power set to 0")
 			}

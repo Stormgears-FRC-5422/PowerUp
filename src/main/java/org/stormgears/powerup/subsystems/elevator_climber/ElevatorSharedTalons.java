@@ -28,7 +28,8 @@ public class ElevatorSharedTalons {
 		slaveMotor = new StormTalon(slaveMotorId);
 		slaveMotor.set(ControlMode.Follower, masterMotorId);
 		masterMotor.setInverted(true);
-		slaveMotor.setSensorPhase(true);
+		masterMotor.setSensorPhase(true);
+	 //   slaveMotor.setSensorPhase(true);
 		slaveMotor.setInverted(true);
 
 	}

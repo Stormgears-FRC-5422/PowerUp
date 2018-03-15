@@ -47,7 +47,7 @@ public class Robot extends BaseStormgearsRobot {
 	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
-	public static GlobalMapping globalMapping;
+//	public static GlobalMapping globalMapping;
 	public static DriveTalons driveTalons;
 	public static Drive drive;
 	public static Intake intake;
@@ -136,7 +136,7 @@ public class Robot extends BaseStormgearsRobot {
 //		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
 	}
 
-	/**++++++++++++
+	/**
 	 * Runs once right at the start of autonomousPeriodic
 	 */
 	@Override
@@ -209,17 +209,18 @@ public class Robot extends BaseStormgearsRobot {
 
 //		intake.debug();
 
-//		elevator.debug();
+		elevator.debug();
 
 //		gripper.debug();
 
 		if (drive != null) {
-			if (!sensors.getNavX().isCalibrating()) {
-				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+//			if (!sensors.getNavX().isCalibrating()) {
+//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+			TalonDebuggerKt.dashboardify(driveTalons);
 				drive.move();
-			} else {
-				logger.fatal("NavX theta is not set! Cannot drive!");
-			}
+//			} else {
+//				logger.fatal("NavX theta is not set! Cannot drive!");
+//			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
