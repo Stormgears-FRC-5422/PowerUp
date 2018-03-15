@@ -16,6 +16,7 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.*;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
+import org.stormgears.utils.FixPermissionsKt;
 import org.stormgears.utils.RegisteredNotifier;
 import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.concurrency.Terminator;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class Robot extends BaseStormgearsRobot {
 	static {
 		StormyLog.init();
+		FixPermissionsKt.fixPermissions();
 	}
 
 	private static final Logger logger = LogManager.getLogger(Robot.class);
