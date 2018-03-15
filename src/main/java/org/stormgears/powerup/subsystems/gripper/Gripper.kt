@@ -1,9 +1,11 @@
 package org.stormgears.powerup.subsystems.gripper
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
+import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -15,12 +17,13 @@ object Gripper : TerminableSubsystem() {
 		private set
 
 	//TODO: Change to correct value
-	private val TALON_ID = 21
+	private val TALON_ID = TalonIds.GRIPPER
 
-	private const val GRIPPER_POWER = 0.5
-	private const val CLOSE_CURRENT_LIMIT = 7
-	private const val OPEN_CURRENT_LIMIT = 4.5
-	private const val CURRENT_CHECK_START_TIME = 15
+	private const val GRIPPER_POWER = 0.50
+
+	private const val CLOSE_CURRENT_LIMIT = 10
+	private const val OPEN_CURRENT_LIMIT = 10
+	private const val CURRENT_CHECK_START_TIME = 5
 	private const val BREAK_JAM_SPEED = 0.75
 	private const val BRAKE_SPEED = -0.05
 
@@ -59,7 +62,7 @@ object Gripper : TerminableSubsystem() {
 
 		iteration = 0
 		while (!talon.sensorCollection.isFwdLimitSwitchClosed) {
-			delay(20)
+			delay(10)
 
 			if (iteration++ > CURRENT_CHECK_START_TIME) {
 				talon.set(ControlMode.PercentOutput, GRIPPER_POWER)
@@ -92,7 +95,7 @@ object Gripper : TerminableSubsystem() {
 
 		iteration = 0
 		while (!talon.sensorCollection.isRevLimitSwitchClosed) {
-			delay(20)
+			delay(10)
 
 			if (iteration++ > CURRENT_CHECK_START_TIME) {
 				talon.set(ControlMode.PercentOutput, -GRIPPER_POWER)
@@ -111,6 +114,7 @@ object Gripper : TerminableSubsystem() {
 	fun debug() {
 		println("Forward switch: ${talon.sensorCollection.isFwdLimitSwitchClosed}")
 		println("Reverse switch: ${talon.sensorCollection.isRevLimitSwitchClosed}")
+		SmartDashboard.putNumber("Gripper current", talon.outputCurrent)
 //		println("Output current: ${talon.outputCurrent}")
 	}
 }

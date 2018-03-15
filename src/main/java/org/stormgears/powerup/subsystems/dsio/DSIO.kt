@@ -79,8 +79,8 @@ object DSIO {
 			logger.warn("Intake lift switch is not ternary, not sure what to do!") // TODO
 		}
 
-		buttonBoard.gripCloseButton.whenPressed { Robot.gripper.closeGripper() }
-		buttonBoard.gripOpenButton.whenPressed { Robot.gripper.openGripper() }
+		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper.closeGripper() }
+		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper.openGripper() }
 
 		buttonBoard.climbUpButton.whenPressed { /* Raise Climber */ }
 		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }

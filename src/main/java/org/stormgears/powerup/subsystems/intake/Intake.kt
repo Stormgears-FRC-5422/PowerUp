@@ -1,13 +1,16 @@
 package org.stormgears.powerup.subsystems.intake
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
+import java.lang.Math.abs
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -21,13 +24,13 @@ object Intake : TerminableSubsystem() {
 	private const val POS_VERTICAL = 0
 	private const val POS_HORIZONTAL = 70000
 
-	private const val LEFT_TALON_ID = 23
-	private const val RIGHT_TALON_ID = 3
-	private const val ARTICULATOR_TALON_ID = 20
+	private const val LEFT_TALON_ID = TalonIds.INTAKE_LEFT
+	private const val RIGHT_TALON_ID = TalonIds.INTAKE_RIGHT
+	private const val ARTICULATOR_TALON_ID = TalonIds.INTAKE_ART
 
 	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
-	private const val CURRENT_LIMIT = 30
+	private const val CURRENT_LIMIT = 90
 
 	private val leftTalon: ITalon
 	private val rightTalon: ITalon
@@ -50,22 +53,22 @@ object Intake : TerminableSubsystem() {
 	fun startWheelsIn() {
 		logger.info("Intake wheels pulling in")
 
-		leftTalon.set(ControlMode.Velocity, WHEEL_SPEED.toDouble())
-		rightTalon.set(ControlMode.Velocity, (-WHEEL_SPEED).toDouble())
+		leftTalon.set(ControlMode.PercentOutput, 1.0)
+		rightTalon.set(ControlMode.PercentOutput, -1.0)
 	}
 
 	fun startWheelsOut() {
 		logger.info("Intake wheels pushing out")
 
-		leftTalon.set(ControlMode.Velocity, (-WHEEL_SPEED).toDouble())
-		rightTalon.set(ControlMode.Velocity, WHEEL_SPEED.toDouble())
+		leftTalon.set(ControlMode.PercentOutput, -1.0)
+		rightTalon.set(ControlMode.PercentOutput, 1.0)
 	}
 
 	fun stopWheels() {
 		logger.info("Intake wheels off")
 
-		leftTalon.set(ControlMode.Velocity, 0.0)
-		rightTalon.set(ControlMode.Velocity, 0.0)
+		leftTalon.set(ControlMode.PercentOutput, 0.0)
+		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	fun moveIntakeToPosition(position: Int) {
@@ -88,12 +91,12 @@ object Intake : TerminableSubsystem() {
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
 				positionTicks = POS_VERTICAL
-				multiplier = 15.0
+				multiplier = 1.0
 			}
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
 				positionTicks = POS_HORIZONTAL
-				multiplier = -4.0
+				multiplier = -1.0
 			}
 			else -> {
 				logger.info("Position value for intake rotation does not match a valid position.")
@@ -101,24 +104,18 @@ object Intake : TerminableSubsystem() {
 			}
 		}
 
-		var currentLimitReached = false
-
-		var power = 0.0
+		var stopped = false
 		var iteration = 0
-		val increment = 0.005
-		var incrementMultiplier = 1.0
 
 		println("Articulator moving with ${POWER * multiplier}")
-		while (!currentLimitReached) {
-			power += increment * incrementMultiplier
-			articulatorTalon.set(ControlMode.PercentOutput, power * multiplier)
-			if (articulatorTalon.outputCurrent > CURRENT_LIMIT && ++iteration > 100) {
-				currentLimitReached = true
-				println("Articulator reached current limit")
-			}
-
-			if (power > 0.5) {
-				multiplier = 0.0
+		articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
+		while (articulatorTalon.outputCurrent < CURRENT_LIMIT && !stopped) {
+			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && ++iteration > 170) {
+				stopped = true
+				println("Articulator stopped")
+			} else if (iteration > 130) {
+				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+				println("Articulator power set to 0")
 			}
 
 			delay(20)
@@ -135,7 +132,9 @@ object Intake : TerminableSubsystem() {
 	}
 
 	fun debug() {
-		println("Articulator output current: ${articulatorTalon.outputCurrent}")
+		SmartDashboard.putNumber("Articulator encoder position", articulatorTalon.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Left wheel position", leftTalon.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Right wheel position", rightTalon.sensorCollection.quadraturePosition.toDouble())
 	}
 
 	fun joystickify() {
