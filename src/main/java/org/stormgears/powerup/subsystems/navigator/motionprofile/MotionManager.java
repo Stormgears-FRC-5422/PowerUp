@@ -208,10 +208,10 @@ public class MotionManager {
 //		System.out.println("Adjust PIDTurnRate with angleRate = " + angleRate);
 		// Note that the left and right wheels turning the same direction at the same speed causes
 		// a rotation since the wheels face opposite directions.
-		Robot.driveTalons.getTalons()[Robot.config.frontLeftTalonId].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.rearLeftTalonId].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.frontRightTalonId].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.rearRightTalonId].set(ControlMode.Velocity, vel);
+		Robot.driveTalons.getTalons()[Robot.config.getFrontLeftTalonId()].set(ControlMode.Velocity, vel);
+		Robot.driveTalons.getTalons()[Robot.config.getRearLeftTalonId()].set(ControlMode.Velocity, vel);
+		Robot.driveTalons.getTalons()[Robot.config.getFrontRightTalonId()].set(ControlMode.Velocity, vel);
+		Robot.driveTalons.getTalons()[Robot.config.getRearRightTalonId()].set(ControlMode.Velocity, vel);
 	}
 
 	/*

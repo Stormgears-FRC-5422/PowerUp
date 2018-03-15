@@ -347,8 +347,8 @@ object Drive : TerminableSubsystem() {
 			logger.trace(box(theta))
 		}
 
-		val robotLength = java.lang.Double.parseDouble(Robot.config.robotLength)
-		val robotWidth = java.lang.Double.parseDouble(Robot.config.robotWidth)
+		val robotLength = Robot.config.robotLength
+		val robotWidth = Robot.config.robotWidth
 
 		val r = (robotLength + robotWidth) / 3.8
 

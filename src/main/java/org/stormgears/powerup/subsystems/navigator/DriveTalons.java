@@ -17,17 +17,17 @@ public class DriveTalons {
 	private final ITalon[] talons = new ITalon[4];
 
 	private DriveTalons() {
-		talons[0] = TalonFactoryKt.createTalon(Robot.config.frontLeftTalonId);
-		talons[1] = TalonFactoryKt.createTalon(Robot.config.frontRightTalonId);
-		talons[2] = TalonFactoryKt.createTalon(Robot.config.rearLeftTalonId);
-		talons[3] = TalonFactoryKt.createTalon(Robot.config.rearRightTalonId);
+		talons[0] = TalonFactoryKt.createTalon(Robot.config.getFrontLeftTalonId());
+		talons[1] = TalonFactoryKt.createTalon(Robot.config.getFrontRightTalonId());
+		talons[2] = TalonFactoryKt.createTalon(Robot.config.getRearLeftTalonId());
+		talons[3] = TalonFactoryKt.createTalon(Robot.config.getRearRightTalonId());
 
 		for (ITalon t : talons) {
-			t.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT);
-			t.config_kP(0, Robot.config.velocityP, TALON_FPID_TIMEOUT);
-			t.config_kI(0, Robot.config.velocityI, TALON_FPID_TIMEOUT);
-			t.config_kD(0, Robot.config.velocityD, TALON_FPID_TIMEOUT);
-			t.config_IntegralZone(0, Robot.config.velocityIzone, TALON_FPID_TIMEOUT);
+			t.config_kF(0, Robot.config.getVelocityF(), TALON_FPID_TIMEOUT);
+			t.config_kP(0, Robot.config.getVelocityP(), TALON_FPID_TIMEOUT);
+			t.config_kI(0, Robot.config.getVelocityI(), TALON_FPID_TIMEOUT);
+			t.config_kD(0, Robot.config.getVelocityD(), TALON_FPID_TIMEOUT);
+			t.config_IntegralZone(0, Robot.config.getVelocityIzone(), TALON_FPID_TIMEOUT);
 			t.setNeutralMode(NeutralMode.Brake);
 
 			t.setInverted(true);

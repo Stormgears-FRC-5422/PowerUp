@@ -1,7 +1,5 @@
 package org.stormgears.powerup;
 
-import edu.wpi.first.wpilibj.Timer;
-import kotlinx.coroutines.experimental.Job;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -43,7 +41,7 @@ public class Robot extends BaseStormgearsRobot {
 	 * Then, when you want to use it somewhere else, use Robot.<subsystem>.blah
 	 * Example: Robot.dsio.
 	 */
-	public static RobotConfiguration config = RobotConfiguration.getInstance();
+	public static RobotConfiguration config = RobotConfiguration.INSTANCE;
 	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 	public static Sensors sensors;
@@ -76,7 +74,7 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	@Override
 	public void robotInit() {
-		logger.info("{} is running", config.robotName);
+		logger.info("{} is running", config.getRobotName());
 
 		StormScheduler.init();
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" direct="true">
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %class{1.}.%M:%L - %msg%xEx%n"/>
+		</Console>
+	</Appenders>
+	<Loggers>
+		<!--<Logger name="org.stormgears.utils.graveyard.TestDrive" level="trace" />-->
+		<asyncRoot level="trace" includeLocation="true">
+			<AppenderRef ref="Console"/>
+		</asyncRoot>
+	</Loggers>
+</Configuration>
