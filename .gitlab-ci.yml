@@ -3,7 +3,6 @@ image: java:8-jdk
 stages:
   - build
   - docs
-  - test
 
 before_script:
 #  - echo `pwd` # debug
@@ -20,16 +19,6 @@ build:
   stage: build
   script:
     - ./gradlew assemble
-#  artifacts:
-#    paths:
-#      - build/libs/*.jar
-#    expire_in: 1 week
-#  only:
-#    - master
-
-test:
-  stage: test
-  script:
     - ./gradlew check
 
 docs:
@@ -38,6 +27,8 @@ docs:
     - ./gradlew dokka
     - chmod +x deploy-docs.sh
     - ./deploy-docs.sh
+  only:
+    - master
 
 after_script:
   - echo "End CI"
