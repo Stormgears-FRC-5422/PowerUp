@@ -1,4 +1,4 @@
-package org.stormgears.powerup.subsystems.elevator_climber;
+package org.stormgears.powerup.subsystems.elevatorclimber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.stormgears.utils.decoupling.ITalon;

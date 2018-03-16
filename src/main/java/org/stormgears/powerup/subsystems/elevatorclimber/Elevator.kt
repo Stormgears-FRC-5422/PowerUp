@@ -1,4 +1,4 @@
-package org.stormgears.powerup.subsystems.elevator_climber
+package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
@@ -16,7 +16,7 @@ import org.stormgears.utils.decoupling.createTalon
 object Elevator : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
 
-    private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
+	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
 	private val sideShiftTalon: ITalon
 	private var sideShiftPosition = 0
 
@@ -63,7 +63,7 @@ object Elevator : TerminableSubsystem() {
 	var currentElevatorPosition = 0
 		private set
 
-    init {
+	init {
 		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
 		sideShiftTalon.inverted = true
 
@@ -71,18 +71,18 @@ object Elevator : TerminableSubsystem() {
 			logger.warn("Requires physical talon, disabling Elevator!")
 			this.disabled = true
 		}
-    }
+	}
 
 	private fun updatePosition() {
 		currentElevatorPosition = talons.masterMotor.sensorCollection.quadraturePosition
 	}
 
-    /**
-     * Move the elevator to a position
-     *
-     * @param position = encoder ticks of the position where the elevator should move
-     */
-    fun moveElevatorToPosition(position: Int) {
+	/**
+	 * Move the elevator to a position
+	 *
+	 * @param position = encoder ticks of the position where the elevator should move
+	 */
+	fun moveElevatorToPosition(position: Int) {
 		if (elevatorJob != null) {
 			elevatorJob!!.cancel()
 			logger.trace("Cancelled elevator job")
@@ -120,10 +120,10 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	private var overrodeSide = false
-    /**
-     * Stop all motion
-     */
-    fun stop() {
+	/**
+	 * Stop all motion
+	 */
+	fun stop() {
 		launch("Override slow down", parent = null) {
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
@@ -137,11 +137,11 @@ object Elevator : TerminableSubsystem() {
 				talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
 			}
 		}
-    }
+	}
 
-    /**
-     * Move side shift to position
-     */
+	/**
+	 * Move side shift to position
+	 */
 	fun moveSideShiftToPosition(position: Int) {
 		if (sideShiftJob != null) {
 			sideShiftJob!!.cancel()
@@ -211,38 +211,38 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
-    fun moveSideShiftOverLeft() {
-        if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
-    }
+	fun moveSideShiftOverLeft() {
+		if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
+	}
 
-    fun moveSideShiftOverRight() {
-        if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1)
-    }
+	fun moveSideShiftOverRight() {
+		if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1)
+	}
 
-    fun moveUpManual() {
+	fun moveUpManual() {
 		talons.masterMotor.set(ControlMode.PercentOutput, -0.5)
-		overrodeSide = false
-    }
-
-    fun moveDownManual() {
-        talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
 		overrodeSide = false
 	}
 
-    fun moveLeftManual() {
+	fun moveDownManual() {
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
+		overrodeSide = false
+	}
+
+	fun moveLeftManual() {
 		sideShiftTalon.set(ControlMode.PercentOutput, -0.5)
 		overrodeSide = true
 	}
 
-    fun moveRightManual() {
+	fun moveRightManual() {
 		sideShiftTalon.set(ControlMode.PercentOutput, 0.5)
 		overrodeSide = true
 	}
 
-    /**
-     * @param inches number of inches
-     * @return number of encoder ticks necessary to go that many inches
-     */
+	/**
+	 * @param inches number of inches
+	 * @return number of encoder ticks necessary to go that many inches
+	 */
 	private fun toEncoderTicks(inches: Double): Int =
 		Math.round(inches * TICKS_PER_INCH * ELEVATOR_DISTANCE_MULTIPLIER).toInt()
 }

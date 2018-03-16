@@ -132,7 +132,7 @@ public class MotionManager {
 		/* based upon navX MXP yaw angle input and PID Coefficients.    */
 		public void pidWrite(double output) {
 			synchronized (MotionManager.this) {
-				logger.trace("in PIDWrite - rotateToAngleRate = {}", output);
+				logger.trace("in PIDWrite - rotateToAngleRate = {}", box(output));
 				logger.trace("Error: {} Output: {} Set: {}",
 					box(MotionManager.this.turnController.getError()),
 					box(MotionManager.this.turnController.get()),
@@ -286,7 +286,7 @@ public class MotionManager {
 		}
 		d.direction = false;
 		double dist = robotRadius * d.theta / (2.0 * Math.PI * wheelRadius);
-		logger.trace("ogTheta: {}", ogTheta);
+		logger.trace("ogTheta: {}", box(ogTheta));
 		return TrapezoidalProfile.getTrapezoidZero(dist, maxVel, ogTheta, getRobotRPM());
 	}
 
@@ -384,7 +384,7 @@ public class MotionManager {
 			if (wait) {
 //				wait = false;  // reset // TODO: Assignment never used?
 				if (count % 10 == 0) {
-					logger.debug("Waited {} intervals", count);
+					logger.debug("Waited {} intervals", box(count));
 				}
 
 				try {
@@ -393,7 +393,7 @@ public class MotionManager {
 					logger.warn("Ignoring Interrupted exception in waitUntilProfileFinishes: {}", e);
 				}
 			} else {
-				logger.debug("Return from waitUntilProfileFinishes after waiting {} interval(s)", count);
+				logger.debug("Return from waitUntilProfileFinishes after waiting {} interval(s)", box(count));
 				if (!rotateToAngle) {
 					shutDownProfiling();
 				}

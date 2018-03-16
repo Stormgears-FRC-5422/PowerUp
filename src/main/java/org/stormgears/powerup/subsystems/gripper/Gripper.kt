@@ -15,7 +15,7 @@ object Gripper : TerminableSubsystem() {
 		private set
 
 	//TODO: Change to correct value
-	private val TALON_ID = 21
+	private const val TALON_ID = 21
 
 	private const val GRIPPER_POWER = 0.5
 	private const val CLOSE_CURRENT_LIMIT = 7
@@ -63,7 +63,7 @@ object Gripper : TerminableSubsystem() {
 
 			if (iteration++ > CURRENT_CHECK_START_TIME) {
 				talon.set(ControlMode.PercentOutput, GRIPPER_POWER)
-				if (talon.outputCurrent > OPEN_CURRENT_LIMIT) break;
+				if (talon.outputCurrent > OPEN_CURRENT_LIMIT) break
 			}
 		}
 

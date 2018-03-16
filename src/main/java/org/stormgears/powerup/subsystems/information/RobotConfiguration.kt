@@ -1,6 +1,6 @@
 package org.stormgears.powerup.subsystems.information
 
-import org.stormgears.utils.configuration_file.AbstractRobotConfiguration
+import org.stormgears.utils.configurationfile.AbstractRobotConfiguration
 
 object RobotConfiguration : AbstractRobotConfiguration() {
 	/*

@@ -79,8 +79,8 @@ object Drive : TerminableSubsystem() {
 //		talons[2].setSensorPhase(true)
 
 		if (useAbsoluteControl) {
-			val navX_theta = Robot.sensors.navX.theta
-			theta = theta - navX_theta - Math.PI / 2
+			val navxTheta = Robot.sensors.navX.theta
+			theta = theta - navxTheta - Math.PI / 2
 		}
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
@@ -180,8 +180,8 @@ object Drive : TerminableSubsystem() {
 
 	fun driveMotionProfile(rotations: Double, theta: Double) {
 		var theta = theta
-		val navX_theta = Robot.sensors.navX.theta
-		theta = theta - navX_theta - Math.PI / 2.0
+		val navXTheta = Robot.sensors.navX.theta
+		theta = theta - navXTheta - Math.PI / 2.0
 
 		val profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300.0, theta, 0.0)
 		motionManager.pushProfile(profile, false, true)
@@ -200,17 +200,8 @@ object Drive : TerminableSubsystem() {
 
 	}
 
-	private fun average(data: DoubleArray): Double {
-		var total = 0.0
-		for (d in data) {
-			total += d
-		}
-
-		return total / data.size
-	}
-
 	/**
-	 * The inteded purpose of this method is to move the robot at a given
+	 * The intended purpose of this method is to move the robot at a given
 	 * angle (theta) for a given distance (distance). The distance should be
 	 * given in inches, and the theta in radians. The method will convert the
 	 * distance into encoder ticks in order to facilitate motion magic. Ensure
@@ -288,14 +279,14 @@ object Drive : TerminableSubsystem() {
 
 		for (talon in Robot.driveTalons.talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
-			talon.sensorCollection.setQuadraturePosition(0, 250);
+			talon.sensorCollection.setQuadraturePosition(0, 250)
 //			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
 //		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
-			val talon = Robot.driveTalons.talons[i];
+			val talon = Robot.driveTalons.talons[i]
 //			talon.set(ControlMode.PercentOutput, 0.0)
 //			talon.sensorCollection.setQuadraturePosition(0, 250);
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
@@ -310,11 +301,15 @@ object Drive : TerminableSubsystem() {
 		logger.trace("Resetting talons")
 		for (talon in Robot.driveTalons.talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
-			talon.sensorCollection.setQuadraturePosition(0, 250);
+			talon.sensorCollection.setQuadraturePosition(0, 250)
 //			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 
 //		Robot.talonDebugger?.dump();
+	}
+
+	suspend fun moveStraightNavX(distance: Double) {
+
 	}
 
 	/**
@@ -326,14 +321,14 @@ object Drive : TerminableSubsystem() {
 	suspend fun turnTo(theta: Double) {
 		var theta = theta
 		if (useAbsoluteControl) {
-			val navX_theta = Robot.sensors.navX.theta
-			theta = theta - navX_theta
+			val navxTheta = Robot.sensors.navX.theta
+			theta = theta - navxTheta
 		}
 
 		var negative = -1.0
 
 
-		theta = theta % (2 * Math.PI)
+		theta %= (2 * Math.PI)
 		if (theta < 0) {
 			theta += 2 * Math.PI
 			logger.trace("Theta 2 {}", box(theta))

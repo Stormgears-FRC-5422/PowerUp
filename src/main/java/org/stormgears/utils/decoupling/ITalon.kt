@@ -9,5 +9,5 @@ interface ITalon : IMotorControllerEnhanced, SpeedController, MotorSafety,
 	ITalonJavaHelpers.__DO_NOT_USE_OR_YOU_WILL_BE_FIRED.IHandleGettable {
 	val sensorCollection: ISensorCollection
 
-	val dummy: Boolean;
+	val dummy: Boolean
 }

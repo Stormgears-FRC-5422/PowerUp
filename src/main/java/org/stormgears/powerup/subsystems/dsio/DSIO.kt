@@ -2,8 +2,8 @@ package org.stormgears.powerup.subsystems.dsio
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.subsystems.dsio.joystick_detection.JoystickDetector
-import org.stormgears.powerup.subsystems.elevator_climber.Elevator
+import org.stormgears.powerup.subsystems.dsio.joystickdetection.JoystickDetector
+import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.Terminator
 import org.stormgears.utils.dsio.IRawJoystick
@@ -104,9 +104,9 @@ object DSIO {
 
 	// Joystick related methods
 
-	private val X_NULLZONE = 0.2
-	private val Y_NULLZONE = 0.2
-	private val Z_NULLZONE = 0.1
+	private const val X_NULLZONE = 0.2
+	private const val Y_NULLZONE = 0.2
+	private const val Z_NULLZONE = 0.1
 
 	val joystickX: Double
 		get() = if (!joystickEnabled) 0.0 else processJoystick(joystick.joystickX, X_NULLZONE)

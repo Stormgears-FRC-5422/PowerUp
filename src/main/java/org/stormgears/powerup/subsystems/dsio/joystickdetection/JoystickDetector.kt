@@ -1,4 +1,4 @@
-package org.stormgears.powerup.subsystems.dsio.joystick_detection
+package org.stormgears.powerup.subsystems.dsio.joystickdetection
 
 import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Joystick
@@ -29,29 +29,33 @@ class JoystickDetector {
 
 	val drivingJoystick: IRawJoystick
 		get() {
-			if (xboxChannel != -1) {
-				logger.info("Selecting XBOX joystick")
-				return XboxJoystick(xboxChannel)
-			} else if (drivingJoystickChannel != -1) {
-				logger.info("Selecting Logitech joystick")
-				return LogitechJoystick(drivingJoystickChannel)
-			} else {
-				logger.warn("Joystick not found! Using dummy joystick.")
-				return DummyJoystick()
+			when {
+				xboxChannel != -1 -> {
+					logger.info("Selecting XBOX joystick")
+					return XboxJoystick(xboxChannel)
+				}
+				drivingJoystickChannel != -1 -> {
+					logger.info("Selecting Logitech joystick")
+					return LogitechJoystick(drivingJoystickChannel)
+				}
+				else -> {
+					logger.warn("Joystick not found! Using dummy joystick.")
+					return DummyJoystick()
+				}
 			}
 		}
 
 	val buttonBoard: IButtonBoard
 		get() {
-			if (buttonBoard2018Channel != -1 && mspChannel != -1) {
+			return if (buttonBoard2018Channel != -1 && mspChannel != -1) {
 				logger.info("Selecting ButtonBoard2018v1")
-				return ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel))
+				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel))
 			} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
 				logger.info("Selecting ButtonBoard2017")
-				return ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
+				ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
 			} else {
 				logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.")
-				return DummyButtonBoard()
+				DummyButtonBoard()
 			}
 		}
 

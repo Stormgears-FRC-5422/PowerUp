@@ -5,9 +5,9 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup;
 import org.stormgears.powerup.subsystems.dsio.DSIO;
-import org.stormgears.powerup.subsystems.elevator_climber.Climber;
-import org.stormgears.powerup.subsystems.elevator_climber.Elevator;
-import org.stormgears.powerup.subsystems.elevator_climber.ElevatorSharedTalons;
+import org.stormgears.powerup.subsystems.elevatorclimber.Climber;
+import org.stormgears.powerup.subsystems.elevatorclimber.Elevator;
+import org.stormgears.powerup.subsystems.elevatorclimber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
@@ -133,7 +133,7 @@ public class Robot extends BaseStormgearsRobot {
 			selectedScalePlateAssignment,
 			selectedOpponentSwitchPlateAssignmentChooser);
 
-		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
+		talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
 	}
 
 	/**
@@ -159,7 +159,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
-		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
+		talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
 
 	/**

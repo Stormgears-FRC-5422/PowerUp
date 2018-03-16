@@ -20,12 +20,12 @@ fun dashboardify(talons: DriveTalons) {
 
 class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCoroutines {
 	companion object {
-		val logger = LogManager.getLogger(TalonDebugger::class.java)
+		private val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}
 
 	val filename = "/home/lvuser/TalonDebug-${LocalDateTime.now()}${if (label != "") "-$label" else ""}.csv"
 	val writer = PrintWriter(filename, "UTF-8")
-	var job: Job? = null;
+	var job: Job? = null
 
 	init {
 		writer.println("timestamp,index,deviceID,get(),description,inverted,isAlive(),isSafetyEnabled(),activeTrajectoryHeading,activeTrajectoryPosition,activeTrajectoryVelocity,baseID,busVoltage,controlMode,firmwareVersion,handle,lastError,motionProfileTopLevelBufferCount,motorOutputPercent,motorOutputVoltage,outputCurrent,temperature,hasResetOccurred(),sensorCollection.analogIn,sensorCollection.analogInRaw,sensorCollection.analogInVel,sensorCollection.pinStateQuadA,sensorCollection.pinStateQuadB,sensorCollection.pinStateQuadIdx,sensorCollection.pulseWidthPosition,sensorCollection.pulseWidthRiseToFallUs,sensorCollection.pulseWidthRiseToRiseUs,sensorCollection.pulseWidthVelocity,sensorCollection.quadraturePosition,sensorCollection.quadratureVelocity,sensorCollection.isFwdLimitSwitchClosed(),sensorCollection.isRevLimitSwitchClosed()")
@@ -82,7 +82,7 @@ class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCorouti
 	}
 
 	fun start(): Job {
-		logger.info("Starting TalonDebugger, writing to {}", filename);
+		logger.info("Starting TalonDebugger, writing to {}", filename)
 
 		val job = launch {
 			while (true) {
@@ -93,6 +93,6 @@ class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCorouti
 
 		this.job = job
 
-		return job;
+		return job
 	}
 }

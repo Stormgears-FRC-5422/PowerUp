@@ -71,15 +71,15 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 	
 	
 	//To run in Velocity Mode
-	public void driveCartesian(double ySpeed, double xSpeed, double zRotation, double gyroAngle) {	
+	public void driveCartesian(double xSpeed, double ySpeed, double zRotation, double gyroAngle) {
+		xSpeed = limit(xSpeed);
+		xSpeed = applyDeadband(xSpeed, m_deadband);
+
 		ySpeed = limit(ySpeed);
 		ySpeed = applyDeadband(ySpeed, m_deadband);
 		
-		xSpeed = limit(xSpeed);
-		xSpeed = applyDeadband(xSpeed, m_deadband);
-		
 		// Compensate for gyro angle.
-		Vector2d input = new Vector2d(ySpeed, xSpeed);
+		Vector2d input = new Vector2d(xSpeed, ySpeed);
 		input.rotate(-gyroAngle);
 		
 		double[] wheelSpeeds = new double[4];

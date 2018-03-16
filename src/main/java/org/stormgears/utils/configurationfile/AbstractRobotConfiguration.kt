@@ -1,4 +1,4 @@
-package org.stormgears.utils.configuration_file
+package org.stormgears.utils.configurationfile
 
 import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
@@ -8,7 +8,7 @@ import java.io.IOException
 
 abstract class AbstractRobotConfiguration {
 	private val configFile = File(PATH, NAME)
-	private var properties: SafeProperties;
+	private var properties: SafeProperties
 
 	init {
 		logger.trace("Reading configuration")
@@ -17,13 +17,13 @@ abstract class AbstractRobotConfiguration {
 
 		var inputStream: FileInputStream? = null
 		try {
-			inputStream = FileInputStream(configFile);
-			properties.load(inputStream);
+			inputStream = FileInputStream(configFile)
+			properties.load(inputStream)
 		} catch (e: IOException) {
 			logger.fatal("Error reading/writing {}. NO ROBOT PROPERTIES ARE AVAILABLE! Check file permissions.", NAME)
 			logger.throwing(Level.FATAL, e)
 
-			throw e;
+			throw e
 		} finally {
 			if (inputStream != null) {
 				try {

@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj.SPI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static org.apache.logging.log4j.util.Unbox.box;
+
 public class NavX {
 	private static final Logger logger = LogManager.getLogger(NavX.class);
 
@@ -58,8 +60,8 @@ public class NavX {
 	}
 
 	public void debug() {
-		if (thetaIsSet()) logger.debug("Theta: {}", getTheta());
-		logger.debug("DisplacementX: {}", getDisplacementX());
+		if (thetaIsSet()) logger.debug("Theta: {}", box(getTheta()));
+		logger.debug("DisplacementX: {}", box(getDisplacementX()));
 	}
 
 	public boolean isCalibrating() {
@@ -78,6 +80,10 @@ public class NavX {
 	public boolean test() {
 		debug();
 		return true;
+	}
+
+	public boolean isConnected() {
+		return ahrs.isConnected();
 	}
 
 	public AHRS getAhrs() {

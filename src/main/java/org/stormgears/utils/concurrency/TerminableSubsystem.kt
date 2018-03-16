@@ -18,7 +18,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 	}
 
 	private val subclassName = this.javaClass.canonicalName
-	private var localDisable = false;
+	private var localDisable = false
 	var disabled: Boolean
 		get() = Terminator.disabled || localDisable
 		set(value) {
@@ -32,7 +32,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 		block: suspend CoroutineScope.() -> Unit
 	): Job {
 		logger.info("Starting coroutine job {} in terminable subsystem {}", jobName, subclassName)
-		return launch(context = context, start = start, parent = parent, block = block);
+		return launch(context = context, start = start, parent = parent, block = block)
 	}
 
 	override fun launch(
@@ -45,7 +45,7 @@ abstract class TerminableSubsystem : WithCoroutines {
 			val job = Job()
 			job.cancel()
 			logger.warn("Cannot launch in {}; subsystem is disabled", subclassName)
-			return job;
+			return job
 		}
 
 		if (parent != null && parent != parentJob) {

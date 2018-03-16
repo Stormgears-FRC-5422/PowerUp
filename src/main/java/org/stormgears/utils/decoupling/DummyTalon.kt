@@ -79,7 +79,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getFirmwareVersion(): Int {
-		return 0;
+		return 0
 	}
 
 	override fun configContinuousCurrentLimit(amps: Int, timeoutMs: Int): ErrorCode {
@@ -110,6 +110,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kI(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		return ErrorCode.OK
 	}
@@ -119,7 +120,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getDeviceID(): Int {
-		return deviceNumber;
+		return deviceNumber
 	}
 
 	override fun configReverseLimitSwitchSource(type: LimitSwitchSource?, normalOpenOrClose: LimitSwitchNormal?, timeoutMs: Int): ErrorCode {
@@ -146,6 +147,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 		return 0.0
 	}
 
+	@Suppress("FunctionName")
 	override fun config_IntegralZone(slotIdx: Int, izone: Int, timeoutMs: Int): ErrorCode {
 		return ErrorCode.OK
 	}
@@ -175,7 +177,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getActiveTrajectoryPosition(): Int {
-		return 0;
+		return 0
 	}
 
 	override fun configOpenloopRamp(secondsFromNeutralToFull: Double, timeoutMs: Int): ErrorCode {
@@ -191,7 +193,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getSelectedSensorPosition(pidIdx: Int): Int {
-		return 0;
+		return 0
 	}
 
 	override fun getErrorDerivative(pidIdx: Int): Double {
@@ -210,6 +212,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 		return ErrorCode.OK
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kF(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		return ErrorCode.OK
 	}
@@ -231,7 +234,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getMotionProfileTopLevelBufferCount(): Int {
-		return 0;
+		return 0
 	}
 
 	override fun getInverted(): Boolean {
@@ -239,7 +242,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun configGetCustomParam(paramIndex: Int, timoutMs: Int): Int {
-		return 0;
+		return 0
 	}
 
 	override fun clearStickyFaults(timeoutMs: Int): ErrorCode {
@@ -262,6 +265,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 		return 0.0
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kP(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		return ErrorCode.OK
 	}
@@ -271,7 +275,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getSelectedSensorVelocity(pidIdx: Int): Int {
-		return 0;
+		return 0
 	}
 
 	override fun getOutputCurrent(): Double {
@@ -339,7 +343,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getBaseID(): Int {
-		return 0;
+		return 0
 	}
 
 	override fun setSelectedSensorPosition(sensorPos: Int, pidIdx: Int, timeoutMs: Int): ErrorCode {
@@ -351,7 +355,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getActiveTrajectoryVelocity(): Int {
-		return 0;
+		return 0
 	}
 
 	override fun clearMotionProfileTrajectories(): ErrorCode {
@@ -359,7 +363,7 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getClosedLoopError(pidIdx: Int): Int {
-		return 0;
+		return 0
 	}
 
 	override fun set(Mode: ControlMode?, demand: Double) {
@@ -419,13 +423,14 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 	override fun getStatusFramePeriod(frame: StatusFrameEnhanced?, timeoutMs: Int): Int {
-		return 0;
+		return 0
 	}
 
 	override fun getStatusFramePeriod(frame: StatusFrame?, timeoutMs: Int): Int {
-		return 0;
+		return 0
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kD(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		return ErrorCode.OK
 	}
@@ -483,5 +488,5 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 	}
 
 
-	override val dummy = true;
+	override val dummy = true
 }

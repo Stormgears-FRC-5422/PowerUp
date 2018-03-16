@@ -314,30 +314,35 @@ class MotorLogger(private val motor: ITalon, private val name: String) : ITalon 
 		motor.overrideSoftLimitsEnable(enable)
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kP(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		val ret = motor.config_kP(slotIdx, value, timeoutMs)
 		logger.trace("{} slotIdx = {}, value = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(value), box(timeoutMs), ret)
 		return ret
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kI(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		val ret = motor.config_kI(slotIdx, value, timeoutMs)
 		logger.trace("{} slotIdx = {}, value = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(value), box(timeoutMs), ret)
 		return ret
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kD(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		val ret = motor.config_kD(slotIdx, value, timeoutMs)
 		logger.trace("{} slotIdx = {}, value = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(value), box(timeoutMs), ret)
 		return ret
 	}
 
+	@Suppress("FunctionName")
 	override fun config_kF(slotIdx: Int, value: Double, timeoutMs: Int): ErrorCode {
 		val ret = motor.config_kF(slotIdx, value, timeoutMs)
 		logger.trace("{} slotIdx = {}, value = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(value), box(timeoutMs), ret)
 		return ret
 	}
 
+	@Suppress("FunctionName")
 	override fun config_IntegralZone(slotIdx: Int, izone: Int, timeoutMs: Int): ErrorCode {
 		val ret = motor.config_IntegralZone(slotIdx, izone, timeoutMs)
 		logger.trace("{} slotIdx = {}, izone = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(izone), box(timeoutMs), ret)

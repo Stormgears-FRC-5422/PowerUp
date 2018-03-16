@@ -4,10 +4,10 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.cancelChildren
 
 object Terminator {
-	public val parentJob = Job()
+	val parentJob = Job()
 
 	private var _disabled = false
-	public var disabled: Boolean
+	var disabled: Boolean
 		get() = _disabled
 		set(value) {
 			if (value) {

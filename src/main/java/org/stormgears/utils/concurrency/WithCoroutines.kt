@@ -8,21 +8,21 @@ import kotlinx.coroutines.experimental.channels.ProducerScope
 import kotlinx.coroutines.experimental.newSingleThreadContext
 import kotlin.coroutines.experimental.CoroutineContext
 
-val globalContext = newSingleThreadContext("Coroutine Thread");
+val globalContext = newSingleThreadContext("Coroutine Thread")
 
 interface WithCoroutines {
 	fun launch(context: CoroutineContext = globalContext,
 			   start: CoroutineStart = CoroutineStart.DEFAULT,
 			   parent: Job? = null,
 			   block: suspend CoroutineScope.() -> Unit
-	) = kotlinx.coroutines.experimental.launch(context = context, start = start, parent = parent, block = block);
+	) = kotlinx.coroutines.experimental.launch(context = context, start = start, parent = parent, block = block)
 
 	fun <T> async(
 		context: CoroutineContext = globalContext,
 		start: CoroutineStart = CoroutineStart.DEFAULT,
 		parent: Job? = null,
 		block: suspend CoroutineScope.() -> T
-	) = kotlinx.coroutines.experimental.async(context = context, start = start, parent = parent, block = block);
+	) = kotlinx.coroutines.experimental.async(context = context, start = start, parent = parent, block = block)
 
 	fun <E> produce(
 		context: CoroutineContext = globalContext,

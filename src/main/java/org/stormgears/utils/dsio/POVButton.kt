@@ -2,9 +2,7 @@ package org.stormgears.utils.dsio
 
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.Button
-import edu.wpi.first.wpilibj.command.Command
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 import org.stormgears.utils.LambdaCommand
 import org.stormgears.utils.RunnableCommand
 

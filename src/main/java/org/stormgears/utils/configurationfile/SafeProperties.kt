@@ -1,4 +1,4 @@
-package org.stormgears.utils.configuration_file
+package org.stormgears.utils.configurationfile
 
 import org.apache.logging.log4j.LogManager
 import java.util.*
