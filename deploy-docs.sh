@@ -4,21 +4,8 @@ set -e
 SOURCE_BRANCH="master"
 TARGET_BRANCH="gh-pages"
 
-# Pull requests and commits to other branches shouldn't try to deploy, just build to verify
-if [ "$CI_COMMIT_REF_NAME" != "$SOURCE_BRANCH" ]; then
-    echo "Skipping deploy; just doing a build."
-    doCompile
-    exit 0
-fi
-
 SSH_REPO='git@github.com:Stormgears-FRC-5422/PowerUp.git'
 SHA=`git rev-parse --verify HEAD`
-
-echo "${DEPLOY_KEY}" > ../deploy_key.base64
-base64 -d ../deploy_key.base64 > ../deploy_key
-chmod 600 ../deploy_key
-eval `ssh-agent -s`
-ssh-add ../deploy_key
 
 git clone $SSH_REPO docs-deploy
 cd docs-deploy
