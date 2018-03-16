@@ -3,6 +3,16 @@ import jaci.openrio.gradle.frc.FRCJavaArtifact
 import jaci.openrio.gradle.frc.RoboRIO
 import jaci.gradle.deploy.DeployContext
 
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath "org.jetbrains.dokka:dokka-gradle-plugin:0.9.16"
+	}
+}
+
 plugins {
 	id "java"
 	id "eclipse"
@@ -10,6 +20,8 @@ plugins {
 	id "org.jetbrains.kotlin.jvm" version "1.2.30"
 	id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
 }
+
+apply plugin: 'org.jetbrains.dokka'
 
 group 'org.stormgears.powerup'
 version '1.0-SNAPSHOT'
@@ -39,6 +51,23 @@ deploy {
 				ctx.execute('chown admin /home/lvuser/fix-permissions.sh; chmod 777 /home/lvuser/fix-permissions.sh; chmod u+s /home/lvuser/fix-permissions.sh')
 			}
 		}
+	}
+}
+
+dokka {
+	outputFormat = 'gfm'
+	jdkVersion = 8
+	reportUndocumented = false
+
+	linkMapping {
+		dir = "src/main"
+		url = "https://github.com/Stormgears-FRC-5422/PowerUp/blob/master/src/main"
+		suffix = "#L"
+	}
+
+	externalDocumentationLink {
+		url = new URL("https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/")
+		packageListUrl = new URL("https://gist.github.com/as-com/4c1114e79015e4a5ec0fe14b15f17ebd/raw/0a7813ea02d9c04a01cf2998919d557e4a6c3291/package-list")
 	}
 }
 
