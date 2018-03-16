@@ -16,6 +16,10 @@ public class FmsInterface {
 	private String data = "";
 
 	public void startPollingForData() {
+		FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE;
+		FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE;
+		FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
+
 		poller = new Thread(() -> {
 			int tryNum = 0;
 			while (data == null || data.equals("")) {
@@ -43,6 +47,9 @@ public class FmsInterface {
 	}
 
 	private void parseRandomSidesFromData() {
+		if (data == null) {
+			return;
+		}
 		// Own switch
 		switch (data.charAt(0)) {
 			case 'L':
