@@ -20,6 +20,8 @@ build:
   script:
     - ./gradlew assemble
     - ./gradlew check
+  except:
+    - gh-pages
 
 docs:
   stage: docs

@@ -12,7 +12,7 @@ if [ "$CI_COMMIT_REF_NAME" != "$SOURCE_BRANCH" ]; then
 fi
 
 REPO=`git config remote.origin.url`
-SSH_REPO=${REPO/https:\/\/github.com\//git@github.com:}
+SSH_REPO='git@github.com:Stormgears-FRC-5422/PowerUp.git'
 SHA=`git rev-parse --verify HEAD`
 
 git clone $REPO docs-deploy
