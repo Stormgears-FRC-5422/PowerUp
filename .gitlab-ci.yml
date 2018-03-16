@@ -2,13 +2,12 @@ image: java:8-jdk
 
 stages:
   - build
-  - test
-#  - deploy
 
 before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME=`pwd`/.gradle
+  - java -version
 
 cache:
   paths:
@@ -27,14 +26,16 @@ build:
 #    - master
 
 test:
-  stage: test
+  stage: build
   script:
     - ./gradlew check
 
-#deploy:
-#  stage: deploy
-#  script:
-#    - ./deploy
+docs:
+  stage: build
+  script:
+    - ./gradlew dokka
+    - chmod +x deploy-docs.sh
+    - ./deploy-docs.sh
 
 after_script:
   - echo "End CI"
