@@ -36,9 +36,9 @@ fi
 git add -A .
 git commit -m "Deploy to GitHub Pages: ${SHA}"
 
-echo "${DEPLOY_KEY}" > deploy_key
+echo "${DEPLOY_KEY}" > ../deploy_key
 chmod 600 ../deploy_key
 eval `ssh-agent -s`
-ssh-add deploy_key
+ssh-add ../deploy_key
 
 git push $SSH_REPO $TARGET_BRANCH

@@ -2,6 +2,8 @@ image: java:8-jdk
 
 stages:
   - build
+  - docs
+  - test
 
 before_script:
 #  - echo `pwd` # debug
@@ -26,12 +28,12 @@ build:
 #    - master
 
 test:
-  stage: build
+  stage: test
   script:
     - ./gradlew check
 
 docs:
-  stage: build
+  stage: docs
   script:
     - ./gradlew dokka
     - chmod +x deploy-docs.sh
