@@ -1,8 +1,9 @@
 package org.stormgears.powerup.subsystems.information
 
-import org.stormgears.utils.configurationfile.AbstractRobotConfiguration
+import org.stormgears.utils.configurationfile.BaseRobotConfiguration
 
-object RobotConfiguration : AbstractRobotConfiguration() {
+object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable = false) {
+
 	/*
      * Public property fields: set these in loadExtras() so they can be updated from the config file.
      * Remember, these will be set *once*. These values *will not* change throughout execution of the robot code.
