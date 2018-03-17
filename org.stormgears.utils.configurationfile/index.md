@@ -6,5 +6,5 @@
 
 | Name | Summary |
 |---|---|
-| [AbstractRobotConfiguration](-abstract-robot-configuration/index.md) | `abstract class AbstractRobotConfiguration` |
+| [BaseRobotConfiguration](-base-robot-configuration/index.md) | `open class BaseRobotConfiguration` |
 | [SafeProperties](-safe-properties/index.md) | `class SafeProperties : `[`Properties`](http://docs.oracle.com/javase/8/docs/api/java/util/Properties.html) |

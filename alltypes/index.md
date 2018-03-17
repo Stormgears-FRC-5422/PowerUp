@@ -5,11 +5,11 @@
 | Name | Summary |
 |---|---|
 | [org.stormgears.utils.graveyard.AbstractDrive](../org.stormgears.utils.graveyard/-abstract-drive/index.md) |  |
-| [org.stormgears.utils.configurationfile.AbstractRobotConfiguration](../org.stormgears.utils.configurationfile/-abstract-robot-configuration/index.md) |  |
 | [org.stormgears.powerup.auto.command.AutoDriveMoveCommand](../org.stormgears.powerup.auto.command/-auto-drive-move-command/index.md) |  |
 | [org.stormgears.powerup.subsystems.field.AutoRoute](../org.stormgears.powerup.subsystems.field/-auto-route/index.md) |  |
 | [org.stormgears.powerup.subsystems.field.AutoRoutes](../org.stormgears.powerup.subsystems.field/-auto-routes/index.md) | Routes for robot in AUTONOMOUS ONLY!!! |
 | [org.stormgears.powerup.auto.command.AutonomousCommandGroup](../org.stormgears.powerup.auto.command/-autonomous-command-group/index.md) |  |
+| [org.stormgears.utils.configurationfile.BaseRobotConfiguration](../org.stormgears.utils.configurationfile/-base-robot-configuration/index.md) |  |
 | [org.stormgears.utils.BaseStormgearsRobot](../org.stormgears.utils/-base-stormgears-robot/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio.ButtonBoard2017](../org.stormgears.powerup.subsystems.dsio/-button-board2017/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1](../org.stormgears.powerup.subsystems.dsio/-button-board2018-v1/index.md) |  |

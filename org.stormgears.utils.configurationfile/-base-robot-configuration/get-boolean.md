@@ -1,4 +1,4 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [AbstractRobotConfiguration](index.md) / [getBoolean](./get-boolean.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [BaseRobotConfiguration](index.md) / [getBoolean](./get-boolean.md)
 
 # getBoolean
 

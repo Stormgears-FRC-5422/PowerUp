@@ -1,4 +1,4 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [AbstractRobotConfiguration](index.md) / [getDouble](./get-double.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [BaseRobotConfiguration](index.md) / [getDouble](./get-double.md)
 
 # getDouble
 

@@ -1,14 +1,14 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [AbstractRobotConfiguration](./index.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [BaseRobotConfiguration](./index.md)
 
-# AbstractRobotConfiguration
+# BaseRobotConfiguration
 
-`abstract class AbstractRobotConfiguration`
+`open class BaseRobotConfiguration`
 
 ### Constructors
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `AbstractRobotConfiguration()` |
+| [&lt;init&gt;](-init-.md) | `BaseRobotConfiguration(useBackupIfFileNotAvailable: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)` = false)` |
 
 ### Properties
 
@@ -30,4 +30,4 @@
 
 | Name | Summary |
 |---|---|
-| [RobotConfiguration](../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.md) | `object RobotConfiguration : `[`AbstractRobotConfiguration`](./index.md) |
+| [RobotConfiguration](../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.md) | `object RobotConfiguration : `[`BaseRobotConfiguration`](./index.md) |

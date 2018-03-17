@@ -2,7 +2,7 @@
 
 # RobotConfiguration
 
-`object RobotConfiguration : `[`AbstractRobotConfiguration`](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/index.md)
+`object RobotConfiguration : `[`BaseRobotConfiguration`](../../org.stormgears.utils.configurationfile/-base-robot-configuration/index.md)
 
 ### Properties
 
@@ -33,14 +33,14 @@
 
 | Name | Summary |
 |---|---|
-| [robotName](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/robot-name.md) | `val robotName: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [robotName](../../org.stormgears.utils.configurationfile/-base-robot-configuration/robot-name.md) | `val robotName: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 
 ### Inherited Functions
 
 | Name | Summary |
 |---|---|
-| [getBoolean](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/get-boolean.md) | `fun getBoolean(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [getDouble](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/get-double.md) | `fun getDouble(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
-| [getFloat](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/get-float.md) | `fun getFloat(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html) |
-| [getInt](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/get-int.md) | `fun getInt(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [getString](../../org.stormgears.utils.configurationfile/-abstract-robot-configuration/get-string.md) | `fun getString(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [getBoolean](../../org.stormgears.utils.configurationfile/-base-robot-configuration/get-boolean.md) | `fun getBoolean(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [getDouble](../../org.stormgears.utils.configurationfile/-base-robot-configuration/get-double.md) | `fun getDouble(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
+| [getFloat](../../org.stormgears.utils.configurationfile/-base-robot-configuration/get-float.md) | `fun getFloat(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html) |
+| [getInt](../../org.stormgears.utils.configurationfile/-base-robot-configuration/get-int.md) | `fun getInt(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [getString](../../org.stormgears.utils.configurationfile/-base-robot-configuration/get-string.md) | `fun getString(key: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |

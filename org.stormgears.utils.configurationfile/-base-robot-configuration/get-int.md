@@ -1,4 +1,4 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [AbstractRobotConfiguration](index.md) / [getInt](./get-int.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [BaseRobotConfiguration](index.md) / [getInt](./get-int.md)
 
 # getInt
 

@@ -6,4 +6,4 @@
 
 | Name | Summary |
 |---|---|
-| [RobotConfiguration](-robot-configuration/index.md) | `object RobotConfiguration : `[`AbstractRobotConfiguration`](../org.stormgears.utils.configurationfile/-abstract-robot-configuration/index.md) |
+| [RobotConfiguration](-robot-configuration/index.md) | `object RobotConfiguration : `[`BaseRobotConfiguration`](../org.stormgears.utils.configurationfile/-base-robot-configuration/index.md) |

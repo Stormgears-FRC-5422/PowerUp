@@ -1,4 +1,4 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [AbstractRobotConfiguration](index.md) / [getFloat](./get-float.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.configurationfile](../index.md) / [BaseRobotConfiguration](index.md) / [getFloat](./get-float.md)
 
 # getFloat
 
