@@ -6,7 +6,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.IOException
 
-abstract class AbstractRobotConfiguration {
+open class BaseRobotConfiguration(useBackupIfFileNotAvailable: Boolean = false) {
 	private val configFile = File(PATH, NAME)
 	private var properties: SafeProperties
 
@@ -20,10 +20,15 @@ abstract class AbstractRobotConfiguration {
 			inputStream = FileInputStream(configFile)
 			properties.load(inputStream)
 		} catch (e: IOException) {
-			logger.fatal("Error reading/writing {}. NO ROBOT PROPERTIES ARE AVAILABLE! Check file permissions.", NAME)
-			logger.throwing(Level.FATAL, e)
+			if (useBackupIfFileNotAvailable) {
+				logger.info("Using backup config file: {}", BACKUP_NAME)
+				properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream(BACKUP_NAME))
+			} else {
+				logger.fatal("Error reading {}. NO ROBOT PROPERTIES ARE AVAILABLE!", NAME)
 
-			throw e
+				logger.throwing(Level.FATAL, e)
+				throw e
+			}
 		} finally {
 			if (inputStream != null) {
 				try {
@@ -48,11 +53,10 @@ abstract class AbstractRobotConfiguration {
 	protected fun getBoolean(key: String): Boolean = getString(key).toBoolean()
 
 	companion object {
-		private val logger = LogManager.getLogger(AbstractRobotConfiguration::class.java)
+		private val logger = LogManager.getLogger(BaseRobotConfiguration::class.java)
 
 		private const val PATH = "/home/lvuser"
 		private const val NAME = "config.properties"
-		private const val COMMENTS = """ If a property varies from robot to robot, add it here.
-""" + "# If it is the same across every robot, make it a static field in the appropriate class."
+		private const val BACKUP_NAME = "config_backup.properties"
 	}
 }
