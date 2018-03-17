@@ -1,0 +1,40 @@
+image: openjdk:8-jdk
+
+stages:
+  - build
+  - docs
+
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - java -version
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+build:
+  stage: build
+  script:
+    - ./gradlew assemble
+    - ./gradlew check
+  except:
+    - gh-pages
+
+docs:
+  stage: docs
+  before_script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - ./gradlew dokka
+    - chmod +x deploy-docs.sh
+    - ./deploy-docs.sh
+  only:
+    - master
+
+after_script:
+  - echo "End CI"
