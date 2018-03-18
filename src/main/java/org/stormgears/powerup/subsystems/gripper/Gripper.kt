@@ -19,7 +19,7 @@ object Gripper : TerminableSubsystem() {
 	//TODO: Change to correct value
 	private const val TALON_ID = TalonIds.GRIPPER
 
-	private const val GRIPPER_POWER = 0.50
+	private const val GRIPPER_POWER = 0.70
 
 	private const val CLOSE_CURRENT_LIMIT = 10
 	private const val OPEN_CURRENT_LIMIT = 10

@@ -8,9 +8,9 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
      * Public property fields: set these in loadExtras() so they can be updated from the config file.
      * Remember, these will be set *once*. These values *will not* change throughout execution of the robot code.
      */
-	val robotWidth = getInt("robotWidth")
-	val robotLength = getInt("robotLength")
-	val robotHeight = getInt("robotHeight")
+	val robotWidth = getDouble("robotWidth")
+	val robotLength = getDouble("robotLength")
+	val robotHeight = getDouble("robotHeight")
 
 	val hasNavX: Boolean = getBoolean("hasNavX")
 	val frontLeftTalonId: Int = getInt("frontLeftTalonId")

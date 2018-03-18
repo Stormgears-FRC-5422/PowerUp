@@ -23,24 +23,26 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 			async {
 				Gripper.openGripper()
 			}
-			AutoDriveMoveCommand.execute(selectedAlliance,
-				selectedStartingSpot,
-				selectedPlacementSpot,
-				selectedOwnSwitchPlateAssignment,
-				selectedScalePlateAssignment,
-				selectedOpponentSwitchPlateAssignmentChooser)
+//			AutoDriveMoveCommand.execute(selectedAlliance,
+//				selectedStartingSpot,
+//				selectedPlacementSpot,
+//				selectedOwnSwitchPlateAssignment,
+//				selectedScalePlateAssignment,
+//				selectedOpponentSwitchPlateAssignmentChooser)
 
+			// Should move elevator upwards
+			Elevator.elevatorAutoMove(5)
 			Intake.moveIntakeToPositionSuspend(Intake.HORIZONTAL)
 			delay(500)
 			Elevator.zeroElevator()
 
 			// FIXME: This code is temporary - for testing only
 
-//			Robot.drive.moveStraight(60.0, 0.0)
+//			Drive.moveStraight(60.0, 0.0)
 //			Drive.moveStraight(60.0, 0.0)
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
-//			Elevator.moveSideShift(-1)
+//			Elevator.moveSideShiftToPositionSuspend(-1)
 //			Gripper.openGripperSuspend()
 		}
 	}

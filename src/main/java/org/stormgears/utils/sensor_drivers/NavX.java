@@ -28,7 +28,7 @@ public class NavX {
 	 */
 	public double getTheta() {
 		if (!thetaIsSet) {
-			throw new IllegalStateException("Theta is not set.");
+			return 0; // throw new IllegalStateException("Theta is not set.");
 		}
 
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;

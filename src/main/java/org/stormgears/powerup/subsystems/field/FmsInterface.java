@@ -21,7 +21,7 @@ public class FmsInterface {
 		FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
 
 		poller = new Thread(() -> {
-			int tryNum = 0;
+//			int tryNum = 0;
 			while (data == null || data.equals("")) {
 				try {
 					Thread.sleep(20);

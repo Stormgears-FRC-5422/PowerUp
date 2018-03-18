@@ -15,6 +15,8 @@ fun dashboardify(talons: DriveTalons) {
 		val sensorCollection = talon.sensorCollection
 		SmartDashboard.putNumber("Talon $index (ID ${talon.deviceID}) position", sensorCollection.quadraturePosition.toDouble())
 		SmartDashboard.putNumber("Talon $index (ID ${talon.deviceID}) velocity", sensorCollection.quadratureVelocity.toDouble())
+//		println("Talon $index (ID ${talon.deviceID}) position: ${sensorCollection.quadraturePosition.toDouble()}")
+//		println("Talon $index (ID ${talon.deviceID}) velocity: ${sensorCollection.quadratureVelocity.toDouble()}")
 	}
 }
 

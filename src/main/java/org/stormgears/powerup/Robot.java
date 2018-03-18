@@ -1,7 +1,5 @@
 package org.stormgears.powerup;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +13,10 @@ import org.stormgears.powerup.subsystems.field.FmsInterface;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
-import org.stormgears.powerup.subsystems.navigator.*;
+import org.stormgears.powerup.subsystems.navigator.Drive;
+import org.stormgears.powerup.subsystems.navigator.DriveTalons;
+import org.stormgears.powerup.subsystems.navigator.TalonDebugger;
+import org.stormgears.powerup.subsystems.navigator.TalonDebuggerKt;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.BaseStormgearsRobot;
 import org.stormgears.utils.FixPermissionsKt;
@@ -208,6 +209,10 @@ public class Robot extends BaseStormgearsRobot {
 //			logger.fatal("Robot.drive is null; that's a problem!");
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
+
+		TalonDebuggerKt.dashboardify(driveTalons);
+		elevator.debug();
+		gripper.debug();
 
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {

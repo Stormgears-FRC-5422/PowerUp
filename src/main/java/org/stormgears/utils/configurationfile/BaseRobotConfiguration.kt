@@ -10,6 +10,9 @@ open class BaseRobotConfiguration(useBackupIfFileNotAvailable: Boolean = false) 
 	private val configFile = File(PATH, NAME)
 	private var properties: SafeProperties
 
+	/**
+	 *
+	 */
 	init {
 		logger.trace("Reading configuration")
 

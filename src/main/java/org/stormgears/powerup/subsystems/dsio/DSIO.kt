@@ -139,7 +139,7 @@ object DSIO {
 			return 0.2 * processedValue
 		}
 
-		processedValue *= Math.abs(processedValue)
+//		processedValue *= Math.abs(processedValue)
 
 		return if (Robot.config.reverseJoystick) {
 			-processedValue
