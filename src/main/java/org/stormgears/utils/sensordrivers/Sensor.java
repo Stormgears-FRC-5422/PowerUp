@@ -1,4 +1,4 @@
-package org.stormgears.utils.sensor_drivers;
+package org.stormgears.utils.sensordrivers;
 
 public interface Sensor {
 	boolean isAvailable();

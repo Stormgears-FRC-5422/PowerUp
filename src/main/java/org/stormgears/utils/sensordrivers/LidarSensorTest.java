@@ -1,4 +1,4 @@
-package org.stormgears.utils.sensor_drivers;
+package org.stormgears.utils.sensordrivers;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
