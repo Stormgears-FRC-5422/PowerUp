@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.auto.command
 
+Autonomous commands.
+
 ### Types
 
 | Name | Summary |

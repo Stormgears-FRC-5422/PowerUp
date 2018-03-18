@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.dsio.joystickdetection
 
+Helpers for determining which joystick does what.
+
 ### Types
 
 | Name | Summary |

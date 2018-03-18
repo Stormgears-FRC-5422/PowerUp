@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.dsio
 
+Driver station I/O **specific to PowerUp**.
+
 ### Types
 
 | Name | Summary |

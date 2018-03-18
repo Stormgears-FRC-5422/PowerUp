@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.utils.logging
 
+Utilities for logging.
+
 ### Types
 
 | Name | Summary |

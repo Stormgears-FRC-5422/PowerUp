@@ -2,4 +2,4 @@
 
 # getNavX
 
-`open fun getNavX(): `[`NavX`](../../org.stormgears.utils.sensor_drivers/-nav-x/index.md)
+`open fun getNavX(): `[`NavX`](../../org.stormgears.utils.sensordrivers/-nav-x/index.md)

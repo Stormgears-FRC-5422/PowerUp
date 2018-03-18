@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.gripper
 
+Gripper subsystem.
+
 ### Types
 
 | Name | Summary |

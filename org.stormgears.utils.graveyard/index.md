@@ -2,6 +2,10 @@
 
 ## Package org.stormgears.utils.graveyard
 
+RIP.
+
+These things weren't completed but probably should be.
+
 ### Types
 
 | Name | Summary |

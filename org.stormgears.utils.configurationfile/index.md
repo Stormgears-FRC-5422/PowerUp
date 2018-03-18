@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.utils.configurationfile
 
+Processes config.properties files for unique configurations between robots.
+
 ### Types
 
 | Name | Summary |

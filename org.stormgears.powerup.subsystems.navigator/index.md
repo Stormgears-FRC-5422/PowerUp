@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.navigator
 
+Subsystem that moves the robot around.
+
 ### Types
 
 | Name | Summary |

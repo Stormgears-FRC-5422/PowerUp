@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.elevatorclimber
 
+Elevator/Climber subsystem.
+
 ### Types
 
 | Name | Summary |

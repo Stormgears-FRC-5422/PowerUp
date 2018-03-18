@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.utils.dsio
 
+Utilities for driver station I/O
+
 ### Types
 
 | Name | Summary |

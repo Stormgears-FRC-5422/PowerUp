@@ -48,7 +48,7 @@
 | [org.stormgears.powerup.subsystems.intake.Intake](../org.stormgears.powerup.subsystems.intake/-intake/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio.joystickdetection.JoystickDetector](../org.stormgears.powerup.subsystems.dsio.joystickdetection/-joystick-detector/index.md) |  |
 | [org.stormgears.utils.LambdaCommand](../org.stormgears.utils/-lambda-command/index.md) |  |
-| [org.stormgears.utils.sensor_drivers.LidarSensorTest](../org.stormgears.utils.sensor_drivers/-lidar-sensor-test/index.md) |  |
+| [org.stormgears.utils.sensordrivers.LidarSensorTest](../org.stormgears.utils.sensordrivers/-lidar-sensor-test/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.stormnet.LineIR](../org.stormgears.powerup.subsystems.sensors.stormnet/-line-i-r/index.md) |  |
 | [org.stormgears.utils.dsio.LogitechJoystick](../org.stormgears.utils.dsio/-logitech-joystick/index.md) | Construct an instance of a joystick. The joystick index is the USB port on the drivers station. |
 | [org.stormgears.utils.graveyard.MecanumDrive](../org.stormgears.utils.graveyard/-mecanum-drive/index.md) |  |
@@ -56,7 +56,7 @@
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-magic/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-manager/index.md) |  |
 | [org.stormgears.utils.logging.MotorLogger](../org.stormgears.utils.logging/-motor-logger/index.md) | Logs all of the method calls to a motor |
-| [org.stormgears.utils.sensor_drivers.NavX](../org.stormgears.utils.sensor_drivers/-nav-x/index.md) |  |
+| [org.stormgears.utils.sensordrivers.NavX](../org.stormgears.utils.sensordrivers/-nav-x/index.md) |  |
 | [org.stormgears.utils.dsio.POVButton](../org.stormgears.utils.dsio/-p-o-v-button/index.md) |  |
 | [org.stormgears.powerup.auto.command.Path](../org.stormgears.powerup.auto.command/-path/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.Position](../org.stormgears.powerup.subsystems.navigator/-position/index.md) |  |
@@ -68,7 +68,7 @@
 | [org.stormgears.utils.RunnableCommand](../org.stormgears.utils/-runnable-command/index.md) |  |
 | [org.stormgears.utils.configurationfile.SafeProperties](../org.stormgears.utils.configurationfile/-safe-properties/index.md) |  |
 | [org.stormgears.powerup.subsystems.field.Segment](../org.stormgears.powerup.subsystems.field/-segment/index.md) |  |
-| [org.stormgears.utils.sensor_drivers.Sensor](../org.stormgears.utils.sensor_drivers/-sensor/index.md) |  |
+| [org.stormgears.utils.sensordrivers.Sensor](../org.stormgears.utils.sensordrivers/-sensor/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.Sensors](../org.stormgears.powerup.subsystems.sensors/-sensors/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.stormnet.StormNet](../org.stormgears.powerup.subsystems.sensors.stormnet/-storm-net/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor](../org.stormgears.powerup.subsystems.sensors.stormnet/-storm-net-sensor/index.md) |  |

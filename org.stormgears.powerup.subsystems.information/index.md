@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.information
 
+Robot configuration specific to PowerUp.
+
 ### Types
 
 | Name | Summary |

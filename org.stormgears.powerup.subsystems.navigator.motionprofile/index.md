@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.navigator.motionprofile
 
+Motion profiling.
+
 ### Types
 
 | Name | Summary |

@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.utils.concurrency
 
+Helpers for concurrent programming with coroutines.
+
 ### Types
 
 | Name | Summary |

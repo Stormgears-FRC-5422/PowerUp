@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.utils
 
+Utilities that can be shared between robots/seasons.
+
 ### Types
 
 | Name | Summary |

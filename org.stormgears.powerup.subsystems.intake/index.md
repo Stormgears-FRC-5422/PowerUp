@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.intake
 
+Intake subsystem.
+
 ### Types
 
 | Name | Summary |

@@ -2,6 +2,8 @@
 
 ## Package org.stormgears.powerup.subsystems.field
 
+Field information (dimensions, paths, etc.).
+
 ### Types
 
 | Name | Summary |

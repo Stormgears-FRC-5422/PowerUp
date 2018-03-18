@@ -22,4 +22,4 @@ org.stormgears.utils.decoupling
 org.stormgears.utils.dsio
 org.stormgears.utils.graveyard
 org.stormgears.utils.logging
-org.stormgears.utils.sensor_drivers
+org.stormgears.utils.sensordrivers
