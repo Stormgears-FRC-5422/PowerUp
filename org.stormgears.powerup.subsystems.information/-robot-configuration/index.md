@@ -19,9 +19,9 @@
 | [rearLeftTalonId](rear-left-talon-id.md) | `val rearLeftTalonId: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [rearRightTalonId](rear-right-talon-id.md) | `val rearRightTalonId: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [reverseJoystick](reverse-joystick.md) | `val reverseJoystick: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [robotHeight](robot-height.md) | `val robotHeight: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [robotLength](robot-length.md) | `val robotLength: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [robotWidth](robot-width.md) | `val robotWidth: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [robotHeight](robot-height.md) | `val robotHeight: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
+| [robotLength](robot-length.md) | `val robotLength: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
+| [robotWidth](robot-width.md) | `val robotWidth: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [velocityD](velocity-d.md) | `val velocityD: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [velocityF](velocity-f.md) | `val velocityF: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [velocityI](velocity-i.md) | `val velocityI: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |

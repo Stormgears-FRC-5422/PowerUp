@@ -6,6 +6,7 @@
 |---|---|
 | [org.stormgears.powerup](org.stormgears.powerup/index.md) | FIRST Power Up (2018) |
 | [org.stormgears.powerup.auto.command](org.stormgears.powerup.auto.command/index.md) | Autonomous commands. |
+| [org.stormgears.powerup.commands](org.stormgears.powerup.commands/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio](org.stormgears.powerup.subsystems.dsio/index.md) | Driver station I/O **specific to PowerUp**. |
 | [org.stormgears.powerup.subsystems.dsio.joystickdetection](org.stormgears.powerup.subsystems.dsio.joystickdetection/index.md) | Helpers for determining which joystick does what. |
 | [org.stormgears.powerup.subsystems.elevatorclimber](org.stormgears.powerup.subsystems.elevatorclimber/index.md) | Elevator/Climber subsystem. |

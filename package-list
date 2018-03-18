@@ -3,6 +3,7 @@ $dokka.linkExtension:md
 
 org.stormgears.powerup
 org.stormgears.powerup.auto.command
+org.stormgears.powerup.commands
 org.stormgears.powerup.subsystems.dsio
 org.stormgears.powerup.subsystems.dsio.joystickdetection
 org.stormgears.powerup.subsystems.elevatorclimber
