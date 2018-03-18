@@ -1,4 +1,4 @@
-package org.stormgears.utils.sensor_drivers;
+package org.stormgears.utils.sensordrivers;
 
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;

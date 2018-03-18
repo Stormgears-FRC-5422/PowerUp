@@ -96,7 +96,7 @@ public class FieldPositions {
 	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
 
 	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(47, 234);
-	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 303);//new Position(277, 234);
+	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 234);//new Position(277, 234);
 
 	public static final Position LEFT_AUTO_LINE_SPOT = new Position(47, 141);
 	public static final Position CENTER_AUTO_LINE_SPOT = new Position(300,19.5); // RIGHT:  new Position(300, 19.5);

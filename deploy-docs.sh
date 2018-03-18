@@ -7,6 +7,12 @@ TARGET_BRANCH="gh-pages"
 SSH_REPO='git@github.com:Stormgears-FRC-5422/PowerUp.git'
 SHA=`git rev-parse --verify HEAD`
 
+eval $(ssh-agent -s)
+echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+
 git clone $SSH_REPO docs-deploy
 cd docs-deploy
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH

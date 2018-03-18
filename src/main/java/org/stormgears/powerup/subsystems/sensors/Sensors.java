@@ -2,7 +2,7 @@ package org.stormgears.powerup.subsystems.sensors;
 
 import org.stormgears.powerup.subsystems.sensors.stormnet.StormNet;
 import org.stormgears.powerup.subsystems.sensors.vision.Vision;
-import org.stormgears.utils.sensor_drivers.NavX;
+import org.stormgears.utils.sensordrivers.NavX;
 
 public class Sensors {
 	private static Sensors instance;

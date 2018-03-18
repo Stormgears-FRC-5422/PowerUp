@@ -59,6 +59,8 @@ dokka {
 	jdkVersion = 8
 	reportUndocumented = false
 
+	includes = ['src/main/packages.md']
+
 	linkMapping {
 		dir = "src/main"
 		url = "https://github.com/Stormgears-FRC-5422/PowerUp/blob/master/src/main"
