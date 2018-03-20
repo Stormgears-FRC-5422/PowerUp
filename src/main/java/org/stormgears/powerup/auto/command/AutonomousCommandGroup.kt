@@ -1,11 +1,9 @@
 package org.stormgears.powerup.auto.command
 
-import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
-import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.intake.Intake
+import org.stormgears.powerup.subsystems.navigator.Drive
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
@@ -23,6 +21,7 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 			async {
 				Gripper.openGripper()
 			}
+
 //			AutoDriveMoveCommand.execute(selectedAlliance,
 //				selectedStartingSpot,
 //				selectedPlacementSpot,
@@ -31,15 +30,14 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 //				selectedOpponentSwitchPlateAssignmentChooser)
 
 			// Should move elevator upwards
-			Elevator.elevatorAutoMove(5)
-			Intake.moveIntakeToPositionSuspend(Intake.HORIZONTAL)
-			delay(500)
-			Elevator.zeroElevator()
+//			Elevator.elevatorAutoMove(5)
+//			Intake.moveIntakeToPositionSuspend(Intake.HORIZONTAL)
+//			delay(500)
+//			Elevator.zeroElevator()
 
 			// FIXME: This code is temporary - for testing only
 
-//			Drive.moveStraight(60.0, 0.0)
-//			Drive.moveStraight(60.0, 0.0)
+			Drive.moveStraight(215.0, 0.0)
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
 //			Elevator.moveSideShiftToPositionSuspend(-1)

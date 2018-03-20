@@ -88,7 +88,7 @@ public class FieldPositions {
 	public static final Position SPOT_TO_OWN_SWITCH_RIGHT_PLATE = new Position(311, 167);//new Position(277, 167);
 
 	public static final Position SCALE_LEFT_PLATE = new Position(54, 303); //new Position(47, 303);
-	public static final Position SCALE_RIGHT_PLATE = new Position(270, 303);//new Position(277, 303);
+	public static final Position SCALE_RIGHT_PLATE = new Position(304, 303);//new Position(270, 303);
 	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(47, 303);
 	public static final Position SPOT_TO_SCALE_RIGHT_PLATE = new Position(311, 303);//new Position(277, 303);
 
@@ -135,4 +135,5 @@ public class FieldPositions {
 	public static final double X_DISTANCE_TO_STRAFE_TO_SWITCH = 18.0;
 
 	public static final double STRAFING_FACTOR = 1.0 / 0.833333;
+	public static final double STRAIGHT_FACTOR = 1.025;
 }

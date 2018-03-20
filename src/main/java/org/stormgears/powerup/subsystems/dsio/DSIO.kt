@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.dsio
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.commands.Commands
 import org.stormgears.powerup.subsystems.dsio.joystickdetection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
@@ -49,7 +50,7 @@ object DSIO {
 		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
 		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
 
-		buttonBoard.intakeGrabButton.whenPressed { }
+		buttonBoard.intakeGrabButton.whenPressed { Commands.grabCube() }
 
 
 		val intakeWheelsSwitch = buttonBoard.intakeWheelsSwitch
@@ -94,9 +95,7 @@ object DSIO {
 		buttonBoard.overrideLeft.whenReleased { Robot.elevator.stop() }
 		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
 
-		buttonBoard.overrideSwitch.whenFlipped { on ->
-			Terminator.disabled = on
-		}
+		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 	}
 
 	val shouldOverride: Boolean

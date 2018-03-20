@@ -17,11 +17,11 @@ object Drive : TerminableSubsystem() {
 	private const val MAX_VELOCITY_ENCODER_TICKS = 6300
 	private val MODE = ControlMode.Velocity
 
+	private const val TURN_SENSITIVITY_FACTOR = 0.6
 
-	private const val MAX_VELOCITY = 25000
-	private const val MAX_ACCELERATION = 1200 / 2
-	private const val TURN_SENSITIVITY_FACTOR = 0.8
-
+	// IN RPM!!!
+	private const val MAX_VELOCITY = 5000
+	private const val MAX_ACCELERATION = 2500
 
 	private val talons = Robot.driveTalons.talons
 	private val vels = DoubleArray(talons.size)
@@ -218,11 +218,10 @@ object Drive : TerminableSubsystem() {
 		//			theta = theta - navX_theta;
 		//		}
 
-		if (Math.abs(theta) == Math.PI / 2.0) {
-			distance *= FieldPositions.STRAFING_FACTOR
-			logger.trace("distance: {}", box(distance))
-			logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
-		}
+		distance *= if (Math.abs(theta) == Math.PI / 2.0) FieldPositions.STRAFING_FACTOR else FieldPositions.STRAIGHT_FACTOR
+
+		logger.trace("distance: {}", box(distance))
+		logger.trace(box(distance * 8192 / (2.0 * Robot.config.wheelRadius * Math.PI)))
 
 		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
 		val ticks = distance / wheelCircumference * 8192.0
@@ -263,15 +262,17 @@ object Drive : TerminableSubsystem() {
 			vmax2 = currentDistance / (totTime - t1) / 10.0
 			a2 = vmax2 / t1
 
+			val multiplier = if (Math.sin(theta) != 0.0) 0.5 else 1.0
+			logger.trace("sin(θ): {}, drive straight multiplier: {}", Math.sin(theta), multiplier)
 
 			if (Math.abs(modifiers[i] * distance) != maxDistance) {
 				logger.trace("Vmax2 {}", box(vmax2))
 				logger.trace("A2 {}", box(a2))
-				motions[i] = MotionMagic(Robot.driveTalons.talons[i], vmax2, a2)
+				motions[i] = MotionMagic(Robot.driveTalons.talons[i], vmax2 * multiplier, a2 * multiplier)
 			} else {
 				logger.trace("MAX VEL {}", box(MAX_VELOCITY))
 				logger.trace("MAX ACCEL {}", box(MAX_ACCELERATION))
-				motions[i] = MotionMagic(Robot.driveTalons.talons[i], MAX_VELOCITY.toDouble(), MAX_ACCELERATION.toDouble())
+				motions[i] = MotionMagic(Robot.driveTalons.talons[i], MAX_VELOCITY.toDouble() * multiplier, MAX_ACCELERATION.toDouble() * multiplier)
 			}
 		}
 
@@ -294,7 +295,7 @@ object Drive : TerminableSubsystem() {
 
 		// TODO: wtf is this doing?
 		logger.trace("totTime: {}", totTime)
-		delay((totTime / 10.0 * 1000).toInt())
+		delay((totTime * 1250).toInt())
 
 //		Robot.talonDebugger?.dump();
 
