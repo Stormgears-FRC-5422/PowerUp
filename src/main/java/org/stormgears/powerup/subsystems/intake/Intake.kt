@@ -21,14 +21,14 @@ object Intake : TerminableSubsystem() {
 	const val VERTICAL = 0
 	const val HORIZONTAL = 1
 
-	private const val POS_VERTICAL = 0
-	private const val POS_HORIZONTAL = 70000
+//	private const val POS_VERTICAL = 0
+//	private const val POS_HORIZONTAL = 70000
 
 	private const val LEFT_TALON_ID = TalonIds.INTAKE_LEFT
 	private const val RIGHT_TALON_ID = TalonIds.INTAKE_RIGHT
 	private const val ARTICULATOR_TALON_ID = TalonIds.INTAKE_ART
 
-	private const val WHEEL_SPEED = 8000
+	//	private const val WHEEL_SPEED = 8000
 	private const val POWER = 1.0
 	private const val CURRENT_LIMIT = 90
 
@@ -38,6 +38,9 @@ object Intake : TerminableSubsystem() {
 
 	private var position = VERTICAL
 	private var job: Job? = null
+
+	val isUp: Boolean
+		get() = position == VERTICAL
 
 	init {
 		leftTalon = createTalon(LEFT_TALON_ID)
@@ -85,17 +88,14 @@ object Intake : TerminableSubsystem() {
 	suspend fun moveIntakeToPositionSuspend(position: Int) {
 		if (position == this@Intake.position) return
 
-		val positionTicks: Int
 		var multiplier: Double
 		when (position) {
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				positionTicks = POS_VERTICAL
 				multiplier = 1.0
 			}
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				positionTicks = POS_HORIZONTAL
 				multiplier = -1.0
 			}
 			else -> {

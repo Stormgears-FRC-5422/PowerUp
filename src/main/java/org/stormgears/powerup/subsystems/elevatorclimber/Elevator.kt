@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.TalonIds
+import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -24,13 +26,15 @@ object Elevator : TerminableSubsystem() {
 
 	private const val TICKS_PER_INCH = 13000
 	private const val ELEVATOR_DISTANCE_MULTIPLIER = -1.0 // Because the encoder is reversed
+	private const val INTAKE_HEIGHT = -200000 // Ticks
 
 	var elevatorZeroed = false
-		private set
 
-	// TODO: Change these to real values
-	private const val ZERO_POWER = 0.3
-	private const val ZERO_CURRENT_LIMIT = 8.7
+	val currentPositionTicks: Int
+		get() = talons.masterMotor.sensorCollection.quadraturePosition
+
+	private const val ZERO_POWER = 0.2
+	private const val ZERO_CURRENT_LIMIT = 8.0 // 8.7
 
 	// PID values for elevator
 	private const val RAISE_P = 0.088
@@ -49,21 +53,14 @@ object Elevator : TerminableSubsystem() {
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1
-	private const val SIDE_SHIFT_POWER = 0.9
+	private const val SIDE_SHIFT_POWER = 1.0
 	private const val SLOW_DOWN = -0.05
 //	private const val FULL_LEFT_TICKS = 181000
 //	private const val FULL_RIGHT_TICKS = -181000
 
-
 	// Jobs
 	private var sideShiftJob: Job? = null
 	private var elevatorJob: Job? = null
-
-	/**
-	 * @return the current number of encoder ticks the elevator is above the base
-	 */
-	var currentElevatorPosition = 0
-		private set
 
 	init {
 		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
@@ -75,16 +72,12 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
-	private fun updatePosition() {
-		currentElevatorPosition = talons.masterMotor.sensorCollection.quadraturePosition
-	}
-
 	/**
 	 * Move the elevator to a position
 	 *
-	 * @param position = encoder ticks of the position where the elevator should move
+	 * @param position = inches from the bottom of the elevator
 	 */
-	fun moveElevatorToPosition(position: Int) {
+	fun moveElevatorToPosition(position: Int, slowly: Boolean = false) {
 		if (elevatorJob != null) {
 			elevatorJob!!.cancel()
 			logger.trace("Cancelled elevator job")
@@ -95,30 +88,51 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
-	suspend fun elevatorAutoMove(position: Int) {
+	suspend fun elevatorAutoMove(position: Int, slowly: Boolean = false) {
+		val lowering: Boolean
 		val positionTicks = toEncoderTicks(position.toDouble())
-		if (positionTicks < currentElevatorPosition) {     // Raising elevator
+
+		if (slowly) {
+			talons.masterMotor.configPeakOutputForward(0.5, 10)
+			talons.masterMotor.configPeakOutputReverse(0.5, 10)
+		}
+
+		lowering = if (positionTicks < currentPositionTicks) {     // Raising elevator
 			talons.masterMotor.config_kP(0, RAISE_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kI(0, RAISE_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kD(0, RAISE_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			false
 		} else {    // Lowering elevator
 			talons.masterMotor.config_kP(0, LOWER_P, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kI(0, LOWER_I, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kD(0, LOWER_D, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			true
 		}
 		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 
 		logger.trace("Desired encoder position: {}", box(positionTicks))
 		talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
 
-		// wait until elevator finishes
+		var openedIntake = false
+
+		// Wait until elevator finishes
 		while (Math.abs(positionTicks - talons.masterMotor.sensorCollection.quadraturePosition) > 50) {
 			logger.trace(talons.masterMotor.sensorCollection.quadraturePosition)
+
+			if (lowering && Intake.isUp && currentPositionTicks > INTAKE_HEIGHT) {
+				holdElevator()
+				break
+			} else if (lowering && !Intake.isUp && !openedIntake) {
+				Gripper.openGripper()
+				openedIntake = true
+			}
 			delay(20)
 		}
 
-		logger.trace("Elevator has moved to encoder position: {}", box(positionTicks))
-		currentElevatorPosition = positionTicks
+		talons.masterMotor.configPeakOutputForward(1.0, 10)
+		talons.masterMotor.configPeakOutputReverse(1.0, 10)
+
+		logger.trace("Elevator has moved to encoder position: {}", currentPositionTicks)
 	}
 
 	private var overrodeSide = false
@@ -129,14 +143,8 @@ object Elevator : TerminableSubsystem() {
 		launch("Override slow down", parent = null) {
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
-			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
-
 			if (!overrodeSide) {
-//				delay(300)
-//				updatePosition()
-
-//				// Hold current elevator position
-//				talons.masterMotor.set(ControlMode.Position, currentElevatorPosition.toDouble())
+				holdElevator()
 			}
 		}
 	}
@@ -152,12 +160,12 @@ object Elevator : TerminableSubsystem() {
 
 		// Coroutines again!
 		sideShiftJob = launch("Side Shift Auto Move") {
-			moveSideShift(position)
+			moveSideShiftToPositionSuspend(position)
 		}
 	}
 
-	suspend fun moveSideShift(position: Int) {
-		if (sideShiftPosition != position) {
+	suspend fun moveSideShiftToPositionSuspend(position: Int) {
+		if (sideShiftPosition != position && elevatorZeroed) {
 			var multiplier = 0
 			if (position == LEFT) {
 				multiplier = -1
@@ -202,9 +210,11 @@ object Elevator : TerminableSubsystem() {
 		println("Zero-ing Elevator. Watch out!")
 
 		var iteration = 0
-		while (talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT || ++iteration < 40) {
+		while (iteration < 40 || talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT) {
 			delay(20)
 			println("Current limit: ${talons.masterMotor.outputCurrent}")
+
+			iteration++
 		}
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
@@ -221,6 +231,15 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
+	private suspend fun holdElevator() {
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+
+		delay(300)
+
+		// Hold current elevator position
+		talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble())
+	}
+
 	fun moveSideShiftOverLeft() {
 		if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
 	}
@@ -230,13 +249,17 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveUpManual() {
+		logger.trace("Manual override up")
 		talons.masterMotor.set(ControlMode.PercentOutput, -0.5)
 		overrodeSide = false
 	}
 
 	fun moveDownManual() {
-		talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
 		overrodeSide = false
+
+		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
+
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
 	}
 
 	fun moveLeftManual() {
@@ -254,7 +277,9 @@ object Elevator : TerminableSubsystem() {
 		SmartDashboard.putNumber("Elevator encoder velocity", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
 		SmartDashboard.putNumber("Elevator encoder position_", talons.masterMotor.sensorCollection.quadraturePosition.toDouble())
 		SmartDashboard.putNumber("Elevator encoder velocity_", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
-	}/**
+	}
+
+	/**
      * @param inches number of inches
      * @return number of encoder ticks necessary to go that many inches
      */
