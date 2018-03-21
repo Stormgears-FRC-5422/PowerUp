@@ -15,6 +15,7 @@
 | [org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1](../org.stormgears.powerup.subsystems.dsio/-button-board2018-v1/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio.Choosers](../org.stormgears.powerup.subsystems.dsio/-choosers/index.md) |  |
 | [org.stormgears.powerup.subsystems.elevatorclimber.Climber](../org.stormgears.powerup.subsystems.elevatorclimber/-climber/index.md) |  |
+| [org.stormgears.powerup.commands.Commands](../org.stormgears.powerup.commands/-commands/index.md) |  |
 | [org.stormgears.powerup.subsystems.dsio.DSIO](../org.stormgears.powerup.subsystems.dsio/-d-s-i-o/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.Drive](../org.stormgears.powerup.subsystems.navigator/-drive/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.DriveTalons](../org.stormgears.powerup.subsystems.navigator/-drive-talons/index.md) |  |

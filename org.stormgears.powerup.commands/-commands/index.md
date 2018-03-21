@@ -1,17 +1,8 @@
-[PowerUp](../../index.md) / [org.stormgears.powerup.subsystems.intake](../index.md) / [Intake](./index.md)
+[PowerUp](../../index.md) / [org.stormgears.powerup.commands](../index.md) / [Commands](./index.md)
 
-# Intake
+# Commands
 
-`object Intake : `[`TerminableSubsystem`](../../org.stormgears.utils.concurrency/-terminable-subsystem/index.md)
-
-### Properties
-
-| Name | Summary |
-|---|---|
-| [HORIZONTAL](-h-o-r-i-z-o-n-t-a-l.md) | `const val HORIZONTAL: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [VERTICAL](-v-e-r-t-i-c-a-l.md) | `const val VERTICAL: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [instance](instance.md) | `var instance: `[`Intake`](./index.md)`?` |
-| [isUp](is-up.md) | `val isUp: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+`object Commands : `[`TerminableSubsystem`](../../org.stormgears.utils.concurrency/-terminable-subsystem/index.md)
 
 ### Inherited Properties
 
@@ -23,14 +14,9 @@
 
 | Name | Summary |
 |---|---|
-| [controlWithThrottle](control-with-throttle.md) | `fun controlWithThrottle(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [debug](debug.md) | `fun debug(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [joystickify](joystickify.md) | `fun joystickify(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveIntakeToPosition](move-intake-to-position.md) | `fun moveIntakeToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveIntakeToPositionSuspend](move-intake-to-position-suspend.md) | `suspend fun moveIntakeToPositionSuspend(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [startWheelsIn](start-wheels-in.md) | `fun startWheelsIn(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [startWheelsOut](start-wheels-out.md) | `fun startWheelsOut(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [stopWheels](stop-wheels.md) | `fun stopWheels(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [grabCube](grab-cube.md) | `fun grabCube(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [grabCubeSuspend](grab-cube-suspend.md) | `suspend fun grabCubeSuspend(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [prepareToPlaceCube](prepare-to-place-cube.md) | `suspend fun prepareToPlaceCube(height: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)` = Robot.elevator.SCALE_POSITIONS[2]): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 
 ### Inherited Functions
 

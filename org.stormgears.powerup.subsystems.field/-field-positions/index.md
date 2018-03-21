@@ -70,5 +70,6 @@
 | [SPOT_TO_SCALE_LEFT_PLATE](-s-p-o-t_-t-o_-s-c-a-l-e_-l-e-f-t_-p-l-a-t-e.md) | `static val SPOT_TO_SCALE_LEFT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [SPOT_TO_SCALE_RIGHT_PLATE](-s-p-o-t_-t-o_-s-c-a-l-e_-r-i-g-h-t_-p-l-a-t-e.md) | `static val SPOT_TO_SCALE_RIGHT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [STRAFING_FACTOR](-s-t-r-a-f-i-n-g_-f-a-c-t-o-r.md) | `static val STRAFING_FACTOR: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
+| [STRAIGHT_FACTOR](-s-t-r-a-i-g-h-t_-f-a-c-t-o-r.md) | `static val STRAIGHT_FACTOR: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [X_DISTANCE_TO_STRAFE_TO_SCALE](-x_-d-i-s-t-a-n-c-e_-t-o_-s-t-r-a-f-e_-t-o_-s-c-a-l-e.md) | `static val X_DISTANCE_TO_STRAFE_TO_SCALE: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [X_DISTANCE_TO_STRAFE_TO_SWITCH](-x_-d-i-s-t-a-n-c-e_-t-o_-s-t-r-a-f-e_-t-o_-s-w-i-t-c-h.md) | `static val X_DISTANCE_TO_STRAFE_TO_SWITCH: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |

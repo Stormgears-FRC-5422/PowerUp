@@ -30,6 +30,7 @@
 | Name | Summary |
 |---|---|
 | [AutonomousCommandGroup](../../org.stormgears.powerup.auto.command/-autonomous-command-group/index.md) | `object AutonomousCommandGroup : `[`TerminableSubsystem`](./index.md) |
+| [Commands](../../org.stormgears.powerup.commands/-commands/index.md) | `object Commands : `[`TerminableSubsystem`](./index.md) |
 | [Drive](../../org.stormgears.powerup.subsystems.navigator/-drive/index.md) | `object Drive : `[`TerminableSubsystem`](./index.md) |
 | [Elevator](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.md) | `object Elevator : `[`TerminableSubsystem`](./index.md)<br>Default constructor for the creation of the elevator |
 | [Gripper](../../org.stormgears.powerup.subsystems.gripper/-gripper/index.md) | `object Gripper : `[`TerminableSubsystem`](./index.md) |

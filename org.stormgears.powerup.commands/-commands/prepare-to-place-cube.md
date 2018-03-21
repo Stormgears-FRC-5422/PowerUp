@@ -1,4 +1,4 @@
-[PowerUp](../index.md) / [org.stormgears.powerup.commands](index.md) / [prepareToPlaceCube](./prepare-to-place-cube.md)
+[PowerUp](../../index.md) / [org.stormgears.powerup.commands](../index.md) / [Commands](index.md) / [prepareToPlaceCube](./prepare-to-place-cube.md)
 
 # prepareToPlaceCube
 
