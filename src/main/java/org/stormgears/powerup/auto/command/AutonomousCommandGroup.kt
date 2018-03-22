@@ -3,7 +3,6 @@ package org.stormgears.powerup.auto.command
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.navigator.Drive
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
@@ -22,12 +21,12 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 				Gripper.openGripper()
 			}
 
-//			AutoDriveMoveCommand.execute(selectedAlliance,
-//				selectedStartingSpot,
-//				selectedPlacementSpot,
-//				selectedOwnSwitchPlateAssignment,
-//				selectedScalePlateAssignment,
-//				selectedOpponentSwitchPlateAssignmentChooser)
+			AutoDriveMoveCommand.execute(selectedAlliance,
+				selectedStartingSpot,
+				selectedPlacementSpot,
+				selectedOwnSwitchPlateAssignment,
+				selectedScalePlateAssignment,
+				selectedOpponentSwitchPlateAssignmentChooser)
 
 			// Should move elevator upwards
 //			Elevator.elevatorAutoMove(5)
@@ -37,7 +36,13 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 
 			// FIXME: This code is temporary - for testing only
 
-			Drive.moveStraight(215.0, 0.0)
+			// Square test
+//			for (i in 0..5) {
+//				Drive.moveStraight(60.0, 0.0)
+//				Drive.moveStraight(60.0, Math.PI / 2)
+//				Drive.moveStraight(60.0, Math.PI)
+//				Drive.moveStraight(60.0, -Math.PI / 2)
+//			}
 
 //			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
 //			Elevator.moveSideShiftToPositionSuspend(-1)

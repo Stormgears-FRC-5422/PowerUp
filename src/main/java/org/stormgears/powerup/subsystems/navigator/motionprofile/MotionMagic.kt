@@ -3,6 +3,7 @@ package org.stormgears.powerup.subsystems.navigator.motionprofile
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
+import org.stormgears.powerup.Robot
 import org.stormgears.utils.decoupling.ITalon
 
 class MotionMagic(private val talon: ITalon, maxVel: Double, maxAccel: Double) {
@@ -25,6 +26,11 @@ class MotionMagic(private val talon: ITalon, maxVel: Double, maxAccel: Double) {
 		talon.configNominalOutputReverse(0.0, TALON_FPID_TIMEOUT)
 		talon.configPeakOutputForward(1.0, TALON_FPID_TIMEOUT)
 		talon.configPeakOutputReverse(-1.0, TALON_FPID_TIMEOUT)
+		talon.config_kF(0, Robot.config.velocityF, TALON_FPID_TIMEOUT)
+		talon.config_kP(0, Robot.config.positionP, TALON_FPID_TIMEOUT)
+		talon.config_kI(0, Robot.config.positionI, TALON_FPID_TIMEOUT)
+		talon.config_kD(0, Robot.config.positionD, TALON_FPID_TIMEOUT)
+
 
 		/* set closed loop gains in slot0 - see documentation */
 		talon.selectProfileSlot(0, 0)

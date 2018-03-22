@@ -323,7 +323,7 @@ object Drive : TerminableSubsystem() {
 		var theta = theta
 		if (useAbsoluteControl) {
 			val navxTheta = Robot.sensors.navX.theta
-			theta = theta - navxTheta
+			theta -= navxTheta
 		}
 
 		var negative = -1.0

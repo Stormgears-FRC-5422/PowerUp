@@ -14,23 +14,27 @@ public class ElevatorSharedTalons {
 
 	public static final int TALON_FPID_TIMEOUT = 10;
 
-	// TODO: Set these to correct elevator_climber ids
 	private static final int MASTER_MOTOR_TALON_ID = TalonIds.ELEVATOR_MASTER;
 	private static final int SLAVE_MOTOR_TALON_ID = TalonIds.ELEVATOR_SLAVE;
 
-	// TODO: Rename these if needed
 	private ITalon masterMotor;
 	private ITalon slaveMotor;
 
 	private ElevatorSharedTalons(int masterMotorId, int slaveMotorId) {
 		System.out.println("Initializing elevator talons");
-		// TODO: Correctly setup talons
+
 		masterMotor = TalonFactoryKt.createTalon(masterMotorId);
 		slaveMotor = TalonFactoryKt.createTalon(slaveMotorId);
 		slaveMotor.set(ControlMode.Follower, masterMotorId);
+
 		masterMotor.setInverted(true);
 		masterMotor.setSensorPhase(true);
 		slaveMotor.setInverted(true);
+
+//		masterMotor.configPeakCurrentLimit(40, TALON_FPID_TIMEOUT);
+//		masterMotor.enableCurrentLimit(true);
+//		slaveMotor.configPeakCurrentLimit(40, TALON_FPID_TIMEOUT);
+//		slaveMotor.enableCurrentLimit(true);
 
 	}
 
