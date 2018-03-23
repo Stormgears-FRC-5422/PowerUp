@@ -13,3 +13,5 @@
 | [pathToLeftSwitch](path-to-left-switch.md) | `val pathToLeftSwitch: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`Segment`](../../-segment/index.md)`>` |
 | [pathToRightScale](path-to-right-scale.md) | `val pathToRightScale: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`Segment`](../../-segment/index.md)`>` |
 | [pathToRightSwitch](path-to-right-switch.md) | `val pathToRightSwitch: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`Segment`](../../-segment/index.md)`>` |
+| [strafeToLeftScale](strafe-to-left-scale.md) | `val strafeToLeftScale: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`Segment`](../../-segment/index.md)`>` |
+| [strafeToRightScale](strafe-to-right-scale.md) | `val strafeToRightScale: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`Segment`](../../-segment/index.md)`>` |
