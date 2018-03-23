@@ -9,5 +9,5 @@ Gets the angle of the robot in radians
  Make sure that you wrap calls to this method in "if (navX.thetaIsSet())"
 
 **Return**
-the angle of the robot in radians, null if NavX is not calibrated
+the angle of the robot in radians, throws IllegalStateException if theta is not set
 

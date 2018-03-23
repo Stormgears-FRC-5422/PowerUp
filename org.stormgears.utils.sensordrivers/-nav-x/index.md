@@ -21,7 +21,6 @@
 | [getVelocityX](get-velocity-x.md) | `open fun getVelocityX(): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html) |
 | [getVelocityY](get-velocity-y.md) | `open fun getVelocityY(): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html) |
 | [isCalibrating](is-calibrating.md) | `open fun isCalibrating(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [isConnected](is-connected.md) | `open fun isConnected(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [setInitialTheta](set-initial-theta.md) | `open fun setInitialTheta(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [test](test.md) | `open fun test(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [thetaIsSet](theta-is-set.md) | `open fun thetaIsSet(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
