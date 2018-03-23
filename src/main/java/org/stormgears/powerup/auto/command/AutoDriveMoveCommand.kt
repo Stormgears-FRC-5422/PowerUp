@@ -3,9 +3,11 @@ package org.stormgears.powerup.auto.command
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.AutoRoutes
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.Segment
+import org.stormgears.powerup.subsystems.gripper.Gripper
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
@@ -29,12 +31,46 @@ object AutoDriveMoveCommand {
 			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
 				move(autoRoute.pathToRightScale)
 			}
+
+			Elevator.elevatorAutoMove(Elevator.SCALE_POSITIONS[2])
+
+			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
+				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
+					if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+						Elevator.moveSideShiftOverLeft()
+					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+						Elevator.moveSideShiftOverRight()
+					}
+				}
+			}
+
+			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+				move(autoRoute.strafeToLeftScale)
+			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+				move(autoRoute.strafeToRightScale)
+			}
+			Gripper.openGripperSuspend()
+
 		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 			if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
 				move(autoRoute.pathToLeftSwitch)
 			} else { //if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.R)
 				move(autoRoute.pathToRightSwitch)
 			}
+
+			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
+
+			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
+				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
+					if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
+						Elevator.moveSideShiftOverLeft()
+					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+						Elevator.moveSideShiftOverRight()
+					}
+				}
+			}
+
+			Gripper.openGripperSuspend()
 		} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
 			move(autoRoute.pathToCrossLine)
 		}
@@ -50,5 +86,4 @@ object AutoDriveMoveCommand {
 			Robot.drive.moveToPos(segment.startPos, segment.endPos)
 		}
 	}
-
 }

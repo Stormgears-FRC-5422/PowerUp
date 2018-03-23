@@ -6,14 +6,20 @@ package org.stormgears.powerup.subsystems.field
 object AutoRoutes {
 	object FromLeft : AutoRoute {
 		override val pathToLeftScale = arrayOf(
-			Segment(FieldPositions.StartingSpots.LEFT.position, FieldPositions.SPOT_TO_SCALE_LEFT_PLATE),
+			Segment(FieldPositions.StartingSpots.LEFT.position, FieldPositions.SPOT_TO_SCALE_LEFT_PLATE)
+		)
+
+		override val strafeToLeftScale = arrayOf(
 			Segment(FieldPositions.SPOT_TO_SCALE_LEFT_PLATE, FieldPositions.SCALE_LEFT_PLATE)
 		)
 
 		override val pathToRightScale = arrayOf(
 			Segment(FieldPositions.StartingSpots.LEFT.position, FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT),
 			Segment(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT),
-			Segment(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE),
+			Segment(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE)
+		)
+
+		override val strafeToRightScale = arrayOf(
 			Segment(FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE, FieldPositions.SCALE_RIGHT_PLATE)
 		)
 
@@ -38,12 +44,19 @@ object AutoRoutes {
 		override val pathToLeftScale = arrayOf(
 			Segment(FieldPositions.StartingSpots.RIGHT.position, FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT),
 			Segment(FieldPositions.MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT, FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT),
-			Segment(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.SPOT_TO_SCALE_LEFT_PLATE),
+			Segment(FieldPositions.MIDFIELD_SCALE_LEFT_TRANSITION_SPOT, FieldPositions.SPOT_TO_SCALE_LEFT_PLATE)
+		)
+
+		override val strafeToLeftScale = arrayOf(
 			Segment(FieldPositions.SPOT_TO_SCALE_LEFT_PLATE, FieldPositions.SCALE_LEFT_PLATE)
 		)
 
 		override val pathToRightScale = arrayOf(
 			Segment(FieldPositions.StartingSpots.RIGHT.position, FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE),
+			Segment(FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE, FieldPositions.SCALE_RIGHT_PLATE)
+		)
+
+		override val strafeToRightScale = arrayOf(
 			Segment(FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE, FieldPositions.SCALE_RIGHT_PLATE)
 		)
 
@@ -67,7 +80,11 @@ object AutoRoutes {
 	object FromCenter : AutoRoute {
 		override val pathToLeftScale = emptyArray<Segment>()
 
+		override val strafeToLeftScale = emptyArray<Segment>()
+
 		override val pathToRightScale = emptyArray<Segment>()
+
+		override val strafeToRightScale = emptyArray<Segment>()
 
 		override val pathToLeftSwitch = emptyArray<Segment>()
 
