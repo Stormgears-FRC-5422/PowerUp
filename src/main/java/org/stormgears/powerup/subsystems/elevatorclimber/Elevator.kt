@@ -257,7 +257,7 @@ object Elevator : TerminableSubsystem() {
 	fun moveDownManual() {
 		overrodeSide = false
 
-		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
+//		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
 
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.33)
 	}
@@ -277,6 +277,8 @@ object Elevator : TerminableSubsystem() {
 		SmartDashboard.putNumber("Elevator encoder velocity", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
 		SmartDashboard.putNumber("Elevator encoder position_", talons.masterMotor.sensorCollection.quadraturePosition.toDouble())
 		SmartDashboard.putNumber("Elevator encoder velocity_", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
+
+		logger.trace("Elevator output current: {}", talons.masterMotor.outputCurrent)
 	}
 
 	/**

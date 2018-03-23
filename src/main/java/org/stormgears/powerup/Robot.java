@@ -203,7 +203,7 @@ public class Robot extends BaseStormgearsRobot {
 //				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 //				wpiMecanumDrive.move();
 //			} else {
-//				logger.fatal("NavX theta is not set! Cannot drive!");
+//				logger.fatal("NavX is currently calibrating! Cannot drive!");
 //			}
 //		} else {
 //			logger.fatal("Robot.drive is null; that's a problem!");
@@ -214,12 +214,12 @@ public class Robot extends BaseStormgearsRobot {
 		elevator.debug();
 
 		if (drive != null) {
-//			if (!sensors.getNavX().isCalibrating()) {
-//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
-//			} else {
-//				logger.fatal("NavX theta is not set! Cannot drive!");
-//			}
+			} else {
+				logger.fatal("NavX is currently calibrating! Cannot drive!");
+			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}

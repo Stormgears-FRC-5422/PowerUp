@@ -17,6 +17,9 @@ public class NavX {
 
 	public NavX() {
 		ahrs = new AHRS(SPI.Port.kMXP);
+//		System.out.println(ahrs.getFirmwareVersion());
+
+//		if (!ahrs.isConnected()) throw new RuntimeException("NavX is not available! Oopsie!");
 	}
 
 	/**
@@ -24,17 +27,18 @@ public class NavX {
 	 * <p>
 	 * Make sure that you wrap calls to this method in "if (navX.thetaIsSet())"
 	 *
-	 * @return the angle of the robot in radians, null if NavX is not calibrated
+	 * @return the angle of the robot in radians, throws IllegalStateException if theta is not set
 	 */
 	public double getTheta() {
 		if (!thetaIsSet) {
-			return 0; // throw new IllegalStateException("Theta is not set.");
+			throw new IllegalStateException("NavX theta is not set. Cannot get theta.");
 		}
 
 		double theta = (ahrs.getAngle() - initialTheta) / 180.0 * Math.PI;
 
 		theta = theta % (2 * Math.PI);
 		if (theta < 0) theta += 2 * Math.PI;
+
 		return theta;
 	}
 
@@ -80,10 +84,6 @@ public class NavX {
 	public boolean test() {
 		debug();
 		return true;
-	}
-
-	public boolean isConnected() {
-		return ahrs.isConnected();
 	}
 
 	public AHRS getAhrs() {

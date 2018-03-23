@@ -31,10 +31,12 @@ public class ElevatorSharedTalons {
 		masterMotor.setSensorPhase(true);
 		slaveMotor.setInverted(true);
 
-//		masterMotor.configPeakCurrentLimit(40, TALON_FPID_TIMEOUT);
-//		masterMotor.enableCurrentLimit(true);
-//		slaveMotor.configPeakCurrentLimit(40, TALON_FPID_TIMEOUT);
-//		slaveMotor.enableCurrentLimit(true);
+		masterMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT);
+		masterMotor.configContinuousCurrentLimit(20, TALON_FPID_TIMEOUT);
+		masterMotor.enableCurrentLimit(true);
+		slaveMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT);
+		slaveMotor.configContinuousCurrentLimit(20, TALON_FPID_TIMEOUT);
+		slaveMotor.enableCurrentLimit(true);
 
 	}
 
