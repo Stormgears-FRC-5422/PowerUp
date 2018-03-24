@@ -1,6 +1,5 @@
 package org.stormgears.powerup;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -189,8 +188,8 @@ public class Robot extends BaseStormgearsRobot {
 	public void teleopInit() {
 		logger.trace("teleop init");
 
-		if (drive != null) {
-			drive.setVelocityPID();
+		if (driveTalons != null) {
+			driveTalons.velocityPIDMode();
 		}
 
 		if (dsio == null) {
