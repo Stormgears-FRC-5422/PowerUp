@@ -29,9 +29,13 @@ class SafeProperties : Properties() {
 	 * @throws IllegalStateException when expected key isn't present in expected properties file
 	 */
 	override fun getProperty(key: String, default: String): String {
-		val property = super.getProperty(key, default)
-		logger.trace("Read property key={} value={} default={}", key, property, default)
-		return property
+		try {
+			return getProperty(key)
+		} catch (e: IllegalStateException) {
+
+		}
+//		logger.trace("Read property key={} value={} default={}", key, property, default)
+		return default;
 	}
 
 	companion object {

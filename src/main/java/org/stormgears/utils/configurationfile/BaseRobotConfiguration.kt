@@ -46,7 +46,7 @@ open class BaseRobotConfiguration(useBackupIfFileNotAvailable: Boolean = false) 
 	val robotName = getString("robotName")
 
 	protected fun getString(key: String) = properties.getProperty(key)
-	protected fun getString(key: String, default: String) = properties.getProperty(key)
+	protected fun getString(key: String, default: String) = properties.getProperty(key, default)
 
 	protected fun getInt(key: String) = getString(key).toInt()
 	protected fun getInt(key: String, default: Int) = getString(key, default.toString()).toInt()
