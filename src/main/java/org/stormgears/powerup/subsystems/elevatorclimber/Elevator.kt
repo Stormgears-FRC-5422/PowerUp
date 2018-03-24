@@ -21,7 +21,7 @@ object Elevator : TerminableSubsystem() {
 	var useGartnerRate = true
 	private val logger = LogManager.getLogger(this::class.java)
 
-	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons
+	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons!!
 	private val sideShiftTalon: ITalon
 	private var sideShiftPosition = 0
 

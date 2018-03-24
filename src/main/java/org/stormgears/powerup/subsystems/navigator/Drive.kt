@@ -23,13 +23,14 @@ object Drive : TerminableSubsystem() {
 	private const val MAX_VELOCITY = 5000
 	private const val MAX_ACCELERATION = 2500
 
-	private val talons = Robot.driveTalons.talons
+	private val talons = Robot.driveTalons!!.talons
+	private val sensors = Robot.sensors!!
 	private val vels = DoubleArray(talons.size)
 
 	var useAbsoluteControl = false
 	var useTractionControl = false
 
-	private val motions: Array<MotionMagic?> = arrayOfNulls(Robot.driveTalons.talons.size)
+	private val motions: Array<MotionMagic?> = arrayOfNulls(Robot.driveTalons!!.talons.size)
 	private val motionManager: MotionManager = MotionManager()
 
 	fun move() {
@@ -53,7 +54,7 @@ object Drive : TerminableSubsystem() {
 	}
 
 	fun setVelocityPID() {
-		for (t in Robot.driveTalons.talons) {
+		for (t in talons) {
 			t.config_kP(0, Robot.config.velocityP, 10)
 			t.config_kI(0, Robot.config.velocityI, 10)
 			t.config_kD(0, Robot.config.velocityD, 10)
@@ -79,7 +80,7 @@ object Drive : TerminableSubsystem() {
 //		talons[2].setSensorPhase(true)
 
 		if (useAbsoluteControl) {
-			val navxTheta = Robot.sensors.navX.theta
+			val navxTheta = sensors.navX.theta
 			theta = theta - navxTheta - Math.PI / 2
 		}
 
@@ -172,7 +173,6 @@ object Drive : TerminableSubsystem() {
 	}
 
 	private fun setDriveTalonsZeroVelocity() {
-		val talons = Robot.driveTalons.talons
 		for (t in talons) {
 			t.set(ControlMode.PercentOutput, 0.0)
 		}
@@ -180,7 +180,7 @@ object Drive : TerminableSubsystem() {
 
 	fun driveMotionProfile(rotations: Double, theta: Double) {
 		var theta = theta
-		val navXTheta = Robot.sensors.navX.theta
+		val navXTheta = sensors.navX.theta
 		theta = theta - navXTheta - Math.PI / 2.0
 
 		val profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300.0, theta, 0.0)
@@ -189,7 +189,6 @@ object Drive : TerminableSubsystem() {
 	}
 
 	fun debug() {
-		val talons = Robot.driveTalons.talons
 		for (t in talons) {
 			logger.debug("Real Velocities: {}", box(t.sensorCollection.quadratureVelocity))
 		}
@@ -252,7 +251,7 @@ object Drive : TerminableSubsystem() {
 
 
 		val maxDistance = Math.abs(modifiers[max] * distance) * 8192 / (2.0 * Math.PI * Robot.config.wheelRadius)
-		for (i in 0 until Robot.driveTalons.talons.size) {
+		for (i in 0 until talons.size) {
 
 			currentDistance = Math.abs(modifiers[i] * distance) * 8192 / (2.0 * Math.PI * Robot.config.wheelRadius)
 
@@ -268,17 +267,17 @@ object Drive : TerminableSubsystem() {
 			if (Math.abs(modifiers[i] * distance) != maxDistance) {
 				logger.trace("Vmax2 {}", box(vmax2))
 				logger.trace("A2 {}", box(a2))
-				motions[i] = MotionMagic(Robot.driveTalons.talons[i], vmax2 * multiplier, a2 * multiplier)
+				motions[i] = MotionMagic(talons[i], vmax2 * multiplier, a2 * multiplier)
 			} else {
 				logger.trace("MAX VEL {}", box(MAX_VELOCITY))
 				logger.trace("MAX ACCEL {}", box(MAX_ACCELERATION))
-				motions[i] = MotionMagic(Robot.driveTalons.talons[i], MAX_VELOCITY.toDouble() * multiplier, MAX_ACCELERATION.toDouble() * multiplier)
+				motions[i] = MotionMagic(talons[i], MAX_VELOCITY.toDouble() * multiplier, MAX_ACCELERATION.toDouble() * multiplier)
 			}
 		}
 
 //		Robot.talonDebugger?.dump();
 
-		for (talon in Robot.driveTalons.talons) {
+		for (talon in talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
 			talon.sensorCollection.setQuadraturePosition(0, 250)
 //			talon.set(ControlMode.MotionMagic, 0.0)
@@ -287,7 +286,7 @@ object Drive : TerminableSubsystem() {
 //		Robot.talonDebugger?.dump();
 		for (i in motions.indices) {
 			logger.trace("Talon {} Commanded: {}", box(i), box(ticks * modifiers[i]))
-			val talon = Robot.driveTalons.talons[i]
+			val talon = talons[i]
 //			talon.set(ControlMode.PercentOutput, 0.0)
 //			talon.sensorCollection.setQuadraturePosition(0, 250);
 			motions[i]?.runMotionMagic((ticks * modifiers[i]).toInt())
@@ -300,7 +299,7 @@ object Drive : TerminableSubsystem() {
 //		Robot.talonDebugger?.dump();
 
 		logger.trace("Resetting talons")
-		for (talon in Robot.driveTalons.talons) {
+		for (talon in talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
 			talon.sensorCollection.setQuadraturePosition(0, 250)
 //			talon.set(ControlMode.MotionMagic, 0.0)
@@ -322,7 +321,7 @@ object Drive : TerminableSubsystem() {
 	suspend fun turnTo(theta: Double) {
 		var theta = theta
 		if (useAbsoluteControl) {
-			val navxTheta = Robot.sensors.navX.theta
+			val navxTheta = sensors.navX.theta
 			theta -= navxTheta
 		}
 
@@ -360,7 +359,7 @@ object Drive : TerminableSubsystem() {
 
 
 		for (i in motions.indices) {
-			motions[i] = MotionMagic(Robot.driveTalons.talons[i], (MAX_VELOCITY / 2).toDouble(), (MAX_ACCELERATION / 2).toDouble())
+			motions[i] = MotionMagic(talons[i], (MAX_VELOCITY / 2).toDouble(), (MAX_ACCELERATION / 2).toDouble())
 		}
 
 		logger.trace(box(encoderTicks))

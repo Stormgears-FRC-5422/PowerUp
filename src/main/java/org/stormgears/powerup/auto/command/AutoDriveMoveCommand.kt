@@ -83,7 +83,7 @@ object AutoDriveMoveCommand {
 				box(segment.startPos.x), box(segment.startPos.y),
 				box(segment.endPos.x), box(segment.endPos.y))
 
-			Robot.drive.moveToPos(segment.startPos, segment.endPos)
+			Robot.drive!!.moveToPos(segment.startPos, segment.endPos)
 		}
 	}
 }

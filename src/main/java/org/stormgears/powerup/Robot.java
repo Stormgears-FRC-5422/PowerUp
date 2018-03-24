@@ -49,14 +49,32 @@ public class Robot extends BaseStormgearsRobot {
 	public static RobotConfiguration config = RobotConfiguration.INSTANCE;
 	public static DSIO dsio;
 	public static FmsInterface fmsInterface = FmsInterface.getInstance();
+
+	@Nullable
 	public static Sensors sensors;
-//	public static GlobalMapping globalMapping;
+
+	// @Nullable
+	// public static GlobalMapping globalMapping;
+
+	@Nullable
 	public static DriveTalons driveTalons;
+
+	@Nullable
 	public static Drive drive;
+
+	@Nullable
 	public static Intake intake;
+
+	@Nullable
 	public static ElevatorSharedTalons elevatorSharedTalons;
+
+	@Nullable
 	public static Elevator elevator;
+
+	@Nullable
 	public static Climber climber;
+
+	@Nullable
 	public static Gripper gripper;
 
 	private FieldPositions.Alliance selectedAlliance;
@@ -83,33 +101,45 @@ public class Robot extends BaseStormgearsRobot {
 
 		StormScheduler.init();
 
-		Sensors.init();
-		sensors = Sensors.getInstance();
+		if (config.getEnableSensors()) {
+			Sensors.init();
+			sensors = Sensors.getInstance();
+		}
 
 //		GlobalMapping.init();
 //		globalMapping = GlobalMapping.getInstance();
 
-		DriveTalons.init();
-		driveTalons = DriveTalons.getInstance();
+		if (config.getEnableDrive()) {
+			DriveTalons.init();
+			driveTalons = DriveTalons.getInstance();
 
-		drive = Drive.INSTANCE;
+			drive = Drive.INSTANCE;
 
-//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+			//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 //		PowerUpMecanumDrive.init();
 //		wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
+		}
 
-		intake = Intake.INSTANCE;
+		if (config.getEnableIntake()) {
+			intake = Intake.INSTANCE;
+		}
 
-		ElevatorSharedTalons.init();
-		elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+		if (config.getEnableElevator()) {
+			ElevatorSharedTalons.init();
+			elevatorSharedTalons = ElevatorSharedTalons.getInstance();
 
-		elevator = Elevator.INSTANCE;
+			elevator = Elevator.INSTANCE;
+		}
 
+		if (config.getEnableClimber()) {
 //		Climber.init();
 //		climber = Climber.getInstance();
+		}
 
-		gripper = Gripper.INSTANCE;
+		if (config.getEnableGripper()) {
+			gripper = Gripper.INSTANCE;
+		}
 	}
 
 	/**
@@ -129,12 +159,15 @@ public class Robot extends BaseStormgearsRobot {
 		getSelectedAutonomousCommand();
 
 		logger.trace("starting the autonomous command");
-		AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
-			selectedStartSpot,
-			selectedPlacementSpot,
-			selectedOwnSwitchPlateAssignment,
-			selectedScalePlateAssignment,
-			selectedOpponentSwitchPlateAssignmentChooser);
+
+		if (drive != null && sensors != null && elevator != null) {
+			AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
+				selectedStartSpot,
+				selectedPlacementSpot,
+				selectedOwnSwitchPlateAssignment,
+				selectedScalePlateAssignment,
+				selectedOpponentSwitchPlateAssignmentChooser);
+		}
 
 //		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
 	}
@@ -154,7 +187,9 @@ public class Robot extends BaseStormgearsRobot {
 	public void teleopInit() {
 		logger.trace("teleop init");
 
-		drive.setVelocityPID();
+		if (drive != null) {
+			drive.setVelocityPID();
+		}
 
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
@@ -182,7 +217,9 @@ public class Robot extends BaseStormgearsRobot {
 
 //		logger.info("Current timer value: {}", timer.get());
 
-		TalonDebuggerKt.dashboardify(driveTalons);
+		if (driveTalons != null) {
+			TalonDebuggerKt.dashboardify(driveTalons);
+		}
 
 		StormScheduler.getInstance().run();
 	}
