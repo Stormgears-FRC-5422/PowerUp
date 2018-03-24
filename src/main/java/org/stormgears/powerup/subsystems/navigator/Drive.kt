@@ -347,6 +347,8 @@ object Drive : TerminableSubsystem() {
 
 			delay(10)
 		} while (progress < 1.0);
+
+		setDriveTalonsZeroVelocity()
 	}
 
 	/**
