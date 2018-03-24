@@ -310,8 +310,50 @@ object Drive : TerminableSubsystem() {
 //		Robot.talonDebugger?.dump();
 	}
 
-	suspend fun moveStraightNavX(distance: Double) {
+	/**
+	 * Moves the robot forwards or backwards
+	 * @param distance in inches
+	 */
+	suspend fun moveStraightNavX(dist: Double) {
+		val sign = Math.signum(dist)
+		val distance = abs(dist)
 
+		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
+		val distanceTicks = distance / wheelCircumference * 8192.0
+
+		val talonFL = talons[0]
+		val talonFR = talons[1]
+		val talonRL = talons[2]
+		val talonRR = talons[3]
+
+		val initTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees
+		val initPosFL = -talonFL.sensorCollection.quadraturePosition
+		val initPosFR = talonFR.sensorCollection.quadraturePosition
+
+		var avgPos: Double
+		var progress: Double
+		do {
+			avgPos = ((-talonFL.sensorCollection.quadraturePosition - initPosFL + talonFR.sensorCollection.quadraturePosition - initPosFR) / 2).toDouble()
+
+			progress = sign * avgPos / distanceTicks
+
+			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 3000 // ticks/100ms
+
+			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
+			val delta = currTheta - initTheta // degrees
+
+			val compensation = sign * delta / 35
+//			val compensation = 0
+
+			logger.trace("progress = {} currTheta = {} delta = {} compensation = {} currVel = {}", box(progress), box(currTheta), box(delta), box(compensation), box(currVel));
+
+			talonFL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
+			talonFR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
+			talonRL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
+			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
+
+			delay(10)
+		} while (progress < 1.0);
 	}
 
 	/**
@@ -398,11 +440,15 @@ object Drive : TerminableSubsystem() {
 		logger.info("deltaX: {}, deltaY: {}", deltaX, deltaY)
 
 		// Robot theta is degrees from vertical clockwise
-		val theta = -(Math.atan2(deltaY, deltaX) - Math.PI/2)
+		val theta = -(Math.atan2(deltaY, deltaX) - Math.PI / 2)
 
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
 		logger.info("hyp: {}, theta: {}", box(hyp), box(theta))
 
-		moveStraight(hyp, theta)
+		if (abs(theta) < 0.001) {
+			moveStraightNavX(hyp)
+		} else {
+			moveStraight(hyp, theta)
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -159,7 +160,9 @@ public class Robot extends BaseStormgearsRobot {
 
 		logger.trace("starting the autonomous command");
 
-		if (drive != null && sensors != null && elevator != null) {
+		if (drive != null && sensors != null) {
+			if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+
 			AutonomousCommandGroup.INSTANCE.run(selectedAlliance,
 				selectedStartSpot,
 				selectedPlacementSpot,
@@ -246,8 +249,13 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-		TalonDebuggerKt.dashboardify(driveTalons);
-		elevator.debug();
+		if (driveTalons != null) {
+			TalonDebuggerKt.dashboardify(driveTalons);
+		}
+		
+		if (elevator != null) {
+			elevator.debug();
+		}
 
 		if (drive != null) {
 //			if (!sensors.getNavX().isCalibrating()) {
@@ -279,7 +287,9 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevatorSharedTalons != null) {
 			elevatorSharedTalons.getMasterMotor().getSensorCollection().setQuadraturePosition(0, 10);
-			elevator.setElevatorZeroed(true);
+			if (elevator != null) {
+				elevator.setElevatorZeroed(true);
+			}
 		}
 
 		if (elevator != null) {

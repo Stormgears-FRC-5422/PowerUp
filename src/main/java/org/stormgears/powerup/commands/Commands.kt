@@ -11,7 +11,7 @@ object Commands : TerminableSubsystem() {
 
 	suspend fun prepareToPlaceCube(height: Int = Robot.elevator!!.SCALE_POSITIONS[2]) {
 		Elevator.elevatorAutoMove(height)
-		val angle = Robot.sensors!!.navX.theta
+		val angle = Robot.sensors!!.navX.getTheta()
 		val sideShiftSide: Int
 		if (angle <= Math.PI / 2 || angle >= 3 * Math.PI / 2) { // Robot is facing away
 
