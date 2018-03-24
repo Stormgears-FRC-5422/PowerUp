@@ -11,4 +11,4 @@ Create a joystick button for triggering commands.
 `joystick` - The GenericHID object that has the button (e.g. Joystick, KinectStick,
 etc)
 
-`buttonNumber` - The button number (see [GenericHID.getRawButton](#)
+`buttonNumber` - The button number (see [GenericHID.getRawButton](#))

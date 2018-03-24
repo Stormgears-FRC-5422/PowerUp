@@ -14,7 +14,6 @@
 | [joystickX](joystick-x.md) | `val joystickX: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [joystickY](joystick-y.md) | `val joystickY: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [joystickZ](joystick-z.md) | `val joystickZ: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
-| [shouldOverride](should-override.md) | `val shouldOverride: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
 ### Functions
 
