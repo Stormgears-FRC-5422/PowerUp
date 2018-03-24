@@ -9,9 +9,9 @@ import org.stormgears.utils.concurrency.TerminableSubsystem
 object Commands : TerminableSubsystem() {
 	private var job: Job? = null
 
-	suspend fun prepareToPlaceCube(height: Int = Robot.elevator.SCALE_POSITIONS[2]) {
+	suspend fun prepareToPlaceCube(height: Int = Robot.elevator!!.SCALE_POSITIONS[2]) {
 		Elevator.elevatorAutoMove(height)
-		val angle = Robot.sensors.navX.theta
+		val angle = Robot.sensors!!.navX.theta
 		val sideShiftSide: Int
 		if (angle <= Math.PI / 2 || angle >= 3 * Math.PI / 2) { // Robot is facing away
 

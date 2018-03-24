@@ -23,6 +23,17 @@ class SafeProperties : Properties() {
 		}
 	}
 
+	/**
+	 * @param key the expected key in the properties file to look up
+	 * @return the associated value of key
+	 * @throws IllegalStateException when expected key isn't present in expected properties file
+	 */
+	override fun getProperty(key: String, default: String): String {
+		val property = super.getProperty(key, default)
+		logger.trace("Read property key={} value={} default={}", key, property, default)
+		return property
+	}
+
 	companion object {
 		private val logger = LogManager.getLogger(SafeProperties::class.java)
 	}

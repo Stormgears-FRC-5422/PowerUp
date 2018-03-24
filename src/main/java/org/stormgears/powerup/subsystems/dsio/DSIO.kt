@@ -38,16 +38,16 @@ object DSIO {
 		logger.trace("setting up buttons")
 
 		for (i in 0 until buttonBoard.scaleButtons.size) {
-			buttonBoard.scaleButtons[i].whenPressed { Robot.elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[i]) }
+			buttonBoard.scaleButtons[i].whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[i]) }
 		}
 
-		buttonBoard.switch0Button.whenPressed { Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]) }
-		buttonBoard.switch1Button.whenPressed { Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1]) }
+		buttonBoard.switch0Button.whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]) }
+		buttonBoard.switch1Button.whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1]) }
 
-		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() } // TODO: What does this button do?
+		buttonBoard.dropButton.whenPressed { Robot.gripper?.openGripper() } // TODO: What does this button do?
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
+		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftOverLeft() }
+		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 
@@ -56,9 +56,9 @@ object DSIO {
 		if (intakeWheelsSwitch is ITernarySwitch) {
 			intakeWheelsSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
 				when (state) {
-					ITernarySwitch.SwitchState.Up -> Robot.intake.startWheelsOut()
-					ITernarySwitch.SwitchState.Neutral -> Robot.intake.stopWheels()
-					ITernarySwitch.SwitchState.Down -> Robot.intake.startWheelsIn()
+					ITernarySwitch.SwitchState.Up -> Robot.intake?.startWheelsOut()
+					ITernarySwitch.SwitchState.Neutral -> Robot.intake?.stopWheels()
+					ITernarySwitch.SwitchState.Down -> Robot.intake?.startWheelsIn()
 				}
 			})
 		} else {
@@ -69,8 +69,8 @@ object DSIO {
 		if (intakeLiftSwitch is ITernarySwitch) {
 			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
 				when (state) {
-					ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
-					ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
+					ITernarySwitch.SwitchState.Up -> Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+					ITernarySwitch.SwitchState.Down -> Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)
 					ITernarySwitch.SwitchState.Neutral -> {
 					} // TODO
 				}
@@ -79,20 +79,20 @@ object DSIO {
 			logger.warn("Intake lift switch is not ternary, not sure what to do!") // TODO
 		}
 
-		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper.closeGripper() }
-		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper.openGripper() }
+		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper?.closeGripper() }
+		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper?.openGripper() }
 
 		buttonBoard.climbUpButton.whenPressed { /* Raise Climber */ }
 		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
 
-		buttonBoard.overrideUp.whenPressed { Robot.elevator.moveUpManual() }
-		buttonBoard.overrideDown.whenPressed { Robot.elevator.moveDownManual() }
-		buttonBoard.overrideLeft.whenPressed { Robot.elevator.moveLeftManual() }
-		buttonBoard.overrideRight.whenPressed { Robot.elevator.moveRightManual() }
-		buttonBoard.overrideUp.whenReleased { Robot.elevator.stop() }
-		buttonBoard.overrideDown.whenReleased { Robot.elevator.stop() }
-		buttonBoard.overrideLeft.whenReleased { Robot.elevator.stop() }
-		buttonBoard.overrideRight.whenReleased { Robot.elevator.stop() }
+		buttonBoard.overrideUp.whenPressed { Robot.elevator?.moveUpManual() }
+		buttonBoard.overrideDown.whenPressed { Robot.elevator?.moveDownManual() }
+		buttonBoard.overrideLeft.whenPressed { Robot.elevator?.moveLeftManual() }
+		buttonBoard.overrideRight.whenPressed { Robot.elevator?.moveRightManual() }
+		buttonBoard.overrideUp.whenReleased { Robot.elevator?.stop() }
+		buttonBoard.overrideDown.whenReleased { Robot.elevator?.stop() }
+		buttonBoard.overrideLeft.whenReleased { Robot.elevator?.stop() }
+		buttonBoard.overrideRight.whenReleased { Robot.elevator?.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 	}

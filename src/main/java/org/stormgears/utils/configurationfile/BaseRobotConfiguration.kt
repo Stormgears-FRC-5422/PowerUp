@@ -45,15 +45,20 @@ open class BaseRobotConfiguration(useBackupIfFileNotAvailable: Boolean = false) 
 
 	val robotName = getString("robotName")
 
-	protected fun getString(key: String): String = properties.getProperty(key)
+	protected fun getString(key: String) = properties.getProperty(key)
+	protected fun getString(key: String, default: String) = properties.getProperty(key)
 
-	protected fun getInt(key: String): Int = getString(key).toInt()
+	protected fun getInt(key: String) = getString(key).toInt()
+	protected fun getInt(key: String, default: Int) = getString(key, default.toString()).toInt()
 
-	protected fun getDouble(key: String): Double = getString(key).toDouble()
+	protected fun getDouble(key: String) = getString(key).toDouble()
+	protected fun getDouble(key: String, default: Double) = getString(key, default.toString()).toDouble()
 
-	protected fun getFloat(key: String): Float = getString(key).toFloat()
+	protected fun getFloat(key: String) = getString(key).toFloat()
+	protected fun getFloat(key: String, default: Float) = getString(key, default.toString()).toFloat()
 
-	protected fun getBoolean(key: String): Boolean = getString(key).toBoolean()
+	protected fun getBoolean(key: String) = getString(key).toBoolean()
+	protected fun getBoolean(key: String, default: Boolean) = getString(key, default.toString()).toBoolean()
 
 	companion object {
 		private val logger = LogManager.getLogger(BaseRobotConfiguration::class.java)
