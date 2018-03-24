@@ -20,5 +20,6 @@ context.
 
 | Name | Summary |
 |---|---|
+| [MemWatch](../../org.stormgears.utils/-mem-watch/index.md) | `object MemWatch : `[`WithCoroutines`](./index.md) |
 | [TalonDebugger](../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md) | `class TalonDebugger : `[`WithCoroutines`](./index.md) |
 | [TerminableSubsystem](../-terminable-subsystem/index.md) | `abstract class TerminableSubsystem : `[`WithCoroutines`](./index.md) |

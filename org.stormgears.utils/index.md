@@ -10,6 +10,7 @@ Utilities that can be shared between robots/seasons.
 |---|---|
 | [BaseStormgearsRobot](-base-stormgears-robot/index.md) | `abstract class BaseStormgearsRobot : IterativeRobot` |
 | [LambdaCommand](-lambda-command/index.md) | `class LambdaCommand : Command` |
+| [MemWatch](-mem-watch/index.md) | `object MemWatch : `[`WithCoroutines`](../org.stormgears.utils.concurrency/-with-coroutines/index.md) |
 | [RegisteredNotifier](-registered-notifier/index.md) | `open class RegisteredNotifier : Notifier` |
 | [RunnableCommand](-runnable-command/index.md) | `class RunnableCommand : Command` |
 | [StormScheduler](-storm-scheduler/index.md) | `open class StormScheduler` |

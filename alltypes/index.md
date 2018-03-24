@@ -53,6 +53,7 @@
 | [org.stormgears.powerup.subsystems.sensors.stormnet.LineIR](../org.stormgears.powerup.subsystems.sensors.stormnet/-line-i-r/index.md) |  |
 | [org.stormgears.utils.dsio.LogitechJoystick](../org.stormgears.utils.dsio/-logitech-joystick/index.md) | Construct an instance of a joystick. The joystick index is the USB port on the drivers station. |
 | [org.stormgears.utils.graveyard.MecanumDrive](../org.stormgears.utils.graveyard/-mecanum-drive/index.md) |  |
+| [org.stormgears.utils.MemWatch](../org.stormgears.utils/-mem-watch/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionControl](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-control/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-magic/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-manager/index.md) |  |
