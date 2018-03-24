@@ -2,4 +2,4 @@
 
 # setInitialTheta
 
-`open fun setInitialTheta(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun setInitialTheta(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)

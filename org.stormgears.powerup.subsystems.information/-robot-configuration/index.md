@@ -18,6 +18,8 @@
 | [frontLeftTalonId](front-left-talon-id.md) | `val frontLeftTalonId: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [frontRightTalonId](front-right-talon-id.md) | `val frontRightTalonId: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [hasNavX](has-nav-x.md) | `val hasNavX: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [navXInvert](nav-x-invert.md) | `val navXInvert: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
+| [navXPort](nav-x-port.md) | `val navXPort: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [positionD](position-d.md) | `val positionD: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [positionI](position-i.md) | `val positionI: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [positionIzone](position-izone.md) | `val positionIzone: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |

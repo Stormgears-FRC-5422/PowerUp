@@ -2,4 +2,10 @@
 
 # moveStraightNavX
 
-`suspend fun moveStraightNavX(distance: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`suspend fun moveStraightNavX(dist: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+
+Moves the robot forwards or backwards
+
+### Parameters
+
+`distance` - in inches

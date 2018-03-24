@@ -2,4 +2,4 @@
 
 # getVelocityX
 
-`open fun getVelocityX(): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html)
+`fun getVelocityX(): `[`Float`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html)

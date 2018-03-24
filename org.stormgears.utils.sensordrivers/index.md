@@ -9,5 +9,5 @@ Drivers for sensors (duh).
 | Name | Summary |
 |---|---|
 | [LidarSensorTest](-lidar-sensor-test/index.md) | `open class LidarSensorTest` |
-| [NavX](-nav-x/index.md) | `open class NavX` |
+| [NavX](-nav-x/index.md) | `class NavX` |
 | [Sensor](-sensor/index.md) | `interface Sensor` |

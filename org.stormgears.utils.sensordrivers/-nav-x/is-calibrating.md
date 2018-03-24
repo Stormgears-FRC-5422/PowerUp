@@ -2,4 +2,4 @@
 
 # isCalibrating
 
-`open fun isCalibrating(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
+`val isCalibrating: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
