@@ -1,5 +1,7 @@
 package org.stormgears.powerup.subsystems.information
 
+import edu.wpi.first.wpilibj.SPI
+import edu.wpi.first.wpilibj.SerialPort
 import org.stormgears.utils.configurationfile.BaseRobotConfiguration
 
 object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable = false) {
@@ -13,6 +15,8 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val robotHeight = getDouble("robotHeight")
 
 	val hasNavX = getBoolean("hasNavX")
+	val navXInvert = if (getBoolean("isNavXInverted")) -1.0 else 1.0
+	val navXPort = getString("navXPort")
 	val frontLeftTalonId = getInt("frontLeftTalonId")
 	val frontRightTalonId = getInt("frontRightTalonId")
 	val rearLeftTalonId = getInt("rearLeftTalonId")
@@ -36,4 +40,10 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val enableElevator = getBoolean("enableElevator", true)
 	val enableClimber = getBoolean("enableClimber", true)
 	val enableGripper = getBoolean("enableGripper", true)
+
+	init {
+		if (navXPort != "USB" && navXPort != "MXP") {
+			throw IllegalStateException("navXPort must be USB or MXP")
+		}
+	}
 }
