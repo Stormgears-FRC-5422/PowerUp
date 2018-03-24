@@ -2,4 +2,4 @@
 
 # intake
 
-`static var intake: `[`Intake`](../../org.stormgears.powerup.subsystems.intake/-intake/index.md)
+`@Nullable static var intake: @Nullable `[`Intake`](../../org.stormgears.powerup.subsystems.intake/-intake/index.md)

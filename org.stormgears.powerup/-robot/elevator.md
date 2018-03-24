@@ -2,4 +2,4 @@
 
 # elevator
 
-`static var elevator: `[`Elevator`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.md)
+`@Nullable static var elevator: @Nullable `[`Elevator`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.md)

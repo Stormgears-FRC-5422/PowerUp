@@ -2,4 +2,4 @@
 
 # gripper
 
-`static var gripper: `[`Gripper`](../../org.stormgears.powerup.subsystems.gripper/-gripper/index.md)
+`@Nullable static var gripper: @Nullable `[`Gripper`](../../org.stormgears.powerup.subsystems.gripper/-gripper/index.md)

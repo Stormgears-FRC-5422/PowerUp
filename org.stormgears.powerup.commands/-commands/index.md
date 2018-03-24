@@ -16,7 +16,7 @@
 |---|---|
 | [grabCube](grab-cube.md) | `fun grabCube(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [grabCubeSuspend](grab-cube-suspend.md) | `suspend fun grabCubeSuspend(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [prepareToPlaceCube](prepare-to-place-cube.md) | `suspend fun prepareToPlaceCube(height: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)` = Robot.elevator.SCALE_POSITIONS[2]): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [prepareToPlaceCube](prepare-to-place-cube.md) | `suspend fun prepareToPlaceCube(height: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)` = Robot.elevator!!.SCALE_POSITIONS[2]): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 
 ### Inherited Functions
 
