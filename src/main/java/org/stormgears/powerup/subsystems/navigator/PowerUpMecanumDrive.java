@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.decoupling.ITalon;
+import org.stormgears.utils.sensordrivers.NavX;
 
 public class PowerUpMecanumDrive extends MecanumDrive {
 
@@ -53,7 +54,7 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 			y = Robot.dsio.getJoystickY(),
 			z = Robot.dsio.getJoystickZ();
 
-		double navX_theta = Robot.sensors.getNavX().getTheta();
+		double navX_theta = Robot.sensors.getNavX().getTheta(NavX.AngleUnit.Radians, true);
 		
 		this.driveCartesian(-x, y, z, navX_theta);
 	}
@@ -61,7 +62,7 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 	
 	//this function is NOT tested
 	public void turnTo(double theta) {
-		double navX_theta = Robot.sensors.getNavX().getTheta();
+		double navX_theta = Robot.sensors.getNavX().getTheta(NavX.AngleUnit.Radians, true);
 		double x = Robot.dsio.getJoystickX(),
 				y = Robot.dsio.getJoystickY(),
 				z = Robot.dsio.getJoystickZ();

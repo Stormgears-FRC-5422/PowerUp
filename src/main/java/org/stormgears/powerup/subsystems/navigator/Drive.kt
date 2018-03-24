@@ -10,6 +10,8 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.sensordrivers.NavX
+import kotlin.math.abs
 
 object Drive : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Drive::class.java)
@@ -80,7 +82,7 @@ object Drive : TerminableSubsystem() {
 //		talons[2].setSensorPhase(true)
 
 		if (useAbsoluteControl) {
-			val navxTheta = sensors.navX.theta
+			val navxTheta = -sensors.navX.getTheta()
 			theta = theta - navxTheta - Math.PI / 2
 		}
 
@@ -180,7 +182,7 @@ object Drive : TerminableSubsystem() {
 
 	fun driveMotionProfile(rotations: Double, theta: Double) {
 		var theta = theta
-		val navXTheta = sensors.navX.theta
+		val navXTheta = sensors.navX.getTheta()
 		theta = theta - navXTheta - Math.PI / 2.0
 
 		val profile = TrapezoidalProfile.getTrapezoidZero(rotations, 300.0, theta, 0.0)
@@ -321,7 +323,7 @@ object Drive : TerminableSubsystem() {
 	suspend fun turnTo(theta: Double) {
 		var theta = theta
 		if (useAbsoluteControl) {
-			val navxTheta = sensors.navX.theta
+			val navxTheta = sensors.navX.getTheta()
 			theta -= navxTheta
 		}
 
