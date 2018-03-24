@@ -7,7 +7,6 @@ import org.stormgears.utils.LambdaCommand
 import org.stormgears.utils.RunnableCommand
 
 class POVButton(private val joystick: Joystick, private val direction: Direction) : Button /* WPI button! */(), IButton {
-
 	enum class Direction(private val deg: Int, private val lower: Int, private val upper: Int) {
 		Up(0, 315, 45),
 		Right(90, 45, 135),
@@ -41,6 +40,14 @@ class POVButton(private val joystick: Joystick, private val direction: Direction
 	}
 
 	override fun whenReleased(callback: () -> Unit) {
+		super.whenReleased(LambdaCommand(callback))
+	}
+
+	override fun whileHeld(callback: Runnable) {
+		super.whenReleased(RunnableCommand(callback))
+	}
+
+	override fun whileHeld(callback: () -> Unit) {
 		super.whenReleased(LambdaCommand(callback))
 	}
 

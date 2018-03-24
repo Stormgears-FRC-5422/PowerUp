@@ -3,7 +3,6 @@ package org.stormgears.utils.dsio
 import edu.wpi.first.wpilibj.command.Command
 
 class DummyButton : IButton {
-
 	override fun whenPressed(callback: Runnable) {
 
 	}
@@ -13,6 +12,14 @@ class DummyButton : IButton {
 	}
 
 	override fun whenPressed(callback: () -> Unit) {
+
+	}
+
+	override fun whileHeld(callback: Runnable) {
+
+	}
+
+	override fun whileHeld(callback: () -> Unit) {
 
 	}
 

@@ -11,6 +11,8 @@ interface IButton {
 	fun whenReleased(callback: () -> Unit)
 	fun whenReleased(command: Command)
 
+	fun whileHeld(callback: Runnable)
+	fun whileHeld(callback: () -> Unit)
 	fun whileHeld(command: Command)
 
 	fun toggleWhenPressed(command: Command)

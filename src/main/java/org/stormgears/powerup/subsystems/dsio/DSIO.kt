@@ -44,7 +44,7 @@ object DSIO {
 		buttonBoard.switch0Button.whenPressed { Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]) }
 		buttonBoard.switch1Button.whenPressed { Robot.elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1]) }
 
-		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() } // TODO: What does this button do?
+		buttonBoard.dropButton.whenPressed { Robot.gripper.openGripper() }
 
 		buttonBoard.sideLeftButton.whenPressed { Robot.elevator.moveSideShiftOverLeft() }
 		buttonBoard.sideRightButton.whenPressed { Robot.elevator.moveSideShiftOverRight() }
@@ -62,7 +62,7 @@ object DSIO {
 				}
 			})
 		} else {
-			logger.warn("Intake wheels switch is not ternary, not sure what to do!") // TODO
+			logger.warn("Intake wheels switch is not ternary, not sure what to do!")
 		}
 
 		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
@@ -72,21 +72,23 @@ object DSIO {
 					ITernarySwitch.SwitchState.Up -> Robot.intake.moveIntakeToPosition(Intake.HORIZONTAL)
 					ITernarySwitch.SwitchState.Down -> Robot.intake.moveIntakeToPosition(Intake.VERTICAL)
 					ITernarySwitch.SwitchState.Neutral -> {
-					} // TODO
+					}
 				}
 			})
 		} else {
-			logger.warn("Intake lift switch is not ternary, not sure what to do!") // TODO
+			logger.warn("Intake lift switch is not ternary, not sure what to do!")
 		}
 
 		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper.closeGripper() }
 		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper.openGripper() }
 
 		buttonBoard.climbUpButton.whenPressed { /* Raise Climber */ }
-		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
+		buttonBoard.climbDownButton.whenPressed { Elevator.useGartnerRate = true /* Lower Climber */ }
+		buttonBoard.climbDownButton.whenReleased { Elevator.useGartnerRate = false /* Lower Climber */ }
 
-		buttonBoard.overrideUp.whenPressed { Robot.elevator.moveUpManual() }
-		buttonBoard.overrideDown.whenPressed { Robot.elevator.moveDownManual() }
+
+		buttonBoard.overrideUp.whileHeld { Robot.elevator.moveUpManual() }
+		buttonBoard.overrideDown.whileHeld { Robot.elevator.moveDownManual() }
 		buttonBoard.overrideLeft.whenPressed { Robot.elevator.moveLeftManual() }
 		buttonBoard.overrideRight.whenPressed { Robot.elevator.moveRightManual() }
 		buttonBoard.overrideUp.whenReleased { Robot.elevator.stop() }
@@ -96,9 +98,6 @@ object DSIO {
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 	}
-
-	val shouldOverride: Boolean
-		get() = buttonBoard.overrideSwitch.get()
 
 	// Joystick related methods
 

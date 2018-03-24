@@ -27,17 +27,20 @@ public class ElevatorSharedTalons {
 		slaveMotor = TalonFactoryKt.createTalon(slaveMotorId);
 		slaveMotor.set(ControlMode.Follower, masterMotorId);
 
-		masterMotor.setInverted(true);
+		invert(true);
 		masterMotor.setSensorPhase(true);
-		slaveMotor.setInverted(true);
 
 		masterMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT);
-		masterMotor.configContinuousCurrentLimit(20, TALON_FPID_TIMEOUT);
+		masterMotor.configContinuousCurrentLimit(60, TALON_FPID_TIMEOUT);
 		masterMotor.enableCurrentLimit(true);
 		slaveMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT);
-		slaveMotor.configContinuousCurrentLimit(20, TALON_FPID_TIMEOUT);
+		slaveMotor.configContinuousCurrentLimit(60, TALON_FPID_TIMEOUT);
 		slaveMotor.enableCurrentLimit(true);
+	}
 
+	void invert(boolean inverted) {
+		masterMotor.setInverted(inverted);
+		slaveMotor.setInverted(inverted);
 	}
 
 	public static void init() {
