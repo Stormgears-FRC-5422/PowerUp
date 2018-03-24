@@ -18,10 +18,7 @@ import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.TalonDebugger;
 import org.stormgears.powerup.subsystems.navigator.TalonDebuggerKt;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.utils.BaseStormgearsRobot;
-import org.stormgears.utils.FixPermissionsKt;
-import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.StormScheduler;
+import org.stormgears.utils.*;
 import org.stormgears.utils.concurrency.Terminator;
 import org.stormgears.utils.logging.StormyLog;
 
@@ -98,6 +95,8 @@ public class Robot extends BaseStormgearsRobot {
 	@Override
 	public void robotInit() {
 		logger.info("{} is running", config.getRobotName());
+
+		MemWatch.INSTANCE.start();
 
 		StormScheduler.init();
 
