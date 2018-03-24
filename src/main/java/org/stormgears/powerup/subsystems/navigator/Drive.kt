@@ -25,14 +25,15 @@ object Drive : TerminableSubsystem() {
 	private const val MAX_VELOCITY = 5000
 	private const val MAX_ACCELERATION = 2500
 
-	private val talons = Robot.driveTalons!!.talons
+	private val driveTalons = Robot.driveTalons!!
+	private val talons = driveTalons.talons
 	private val sensors = Robot.sensors!!
 	private val vels = DoubleArray(talons.size)
 
 	var useAbsoluteControl = false
 	var useTractionControl = false
 
-	private val motions: Array<MotionMagic?> = arrayOfNulls(Robot.driveTalons!!.talons.size)
+	private val motions: Array<MotionMagic?> = arrayOfNulls(driveTalons.talons.size)
 	private val motionManager: MotionManager = MotionManager()
 
 	fun move() {
@@ -52,15 +53,6 @@ object Drive : TerminableSubsystem() {
 				x, y, z * TURN_SENSITIVITY_FACTOR,
 				theta,
 				useAbsoluteControl)
-		}
-	}
-
-	fun setVelocityPID() {
-		for (t in talons) {
-			t.config_kP(0, Robot.config.velocityP, 10)
-			t.config_kI(0, Robot.config.velocityI, 10)
-			t.config_kD(0, Robot.config.velocityD, 10)
-			t.config_IntegralZone(0, Robot.config.velocityIzone, 10)
 		}
 	}
 
@@ -251,7 +243,6 @@ object Drive : TerminableSubsystem() {
 		var vmax2: Double
 		var a2: Double
 
-
 		val maxDistance = Math.abs(modifiers[max] * distance) * 8192 / (2.0 * Math.PI * Robot.config.wheelRadius)
 		for (i in 0 until talons.size) {
 
@@ -320,6 +311,8 @@ object Drive : TerminableSubsystem() {
 
 		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
 		val distanceTicks = distance / wheelCircumference * 8192.0
+
+		driveTalons.velocityPIDMode()
 
 		val talonFL = talons[0]
 		val talonFR = talons[1]
@@ -400,7 +393,6 @@ object Drive : TerminableSubsystem() {
 
 		val t1 = (MAX_VELOCITY / MAX_ACCELERATION).toDouble()
 		val totTime = t1 + s / MAX_VELOCITY / 10.0 //TODO: FIND TOTAL
-
 
 		for (i in motions.indices) {
 			motions[i] = MotionMagic(talons[i], (MAX_VELOCITY / 2).toDouble(), (MAX_ACCELERATION / 2).toDouble())
