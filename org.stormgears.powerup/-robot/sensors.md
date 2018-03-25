@@ -2,4 +2,4 @@
 
 # sensors
 
-`@Nullable static var sensors: @Nullable `[`Sensors`](../../org.stormgears.powerup.subsystems.sensors/-sensors/index.md)
+`@Nullable static var sensors: `[`Sensors`](../../org.stormgears.powerup.subsystems.sensors/-sensors/index.md)
