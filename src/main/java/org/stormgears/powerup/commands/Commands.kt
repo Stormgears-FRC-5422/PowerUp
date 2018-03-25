@@ -10,7 +10,7 @@ object Commands : TerminableSubsystem() {
 	private var job: Job? = null
 
 	suspend fun prepareToPlaceCube(height: Int = Robot.elevator!!.SCALE_POSITIONS[2]) {
-		Elevator.elevatorAutoMove(height)
+		Elevator.moveElevatorToPosition(height).join()
 		val angle = Robot.sensors!!.navX.getTheta()
 		val sideShiftSide: Int
 		if (angle <= Math.PI / 2 || angle >= 3 * Math.PI / 2) { // Robot is facing away
@@ -32,13 +32,13 @@ object Commands : TerminableSubsystem() {
 
 	suspend fun grabCubeSuspend() {
 		println("Grabbing cube!\nOpening gripper!")
-		Gripper.openGripperSuspend()
+		Gripper.openGripper().join()
 		println("Moving elevator down!")
-		Elevator.elevatorAutoMove(2, slowly = true)
+		Elevator.moveElevatorToPosition(2, slowly = true).join()
 		println("Closing gripper!")
-		Gripper.closeGripperSuspend()
+		Gripper.closeGripper().join()
 		println("Moving elevator to SWITCH 0!")
-		Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[0])
+		Elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]).join()
 	}
 }
 

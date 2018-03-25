@@ -11,6 +11,8 @@ import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.sensordrivers.NavX
+import java.util.*
+import kotlin.math.PI
 import kotlin.math.abs
 
 object Drive : TerminableSubsystem() {
@@ -303,7 +305,7 @@ object Drive : TerminableSubsystem() {
 
 	/**
 	 * Moves the robot forwards or backwards
-	 * @param distance in inches
+	 * @param dist in inches
 	 */
 	suspend fun moveStraightNavX(dist: Double) {
 		val sign = Math.signum(dist)
@@ -343,6 +345,67 @@ object Drive : TerminableSubsystem() {
 			talonFL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
 			talonFR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 			talonRL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
+			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
+
+			delay(10)
+		} while (progress < 1.0);
+
+		setDriveTalonsZeroVelocity()
+	}
+
+	/**
+	 * Moves the robot left or right
+	 *
+	 * @param dist in inches
+	 */
+	suspend fun strafeNavX(dist: Double) {
+		val sign = Math.signum(dist)
+		val distance = abs(dist)
+
+		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
+		val distanceTicks = distance / wheelCircumference * 8192.0
+		val theta = if (dist >= 0.0) PI / 2 else -PI / 2
+
+		val modifiers = DoubleArray(motions.size)
+		modifiers[0] = -(Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0))
+		modifiers[1] = Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0)
+		modifiers[2] = -(Math.sin(theta + Math.PI / 2.0) + Math.cos(theta + Math.PI / 2.0))
+		modifiers[3] = Math.sin(theta + Math.PI / 2.0) - Math.cos(theta + Math.PI / 2.0)
+
+		val targets = modifiers.map { distanceTicks * it }.toDoubleArray()
+
+		driveTalons.velocityPIDMode()
+
+		val talonFL = talons[0]
+		val talonFR = talons[1]
+		val talonRL = talons[2]
+		val talonRR = talons[3]
+
+		val initTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees
+		val initPos = talons.map { it.sensorCollection.quadraturePosition }.toIntArray()
+
+		logger.trace("initPos = {} targets = {}", Arrays.toString(initPos), Arrays.toString(targets))
+
+		var avgPos: Double
+		var progress: Double
+		do {
+			progress = 0.0
+			targets.forEachIndexed { i, target -> progress += abs(((abs(talons[i].sensorCollection.quadraturePosition - initPos[i]))) / abs(target)) }
+			progress /= 4
+
+			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 3000 // ticks/100ms
+
+			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
+			val delta = currTheta - initTheta // degrees
+
+			val compensation = sign * delta / 30
+//			val compensation = 0
+
+			logger.trace("progress = {} currTheta = {} delta = {} compensation = {} currVel = {}", box(progress), box(currTheta), box(delta), box(compensation), box(currVel));
+
+			talonFL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
+			talonFR.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
+			talonRL.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 
 			delay(10)
@@ -441,6 +504,8 @@ object Drive : TerminableSubsystem() {
 
 		if (abs(theta) < 0.001) {
 			moveStraightNavX(hyp)
+		} else if (abs(theta) in (PI / 2 - 0.001)..(PI / 2 + 0.001)) {
+			strafeNavX(Math.copySign(hyp, theta))
 		} else {
 			moveStraight(hyp, theta)
 		}

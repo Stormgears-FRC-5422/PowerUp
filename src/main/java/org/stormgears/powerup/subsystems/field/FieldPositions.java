@@ -88,8 +88,8 @@ public class FieldPositions {
 	public static final Position SPOT_TO_OWN_SWITCH_RIGHT_PLATE = new Position(311, 167);//new Position(277, 167);
 
 	public static final Position SCALE_LEFT_PLATE = new Position(54, 303); //new Position(47, 303);
-	public static final Position SCALE_RIGHT_PLATE = new Position(304, 303);//new Position(270, 303);
-	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(47, 303);
+	public static final Position SCALE_RIGHT_PLATE = new Position(292, 303);//new Position(270, 303); // changed from 304 to 294
+	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(40, 303);
 	public static final Position SPOT_TO_SCALE_RIGHT_PLATE = new Position(311, 303);//new Position(277, 303);
 
 	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);

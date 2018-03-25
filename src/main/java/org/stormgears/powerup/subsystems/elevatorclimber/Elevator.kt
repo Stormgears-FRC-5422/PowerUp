@@ -78,18 +78,22 @@ object Elevator : TerminableSubsystem() {
 	 *
 	 * @param position = inches from the bottom of the elevator
 	 */
-	fun moveElevatorToPosition(position: Int, slowly: Boolean = false) {
+	fun moveElevatorToPosition(position: Int, slowly: Boolean = false): Job {
 		if (elevatorJob != null) {
 			elevatorJob!!.cancel()
 			logger.trace("Cancelled elevator job")
 		}
 
-		elevatorJob = launch("Elevator Auto Move") {
+		val elevatorJob = launch("Elevator Auto Move") {
 			elevatorAutoMove(position)
 		}
+
+		this.elevatorJob = elevatorJob
+
+		return elevatorJob
 	}
 
-	suspend fun elevatorAutoMove(position: Int, slowly: Boolean = false) {
+	private suspend fun elevatorAutoMove(position: Int, slowly: Boolean = false) {
 		val lowering: Boolean
 		val positionTicks = toEncoderTicks(position.toDouble())
 
@@ -140,11 +144,12 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	private var overrodeSide = false
+
 	/**
 	 * Stop all motion
 	 */
-	fun stop() {
-		launch("Override slow down", parent = null) {
+	fun stop(): Job {
+		return launch("Override slow down", parent = null) {
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 
 			if (!overrodeSide) {
@@ -158,19 +163,22 @@ object Elevator : TerminableSubsystem() {
 	/**
 	 * Move side shift to position
 	 */
-	fun moveSideShiftToPosition(position: Int) {
+	fun moveSideShiftToPosition(position: Int): Job {
 		if (sideShiftJob != null) {
 			sideShiftJob!!.cancel()
 			logger.trace("Canceled side shift job")
 		}
 
 		// Coroutines again!
-		sideShiftJob = launch("Side Shift Auto Move") {
+		val sideShiftJob = launch("Side Shift Auto Move") {
 			moveSideShiftToPositionSuspend(position)
 		}
+
+		this.sideShiftJob = sideShiftJob
+		return sideShiftJob
 	}
 
-	suspend fun moveSideShiftToPositionSuspend(position: Int) {
+	private suspend fun moveSideShiftToPositionSuspend(position: Int) {
 		if (sideShiftPosition != position && elevatorZeroed) {
 			var multiplier = 0
 			if (position == LEFT) {
@@ -211,7 +219,7 @@ object Elevator : TerminableSubsystem() {
 		}
 	}
 
-	suspend fun zeroElevator() {
+	private suspend fun zeroElevator() {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
 		println("Zero-ing Elevator. Watch out!")
 
@@ -244,12 +252,12 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble())
 	}
 
-	fun moveSideShiftOverLeft() {
-		if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1)
+	fun moveSideShiftOverLeft(): Job? {
+		return if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1) else null
 	}
 
-	fun moveSideShiftOverRight() {
-		if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1)
+	fun moveSideShiftOverRight(): Job? {
+		return if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1) else null
 	}
 
 	fun moveUpManual() {

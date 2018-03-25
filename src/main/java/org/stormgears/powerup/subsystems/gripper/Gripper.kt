@@ -45,18 +45,21 @@ object Gripper : TerminableSubsystem() {
 
 	private var iteration = 0
 
-	fun openGripper() {
+	fun openGripper(): Job {
 		if (job != null) {
 			job!!.cancel()
 			logger.trace("Canceled gripper job")
 		}
 
-		job = launch("Gripper Open") {
+		val job = launch("Gripper Open") {
 			openGripperSuspend()
 		}
+		this.job = job
+
+		return job
 	}
 
-	suspend fun openGripperSuspend() {
+	private suspend fun openGripperSuspend() {
 		logger.info("Gripper Opening")
 		talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED)
 
@@ -78,18 +81,22 @@ object Gripper : TerminableSubsystem() {
 		gripperOpening = false
 	}
 
-	fun closeGripper() {
+	fun closeGripper(): Job {
 		if (job != null) {
 			job!!.cancel()
 			logger.trace("Canceled gripper job")
 		}
 
-		job = launch("Gripper Close") {
+		val job = launch("Gripper Close") {
 			closeGripperSuspend()
 		}
+
+		this.job = job
+
+		return job
 	}
 
-	suspend fun closeGripperSuspend() {
+	private suspend fun closeGripperSuspend() {
 		logger.info("Gripper Closing")
 		talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED)
 

@@ -32,14 +32,14 @@ object AutoDriveMoveCommand {
 				move(autoRoute.pathToRightScale)
 			}
 
-			Elevator.elevatorAutoMove(Elevator.SCALE_POSITIONS[2])
+			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[2]).join()
 
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
 					if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftOverLeft()
+						Elevator.moveSideShiftOverLeft()?.join()
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						Elevator.moveSideShiftOverRight()
+						Elevator.moveSideShiftOverRight()?.join()
 					}
 				}
 			}
@@ -49,7 +49,7 @@ object AutoDriveMoveCommand {
 			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
 				move(autoRoute.strafeToRightScale)
 			}
-			Gripper.openGripperSuspend()
+			Gripper.openGripper().join()
 
 		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 			if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
@@ -58,19 +58,19 @@ object AutoDriveMoveCommand {
 				move(autoRoute.pathToRightSwitch)
 			}
 
-			Elevator.elevatorAutoMove(Elevator.SWITCH_POSITIONS[2])
+			Elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[2]).join()
 
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 					if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftOverLeft()
+						Elevator.moveSideShiftOverLeft()?.join()
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						Elevator.moveSideShiftOverRight()
+						Elevator.moveSideShiftOverRight()?.join()
 					}
 				}
 			}
 
-			Gripper.openGripperSuspend()
+			Gripper.openGripper().join()
 		} else { //if (selectedPlacementSpot == FieldPositions.PlacementSpot.JUST_CROSS)
 			move(autoRoute.pathToCrossLine)
 		}
