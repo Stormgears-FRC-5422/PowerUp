@@ -4,7 +4,7 @@ public class TalonIds {
 	/*
 	 * Put non-drive talon IDs here
 	 */
-	// Real bot && Clone bot
+	// Real bot
 //	public static final int INTAKE_LEFT = 10;
 //	public static final int INTAKE_RIGHT = 33;
 //	public static final int INTAKE_ART = 3;
@@ -13,7 +13,7 @@ public class TalonIds {
 //	public static final int SIDESHIFT = 40;
 //	public static final int GRIPPER = 30;
 
-	// Old
+	// Clone bot
 	public static final int INTAKE_LEFT = 23;
 	public static final int INTAKE_RIGHT = 3;
 	public static final int INTAKE_ART = 20;

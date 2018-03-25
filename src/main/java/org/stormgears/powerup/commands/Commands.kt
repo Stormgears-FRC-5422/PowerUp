@@ -34,7 +34,7 @@ object Commands : TerminableSubsystem() {
 		println("Grabbing cube!\nOpening gripper!")
 		Gripper.openGripper().join()
 		println("Moving elevator down!")
-		Elevator.moveElevatorToPosition(2, slowly = true).join()
+		Elevator.moveElevatorToPosition(2).join()
 		println("Closing gripper!")
 		Gripper.closeGripper().join()
 		println("Moving elevator to SWITCH 0!")

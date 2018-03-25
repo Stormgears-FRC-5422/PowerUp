@@ -1,7 +1,5 @@
 package org.stormgears.powerup.subsystems.information
 
-import edu.wpi.first.wpilibj.SPI
-import edu.wpi.first.wpilibj.SerialPort
 import org.stormgears.utils.configurationfile.BaseRobotConfiguration
 
 object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable = false) {
@@ -21,17 +19,29 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val frontRightTalonId = getInt("frontRightTalonId")
 	val rearLeftTalonId = getInt("rearLeftTalonId")
 	val rearRightTalonId = getInt("rearRightTalonId")
+
 	val velocityF = getDouble("velocityF")
 	val velocityP = getDouble("velocityP")
 	val velocityI = getDouble("velocityI")
 	val velocityD = getDouble("velocityD")
+	val velocityIzone = getInt("velocityIzone")
+
 	val positionP = getDouble("positionP")
 	val positionI = getDouble("positionI")
 	val positionD = getDouble("positionD")
-	val velocityIzone = getInt("velocityIzone")
 	val positionIzone = getInt("positionIzone")
+
+	val elevatorRaiseP = getDouble("elevatorRaiseP")
+	val elevatorRaiseI = getDouble("elevatorRaiseP")
+	val elevatorRaiseD = getDouble("elevatorRaiseP")
+	val elevatorLowerP = getDouble("elevatorLowerP")
+	val elevatorLowerI = getDouble("elevatorLowerP")
+	val elevatorLowerD = getDouble("elevatorLowerP")
+
 	val encoderResolution = getInt("encoderResolution")
+
 	val reverseJoystick = getBoolean("reverseJoystick")
+
 	val wheelRadius = getDouble("wheelRadius")
 
 	val enableSensors = getBoolean("enableSensors", true)
