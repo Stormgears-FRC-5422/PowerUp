@@ -20,11 +20,9 @@
 
 | Name | Summary |
 |---|---|
-| [closeGripper](close-gripper.md) | `fun closeGripper(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [closeGripperSuspend](close-gripper-suspend.md) | `suspend fun closeGripperSuspend(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [closeGripper](close-gripper.md) | `fun closeGripper(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html) |
 | [debug](debug.md) | `fun debug(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [openGripper](open-gripper.md) | `fun openGripper(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [openGripperSuspend](open-gripper-suspend.md) | `suspend fun openGripperSuspend(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [openGripper](open-gripper.md) | `fun openGripper(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html) |
 
 ### Inherited Functions
 

@@ -8,4 +8,4 @@ Moves the robot forwards or backwards
 
 ### Parameters
 
-`distance` - in inches
+`dist` - in inches

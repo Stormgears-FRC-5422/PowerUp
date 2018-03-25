@@ -31,20 +31,17 @@ Default constructor for the creation of the elevator
 | Name | Summary |
 |---|---|
 | [debug](debug.md) | `fun debug(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [elevatorAutoMove](elevator-auto-move.md) | `suspend fun elevatorAutoMove(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveDownManual](move-down-manual.md) | `fun moveDownManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveElevatorTest](move-elevator-test.md) | `fun moveElevatorTest(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveElevatorToPosition](move-elevator-to-position.md) | `fun moveElevatorToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, slowly: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)` = false): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Move the elevator to a position |
+| [moveElevatorToPosition](move-elevator-to-position.md) | `fun moveElevatorToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, slowly: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)` = false): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move the elevator to a position |
 | [moveLeftManual](move-left-manual.md) | `fun moveLeftManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveRightManual](move-right-manual.md) | `fun moveRightManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveSideShiftOverLeft](move-side-shift-over-left.md) | `fun moveSideShiftOverLeft(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveSideShiftOverRight](move-side-shift-over-right.md) | `fun moveSideShiftOverRight(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveSideShiftToPosition](move-side-shift-to-position.md) | `fun moveSideShiftToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Move side shift to position |
-| [moveSideShiftToPositionSuspend](move-side-shift-to-position-suspend.md) | `suspend fun moveSideShiftToPositionSuspend(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [moveSideShiftOverLeft](move-side-shift-over-left.md) | `fun moveSideShiftOverLeft(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
+| [moveSideShiftOverRight](move-side-shift-over-right.md) | `fun moveSideShiftOverRight(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
+| [moveSideShiftToPosition](move-side-shift-to-position.md) | `fun moveSideShiftToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move side shift to position |
 | [moveUpManual](move-up-manual.md) | `fun moveUpManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [stop](stop.md) | `fun stop(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Stop all motion |
+| [stop](stop.md) | `fun stop(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Stop all motion |
 | [turnOffElevator](turn-off-elevator.md) | `fun turnOffElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [zeroElevator](zero-elevator.md) | `suspend fun zeroElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [zeroSideShift](zero-side-shift.md) | `fun zeroSideShift(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 
 ### Inherited Functions
