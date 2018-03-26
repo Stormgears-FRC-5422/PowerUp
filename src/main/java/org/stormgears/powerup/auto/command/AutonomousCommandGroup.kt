@@ -18,7 +18,7 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 
 		launch {
 			async {
-				Gripper.openGripper()
+				Gripper.closeGripper()
 			}
 
 			AutoDriveMoveCommand.execute(selectedAlliance,

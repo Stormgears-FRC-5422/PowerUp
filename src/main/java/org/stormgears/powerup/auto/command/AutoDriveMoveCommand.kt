@@ -32,6 +32,13 @@ object AutoDriveMoveCommand {
 				move(autoRoute.pathToRightScale)
 			}
 
+			// TODO: wtf if this
+//			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+//				move(autoRoute.strafeToLeftScale)
+//			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+//				move(autoRoute.strafeToRightScale)
+//			}
+
 			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[2]).join()
 
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
@@ -44,11 +51,6 @@ object AutoDriveMoveCommand {
 				}
 			}
 
-			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-				move(autoRoute.strafeToLeftScale)
-			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-				move(autoRoute.strafeToRightScale)
-			}
 			Gripper.openGripper().join()
 
 		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {

@@ -114,10 +114,10 @@ public class Robot extends BaseStormgearsRobot {
 
 			drive = Drive.INSTANCE;
 
-			//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
-//		PowerUpMecanumDrive.init();
-//		wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
-//		**END**FOR USE WITH WPI MECANUM DRIVE API
+//			**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
+//			PowerUpMecanumDrive.init();
+//			wpiMecanumDrive = PowerUpMecanumDrive.getInstance();
+//			**END**FOR USE WITH WPI MECANUM DRIVE API
 		}
 
 		if (config.getEnableIntake()) {
@@ -197,6 +197,7 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
+//		elevator.moveElevatorTest();
 
 //		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
@@ -252,9 +253,9 @@ public class Robot extends BaseStormgearsRobot {
 //			TalonDebuggerKt.dashboardify(driveTalons);
 //		}
 
-//		if (elevator != null) {
-//			elevator.debug();
-//		}
+		if (elevator != null) {
+			elevator.debug();
+		}
 
 		if (drive != null) {
 //			if (!sensors.getNavX().isCalibrating()) {

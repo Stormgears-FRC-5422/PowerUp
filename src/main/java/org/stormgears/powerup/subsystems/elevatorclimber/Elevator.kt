@@ -8,8 +8,6 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.TalonIds
-import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -68,7 +66,7 @@ object Elevator : TerminableSubsystem() {
 	 *
 	 * @param position = inches from the bottom of the elevator
 	 */
-	fun moveElevatorToPosition(position: Int, slowly: Boolean = false): Job {
+	fun moveElevatorToPosition(position: Int): Job {
 		if (elevatorJob != null) {
 			elevatorJob!!.cancel()
 			logger.trace("Cancelled elevator job")
@@ -83,29 +81,19 @@ object Elevator : TerminableSubsystem() {
 		return elevatorJob
 	}
 
-	fun moveElevatorTest() {
-		if (elevatorJob != null) {
-			elevatorJob!!.cancel()
-			logger.trace("Cancelled elevator job")
-		}
-
-		elevatorJob = launch("Elevator Auto Move") {
-			elevatorAutoMove(-200000)
-			elevatorAutoMove(200000)
-		}
-	}
-
-	private suspend fun elevatorAutoMove(position: Int, slowly: Boolean = false) {
+	suspend fun elevatorAutoMove(position: Int) {
 		val lowering: Boolean
 		val positionTicks = toEncoderTicks(position.toDouble())
 
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 		lowering = if (positionTicks < currentPositionTicks) {     // Raising elevator
+			logger.info("Using raise elevator PID values")
 			talons.masterMotor.config_kP(0, Robot.config.elevatorRaiseP, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kI(0, Robot.config.elevatorRaiseI, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kD(0, Robot.config.elevatorRaiseD, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			false
 		} else {    // Lowering elevator
+			logger.info("Using lower elevator PID values")
 			talons.masterMotor.config_kP(0, Robot.config.elevatorLowerP, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kI(0, Robot.config.elevatorLowerI, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 			talons.masterMotor.config_kD(0, Robot.config.elevatorLowerD, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
@@ -122,7 +110,8 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.Position, positionTicks.toDouble())
 
 		// Wait until elevator finishes
-		while (Math.abs(positionTicks - talons.masterMotor.sensorCollection.quadraturePosition) > 10000) {
+//		while (currentPositionTicks + 10000 > positionTicks) {
+//			logger.trace("Elevator has moved to encoder position: {}", currentPositionTicks)
 //			if (lowering && Intake.isUp && currentPositionTicks > INTAKE_HEIGHT) {
 //				holdElevator()
 //				break
@@ -130,12 +119,12 @@ object Elevator : TerminableSubsystem() {
 //				Gripper.openGripper()
 //				openedGripper = true
 //			}
-
-			delay(20)
-		}
-
+//
+//			delay(20)
+//		}
+		delay(4000)
 		logger.trace("Elevator has moved to encoder position: {}", currentPositionTicks)
-		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+//		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	private var overrodeSide = false
@@ -261,7 +250,7 @@ object Elevator : TerminableSubsystem() {
 		overrodeSide = false
 	}
 
-	var downPower = 0.33
+	private var downPower = 0.33
 	fun moveDownManual() {
 		overrodeSide = false
 

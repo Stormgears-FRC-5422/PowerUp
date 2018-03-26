@@ -337,7 +337,7 @@ object Drive : TerminableSubsystem() {
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
 
-			val compensation = sign * delta / 35
+			val compensation = sign * delta / 30
 //			val compensation = 0
 
 			logger.trace("progress = {} currTheta = {} delta = {} compensation = {} currVel = {}", box(progress), box(currTheta), box(delta), box(compensation), box(currVel));
@@ -505,7 +505,7 @@ object Drive : TerminableSubsystem() {
 		if (abs(theta) < 0.001) {
 			moveStraightNavX(hyp)
 		} else if (abs(theta) in (PI / 2 - 0.001)..(PI / 2 + 0.001)) {
-			strafeNavX(Math.copySign(hyp, theta))
+			moveStraight(hyp, theta)
 		} else {
 			moveStraight(hyp, theta)
 		}

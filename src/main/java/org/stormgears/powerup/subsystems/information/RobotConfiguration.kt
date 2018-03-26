@@ -32,11 +32,11 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val positionIzone = getInt("positionIzone")
 
 	val elevatorRaiseP = getDouble("elevatorRaiseP")
-	val elevatorRaiseI = getDouble("elevatorRaiseP")
-	val elevatorRaiseD = getDouble("elevatorRaiseP")
+	val elevatorRaiseI = getDouble("elevatorRaiseI")
+	val elevatorRaiseD = getDouble("elevatorRaiseD")
 	val elevatorLowerP = getDouble("elevatorLowerP")
-	val elevatorLowerI = getDouble("elevatorLowerP")
-	val elevatorLowerD = getDouble("elevatorLowerP")
+	val elevatorLowerI = getDouble("elevatorLowerI")
+	val elevatorLowerD = getDouble("elevatorLowerD")
 
 	val encoderResolution = getInt("encoderResolution")
 
