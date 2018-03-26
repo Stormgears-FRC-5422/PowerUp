@@ -1,13 +1,22 @@
 package org.stormgears.utils.decoupling
 
+import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.logging.MotorLogger
 
+private val logger = LogManager.getLogger()
+
 fun createTalon(deviceNumber: Int): ITalon {
-	return if (deviceNumber != -1) {
-		StormTalon(deviceNumber)
-	} else {
-		MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber")
+	if (deviceNumber != -1) {
+		val talon = StormTalon(deviceNumber)
+
+		if (talon.isAlive) {
+			return talon
+		} else {
+			logger.warn("Talon {} is dead! Returning a DummyTalon...", deviceNumber)
+		}
 	}
+
+	return MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber")
 }
 
 /**
