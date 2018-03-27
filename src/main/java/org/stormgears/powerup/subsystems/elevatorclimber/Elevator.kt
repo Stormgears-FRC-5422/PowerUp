@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
@@ -20,7 +21,7 @@ object Elevator : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
 
 	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons!!
-	private val sideShiftTalon: ITalon
+	val sideShiftTalon: ITalon
 	private var sideShiftPosition = 0
 
 	private const val TICKS_PER_INCH = 13000
@@ -52,8 +53,9 @@ object Elevator : TerminableSubsystem() {
 	private var elevatorJob: Job? = null
 
 	init {
-		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID)
+		sideShiftTalon = createTalon(SIDE_SHIFT_TALON_ID);
 		sideShiftTalon.inverted = true
+		sideShiftTalon.sensorCollection.setQuadraturePosition(0, 10); //set enc pos to 0
 
 		if (sideShiftTalon.dummy) {
 			logger.warn("Requires physical talon, disabling Elevator!")
@@ -166,12 +168,12 @@ object Elevator : TerminableSubsystem() {
 		if (sideShiftPosition != position && elevatorZeroed) {
 			var multiplier = 0
 			if (position == LEFT) {
-				multiplier = -1
-			} else if (position == CENTER) {
-				if (sideShiftPosition == LEFT) multiplier = 1
-				else if (sideShiftPosition == RIGHT) multiplier = -1
-			} else if (position == RIGHT) {
 				multiplier = 1
+			} else if (position == CENTER) {
+				if (sideShiftPosition == LEFT) multiplier = -1
+				else if (sideShiftPosition == RIGHT) multiplier = 1
+			} else if (position == RIGHT) {
+				multiplier = -1
 			}
 
 			var reachedCenter = false
@@ -194,12 +196,40 @@ object Elevator : TerminableSubsystem() {
 					logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
 				}
 
-				delay(20)
+//				delay(20)
+				yield()
 			}
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 			logger.trace("Side shift current limit reached or reached center")
 
 			sideShiftPosition = position
+		}
+	}
+
+
+	fun moveSideShiftToPositionSuspendPID(position: Int) {
+		if (sideShiftPosition != position && elevatorZeroed) {
+
+			var distanceTraveled = 0
+			if (position == LEFT) {
+				distanceTraveled = 190000
+			} else if (position == CENTER) {
+				if (sideShiftPosition == LEFT) distanceTraveled = 190000
+				else if (sideShiftPosition == RIGHT) distanceTraveled = -170000
+			} else if (position == RIGHT) {
+				distanceTraveled = -170000
+			}
+			var reachedCenter = false
+			logger.trace("Moving side shift to position: {}", box(position))
+			if (position == CENTER) logger.trace("Moving to center.")
+
+			println("SIDE SHIFT PID CALLED")
+			sideShiftTalon.config_kP(0, 0.0275, 10);
+			sideShiftTalon.config_kI(0, 0.0, 10);
+			sideShiftTalon.config_kD(0, 0.0, 10);
+			sideShiftTalon.config_kF(0, 0.0, 10);
+
+			sideShiftTalon.set(ControlMode.Position, distanceTraveled.toDouble());
 		}
 	}
 
@@ -244,6 +274,14 @@ object Elevator : TerminableSubsystem() {
 		return if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1) else null
 	}
 
+	fun moveSideShiftLeftPID() {
+		moveSideShiftToPositionSuspendPID(LEFT)
+	}
+
+	fun moveSideShiftRightPID() {
+		moveSideShiftToPositionSuspendPID(RIGHT)
+	}
+
 	fun moveUpManual() {
 		logger.trace("Manual override up")
 		talons.masterMotor.set(ControlMode.PercentOutput, -1.0)
@@ -262,12 +300,12 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveLeftManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, -0.5)
+		sideShiftTalon.set(ControlMode.PercentOutput, 0.75)
 		overrodeSide = true
 	}
 
 	fun moveRightManual() {
-		sideShiftTalon.set(ControlMode.PercentOutput, 0.5)
+		sideShiftTalon.set(ControlMode.PercentOutput, -0.75)
 		overrodeSide = true
 	}
 
