@@ -17,6 +17,7 @@ Default constructor for the creation of the elevator
 | [SWITCH_POSITIONS](-s-w-i-t-c-h_-p-o-s-i-t-i-o-n-s.md) | `val SWITCH_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [currentPositionTicks](current-position-ticks.md) | `val currentPositionTicks: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [elevatorZeroed](elevator-zeroed.md) | `var elevatorZeroed: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [sideShiftTalon](side-shift-talon.md) | `val sideShiftTalon: `[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md) |
 | [useGartnerRate](use-gartner-rate.md) | `var useGartnerRate: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
 ### Inherited Properties
@@ -35,9 +36,12 @@ Default constructor for the creation of the elevator
 | [moveElevatorToPosition](move-elevator-to-position.md) | `fun moveElevatorToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move the elevator to a position |
 | [moveLeftManual](move-left-manual.md) | `fun moveLeftManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveRightManual](move-right-manual.md) | `fun moveRightManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [moveSideShiftLeftPID](move-side-shift-left-p-i-d.md) | `fun moveSideShiftLeftPID(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveSideShiftOverLeft](move-side-shift-over-left.md) | `fun moveSideShiftOverLeft(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
 | [moveSideShiftOverRight](move-side-shift-over-right.md) | `fun moveSideShiftOverRight(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
+| [moveSideShiftRightPID](move-side-shift-right-p-i-d.md) | `fun moveSideShiftRightPID(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveSideShiftToPosition](move-side-shift-to-position.md) | `fun moveSideShiftToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move side shift to position |
+| [moveSideShiftToPositionSuspendPID](move-side-shift-to-position-suspend-p-i-d.md) | `fun moveSideShiftToPositionSuspendPID(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveUpManual](move-up-manual.md) | `fun moveUpManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [stop](stop.md) | `fun stop(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Stop all motion |
 | [turnOffElevator](turn-off-elevator.md) | `fun turnOffElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
