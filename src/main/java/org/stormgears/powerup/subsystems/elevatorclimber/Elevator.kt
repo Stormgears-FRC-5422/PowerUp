@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
@@ -194,7 +195,8 @@ object Elevator : TerminableSubsystem() {
 					logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
 				}
 
-				delay(20)
+//				delay(20)
+				yield()
 			}
 			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
 			logger.trace("Side shift current limit reached or reached center")
