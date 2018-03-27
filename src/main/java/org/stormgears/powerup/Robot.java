@@ -249,9 +249,9 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-//		if (driveTalons != null) {
-//			TalonDebuggerKt.dashboardify(driveTalons);
-//		}
+		if (driveTalons != null) {
+			TalonDebuggerKt.dashboardify(driveTalons);
+		}
 
 		if (elevator != null) {
 			elevator.debug();

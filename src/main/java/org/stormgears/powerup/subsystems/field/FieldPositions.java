@@ -89,13 +89,13 @@ public class FieldPositions {
 
 	public static final Position SCALE_LEFT_PLATE = new Position(54, 303); //new Position(47, 303);
 	public static final Position SCALE_RIGHT_PLATE = new Position(293, 303);//new Position(270, 303); // changed from 304 to 294
-	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(40, 303);
+	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(12, 330);
 	public static final Position SPOT_TO_SCALE_RIGHT_PLATE = new Position(311, 303);//new Position(277, 303);
 
 	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);
 	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
 
-	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(47, 234);
+	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(12, 234);
 	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 234);//new Position(277, 234);
 
 	public static final Position LEFT_AUTO_LINE_SPOT = new Position(47, 141);
