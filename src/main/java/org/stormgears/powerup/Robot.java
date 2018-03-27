@@ -1,5 +1,6 @@
 package org.stormgears.powerup;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -234,6 +235,9 @@ public class Robot extends BaseStormgearsRobot {
 	public void teleopPeriodic() {
 		super.teleopPeriodic();
 
+		//	sideShiftTalon.sensorCollection.quadraturePosition
+		SmartDashboard.putNumber("Side shift output current", elevator.getSideShiftTalon().getOutputCurrent());
+		SmartDashboard.putNumber("Side shift encoder pos", elevator.getSideShiftTalon().getSensorCollection().getQuadraturePosition());
 		StormScheduler.getInstance().run();
 
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
@@ -249,9 +253,9 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-//		if (driveTalons != null) {
-//			TalonDebuggerKt.dashboardify(driveTalons);
-//		}
+		if (driveTalons != null) {
+			TalonDebuggerKt.dashboardify(driveTalons);
+		}
 
 		if (elevator != null) {
 			elevator.debug();
