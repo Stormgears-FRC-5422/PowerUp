@@ -4,8 +4,6 @@ import com.kauailabs.navx.frc.AHRS
 import edu.wpi.first.wpilibj.SPI
 import edu.wpi.first.wpilibj.SerialPort
 import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
-
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 
@@ -15,8 +13,8 @@ class NavX {
 	}
 
     val ahrs: AHRS = when (Robot.config.navXPort) {
-		"MXP" -> AHRS(SPI.Port.kMXP)
-		"USB" -> AHRS(SerialPort.Port.kUSB)
+		"MXP" -> AHRS(SPI.Port.kMXP, 127)
+		"USB" -> AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, 127)
 		else -> {
 			throw IllegalStateException()
 		}

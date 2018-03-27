@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.delay
+import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
@@ -332,7 +333,7 @@ object Drive : TerminableSubsystem() {
 
 			progress = sign * avgPos / distanceTicks
 
-			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 3000 // ticks/100ms
+			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 5000 // ticks/100ms
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -347,7 +348,8 @@ object Drive : TerminableSubsystem() {
 			talonRL.set(ControlMode.Velocity, sign * -currVel * (1 - compensation))
 			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 
-			delay(10)
+//			delay(10)
+			yield()
 		} while (progress < 1.0);
 
 		setDriveTalonsZeroVelocity()
@@ -393,7 +395,7 @@ object Drive : TerminableSubsystem() {
 			targets.forEachIndexed { i, target -> progress += abs(((abs(talons[i].sensorCollection.quadraturePosition - initPos[i]))) / abs(target)) }
 			progress /= 4
 
-			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 3000 // ticks/100ms
+			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * 5000 // ticks/100ms
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -408,7 +410,8 @@ object Drive : TerminableSubsystem() {
 			talonRL.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 
-			delay(10)
+//			delay(10)
+			yield()
 		} while (progress < 1.0);
 
 		setDriveTalonsZeroVelocity()
@@ -502,10 +505,11 @@ object Drive : TerminableSubsystem() {
 		val hyp = Math.sqrt(Math.pow(deltaX, 2.0) + Math.pow(deltaY, 2.0))
 		logger.info("hyp: {}, theta: {}", box(hyp), box(theta))
 
+//		moveStraight(hyp, theta)
 		if (abs(theta) < 0.001) {
 			moveStraightNavX(hyp)
 		} else if (abs(theta) in (PI / 2 - 0.001)..(PI / 2 + 0.001)) {
-			moveStraight(hyp, theta)
+			strafeNavX(Math.copySign(hyp, theta))
 		} else {
 			moveStraight(hyp, theta)
 		}
