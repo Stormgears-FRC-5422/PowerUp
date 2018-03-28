@@ -207,18 +207,32 @@ object Elevator : TerminableSubsystem() {
 	}
 
 
-	fun moveSideShiftToPositionSuspendPID(position: Int) {
+	private fun moveSideShiftToPositionSuspendPID(position: Int) {
 		if (sideShiftPosition != position && elevatorZeroed) {
 
+			// Need multiplier because it goes the opposite directions for each one
 			var distanceTraveled = 0
-			if (position == LEFT) {
-				distanceTraveled = 190000
-			} else if (position == CENTER) {
-				if (sideShiftPosition == LEFT) distanceTraveled = 190000
-				else if (sideShiftPosition == RIGHT) distanceTraveled = -170000
-			} else if (position == RIGHT) {
-				distanceTraveled = -170000
+//			if (position == LEFT) {
+//				distanceTraveled = 190000
+//			} else if (position == CENTER) {
+//				if (sideShiftPosition == LEFT) distanceTraveled = 190000
+//				else if (sideShiftPosition == RIGHT) distanceTraveled = -170000
+//			} else if (position == RIGHT) {
+//				distanceTraveled = -170000
+//			}
+			if (sideShiftPosition == LEFT) {
+				if (position == RIGHT)
+					distanceTraveled = 0
+				else return
+			} else if (sideShiftPosition == CENTER) {
+				if (position == LEFT) distanceTraveled = 190000
+				else if (position == RIGHT) distanceTraveled = -170000
+			} else if (sideShiftPosition == RIGHT) {
+				if (position == LEFT) distanceTraveled = 0
+				else
+					return
 			}
+
 			var reachedCenter = false
 			logger.trace("Moving side shift to position: {}", box(position))
 			if (position == CENTER) logger.trace("Moving to center.")
@@ -230,6 +244,7 @@ object Elevator : TerminableSubsystem() {
 			sideShiftTalon.config_kF(0, 0.0, 10);
 
 			sideShiftTalon.set(ControlMode.Position, distanceTraveled.toDouble());
+			sideShiftPosition = position
 		}
 	}
 
