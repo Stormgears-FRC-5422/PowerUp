@@ -52,8 +52,8 @@ object AutoRoutes {
 		)
 
 		override val pathToRightScale = arrayOf(
-			Segment(FieldPositions.StartingSpots.RIGHT.position, FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE),
-			Segment(FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE, FieldPositions.SCALE_RIGHT_PLATE)
+			Segment(FieldPositions.StartingSpots.RIGHT.position, FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE)
+//			Segment(FieldPositions.SPOT_TO_SCALE_RIGHT_PLATE, FieldPositions.SCALE_RIGHT_PLATE)
 		)
 
 		override val strafeToRightScale = arrayOf(

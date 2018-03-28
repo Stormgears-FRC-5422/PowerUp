@@ -46,10 +46,11 @@ object AutoDriveMoveCommand {
 					if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
 						Elevator.moveSideShiftLeftPID()
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+						println("MOVING RIGHT SIDE SHIFT")
 						Elevator.moveSideShiftRightPID()
 					}
 				}
-			}
+			} //else if(selectedStartingSpot == FieldPositions. )
 
 			Gripper.openGripper().join()
 

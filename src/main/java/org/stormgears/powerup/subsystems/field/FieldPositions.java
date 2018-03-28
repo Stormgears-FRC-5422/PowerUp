@@ -88,15 +88,15 @@ public class FieldPositions {
 	public static final Position SPOT_TO_OWN_SWITCH_RIGHT_PLATE = new Position(311, 167);//new Position(277, 167);
 
 	public static final Position SCALE_LEFT_PLATE = new Position(54, 303); //new Position(47, 303);
-	public static final Position SCALE_RIGHT_PLATE = new Position(293, 303);//new Position(270, 303); // changed from 304 to 294
+	public static final Position SCALE_RIGHT_PLATE = new Position(296, 303);//new Position(270, 303); // changed from 304 to 294
 	public static final Position SPOT_TO_SCALE_LEFT_PLATE = new Position(12, 330);
 	public static final Position SPOT_TO_SCALE_RIGHT_PLATE = new Position(311, 303);//new Position(277, 303);
 
 	public static final Position OPPONENT_SWITCH_LEFT_PLATE = new Position(0, 0);
 	public static final Position OPPONENT_SWITCH_RIGHT_PLATE = new Position(0, 0);
 
-	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(12, 234);
-	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 234);//new Position(277, 234);
+	public static final Position MIDFIELD_SCALE_LEFT_TRANSITION_SPOT = new Position(12, 222 /* FIXME: for real bot */);
+	public static final Position MIDFIELD_SCALE_RIGHT_TRANSITION_SPOT = new Position(311, 222 /* FIXME: for real bot */);//new Position(277, 234);
 
 	public static final Position LEFT_AUTO_LINE_SPOT = new Position(47, 141);
 	public static final Position CENTER_AUTO_LINE_SPOT = new Position(300,19.5); // RIGHT:  new Position(300, 19.5);
