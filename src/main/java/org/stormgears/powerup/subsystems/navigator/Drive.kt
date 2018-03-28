@@ -326,8 +326,6 @@ object Drive : TerminableSubsystem() {
 		val initPosFL = -talonFL.sensorCollection.quadraturePosition
 		val initPosFR = talonFR.sensorCollection.quadraturePosition
 
-		val maxVel = if (dist < 150) 2000 else 5000
-
 		var avgPos: Double
 		var progress: Double
 		do {
@@ -335,7 +333,8 @@ object Drive : TerminableSubsystem() {
 
 			progress = sign * avgPos / distanceTicks
 
-			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
+//			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
+			val currVel = sunProfile(progress * dist, dist)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -391,7 +390,7 @@ object Drive : TerminableSubsystem() {
 		logger.trace("initPos = {} targets = {}", Arrays.toString(initPos), Arrays.toString(targets))
 
 //		val maxVel = if (dist < 150) 2000 else 4000
-		val maxVel = 4000
+//		val maxVel = 4000
 
 		var avgPos: Double
 		var progress: Double
@@ -400,7 +399,8 @@ object Drive : TerminableSubsystem() {
 			targets.forEachIndexed { i, target -> progress += abs(((abs(talons[i].sensorCollection.quadraturePosition - initPos[i]))) / abs(target)) }
 			progress /= 4
 
-			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
+//			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
+			val currVel = sunProfile(progress * dist, dist)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
