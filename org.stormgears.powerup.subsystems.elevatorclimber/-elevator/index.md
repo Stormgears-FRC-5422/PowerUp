@@ -15,7 +15,6 @@ Default constructor for the creation of the elevator
 | [RIGHT](-r-i-g-h-t.md) | `const val RIGHT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [SCALE_POSITIONS](-s-c-a-l-e_-p-o-s-i-t-i-o-n-s.md) | `val SCALE_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [SWITCH_POSITIONS](-s-w-i-t-c-h_-p-o-s-i-t-i-o-n-s.md) | `val SWITCH_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
-| [currentPositionTicks](current-position-ticks.md) | `val currentPositionTicks: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [elevatorZeroed](elevator-zeroed.md) | `var elevatorZeroed: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [sideShiftTalon](side-shift-talon.md) | `val sideShiftTalon: `[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md) |
 | [useGartnerRate](use-gartner-rate.md) | `var useGartnerRate: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
