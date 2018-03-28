@@ -40,7 +40,6 @@ Default constructor for the creation of the elevator
 | [moveSideShiftOverRight](move-side-shift-over-right.md) | `fun moveSideShiftOverRight(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
 | [moveSideShiftRightPID](move-side-shift-right-p-i-d.md) | `fun moveSideShiftRightPID(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveSideShiftToPosition](move-side-shift-to-position.md) | `fun moveSideShiftToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move side shift to position |
-| [moveSideShiftToPositionSuspendPID](move-side-shift-to-position-suspend-p-i-d.md) | `fun moveSideShiftToPositionSuspendPID(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveUpManual](move-up-manual.md) | `fun moveUpManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [stop](stop.md) | `fun stop(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Stop all motion |
 | [turnOffElevator](turn-off-elevator.md) | `fun turnOffElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
