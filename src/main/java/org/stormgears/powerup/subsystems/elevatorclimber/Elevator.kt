@@ -47,6 +47,9 @@ object Elevator : TerminableSubsystem() {
 	const val RIGHT = 1
 	private const val SIDE_SHIFT_POWER = 1.0
 	private const val SLOW_DOWN = -0.05
+	private const val LEFT_TICKS = 190000
+	private const val CENTER_TICKS = 0
+	private const val RIGHT_TICKS = -170000
 
 	// Jobs
 	private var sideShiftJob: Job? = null
@@ -160,14 +163,14 @@ object Elevator : TerminableSubsystem() {
 
 		// Coroutines again!
 		val sideShiftJob = launch("Side Shift Auto Move") {
-			moveSideShiftToPositionSuspend(position)
+			moveSideShiftToPositionSuspendPID(position)
 		}
 
 		this.sideShiftJob = sideShiftJob
 		return sideShiftJob
 	}
 
-	private suspend fun moveSideShiftToPositionSuspend(position: Int) {
+	suspend fun moveSideShiftToPositionSuspend(position: Int) {
 		if (sideShiftPosition != position && elevatorZeroed) {
 			var multiplier = 0
 			if (position == LEFT) {
@@ -210,48 +213,36 @@ object Elevator : TerminableSubsystem() {
 	}
 
 
-	private fun moveSideShiftToPositionSuspendPID(position: Int) {
-		if (sideShiftPosition != position && elevatorZeroed) {
+	suspend fun moveSideShiftToPositionSuspendPID(position: Int) {
+		println("SIDE SHIFT PID CALLED")
 
-			// Need multiplier because it goes the opposite directions for each one
-			var distanceTraveled = 0
-//			if (position == LEFT) {
-//				distanceTraveled = 190000
-//			} else if (position == CENTER) {
-//				if (sideShiftPosition == LEFT) distanceTraveled = 190000
-//				else if (sideShiftPosition == RIGHT) distanceTraveled = -170000
-//			} else if (position == RIGHT) {
-//				distanceTraveled = -170000
-//			}
-			if (sideShiftPosition == LEFT) {
-				if (position == RIGHT)
-					distanceTraveled = 0
-				else return
-			} else if (sideShiftPosition == CENTER) {
-				if (position == LEFT) distanceTraveled = 190000
-				else if (position == RIGHT) distanceTraveled = -170000
-			} else if (sideShiftPosition == RIGHT) {
-				if (position == LEFT) distanceTraveled = 0
-				else
-					return
+		if (sideShiftPosition != position) {
+			val destinationTicks = when (position) {
+				LEFT -> LEFT_TICKS
+				CENTER -> CENTER_TICKS
+				RIGHT -> RIGHT_TICKS
+				else -> 0
 			}
 
-			var reachedCenter = false
 			logger.trace("Moving side shift to position: {}", box(position))
 			if (position == CENTER) logger.trace("Moving to center.")
 
-			println("SIDE SHIFT PID CALLED")
-			sideShiftTalon.config_kP(0, 0.0275, 10);
-			sideShiftTalon.config_kI(0, 0.0, 10);
-			sideShiftTalon.config_kD(0, 0.0, 10);
-			sideShiftTalon.config_kF(0, 0.0, 10);
+			sideShiftTalon.config_kP(0, 0.0275, 10)
+			sideShiftTalon.config_kI(0, 0.0, 10)
+			sideShiftTalon.config_kD(0, 0.0, 10)
+			sideShiftTalon.config_kF(0, 0.0, 10)
 
-			sideShiftTalon.set(ControlMode.Position, distanceTraveled.toDouble());
+			sideShiftTalon.set(ControlMode.Position, destinationTicks.toDouble())
+
+			while (Math.abs(destinationTicks - sideShiftTalon.sensorCollection.quadraturePosition) > 2000) {
+				delay(20)
+			}
+
 			sideShiftPosition = position
 		}
 	}
 
-	private suspend fun zeroElevator() {
+	suspend fun zeroElevator() {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
 		println("Zero-ing Elevator. Watch out!")
 
@@ -264,9 +255,13 @@ object Elevator : TerminableSubsystem() {
 		}
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
-		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
+		zeroElevatorEncoder()
 		elevatorZeroed = true
 		println("Elevator zeroed")
+	}
+
+	fun zeroElevatorEncoder() {
+		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
 	}
 
 	fun zeroSideShift() {
@@ -290,14 +285,6 @@ object Elevator : TerminableSubsystem() {
 
 	fun moveSideShiftOverRight(): Job? {
 		return if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1) else null
-	}
-
-	fun moveSideShiftLeftPID() {
-		moveSideShiftToPositionSuspendPID(LEFT)
-	}
-
-	fun moveSideShiftRightPID() {
-		moveSideShiftToPositionSuspendPID(RIGHT)
 	}
 
 	fun moveUpManual() {
