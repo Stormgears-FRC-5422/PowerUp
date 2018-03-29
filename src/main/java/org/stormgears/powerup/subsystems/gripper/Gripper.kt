@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
-import org.stormgears.powerup.TalonIds
+import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -17,7 +17,7 @@ object Gripper : TerminableSubsystem() {
 		private set
 
 	//TODO: Change to correct value
-	private const val TALON_ID = TalonIds.GRIPPER
+	private val TALON_ID = Robot.config.gripperTalonId
 
 	/*** DO NOT MAKE THIS BIGGER THAN 0.5 ***/
 	private const val GRIPPER_POWER = 0.5

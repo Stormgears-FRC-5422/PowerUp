@@ -7,7 +7,6 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.TalonIds
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -40,7 +39,7 @@ object Elevator : TerminableSubsystem() {
 	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 91) // first one = 56
 
 	// Side shift stuff
-	private const val SIDE_SHIFT_TALON_ID = TalonIds.SIDESHIFT
+	private val SIDE_SHIFT_TALON_ID = Robot.config.sideshiftTalonId
 	const val LEFT = -1
 	const val CENTER = 0
 	const val RIGHT = 1

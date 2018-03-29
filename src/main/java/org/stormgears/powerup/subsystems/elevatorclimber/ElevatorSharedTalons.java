@@ -1,7 +1,7 @@
 package org.stormgears.powerup.subsystems.elevatorclimber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import org.stormgears.powerup.TalonIds;
+import org.stormgears.powerup.Robot;
 import org.stormgears.utils.decoupling.ITalon;
 import org.stormgears.utils.decoupling.TalonFactoryKt;
 
@@ -14,8 +14,8 @@ public class ElevatorSharedTalons {
 
 	public static final int TALON_FPID_TIMEOUT = 10;
 
-	private static final int MASTER_MOTOR_TALON_ID = TalonIds.ELEVATOR_MASTER;
-	private static final int SLAVE_MOTOR_TALON_ID = TalonIds.ELEVATOR_SLAVE;
+	private static final int MASTER_MOTOR_TALON_ID = Robot.config.getElevatorMasterTalonId();
+	private static final int SLAVE_MOTOR_TALON_ID = Robot.config.getElevatorSlaveTalonId();
 
 	private ITalon masterMotor;
 	private ITalon slaveMotor;

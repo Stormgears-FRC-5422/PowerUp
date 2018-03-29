@@ -15,10 +15,20 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val hasNavX = getBoolean("hasNavX")
 	val navXInvert = if (getBoolean("isNavXInverted")) -1.0 else 1.0
 	val navXPort = getString("navXPort")
+
 	val frontLeftTalonId = getInt("frontLeftTalonId")
 	val frontRightTalonId = getInt("frontRightTalonId")
 	val rearLeftTalonId = getInt("rearLeftTalonId")
 	val rearRightTalonId = getInt("rearRightTalonId")
+
+	val intakeLeftTalonId = getInt("intakeLeftTalonId")
+	val intakeRightTalonId = getInt("intakeRightTalonId")
+	val intakeArticulatorTalonId = getInt("intakeArticulatorTalonId")
+
+	val elevatorMasterTalonId = getInt("elevatorMasterTalonId")
+	val elevatorSlaveTalonId = getInt("elevatorSlaveTalonId")
+	val sideshiftTalonId = getInt("sideshiftTalonId")
+	val gripperTalonId = getInt("gripperTalonId")
 
 	val velocityF = getDouble("velocityF")
 	val velocityP = getDouble("velocityP")
