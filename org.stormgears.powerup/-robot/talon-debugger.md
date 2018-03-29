@@ -2,4 +2,4 @@
 
 # talonDebugger
 
-`@Nullable static var talonDebugger: `[`TalonDebugger`](../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md)
+`@Nullable static var talonDebugger: @Nullable `[`TalonDebugger`](../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md)

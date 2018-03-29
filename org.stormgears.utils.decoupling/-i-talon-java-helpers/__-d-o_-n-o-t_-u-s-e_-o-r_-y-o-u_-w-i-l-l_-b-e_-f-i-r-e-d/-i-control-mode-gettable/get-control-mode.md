@@ -2,4 +2,4 @@
 
 # getControlMode
 
-`@Nullable abstract fun getControlMode(): ControlMode?`
+`@Nullable abstract fun getControlMode(): @Nullable ControlMode?`

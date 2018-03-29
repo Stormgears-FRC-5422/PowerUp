@@ -2,4 +2,4 @@
 
 # elevatorSharedTalons
 
-`@Nullable static var elevatorSharedTalons: `[`ElevatorSharedTalons`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/index.md)
+`@Nullable static var elevatorSharedTalons: @Nullable `[`ElevatorSharedTalons`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/index.md)

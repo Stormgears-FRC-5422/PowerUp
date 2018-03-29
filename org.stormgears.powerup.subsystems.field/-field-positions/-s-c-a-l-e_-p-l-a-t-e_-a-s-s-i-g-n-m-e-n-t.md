@@ -2,4 +2,4 @@
 
 # SCALE_PLATE_ASSIGNMENT
 
-`@Nullable static var SCALE_PLATE_ASSIGNMENT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md)
+`@Nullable static var SCALE_PLATE_ASSIGNMENT: @Nullable `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md)
