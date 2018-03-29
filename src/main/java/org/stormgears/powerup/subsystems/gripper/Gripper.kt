@@ -19,7 +19,8 @@ object Gripper : TerminableSubsystem() {
 	//TODO: Change to correct value
 	private const val TALON_ID = TalonIds.GRIPPER
 
-	private const val GRIPPER_POWER = 0.70
+	/*** DO NOT MAKE THIS BIGGER THAN 0.5 ***/
+	private const val GRIPPER_POWER = 0.5
 
 	private const val CLOSE_CURRENT_LIMIT = 10
 	private const val OPEN_CURRENT_LIMIT = 10
@@ -59,7 +60,7 @@ object Gripper : TerminableSubsystem() {
 		return job
 	}
 
-	private suspend fun openGripperSuspend() {
+	suspend fun openGripperSuspend() {
 		logger.info("Gripper Opening")
 		talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED)
 
@@ -81,14 +82,14 @@ object Gripper : TerminableSubsystem() {
 		gripperOpening = false
 	}
 
-	fun closeGripper(): Job {
+	fun closeGripper(useTime: Boolean = false, timeMs: Int = 0): Job {
 		if (job != null) {
 			job!!.cancel()
 			logger.trace("Canceled gripper job")
 		}
 
 		val job = launch("Gripper Close") {
-			closeGripperSuspend()
+			closeGripperSuspend(useTime, timeMs)
 		}
 
 		this.job = job
@@ -96,23 +97,27 @@ object Gripper : TerminableSubsystem() {
 		return job
 	}
 
-	private suspend fun closeGripperSuspend() {
+	suspend fun closeGripperSuspend(useTime: Boolean = false, timeMs: Int = 0) {
 		logger.info("Gripper Closing")
 		talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED)
 
-		iteration = 0
-		while (!talon.sensorCollection.isRevLimitSwitchClosed) {
-			delay(10)
+		if (!useTime) {
+			iteration = 0
+			while (!talon.sensorCollection.isRevLimitSwitchClosed) {
+				delay(10)
 
-			if (iteration++ > CURRENT_CHECK_START_TIME) {
-				talon.set(ControlMode.PercentOutput, -GRIPPER_POWER)
-				if (talon.outputCurrent > CLOSE_CURRENT_LIMIT) break
+				if (iteration++ > CURRENT_CHECK_START_TIME) {
+					talon.set(ControlMode.PercentOutput, -GRIPPER_POWER)
+					if (talon.outputCurrent > CLOSE_CURRENT_LIMIT) break
+				}
 			}
-		}
+		} else delay(timeMs)
 
-		logger.info("Cube is being hugged or terminated early")
-		talon.set(ControlMode.PercentOutput, -BRAKE_SPEED)
-		delay(300)
+		logger.info("Cube is being hugged or terminated early or due to time reached")
+		if (!useTime) {
+			talon.set(ControlMode.PercentOutput, -BRAKE_SPEED)
+			delay(300)
+		}
 		talon.set(ControlMode.PercentOutput, 0.0)
 
 		gripperClosing = false
