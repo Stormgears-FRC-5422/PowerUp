@@ -60,7 +60,7 @@ object Gripper : TerminableSubsystem() {
 		return job
 	}
 
-	suspend fun openGripperSuspend() {
+	private suspend fun openGripperSuspend() {
 		logger.info("Gripper Opening")
 		talon.set(ControlMode.PercentOutput, BREAK_JAM_SPEED)
 
@@ -97,7 +97,7 @@ object Gripper : TerminableSubsystem() {
 		return job
 	}
 
-	suspend fun closeGripperSuspend(useTime: Boolean = false, timeMs: Int = 0) {
+	private suspend fun closeGripperSuspend(useTime: Boolean = false, timeMs: Int = 0) {
 		logger.info("Gripper Closing")
 		talon.set(ControlMode.PercentOutput, -BREAK_JAM_SPEED)
 

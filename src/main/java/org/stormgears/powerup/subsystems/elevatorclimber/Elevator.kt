@@ -4,7 +4,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
@@ -86,7 +85,7 @@ object Elevator : TerminableSubsystem() {
 		return elevatorJob
 	}
 
-	suspend fun elevatorAutoMove(position: Int) {
+	private suspend fun elevatorAutoMove(position: Int) {
 		val lowering: Boolean
 		val destinationTicks = toEncoderTicks(position.toDouble())
 
@@ -170,51 +169,9 @@ object Elevator : TerminableSubsystem() {
 		return sideShiftJob
 	}
 
-	suspend fun moveSideShiftToPositionSuspend(position: Int) {
-		if (sideShiftPosition != position && elevatorZeroed) {
-			var multiplier = 0
-			if (position == LEFT) {
-				multiplier = 1
-			} else if (position == CENTER) {
-				if (sideShiftPosition == LEFT) multiplier = -1
-				else if (sideShiftPosition == RIGHT) multiplier = 1
-			} else if (position == RIGHT) {
-				multiplier = -1
-			}
 
-			var reachedCenter = false
-			logger.trace("Moving side shift to position: {}", box(position))
-			if (position == CENTER) logger.trace("Moving to center.")
-			sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier)
-
-			while (sideShiftTalon.outputCurrent <= 17.0 && !reachedCenter) {
-				logger.trace(box(sideShiftTalon.outputCurrent))
-				if (position == CENTER) {
-					// The API is reversed, so the FWD port on the breakout board corresponds to isRevLimitSwitchClosed
-					// and vice versa
-					if (Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 30000) {
-						sideShiftTalon.set(ControlMode.PercentOutput, SIDE_SHIFT_POWER * multiplier + SLOW_DOWN * multiplier)
-					}
-
-					reachedCenter = sideShiftTalon.sensorCollection.isRevLimitSwitchClosed ||
-						Math.abs(sideShiftTalon.sensorCollection.quadraturePosition) < 10000
-
-					logger.trace(box(sideShiftTalon.sensorCollection.quadraturePosition))
-				}
-
-//				delay(20)
-				yield()
-			}
-			sideShiftTalon.set(ControlMode.PercentOutput, 0.0)
-			logger.trace("Side shift current limit reached or reached center")
-
-			sideShiftPosition = position
-		}
-	}
-
-
-	suspend fun moveSideShiftToPositionSuspendPID(position: Int) {
-		println("SIDE SHIFT PID CALLED")
+	private suspend fun moveSideShiftToPositionSuspendPID(position: Int) {
+		logger.trace("SIDE SHIFT PID CALLED")
 
 		if (sideShiftPosition != position) {
 			val destinationTicks = when (position) {
@@ -244,12 +201,12 @@ object Elevator : TerminableSubsystem() {
 
 	suspend fun zeroElevator() {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
-		println("Zero-ing Elevator. Watch out!")
+		logger.trace("Zero-ing Elevator. Watch out!")
 
 		var iteration = 0
 		while (iteration < 40 || talons.masterMotor.outputCurrent < ZERO_CURRENT_LIMIT) {
 			delay(20)
-			println("Current limit: ${talons.masterMotor.outputCurrent}")
+			logger.trace("Current limit: ${talons.masterMotor.outputCurrent}")
 
 			iteration++
 		}
@@ -257,7 +214,7 @@ object Elevator : TerminableSubsystem() {
 
 		zeroElevatorEncoder()
 		elevatorZeroed = true
-		println("Elevator zeroed")
+		logger.trace("Elevator zeroed")
 	}
 
 	fun zeroElevatorEncoder() {
