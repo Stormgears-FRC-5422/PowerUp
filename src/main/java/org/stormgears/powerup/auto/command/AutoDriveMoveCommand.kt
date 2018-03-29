@@ -44,9 +44,9 @@ object AutoDriveMoveCommand {
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
 					if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftLeftPID()
+						Elevator.moveSideShiftToPositionSuspendPID(Elevator.LEFT)
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						Elevator.moveSideShiftRightPID()
+						Elevator.moveSideShiftToPositionSuspendPID(Elevator.RIGHT)
 					}
 				}
 			}
@@ -65,9 +65,9 @@ object AutoDriveMoveCommand {
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 					if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftLeftPID()
+						Elevator.moveSideShiftToPositionSuspendPID(Elevator.LEFT)
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						Elevator.moveSideShiftRightPID()
+						Elevator.moveSideShiftToPositionSuspendPID(Elevator.RIGHT)
 					}
 				}
 			}

@@ -49,8 +49,8 @@ object DSIO {
 //		buttonBoard.sideLeftButton.whenPressed {Robot.elevator?.moveSideShiftOverLeft() }
 //		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftLeftPID() }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftRightPID() }
+		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftOverLeft() }
+		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 

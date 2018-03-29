@@ -1,8 +1,11 @@
 package org.stormgears.powerup.auto.command
 
 import org.apache.logging.log4j.LogManager
+import org.stormgears.powerup.commands.Commands
+import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {
@@ -18,15 +21,15 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 
 		launch {
 			async {
-				Gripper.closeGripper()
+				Commands.finesseTheCube(Elevator.LEFT)
 			}
 
-			AutoDriveMoveCommand.execute(selectedAlliance,
-				selectedStartingSpot,
-				selectedPlacementSpot,
-				selectedOwnSwitchPlateAssignment,
-				selectedScalePlateAssignment,
-				selectedOpponentSwitchPlateAssignmentChooser)
+//			AutoDriveMoveCommand.execute(selectedAlliance,
+//				selectedStartingSpot,
+//				selectedPlacementSpot,
+//				selectedOwnSwitchPlateAssignment,
+//				selectedScalePlateAssignment,
+//				selectedOpponentSwitchPlateAssignmentChooser)
 
 			// Should move elevator upwards
 //			Elevator.elevatorAutoMove(5)

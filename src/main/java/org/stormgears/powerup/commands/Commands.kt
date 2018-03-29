@@ -1,9 +1,11 @@
 package org.stormgears.powerup.commands
 
 import kotlinx.coroutines.experimental.Job
+import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object Commands : TerminableSubsystem() {
@@ -39,6 +41,25 @@ object Commands : TerminableSubsystem() {
 		Gripper.closeGripper().join()
 		println("Moving elevator to SWITCH 0!")
 		Elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]).join()
+	}
+
+	suspend fun finesseTheCube(side: Int) {
+		Elevator.zeroElevatorEncoder()
+		Intake.startWheelsIn()
+		delay(100)
+		Gripper.openGripperSuspend()
+		Elevator.moveElevatorToPosition(-3)
+		delay(200)
+		Gripper.closeGripper(useTime = true, timeMs = 3000)
+		delay(700)
+		Elevator.elevatorAutoMove(0)
+		Elevator.elevatorAutoMove(20)
+		Intake.stopWheels()
+//		Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+//		Elevator.moveSideShiftToPositionSuspend(side)
+//		Gripper.openGripperSuspend()
+//		Elevator.moveSideShiftToPositionSuspend(Elevator.CENTER)
+//		Elevator.zeroElevator()
 	}
 }
 
