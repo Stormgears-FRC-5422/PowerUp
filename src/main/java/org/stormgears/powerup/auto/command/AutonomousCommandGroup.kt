@@ -4,8 +4,6 @@ import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.commands.Commands
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
-import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object AutonomousCommandGroup : TerminableSubsystem() {

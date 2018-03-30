@@ -50,11 +50,22 @@ object Commands : TerminableSubsystem() {
 		Gripper.openGripper().join()
 		Elevator.moveElevatorToPosition(-3)
 		delay(200)
-		Gripper.closeGripper(useTime = true, timeMs = 3000)
-		delay(700)
-		Elevator.moveElevatorToPosition(0).join()
+		Gripper.closeGripper(useTime = true, timeMs = 3000).join()
+		delay(1200)//700 3-28 replica
+		Elevator.moveElevatorToPosition(0).join() //removed 3-28 when testing on rl robot
 		Elevator.moveElevatorToPosition(20).join()
 		Intake.stopWheels()
+
+//		Elevator.moveElevatorToPosition(3)
+//		delay(500)
+//		Gripper.openGripper().join()
+//		Elevator.moveElevatorToPosition(-3)
+//		delay(500)
+//		Gripper.closeGripper(useTime = true, timeMs = 2000)
+//		delay(700)// 700 3-28 replica
+//		Elevator.moveElevatorToPosition(20)
+//		delay(500)
+
 //		Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 //		Elevator.moveSideShiftToPositionSuspend(side)
 //		Gripper.openGripperSuspend()
