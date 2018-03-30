@@ -84,18 +84,21 @@ object Intake : TerminableSubsystem() {
 		}
 	}
 
-	suspend fun moveIntakeToPositionSuspend(position: Int) {
+	private suspend fun moveIntakeToPositionSuspend(position: Int) {
 		if (position == this@Intake.position) return
 
-		var multiplier: Double
+		val multiplier: Double
+		val time: Int
 		when (position) {
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				multiplier = 1.0
+				multiplier = 0.8
+				time = 23
 			}
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				multiplier = -1.0
+				multiplier = -0.7
+				time = 6
 			}
 			else -> {
 				logger.info("Position value for intake rotation does not match a valid position.")
@@ -109,10 +112,12 @@ object Intake : TerminableSubsystem() {
 		println("Articulator moving with ${POWER * multiplier}")
 		articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
 		while (articulatorTalon.outputCurrent < CURRENT_LIMIT && !stopped) {
-			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && ++iteration > 170) {
+			iteration++
+
+			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && iteration > 60) {
 				stopped = true
 				println("Articulator stopped")
-			} else if (iteration > 130) {
+			} else if (iteration > time) {
 				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
 				println("Articulator power set to 0")
 			}
