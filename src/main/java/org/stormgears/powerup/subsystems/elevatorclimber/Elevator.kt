@@ -217,18 +217,22 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun zeroElevatorEncoder() {
+		logger.trace("Zero elevator encoder")
 		talons.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
 	}
 
 	fun zeroSideShift() {
+		logger.trace("Zero sideshift")
 		sideShiftTalon.sensorCollection.setQuadraturePosition(0, 10)
 	}
 
 	fun turnOffElevator() {
+		logger.trace("Turning off elevator")
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	private suspend fun holdElevator() {
+		logger.trace("Holding elevator")
 		delay(300)
 
 		// Hold current elevator position
@@ -236,14 +240,17 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveSideShiftOverLeft(): Job? {
+		logger.trace("Moving sideshift left")
 		return if (sideShiftPosition > -1) moveSideShiftToPosition(sideShiftPosition - 1) else null
 	}
 
 	fun moveSideShiftOverRight(): Job? {
+		logger.trace("Moving sideshift right")
 		return if (sideShiftPosition < 1) moveSideShiftToPosition(sideShiftPosition + 1) else null
 	}
 
 	fun moveUpManual() {
+		logger.trace("Move up manual")
 		talons.masterMotor.set(ControlMode.PercentOutput, -1.0)
 		overrodeSide = false
 	}
@@ -256,15 +263,19 @@ object Elevator : TerminableSubsystem() {
 		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
 		else downPower = 0.33
 
+		logger.trace("downPower = {}", downPower)
+
 		talons.masterMotor.set(ControlMode.PercentOutput, downPower)
 	}
 
 	fun moveLeftManual() {
+		logger.trace("Move left manual")
 		sideShiftTalon.set(ControlMode.PercentOutput, 0.75)
 		overrodeSide = true
 	}
 
 	fun moveRightManual() {
+		logger.trace("Move right manual")
 		sideShiftTalon.set(ControlMode.PercentOutput, -0.75)
 		overrodeSide = true
 	}

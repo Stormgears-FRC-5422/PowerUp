@@ -126,8 +126,8 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		if (config.getEnableElevator()) {
-			ElevatorSharedTalons.init();
-			elevatorSharedTalons = ElevatorSharedTalons.getInstance();
+//			ElevatorSharedTalons.Companion.init();
+			elevatorSharedTalons = ElevatorSharedTalons.INSTANCE;
 
 			elevator = Elevator.INSTANCE;
 		}
