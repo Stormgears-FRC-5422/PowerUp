@@ -33,7 +33,7 @@ object Gripper : TerminableSubsystem() {
 	private var gripperClosing = false
 	private var gripperOpening = false
 
-	private var job: Job? = null
+	private var gripperJob: Job? = null
 
 	init {
 		talon = createTalon(TALON_ID)
@@ -47,15 +47,15 @@ object Gripper : TerminableSubsystem() {
 	private var iteration = 0
 
 	fun openGripper(): Job {
-		if (job != null) {
-			job!!.cancel()
+		if (gripperJob != null) {
+			gripperJob!!.cancel()
 			logger.trace("Canceled gripper job")
 		}
 
 		val job = launch("Gripper Open") {
 			openGripperSuspend()
 		}
-		this.job = job
+		this.gripperJob = job
 
 		return job
 	}
@@ -83,8 +83,8 @@ object Gripper : TerminableSubsystem() {
 	}
 
 	fun closeGripper(useTime: Boolean = false, timeMs: Int = 0): Job {
-		if (job != null) {
-			job!!.cancel()
+		if (gripperJob != null) {
+			gripperJob!!.cancel()
 			logger.trace("Canceled gripper job")
 		}
 
@@ -92,7 +92,7 @@ object Gripper : TerminableSubsystem() {
 			closeGripperSuspend(useTime, timeMs)
 		}
 
-		this.job = job
+		this.gripperJob = job
 
 		return job
 	}

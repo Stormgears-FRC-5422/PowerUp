@@ -42,23 +42,14 @@ object AutoDriveMoveCommand {
 //				move(autoRoute.strafeToRightScale)
 //			}
 
-			finesseJob.join()
+//			finesseJob.join()
 
 			Elevator.moveElevatorToPosition(40).join()
-
-//			when (selectedPlacementSpot) {
-//				FieldPositions.PlacementSpot.SCALE -> Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
-//					FieldPositions.LeftRight.L -> Elevator.RIGHT
-//					FieldPositions.LeftRight.R -> Elevator.LEFT
-//				})
-//				FieldPositions.PlacementSpot.SWITCH ->
-//				FieldPositions.PlacementSpot.JUST_CROSS -> TODO()
-//			}
 
 			Elevator.moveSideShiftToPosition(when (selectedOwnSwitchPlateAssignment) {
 				FieldPositions.LeftRight.L -> Elevator.RIGHT
 				FieldPositions.LeftRight.R -> Elevator.LEFT
-			})
+			}).join()
 
 			Gripper.openGripper().join()
 			Elevator.moveSideShiftToPosition(Elevator.CENTER).join()
