@@ -2,4 +2,4 @@
 
 # TALON_FPID_TIMEOUT
 
-`static val TALON_FPID_TIMEOUT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+`const val TALON_FPID_TIMEOUT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
