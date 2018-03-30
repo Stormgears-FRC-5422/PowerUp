@@ -8,11 +8,11 @@ public class StormNet {
 
 	private StormNet() {
 		// TODO - get these values from configuration
-		//	EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
-		//	I2CEthernetVoice i2cEthernetVoice = new I2CEthernetVoice(ethernetVoice, 11);
+			EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
+			I2CEthernetVoice i2cEthernetVoice = new I2CEthernetVoice(ethernetVoice, 11);
 
-		//	m_lidar = new EthernetLidar(ethernetVoice);
-		//	m_lineIR = new LineIR(i2cEthernetVoice);
+			m_lidar = new EthernetLidar(ethernetVoice);
+			m_lineIR = new LineIR(i2cEthernetVoice);
 	}
 
 	public static void init() {

@@ -287,6 +287,24 @@ public class StormNetSensor {
 		return result;
 	}
 
+	public boolean fetchPair(int pair, short[] shortArray) {
+		byte[] receiveBuffer = new byte[shortArray.length * Short.BYTES];
+
+		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
+		buffer.put("R".getBytes(StandardCharsets.US_ASCII)[0]);
+		buffer.putInt(pair);
+
+		boolean result = fetchCommand(buffer.array(), "Pair", receiveBuffer);
+
+		for (int i = 0; i < shortArray.length; i++) {
+			shortArray[i] = buffer.getShort();
+			debug("short value: " + shortArray[i]);
+		}
+
+		return result;
+	}
+
 	/**
 	 * A convenience function to implement a simple fetch commmand.
 	 * Callers send a String command and read back enough bytes to fill the
@@ -430,6 +448,17 @@ public class StormNetSensor {
 		buffer.put("B".getBytes(StandardCharsets.US_ASCII)[0]);
 		buffer.putInt(rate);
 		return fetchCommand(buffer.array(), "Blink", receiveBuffer);
+	}
+
+	// Blink rate - set then fetch the current blink rate
+	public boolean fetchThreshold(int newThreshold) {
+		byte[] receiveBuffer = new byte[4];
+		ByteBuffer buffer = ByteBuffer.allocate(5);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+		buffer.put("T".getBytes(StandardCharsets.US_ASCII)[0]);
+		buffer.putInt(newThreshold);
+		return fetchCommand(buffer.array(), "Threshold", receiveBuffer);
 	}
 
 	// Actually the default command - fetches a two byte value tied to a simple counter

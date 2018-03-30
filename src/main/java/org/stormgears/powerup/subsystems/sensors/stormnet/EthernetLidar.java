@@ -1,17 +1,29 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
+import org.stormgears.powerup.Robot;
+
 import java.util.concurrent.TimeUnit;
 
 public class EthernetLidar extends StormNetSensor {
 	private short[] sensorValues;
+	private short[] rightSensorValues;
+	private short[]	leftSensorValues;
+	private short[] backSensorValues;
+
 	private byte[] addressValues;
 
 	public EthernetLidar(StormNetVoice voice) {
 		super(voice);
+		this.setDebug(false);
 
 		// TODO magic number
-		setSensorCount(4);
+		setSensorCount(6);
 		sensorValues = new short[m_numSensors];
+
+		rightSensorValues = new short[2];
+		leftSensorValues = new short[2];
+		backSensorValues = new short[2];
+
 		// TODO: 16 addresses are hardcoded on the Mega
 		addressValues = new byte[16];
 
@@ -29,7 +41,9 @@ public class EthernetLidar extends StormNetSensor {
 					sensorValues[0] + " ] [ " +
 					sensorValues[1] + " ] [ " +
 					sensorValues[2] + " ] [ " +
-					sensorValues[3] + " ]");
+					sensorValues[3] + " ] [ " +
+					sensorValues[4] + " ] [ " +
+					sensorValues[5] + " ]");
 				TimeUnit.SECONDS.sleep(1);
 			}
 		} catch (Exception e) {
@@ -47,7 +61,9 @@ public class EthernetLidar extends StormNetSensor {
 					addressValues[0] + " ] [ " +
 					addressValues[1] + " ] [ " +
 					addressValues[2] + " ] [ " +
-					addressValues[3] + " ]");
+					addressValues[3] + " ] [ " +
+					addressValues[4] + " ] [ " +
+					addressValues[5] + " ]");
 				TimeUnit.SECONDS.sleep(1);
 			}
 		} catch (Exception e) {
@@ -63,11 +79,19 @@ public class EthernetLidar extends StormNetSensor {
 		fetchBytes("A", "Address", addressValues);
 	}
 
+	public void setRightThreshold(int threshold) {fetchThreshold(threshold);}
+	public void setLeftThreshold(int threshold) {fetchThreshold(threshold);}
+	public void setBackThreshold(int threshold) {fetchThreshold(threshold);}
+
+	public void getRightSide() {fetchPair(Robot.config.getRightLIDAR_Pair(), rightSensorValues);} // Pair # = 0
+	public void getLeftSide() {fetchPair(Robot.config.getLeftLIDAR_Pair(), leftSensorValues);} // Pair # = 1
+	public void getBackSide() {fetchPair(Robot.config.getBackLIDAR_Pair(), backSensorValues);} // Pair # = 2
+
 	// Distance in millimeters
 	public int getDistance(int sensorNumber) {
-		pollDistance();
 		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
+
 
 
 }

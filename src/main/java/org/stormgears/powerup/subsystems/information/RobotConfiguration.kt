@@ -16,6 +16,11 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val navXInvert = if (getBoolean("isNavXInverted")) -1.0 else 1.0
 	val navXPort = getString("navXPort")
 
+	// TODO: Need to add these on the real config file
+	val rightLIDAR_Pair = getInt("right LIDAR") // 0
+	val leftLIDAR_Pair = getInt("left LIDAR") // 1
+	val backLIDAR_Pair = getInt("back LIDAR")  // 2
+
 	val frontLeftTalonId = getInt("frontLeftTalonId")
 	val frontRightTalonId = getInt("frontRightTalonId")
 	val rearLeftTalonId = getInt("rearLeftTalonId")

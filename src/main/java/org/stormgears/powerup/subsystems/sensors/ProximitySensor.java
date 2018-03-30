@@ -2,13 +2,17 @@ package org.stormgears.powerup.subsystems.sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
+/**
+ * Created by Vatsal on 3/25/2018.
+ */
 public class ProximitySensor {
+
 	private static ProximitySensor instance;
 	private AnalogInput ai;
-	private double threshold = 2.5;  // volts.  Sensor should jump between 1.2V and 5V
+	private double threshold = 2.5; // volts. Sensor should jump between 1.2V and 5.0V
 
 	private ProximitySensor() {
-		ai = new AnalogInput(0); // TODO - use config
+		ai = new AnalogInput(0);
 	}
 
 	public static ProximitySensor getInstance() {
@@ -20,11 +24,11 @@ public class ProximitySensor {
 	}
 
 	public boolean detected() {
-		return ( ai.getAverageVoltage() < threshold );
+		return ai.getAverageVoltage() < threshold;
 	}
 
 	public double getOutput() {
-		return (ai.getAverageVoltage());
+		return ai.getAverageVoltage();
 	}
 
 }

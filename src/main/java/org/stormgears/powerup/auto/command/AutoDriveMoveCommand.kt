@@ -8,6 +8,8 @@ import org.stormgears.powerup.subsystems.field.AutoRoutes
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.Segment
 import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.sensors.Sensors
+
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
@@ -32,12 +34,16 @@ object AutoDriveMoveCommand {
 				move(autoRoute.pathToRightScale)
 			}
 
+			val distance = Sensors.getInstance().stormNet.getLidarDistance(0);
+
 			// TODO: wtf if this
-//			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-//				move(autoRoute.strafeToLeftScale)
-//			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-//				move(autoRoute.strafeToRightScale)
-//			}
+			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+				move(autoRoute.strafeToLeftScale);
+				Robot.drive?.moveStraight(distance.toDouble(), 3 * Math.PI/2)
+
+			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+				move(autoRoute.strafeToRightScale)
+			}
 
 			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[2]).join()
 
