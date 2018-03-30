@@ -45,7 +45,7 @@ object Elevator : TerminableSubsystem() {
 	const val RIGHT = 1
 	private const val SIDE_SHIFT_POWER = 1.0
 	private const val SLOW_DOWN = -0.05
-	private const val LEFT_TICKS = 190000
+	private const val LEFT_TICKS = 170000
 	private const val CENTER_TICKS = 0
 	private const val RIGHT_TICKS = -170000
 
@@ -145,7 +145,7 @@ object Elevator : TerminableSubsystem() {
 			if (!overrodeSide) {
 				talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
-				holdElevator()
+//				holdElevator()
 			}
 		}
 	}
