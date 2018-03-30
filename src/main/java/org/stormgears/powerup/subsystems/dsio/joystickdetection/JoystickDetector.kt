@@ -49,7 +49,8 @@ class JoystickDetector {
 		get() {
 			return if (buttonBoard2018Channel != -1 && mspChannel != -1) {
 				logger.info("Selecting ButtonBoard2018v1")
-				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel))
+				val drivingJoystick = drivingJoystick
+				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel), if (drivingJoystick is LogitechJoystick) drivingJoystick else null)
 			} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
 				logger.info("Selecting ButtonBoard2017")
 				ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))

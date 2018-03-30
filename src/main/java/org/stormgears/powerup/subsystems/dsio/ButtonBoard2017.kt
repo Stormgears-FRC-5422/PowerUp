@@ -6,7 +6,6 @@ import org.stormgears.utils.dsio.*
 
 
 class ButtonBoard2017 private constructor(buttonBoard: Joystick, joystick: Joystick) : IButtonBoard {
-
 	override val gripOpenButton: IButton = EnhancedButton(buttonBoard, Ids.YELLOW)
 	override val gripCloseButton: IButton = EnhancedButton(buttonBoard, Ids.RED)
 
@@ -32,6 +31,8 @@ class ButtonBoard2017 private constructor(buttonBoard: Joystick, joystick: Joyst
 
 	override val climbUpButton: IButton = EnhancedButton(joystick, 5)
 	override val climbDownButton: IButton = EnhancedButton(joystick, 6)
+
+	override val zeroElevatorButton: IButton = DummyButton() // not enough buttons. :(
 
 	override val scaleButtons: Array<IButton> = arrayOf(
 		EnhancedButton(joystick, 7),

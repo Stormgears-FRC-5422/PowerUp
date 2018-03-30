@@ -3,7 +3,7 @@ package org.stormgears.powerup.subsystems.dsio
 import edu.wpi.first.wpilibj.Joystick
 import org.stormgears.utils.dsio.*
 
-class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick) : IButtonBoard {
+class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick, realJoystick: LogitechJoystick?) : IButtonBoard {
 
 	override val gripOpenButton: IButton = POVButton(logitech, POVButton.Direction.Down)
 	override val gripCloseButton: IButton = POVButton(logitech, POVButton.Direction.Up)
@@ -32,6 +32,8 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick) :
 	override val intakeWheelsSwitch: ISwitch = TernarySwitch(msp, 9, 5)
 	override val intakeLiftSwitch: ISwitch = TernarySwitch(msp, 3, 10)
 
+	override val zeroElevatorButton: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 8) else DummyButton()
+
 	override val overrideSwitch: ISwitch = SwitchControl(msp, 4)
 	override val overrideUp: IButton = EnhancedButton(msp, 15)
 	override val overrideDown: IButton = EnhancedButton(msp, 14)
@@ -42,7 +44,7 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick) :
 		private var instance: ButtonBoard2018V1? = null
 
 		@JvmStatic // TODO: Replace with more idiomatic Kotlin (object???)
-		fun getInstance(buttonBoard: Joystick, joystick: Joystick): IButtonBoard {
+		fun getInstance(buttonBoard: Joystick, joystick: Joystick, realJoystick: LogitechJoystick?): IButtonBoard {
 			if (instance == null) {
 				if (IButtonBoard.initialized) {
 					throw IllegalStateException("Only one button board can exist at once.")
@@ -50,7 +52,7 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick) :
 
 				IButtonBoard.initialized = true
 
-				instance = ButtonBoard2018V1(buttonBoard, joystick)
+				instance = ButtonBoard2018V1(buttonBoard, joystick, realJoystick)
 				return instance as IButtonBoard
 			}
 
