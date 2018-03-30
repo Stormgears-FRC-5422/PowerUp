@@ -54,6 +54,8 @@ object DSIO {
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 
+		buttonBoard.zeroElevatorButton.whenPressed { Robot.elevator?.zeroElevatorEncoder() }
+
 
 		val intakeWheelsSwitch = buttonBoard.intakeWheelsSwitch
 		if (intakeWheelsSwitch is ITernarySwitch) {
