@@ -73,26 +73,29 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun moveIntakeToPosition(position: Int) {
+	fun moveIntakeToPosition(position: Int): Job {
 		if (job != null) {
 			job!!.cancel()
 			println("Canceled intake rotation job")
 		}
 
-		launch("Articulator Mover") {
+		val job = launch("Articulator Mover") {
 			moveIntakeToPositionSuspend(position)
 		}
+
+		this.job = job
+		return job
 	}
 
 	private suspend fun moveIntakeToPositionSuspend(position: Int) {
-		if (position == this@Intake.position) return
+//		if (position == this@Intake.position) return
 
 		val multiplier: Double
 		val time: Int
 		when (position) {
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				multiplier = 0.8
+				multiplier = 1.0
 				time = 23
 			}
 			HORIZONTAL -> {
@@ -133,6 +136,23 @@ object Intake : TerminableSubsystem() {
 	fun controlWithThrottle() {
 		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.throttleV)
 		if (articulatorTalon.outputCurrent > CURRENT_LIMIT) articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+	}
+
+	fun applyPower(power: Double, timeMs: Int): Job {
+		logger.info("Applying power to intake rotation motor")
+
+		if (job != null) {
+			job!!.cancel()
+			println("Canceled intake rotation job")
+		}
+
+		val job = launch("Articulator Apply Power") {
+			articulatorTalon.set(ControlMode.PercentOutput, power)
+			delay(timeMs)
+		}
+
+		this.job = job
+		return job
 	}
 
 	fun debug() {

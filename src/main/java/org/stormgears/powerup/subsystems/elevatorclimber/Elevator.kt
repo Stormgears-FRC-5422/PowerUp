@@ -260,8 +260,8 @@ object Elevator : TerminableSubsystem() {
 		overrodeSide = false
 
 //		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
-		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
-		else downPower = 0.33
+//		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
+//		else downPower = 0.33
 
 		logger.trace("downPower = {}", downPower)
 

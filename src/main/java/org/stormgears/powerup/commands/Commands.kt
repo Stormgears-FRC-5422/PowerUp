@@ -46,13 +46,13 @@ object Commands : TerminableSubsystem() {
 	suspend fun finesseTheCube(side: Int) {
 		Elevator.zeroElevatorEncoder()
 		Intake.startWheelsIn()
+		Intake.applyPower(0.2, 2000)
 		delay(100)
 		Gripper.openGripper().join()
-		Elevator.moveElevatorToPosition(-3)
+		Elevator.moveElevatorToPosition(-4)
 		delay(200)
 		Gripper.closeGripper(useTime = true, timeMs = 3000).join()
-		delay(1200)//700 3-28 replica
-		Elevator.moveElevatorToPosition(0).join() //removed 3-28 when testing on rl robot
+		//delay(600) // 700 3-28 replica
 		Elevator.moveElevatorToPosition(20).join()
 		Intake.stopWheels()
 

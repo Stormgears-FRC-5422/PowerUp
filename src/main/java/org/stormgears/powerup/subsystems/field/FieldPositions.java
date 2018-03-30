@@ -69,11 +69,13 @@ public class FieldPositions {
 	public static LeftRight OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE;
 
 	@Nullable
-	public static Position OWN_SWITCH_PLATE_ASSIGNMENT = null;
+	public static LeftRight OWN_SWITCH_PLATE_ASSIGNMENT = null;
+
 	@Nullable
-	public static Position SCALE_PLATE_ASSIGNMENT = null;
+	public static LeftRight SCALE_PLATE_ASSIGNMENT = null;
+
 	@Nullable
-	public static Position OPPONENT_SWITCH_PLATE_ASSIGNMENT = null;
+	public static LeftRight OPPONENT_SWITCH_PLATE_ASSIGNMENT = null;
 
 // TODO: Remove from here once coding is complete
 // These are StartingSpots from the enum above

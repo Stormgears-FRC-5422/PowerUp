@@ -77,6 +77,7 @@ public class Robot extends BaseStormgearsRobot {
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartSpot;
 	private FieldPositions.PlacementSpot selectedPlacementSpot;
+
 	private FieldPositions.LeftRight selectedOwnSwitchPlateAssignment;
 	private FieldPositions.LeftRight selectedScalePlateAssignment;
 	private FieldPositions.LeftRight selectedOpponentSwitchPlateAssignmentChooser;
@@ -309,9 +310,12 @@ public class Robot extends BaseStormgearsRobot {
 		selectedAlliance = dsio.getChoosers().getAlliance();
 		selectedStartSpot = dsio.getChoosers().getStartingSpot();
 		selectedPlacementSpot = dsio.getChoosers().getPlacementSpot();
-		selectedScalePlateAssignment = dsio.getChoosers().getScalePlateAssignmentChooser();
-		selectedOwnSwitchPlateAssignment = dsio.getChoosers().getOwnSwitchPlateAssignmentChooser();
-		selectedOpponentSwitchPlateAssignmentChooser = dsio.getChoosers().getOpponentSwitchPlateAssignmentChooser();
+		selectedScalePlateAssignment = FieldPositions.SCALE_PLATE_ASSIGNMENT;
+		selectedOwnSwitchPlateAssignment = FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT;
+		selectedOpponentSwitchPlateAssignmentChooser = FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT;
+//		selectedScalePlateAssignment = dsio.getChoosers().getScalePlateAssignmentChooser();
+//		selectedOwnSwitchPlateAssignment = dsio.getChoosers().getOwnSwitchPlateAssignmentChooser();
+//		selectedOpponentSwitchPlateAssignmentChooser = dsio.getChoosers().getOpponentSwitchPlateAssignmentChooser();
 
 		logger.info("Selected Alliance: {}", selectedAlliance.toString());
 		logger.info("Selected Starting Spot: {}", selectedStartSpot.toString());

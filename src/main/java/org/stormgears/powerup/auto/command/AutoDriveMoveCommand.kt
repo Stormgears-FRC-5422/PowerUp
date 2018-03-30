@@ -1,5 +1,6 @@
 package org.stormgears.powerup.auto.command
 
+import kotlinx.coroutines.experimental.Job
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
@@ -8,6 +9,7 @@ import org.stormgears.powerup.subsystems.field.AutoRoutes
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.Segment
 import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.intake.Intake
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
@@ -18,7 +20,8 @@ object AutoDriveMoveCommand {
 						selectedPlacementSpot: FieldPositions.PlacementSpot,
 						selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight,
 						selectedScalePlateAssignment: FieldPositions.LeftRight,
-						selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight) {
+						selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight,
+						finesseJob: Job) {
 		val autoRoute = when (selectedStartingSpot) {
 			FieldPositions.StartingSpots.LEFT -> AutoRoutes.FromLeft
 			FieldPositions.StartingSpots.CENTER -> AutoRoutes.FromCenter
@@ -39,20 +42,28 @@ object AutoDriveMoveCommand {
 //				move(autoRoute.strafeToRightScale)
 //			}
 
-			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[2]).join()
+			finesseJob.join()
 
-			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
-				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
-					if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftToPosition(Elevator.LEFT).join()
-					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						logger.trace("MOVING RIGHT SIDE SHIFT")
-						Elevator.moveSideShiftToPosition(Elevator.RIGHT).join()
-					}
-				}
-			} //else if(selectedStartingSpot == FieldPositions. )
+			Elevator.moveElevatorToPosition(40).join()
+
+//			when (selectedPlacementSpot) {
+//				FieldPositions.PlacementSpot.SCALE -> Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
+//					FieldPositions.LeftRight.L -> Elevator.RIGHT
+//					FieldPositions.LeftRight.R -> Elevator.LEFT
+//				})
+//				FieldPositions.PlacementSpot.SWITCH ->
+//				FieldPositions.PlacementSpot.JUST_CROSS -> TODO()
+//			}
+
+			Elevator.moveSideShiftToPosition(when (selectedOwnSwitchPlateAssignment) {
+				FieldPositions.LeftRight.L -> Elevator.RIGHT
+				FieldPositions.LeftRight.R -> Elevator.LEFT
+			})
 
 			Gripper.openGripper().join()
+			Elevator.moveSideShiftToPosition(Elevator.CENTER).join()
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Elevator.zeroElevator()
 
 		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 			if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
@@ -60,6 +71,8 @@ object AutoDriveMoveCommand {
 			} else { //if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.R)
 				move(autoRoute.pathToRightSwitch)
 			}
+
+			finesseJob.join()
 
 			Elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[2]).join()
 

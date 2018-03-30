@@ -16,9 +16,9 @@ public class FmsInterface {
 	private String data = "";
 
 	public void startPollingForData() {
-		FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE;
-		FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE;
-		FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
+//		FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE;
+//		FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE;
+//		FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
 
 		poller = new Thread(() -> {
 //			int tryNum = 0;
@@ -53,30 +53,30 @@ public class FmsInterface {
 		// Own switch
 		switch (data.charAt(0)) {
 			case 'L':
-				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_LEFT_PLATE;
+				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.L;
 				break;
 			case 'R':
-				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OWN_SWITCH_RIGHT_PLATE;
+				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R;
 				break;
 		}
 
 		// Own switch
 		switch (data.charAt(1)) {
 			case 'L':
-				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_LEFT_PLATE;
+				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.LeftRight.L;
 				break;
 			case 'R':
-				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.SCALE_RIGHT_PLATE;
+				FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R;
 				break;
 		}
 
 		// Own switch
 		switch (data.charAt(2)) {
 			case 'L':
-				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_LEFT_PLATE;
+				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.L;
 				break;
 			case 'R':
-				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.OPPONENT_SWITCH_RIGHT_PLATE;
+				FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R;
 				break;
 		}
 
