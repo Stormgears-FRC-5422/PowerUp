@@ -10,7 +10,7 @@ import org.stormgears.powerup.subsystems.elevatorclimber.Climber;
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator;
 import org.stormgears.powerup.subsystems.elevatorclimber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
-import org.stormgears.powerup.subsystems.field.FmsInterface;
+import org.stormgears.powerup.subsystems.field.FmsInterfaceKt;
 import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
@@ -45,7 +45,6 @@ public class Robot extends BaseStormgearsRobot {
 	 */
 	public static RobotConfiguration config = RobotConfiguration.INSTANCE;
 	public static DSIO dsio;
-	public static FmsInterface fmsInterface = FmsInterface.getInstance();
 
 	@Nullable
 	public static Sensors sensors;
@@ -152,6 +151,8 @@ public class Robot extends BaseStormgearsRobot {
 		if (dsio == null) {
 			dsio = DSIO.INSTANCE;
 		}
+
+		FmsInterfaceKt.parseFmsData();
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
 
@@ -280,8 +281,6 @@ public class Robot extends BaseStormgearsRobot {
 	public void disabledInit() {
 		logger.trace("disabled init");
 		super.disabledInit();
-
-		fmsInterface.startPollingForData();
 
 		Terminator.INSTANCE.setDisabled(true);
 
