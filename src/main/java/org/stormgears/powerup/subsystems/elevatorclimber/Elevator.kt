@@ -8,11 +8,10 @@ import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.dsio.DSIO
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
-import kotlin.math.max
-import kotlin.math.min
 
 /**
  * Default constructor for the creation of the elevator
@@ -235,8 +234,10 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	private fun holdElevator() {
+	fun holdElevator() {
 		logger.trace("Holding elevator")
+		this.elevatorJob?.cancel()
+
 //		delay(300)
 
 		// Hold current elevator position
@@ -254,18 +255,41 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveUpManual() {
+		this.elevatorJob?.cancel()
+
+		this.elevatorJob = launchOverride("Manual move up") {
+			moveUpManualSuspend()
+		}
+	}
+
+	private suspend fun moveUpManualSuspend() {
 		if (currentPositionTicks < -1100000) {
 //			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 			holdElevator()
 		} else {
 //			talons.masterMotor.set(ControlMode.PercentOutput, -0.8)
-			talons.masterMotor.set(ControlMode.Position, max(currentPositionTicks - 5000.0, 0.0))
+//			talons.masterMotor.set(ControlMode.Position, max(currentPositionTicks - 5000.0, 0.0))
+			talons.masterMotor.set(ControlMode.Position, -1100000.0)
+
+			while (currentPositionTicks > -1000000 && DSIO.buttonBoard.overrideUp.get()) {
+				yield()
+			}
+
+			holdElevator()
 		}
 		overrodeSide = false
 	}
 
-	private var downPower = 0.33
 	fun moveDownManual() {
+		this.elevatorJob?.cancel()
+
+		this.elevatorJob = launchOverride("Manual move down") {
+			moveDownManualSuspend()
+		}
+	}
+
+	private var downPower = 0.33
+	suspend fun moveDownManualSuspend() {
 		overrodeSide = false
 
 //		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
@@ -274,7 +298,14 @@ object Elevator : TerminableSubsystem() {
 
 		logger.trace("downPower = {}", downPower)
 
-		talons.masterMotor.set(ControlMode.Position, min(currentPositionTicks + 5000.0, -100.0))
+//		talons.masterMotor.set(ControlMode.Position, min(currentPositionTicks + 5000.0, -100.0))
+		talons.masterMotor.set(ControlMode.Position, 0.0)
+
+		while (currentPositionTicks < -1000 && DSIO.buttonBoard.overrideDown.get()) {
+			yield()
+		}
+
+		holdElevator()
 	}
 
 	fun moveLeftManual() {
@@ -289,7 +320,7 @@ object Elevator : TerminableSubsystem() {
 		overrodeSide = true
 	}
 
-    fun debug() {
+	fun debug() {
 		SmartDashboard.putNumber("Elevator encoder position", talons.masterMotor.sensorCollection.quadraturePosition.toDouble())
 		SmartDashboard.putNumber("Elevator encoder velocity", talons.masterMotor.sensorCollection.quadratureVelocity.toDouble())
 		SmartDashboard.putNumber("Elevator encoder position_", talons.masterMotor.sensorCollection.quadraturePosition.toDouble())
@@ -300,9 +331,9 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	/**
-     * @param inches number of inches
-     * @return number of encoder ticks necessary to go that many inches
-     */
+	 * @param inches number of inches
+	 * @return number of encoder ticks necessary to go that many inches
+	 */
 	private fun toEncoderTicks(inches: Double): Int =
 		Math.round(inches * TICKS_PER_INCH * ELEVATOR_DISTANCE_MULTIPLIER).toInt()
 

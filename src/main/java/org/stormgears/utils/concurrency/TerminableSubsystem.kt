@@ -35,6 +35,14 @@ abstract class TerminableSubsystem : WithCoroutines {
 		return launch(context = context, start = start, parent = parent, block = block)
 	}
 
+	/**
+	 * Launches a coroutine, overriding the override switch
+	 */
+	fun launchOverride(jobName: String, context: CoroutineContext = globalContext, block: suspend CoroutineScope.() -> Unit): Job {
+		logger.info("Starting OVERRIDING coroutine job {} in terminable subsystem {}", jobName, subclassName)
+		return super.launch(context, CoroutineStart.DEFAULT, null, block)
+	}
+
 	override fun launch(
 		context: CoroutineContext,
 		start: CoroutineStart,
