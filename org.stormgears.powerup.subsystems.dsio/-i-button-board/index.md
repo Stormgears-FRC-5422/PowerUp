@@ -26,6 +26,7 @@
 | [sideRightButton](side-right-button.md) | `abstract val sideRightButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [switch0Button](switch0-button.md) | `abstract val switch0Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [switch1Button](switch1-button.md) | `abstract val switch1Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
+| [zeroElevatorButton](zero-elevator-button.md) | `abstract val zeroElevatorButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 
 ### Companion Object Properties
 

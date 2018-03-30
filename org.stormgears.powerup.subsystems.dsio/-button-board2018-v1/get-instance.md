@@ -2,4 +2,4 @@
 
 # getInstance
 
-`@JvmStatic fun getInstance(buttonBoard: Joystick, joystick: Joystick): `[`IButtonBoard`](../-i-button-board/index.md)
+`@JvmStatic fun getInstance(buttonBoard: Joystick, joystick: Joystick, realJoystick: `[`LogitechJoystick`](../../org.stormgears.utils.dsio/-logitech-joystick/index.md)`?): `[`IButtonBoard`](../-i-button-board/index.md)

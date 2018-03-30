@@ -26,9 +26,10 @@
 | [sideRightButton](side-right-button.md) | `val sideRightButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [switch0Button](switch0-button.md) | `val switch0Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [switch1Button](switch1-button.md) | `val switch1Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
+| [zeroElevatorButton](zero-elevator-button.md) | `val zeroElevatorButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 
 ### Companion Object Functions
 
 | Name | Summary |
 |---|---|
-| [getInstance](get-instance.md) | `fun getInstance(buttonBoard: Joystick, joystick: Joystick): `[`IButtonBoard`](../-i-button-board/index.md) |
+| [getInstance](get-instance.md) | `fun getInstance(buttonBoard: Joystick, joystick: Joystick, realJoystick: `[`LogitechJoystick`](../../org.stormgears.utils.dsio/-logitech-joystick/index.md)`?): `[`IButtonBoard`](../-i-button-board/index.md) |
