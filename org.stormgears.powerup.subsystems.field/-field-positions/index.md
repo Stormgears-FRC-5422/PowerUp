@@ -38,7 +38,7 @@
 | [OPPONENT_PORTAL_LEFT](-o-p-p-o-n-e-n-t_-p-o-r-t-a-l_-l-e-f-t.md) | `static val OPPONENT_PORTAL_LEFT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [OPPONENT_SWITCH](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h.md) | `static val OPPONENT_SWITCH: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [OPPONENT_SWITCH_LEFT_PLATE](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h_-l-e-f-t_-p-l-a-t-e.md) | `static val OPPONENT_SWITCH_LEFT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
-| [OPPONENT_SWITCH_PLATE_ASSIGNMENT](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var OPPONENT_SWITCH_PLATE_ASSIGNMENT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
+| [OPPONENT_SWITCH_PLATE_ASSIGNMENT](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var OPPONENT_SWITCH_PLATE_ASSIGNMENT: `[`LeftRight`](-left-right/index.md) |
 | [OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t_-c-h-o-i-c-e.md) | `static var OPPONENT_SWITCH_PLATE_ASSIGNMENT_CHOICE: `[`LeftRight`](-left-right/index.md) |
 | [OPPONENT_SWITCH_RIGHT_PLATE](-o-p-p-o-n-e-n-t_-s-w-i-t-c-h_-r-i-g-h-t_-p-l-a-t-e.md) | `static val OPPONENT_SWITCH_RIGHT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [OWN_AUTO_LINE](-o-w-n_-a-u-t-o_-l-i-n-e.md) | `static val OWN_AUTO_LINE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
@@ -57,12 +57,12 @@
 | [OWN_SCALE_PLATFORM_ZONE](-o-w-n_-s-c-a-l-e_-p-l-a-t-f-o-r-m_-z-o-n-e.md) | `static val OWN_SCALE_PLATFORM_ZONE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [OWN_SWITCH](-o-w-n_-s-w-i-t-c-h.md) | `static val OWN_SWITCH: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [OWN_SWITCH_LEFT_PLATE](-o-w-n_-s-w-i-t-c-h_-l-e-f-t_-p-l-a-t-e.md) | `static val OWN_SWITCH_LEFT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
-| [OWN_SWITCH_PLATE_ASSIGNMENT](-o-w-n_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var OWN_SWITCH_PLATE_ASSIGNMENT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
+| [OWN_SWITCH_PLATE_ASSIGNMENT](-o-w-n_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var OWN_SWITCH_PLATE_ASSIGNMENT: `[`LeftRight`](-left-right/index.md) |
 | [OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE](-o-w-n_-s-w-i-t-c-h_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t_-c-h-o-i-c-e.md) | `static var OWN_SWITCH_PLATE_ASSIGNMENT_CHOICE: `[`LeftRight`](-left-right/index.md) |
 | [OWN_SWITCH_RIGHT_PLATE](-o-w-n_-s-w-i-t-c-h_-r-i-g-h-t_-p-l-a-t-e.md) | `static val OWN_SWITCH_RIGHT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [RIGHT_AUTO_LINE_SPOT](-r-i-g-h-t_-a-u-t-o_-l-i-n-e_-s-p-o-t.md) | `static val RIGHT_AUTO_LINE_SPOT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [SCALE_LEFT_PLATE](-s-c-a-l-e_-l-e-f-t_-p-l-a-t-e.md) | `static val SCALE_LEFT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
-| [SCALE_PLATE_ASSIGNMENT](-s-c-a-l-e_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var SCALE_PLATE_ASSIGNMENT: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
+| [SCALE_PLATE_ASSIGNMENT](-s-c-a-l-e_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t.md) | `static var SCALE_PLATE_ASSIGNMENT: `[`LeftRight`](-left-right/index.md) |
 | [SCALE_PLATE_ASSIGNMENT_CHOICE](-s-c-a-l-e_-p-l-a-t-e_-a-s-s-i-g-n-m-e-n-t_-c-h-o-i-c-e.md) | `static var SCALE_PLATE_ASSIGNMENT_CHOICE: `[`LeftRight`](-left-right/index.md) |
 | [SCALE_RIGHT_PLATE](-s-c-a-l-e_-r-i-g-h-t_-p-l-a-t-e.md) | `static val SCALE_RIGHT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |
 | [SPOT_TO_OWN_SWITCH_LEFT_PLATE](-s-p-o-t_-t-o_-o-w-n_-s-w-i-t-c-h_-l-e-f-t_-p-l-a-t-e.md) | `static val SPOT_TO_OWN_SWITCH_LEFT_PLATE: `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md) |

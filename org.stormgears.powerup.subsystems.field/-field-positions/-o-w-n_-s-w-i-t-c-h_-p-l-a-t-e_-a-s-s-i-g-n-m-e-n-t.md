@@ -2,4 +2,4 @@
 
 # OWN_SWITCH_PLATE_ASSIGNMENT
 
-`@Nullable static var OWN_SWITCH_PLATE_ASSIGNMENT: @Nullable `[`Position`](../../org.stormgears.powerup.subsystems.navigator/-position/index.md)
+`@Nullable static var OWN_SWITCH_PLATE_ASSIGNMENT: @Nullable `[`LeftRight`](-left-right/index.md)
