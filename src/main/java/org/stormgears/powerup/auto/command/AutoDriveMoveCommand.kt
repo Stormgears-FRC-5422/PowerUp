@@ -44,9 +44,10 @@ object AutoDriveMoveCommand {
 
 //			finesseJob.join()
 
-			Elevator.moveElevatorToPosition(40).join()
+			//USED TO SAY 40 instead of elevator.scale_positions[2]
+			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[1]).join()
 
-			Elevator.moveSideShiftToPosition(when (selectedOwnSwitchPlateAssignment) {
+			Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
 				FieldPositions.LeftRight.L -> Elevator.RIGHT
 				FieldPositions.LeftRight.R -> Elevator.LEFT
 			}).join()
@@ -70,9 +71,9 @@ object AutoDriveMoveCommand {
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 					if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftToPosition(Elevator.LEFT).join()
-					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
 						Elevator.moveSideShiftToPosition(Elevator.RIGHT).join()
+					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+						Elevator.moveSideShiftToPosition(Elevator.LEFT).join()
 					}
 				}
 			}

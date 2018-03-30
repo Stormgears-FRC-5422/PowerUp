@@ -87,7 +87,7 @@ object DSIO {
 		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper?.closeGripper() }
 		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper?.openGripper() }
 
-		buttonBoard.climbUpButton.whenPressed { /* Raise Climber */ }
+		buttonBoard.climbUpButton.whenPressed { Elevator.moveSideShiftToPosition(Elevator.CENTER)/* Raise Climber */ }
 		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
 
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }

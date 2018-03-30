@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import com.ctre.phoenix.motorcontrol.NeutralMode
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -19,6 +20,9 @@ object ElevatorSharedTalons {
 
 		masterMotor = createTalon(MASTER_MOTOR_TALON_ID)
 		slaveMotor = createTalon(SLAVE_MOTOR_TALON_ID)
+
+		masterMotor.setNeutralMode(NeutralMode.Brake)
+		slaveMotor.setNeutralMode(NeutralMode.Brake)
 		slaveMotor.set(ControlMode.Follower, MASTER_MOTOR_TALON_ID.toDouble())
 
 		invert(true)
