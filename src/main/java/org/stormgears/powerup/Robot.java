@@ -17,7 +17,6 @@ import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.TalonDebugger;
-import org.stormgears.powerup.subsystems.navigator.TalonDebuggerKt;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
 import org.stormgears.utils.*;
 import org.stormgears.utils.concurrency.Terminator;
@@ -220,9 +219,9 @@ public class Robot extends BaseStormgearsRobot {
 
 //		logger.info("Current timer value: {}", timer.get());
 
-		if (driveTalons != null) {
-			TalonDebuggerKt.dashboardify(driveTalons);
-		}
+//		if (driveTalons != null) {
+//			TalonDebuggerKt.dashboardify(driveTalons);
+//		}
 
 		StormScheduler.getInstance().run();
 	}
@@ -253,9 +252,9 @@ public class Robot extends BaseStormgearsRobot {
 //		}
 //		**END**FOR USE WITH WPI MECANUM DRIVE API
 
-		if (driveTalons != null) {
-			TalonDebuggerKt.dashboardify(driveTalons);
-		}
+//		if (driveTalons != null) {
+//			TalonDebuggerKt.dashboardify(driveTalons);
+//		}
 
 		if (elevator != null) {
 			elevator.debug();
