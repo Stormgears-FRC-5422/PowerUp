@@ -7,7 +7,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.IBaseTalon
 import org.stormgears.utils.decoupling.createTalon
 
 object Gripper : TerminableSubsystem() {
@@ -28,7 +28,7 @@ object Gripper : TerminableSubsystem() {
 	private const val BREAK_JAM_SPEED = 0.75
 	private const val BRAKE_SPEED = -0.05
 
-	private val talon: ITalon
+	private val talon: IBaseTalon
 
 	private var gripperClosing = false
 	private var gripperOpening = false

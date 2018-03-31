@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.*
 import org.apache.logging.log4j.LogManager
 
 // TODO: MotorLogger wrapper thingy, also return convincing values from these methods
-class DummyTalon(private val deviceNumber: Int) : ITalon {
+class DummyTalon(private val deviceNumber: Int) : IBaseTalon {
 	companion object {
 		private val logger = LogManager.getLogger(DummyTalon::class.java)
 	}
@@ -487,6 +487,34 @@ class DummyTalon(private val deviceNumber: Int) : ITalon {
 		return 0
 	}
 
+	// New in 5.3.1.0
+	override fun set(Mode: ControlMode?, demand0: Double, demand1Type: DemandType?, demand1: Double) {
+
+	}
+
+	override fun configClosedLoopPeriod(slotIdx: Int, loopTimeMs: Int, timeoutMs: Int): ErrorCode {
+		return ErrorCode.OK
+	}
+
+	override fun configSelectedFeedbackCoefficient(coefficient: Double, pidIdx: Int, timeoutMs: Int): ErrorCode {
+		return ErrorCode.OK
+	}
+
+	override fun configClosedLoopPeakOutput(slotIdx: Int, percentOut: Double, timeoutMs: Int): ErrorCode {
+		return ErrorCode.OK
+	}
+
+	override fun configAuxPIDPolarity(invert: Boolean, timeoutMs: Int): ErrorCode {
+		return ErrorCode.OK
+	}
+
+	override fun getClosedLoopTarget(pidIdx: Int): Int {
+		return 0
+	}
+
+	override fun configMotionProfileTrajectoryPeriod(baseTrajDurationMs: Int, timeoutMs: Int): ErrorCode {
+		return ErrorCode.OK
+	}
 
 	override val dummy = true
 }

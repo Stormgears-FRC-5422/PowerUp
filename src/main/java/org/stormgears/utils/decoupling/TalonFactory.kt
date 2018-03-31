@@ -5,7 +5,7 @@ import org.stormgears.utils.logging.MotorLogger
 
 private val logger = LogManager.getLogger()
 
-fun createTalon(deviceNumber: Int): ITalon {
+fun createTalon(deviceNumber: Int): IBaseTalon {
 	if (deviceNumber != -1) {
 		val talon = StormTalon(deviceNumber)
 
@@ -22,7 +22,7 @@ fun createTalon(deviceNumber: Int): ITalon {
 /**
  * It's like WPI_TalonSRX, but with a little more Trehan
  */
-private class StormTalon private constructor(deviceNumber: Int, private val base: ITalon) : ITalon by base {
+private class StormTalon private constructor(deviceNumber: Int, private val base: IBaseTalon) : IBaseTalon by base {
 	internal constructor(deviceNumber: Int) : this(deviceNumber, TalonSRXAdapter(deviceNumber))
 
 	private var previousSet = java.lang.Double.MAX_VALUE

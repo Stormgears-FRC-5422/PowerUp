@@ -7,13 +7,13 @@ import com.ctre.phoenix.motion.TrajectoryPoint
 import com.ctre.phoenix.motorcontrol.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
+import org.stormgears.utils.decoupling.IBaseTalon
 import org.stormgears.utils.decoupling.ISensorCollection
-import org.stormgears.utils.decoupling.ITalon
 
 /**
  * Logs all of the method calls to a motor
  */
-class MotorLogger(private val motor: ITalon, private val name: String) : ITalon {
+class MotorLogger(private val motor: IBaseTalon, private val name: String) : IBaseTalon {
 	override val sensorCollection: ISensorCollection
 		get() = motor.sensorCollection
 
@@ -629,6 +629,49 @@ class MotorLogger(private val motor: ITalon, private val name: String) : ITalon 
 		logger.trace("{} -> {}", this.name, box(ret))
 		return ret
 	}
+
+	// New in 5.3.1.0
+	override fun set(Mode: ControlMode?, demand0: Double, demand1Type: DemandType?, demand1: Double) {
+		logger.trace("{} Mode = {}, demand0 = {}, demand1Type = {}, demand1 = {}", this.name, Mode, box(demand0), demand1Type, box(demand1))
+		motor.set(Mode, demand0, demand1Type, demand1)
+	}
+
+	override fun configClosedLoopPeriod(slotIdx: Int, loopTimeMs: Int, timeoutMs: Int): ErrorCode {
+		val ret = motor.configClosedLoopPeriod(slotIdx, loopTimeMs, timeoutMs)
+		logger.trace("{} slotIdx = {}, loopTimeMs = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(loopTimeMs), box(timeoutMs), ret)
+		return ret
+	}
+
+	override fun configSelectedFeedbackCoefficient(coefficient: Double, pidIdx: Int, timeoutMs: Int): ErrorCode {
+		val ret = motor.configSelectedFeedbackCoefficient(coefficient, pidIdx, timeoutMs)
+		logger.trace("{} pidIdx = {}, timeoutMs = {} -> {}", this.name, box(pidIdx), box(timeoutMs), ret)
+		return ret
+	}
+
+	override fun configClosedLoopPeakOutput(slotIdx: Int, percentOut: Double, timeoutMs: Int): ErrorCode {
+		val ret = motor.configClosedLoopPeakOutput(slotIdx, percentOut, timeoutMs)
+		logger.trace("{} slotIdx = {}, percentOut = {}, timeoutMs = {} -> {}", this.name, box(slotIdx), box(percentOut), box(timeoutMs), ret)
+		return ret
+	}
+
+	override fun configAuxPIDPolarity(invert: Boolean, timeoutMs: Int): ErrorCode {
+		val ret = motor.configAuxPIDPolarity(invert, timeoutMs)
+		logger.trace("{} invert = {}, timeoutMs = {} -> {}", this.name, box(invert), box(timeoutMs), ret)
+		return ret
+	}
+
+	override fun getClosedLoopTarget(pidIdx: Int): Int {
+		val ret = motor.getClosedLoopTarget(pidIdx)
+		logger.trace("{} pidIdx = {} -> {}", this.name, box(pidIdx), ret)
+		return ret
+	}
+
+	override fun configMotionProfileTrajectoryPeriod(baseTrajDurationMs: Int, timeoutMs: Int): ErrorCode {
+		val ret = motor.configMotionProfileTrajectoryPeriod(baseTrajDurationMs, timeoutMs)
+		logger.trace("{} baseTrajDurationMs = {}, timeoutMs = {} -> {}", this.name, box(baseTrajDurationMs), box(timeoutMs), ret)
+		return ret
+	}
+
 
 	companion object {
 		private val logger = LogManager.getLogger(MotorLogger::class.java)

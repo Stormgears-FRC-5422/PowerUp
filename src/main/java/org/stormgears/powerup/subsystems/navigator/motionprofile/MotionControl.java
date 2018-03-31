@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.decoupling.ITalon;
+import org.stormgears.utils.decoupling.IBaseTalon;
 
 import static org.apache.logging.log4j.util.Unbox.box;
 
@@ -38,7 +38,7 @@ public class MotionControl {
 
 			synchronized (this) {
 //				if (numPoints > 0) {
-				for (ITalon t : Robot.driveTalons.getTalons()) {
+				for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 					t.clearMotionProfileHasUnderrun(10);
 					t.processMotionProfileBuffer();
 //						t.clearMotionProfileHasUnderrun();
@@ -55,7 +55,7 @@ public class MotionControl {
 
 	public MotionControl() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
 			t.getSensorCollection().setQuadraturePosition(0, 10);
@@ -73,7 +73,7 @@ public class MotionControl {
 
 	public void startControlThread() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
 			t.getSensorCollection().setQuadraturePosition(0, 10);
@@ -89,14 +89,14 @@ public class MotionControl {
 
 	public void printStatus() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 		}
 	}
 
 	public void shutDownProfiling() {
 		numPoints = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.clearMotionProfileHasUnderrun(10);
 		}
@@ -104,7 +104,7 @@ public class MotionControl {
 
 	public void clearMotionProfileTrajectories() {
 		numPoints = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.clearMotionProfileTrajectories();
 		}
 	}
@@ -136,20 +136,20 @@ public class MotionControl {
 	//TODO: add in some edge case error checking
 	public void enable() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 			t.set(1);
 		}
 	}
 
 	public void disable() {
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.set(0);
 		}
 	}
 
 	public void holdProfile() {
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (IBaseTalon t : Robot.driveTalons.getTalons()) {
 			t.set(2);
 		}
 	}

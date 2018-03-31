@@ -7,7 +7,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.decoupling.IBaseTalon
 import org.stormgears.utils.decoupling.createTalon
 import java.lang.Math.abs
 
@@ -31,9 +31,9 @@ object Intake : TerminableSubsystem() {
 	private const val POWER = 1.0
 	private const val CURRENT_LIMIT = 90
 
-	private val leftTalon: ITalon
-	private val rightTalon: ITalon
-	private val articulatorTalon: ITalon
+	private val leftTalon: IBaseTalon
+	private val rightTalon: IBaseTalon
+	private val articulatorTalon: IBaseTalon
 
 	private var position = VERTICAL
 	private var job: Job? = null

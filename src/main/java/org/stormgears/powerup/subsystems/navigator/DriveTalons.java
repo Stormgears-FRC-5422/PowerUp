@@ -2,7 +2,7 @@ package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import org.stormgears.powerup.Robot;
-import org.stormgears.utils.decoupling.ITalon;
+import org.stormgears.utils.decoupling.IBaseTalon;
 import org.stormgears.utils.decoupling.TalonFactoryKt;
 
 public class DriveTalons {
@@ -14,7 +14,7 @@ public class DriveTalons {
 
 	private static final int TALON_FPID_TIMEOUT = 0;
 
-	private final ITalon[] talons = new ITalon[4];
+	private final IBaseTalon[] talons = new IBaseTalon[4];
 
 	private DriveTalons() {
 		talons[0] = TalonFactoryKt.createTalon(Robot.config.getFrontLeftTalonId());
@@ -23,7 +23,7 @@ public class DriveTalons {
 		talons[3] = TalonFactoryKt.createTalon(Robot.config.getRearRightTalonId());
 
 		velocityPIDMode();
-		for (ITalon t : talons) {
+		for (IBaseTalon t : talons) {
 			t.setNeutralMode(NeutralMode.Brake);
 
 			t.setInverted(true);
@@ -37,7 +37,7 @@ public class DriveTalons {
 	}
 
 	public void velocityPIDMode() {
-		for (ITalon t : talons) {
+		for (IBaseTalon t : talons) {
 			t.config_kF(0, Robot.config.getVelocityF(), TALON_FPID_TIMEOUT);
 			t.config_kP(0, Robot.config.getVelocityP(), TALON_FPID_TIMEOUT);
 			t.config_kI(0, Robot.config.getVelocityI(), TALON_FPID_TIMEOUT);
@@ -47,7 +47,7 @@ public class DriveTalons {
 	}
 
 	public void positionPIDMode() {
-		for (ITalon t : talons) {
+		for (IBaseTalon t : talons) {
 			t.config_kF(0, Robot.config.getVelocityF(), TALON_FPID_TIMEOUT);
 			t.config_kP(0, Robot.config.getPositionP(), TALON_FPID_TIMEOUT);
 			t.config_kI(0, Robot.config.getPositionI(), TALON_FPID_TIMEOUT);
@@ -60,7 +60,7 @@ public class DriveTalons {
 		instance = new DriveTalons();
 	}
 
-	public ITalon[] getTalons() {
+	public IBaseTalon[] getTalons() {
 		return talons;
 	}
 }

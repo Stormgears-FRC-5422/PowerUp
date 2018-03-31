@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.decoupling.ITalon;
+import org.stormgears.utils.decoupling.IBaseTalon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -185,7 +185,7 @@ public class MotionManager {
 		//TODO: fix this so that auto and teleops have two different flags
 		//Navigator.getMecanumDrive().initializeDriveMode(RobotModes.TELEOP, RobotDriveProfile.VELOCITY);
 
-		ITalon[] driveTalons = Robot.driveTalons.getTalons();
+		IBaseTalon[] driveTalons = Robot.driveTalons.getTalons();
 	/*
 		driveTalons[Robot.config.frontLeftTalonId].set(ControlMode.Velocity, 0);
 		driveTalons[Robot.config.rearLeftTalonId].set(ControlMode.Velocity, 0);
