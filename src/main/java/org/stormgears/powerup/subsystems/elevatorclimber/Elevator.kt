@@ -299,9 +299,9 @@ object Elevator : TerminableSubsystem() {
 		logger.trace("downPower = {}", downPower)
 
 //		talons.masterMotor.set(ControlMode.Position, min(currentPositionTicks + 5000.0, -100.0))
-		talons.masterMotor.set(ControlMode.Position, 0.0)
+		talons.masterMotor.set(ControlMode.Position, -500000.0)
 
-		while (currentPositionTicks < -1000 && DSIO.buttonBoard.overrideDown.get()) {
+		while (currentPositionTicks < -400000 && DSIO.buttonBoard.overrideDown.get()) {
 			yield()
 		}
 
