@@ -8,7 +8,6 @@ import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.subsystems.dsio.DSIO
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.decoupling.ITalon
 import org.stormgears.utils.decoupling.createTalon
@@ -132,8 +131,8 @@ object Elevator : TerminableSubsystem() {
 			yield()
 		}
 		logger.trace("Elevator has moved to encoder position: {}", currentPositionTicks)
-		holdElevator()    // Replace this with talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble()) if it doesn't work well
-//		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+//		holdElevator()    // Replace this with talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble()) if it doesn't work well
+		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	private var overrodeSide = false
@@ -148,7 +147,7 @@ object Elevator : TerminableSubsystem() {
 			if (!overrodeSide) {
 				talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
-				holdElevator()
+//				holdElevator()
 			}
 		}
 	}
@@ -234,7 +233,7 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun holdElevator() {
+	private fun holdElevator() {
 		logger.trace("Holding elevator")
 		this.elevatorJob?.cancel()
 
@@ -255,41 +254,18 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveUpManual() {
-		this.elevatorJob?.cancel()
-
-		this.elevatorJob = launchOverride("Manual move up") {
-			moveUpManualSuspend()
-		}
-	}
-
-	private suspend fun moveUpManualSuspend() {
 		if (currentPositionTicks < -1100000) {
-//			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
-			holdElevator()
+			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+//			holdElevator()
 		} else {
-//			talons.masterMotor.set(ControlMode.PercentOutput, -0.8)
+			talons.masterMotor.set(ControlMode.PercentOutput, -0.8)
 //			talons.masterMotor.set(ControlMode.Position, max(currentPositionTicks - 5000.0, 0.0))
-			talons.masterMotor.set(ControlMode.Position, -1100000.0)
-
-			while (currentPositionTicks > -1000000 && DSIO.buttonBoard.overrideUp.get()) {
-				yield()
-			}
-
-			holdElevator()
 		}
 		overrodeSide = false
 	}
 
-	fun moveDownManual() {
-		this.elevatorJob?.cancel()
-
-		this.elevatorJob = launchOverride("Manual move down") {
-			moveDownManualSuspend()
-		}
-	}
-
 	private var downPower = 0.33
-	suspend fun moveDownManualSuspend() {
+	fun moveDownManual() {
 		overrodeSide = false
 
 //		if (Intake.isUp && talons.masterMotor.sensorCollection.quadraturePosition > INTAKE_HEIGHT) return
@@ -298,14 +274,7 @@ object Elevator : TerminableSubsystem() {
 
 		logger.trace("downPower = {}", downPower)
 
-//		talons.masterMotor.set(ControlMode.Position, min(currentPositionTicks + 5000.0, -100.0))
-		talons.masterMotor.set(ControlMode.Position, -500000.0)
-
-		while (currentPositionTicks < -400000 && DSIO.buttonBoard.overrideDown.get()) {
-			yield()
-		}
-
-		holdElevator()
+		talons.masterMotor.set(ControlMode.PercentOutput, downPower)
 	}
 
 	fun moveLeftManual() {

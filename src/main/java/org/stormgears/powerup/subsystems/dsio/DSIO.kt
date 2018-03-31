@@ -90,10 +90,10 @@ object DSIO {
 		buttonBoard.climbUpButton.whenPressed { Elevator.moveSideShiftToPosition(Elevator.CENTER)/* Raise Climber */ }
 		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
 
-		buttonBoard.overrideUp.whenPressed { Robot.elevator?.moveUpManual() }
-		buttonBoard.overrideDown.whenPressed { Robot.elevator?.moveDownManual() }
-//		buttonBoard.overrideUp.whenReleased { Robot.elevator?.holdElevator() }
-//		buttonBoard.overrideDown.whenReleased { Robot.elevator?.holdElevator() }
+		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
+		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }
+		buttonBoard.overrideUp.whenReleased { Robot.elevator?.stop() }
+		buttonBoard.overrideDown.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideLeft.whenPressed { Robot.elevator?.moveLeftManual() }
 		buttonBoard.overrideRight.whenPressed { Robot.elevator?.moveRightManual() }
 		buttonBoard.overrideLeft.whenReleased { Robot.elevator?.stop() }

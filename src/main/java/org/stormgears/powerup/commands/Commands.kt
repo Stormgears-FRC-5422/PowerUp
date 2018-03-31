@@ -49,7 +49,7 @@ object Commands : TerminableSubsystem() {
 		Intake.applyPower(0.2, 2000)
 		delay(100)
 		Gripper.openGripper().join()
-		Elevator.moveElevatorToPosition(-4)
+		Elevator.moveElevatorToPosition(-3)
 		delay(200)
 		Gripper.closeGripper(useTime = true, timeMs = 3000).join()
 		//delay(600) // 700 3-28 replica
