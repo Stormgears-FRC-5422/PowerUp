@@ -30,9 +30,7 @@ Default constructor for the creation of the elevator
 | Name | Summary |
 |---|---|
 | [debug](debug.md) | `fun debug(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [holdElevator](hold-elevator.md) | `fun holdElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveDownManual](move-down-manual.md) | `fun moveDownManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveDownManualSuspend](move-down-manual-suspend.md) | `suspend fun moveDownManualSuspend(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveElevatorToPosition](move-elevator-to-position.md) | `fun moveElevatorToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move the elevator to a position |
 | [moveLeftManual](move-left-manual.md) | `fun moveLeftManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveRightManual](move-right-manual.md) | `fun moveRightManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
