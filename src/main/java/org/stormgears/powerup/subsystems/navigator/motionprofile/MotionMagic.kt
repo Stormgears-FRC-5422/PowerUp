@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.decoupling.IBaseTalon
+import org.stormgears.utils.talons.IBaseTalon
 
 class MotionMagic(private val talon: IBaseTalon, maxVel: Double, maxAccel: Double) {
 	companion object {

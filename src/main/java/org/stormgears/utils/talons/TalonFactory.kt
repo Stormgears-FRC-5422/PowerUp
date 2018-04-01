@@ -1,4 +1,4 @@
-package org.stormgears.utils.decoupling
+package org.stormgears.utils.talons
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.logging.MotorLogger

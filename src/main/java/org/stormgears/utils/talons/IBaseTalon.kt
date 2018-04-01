@@ -1,4 +1,4 @@
-package org.stormgears.utils.decoupling
+package org.stormgears.utils.talons
 
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced
 import edu.wpi.first.wpilibj.MotorSafety

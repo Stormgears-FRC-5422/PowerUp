@@ -7,8 +7,8 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.decoupling.IBaseTalon
-import org.stormgears.utils.decoupling.createTalon
+import org.stormgears.utils.talons.IBaseTalon
+import org.stormgears.utils.talons.createTalon
 
 object Gripper : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)

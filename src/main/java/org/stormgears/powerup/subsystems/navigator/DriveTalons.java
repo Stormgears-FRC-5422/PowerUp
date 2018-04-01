@@ -2,8 +2,8 @@ package org.stormgears.powerup.subsystems.navigator;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import org.stormgears.powerup.Robot;
-import org.stormgears.utils.decoupling.IBaseTalon;
-import org.stormgears.utils.decoupling.TalonFactoryKt;
+import org.stormgears.utils.talons.IBaseTalon;
+import org.stormgears.utils.talons.TalonFactoryKt;
 
 public class DriveTalons {
 	private static DriveTalons instance;

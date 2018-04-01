@@ -7,8 +7,8 @@ import com.ctre.phoenix.motion.TrajectoryPoint
 import com.ctre.phoenix.motorcontrol.*
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
-import org.stormgears.utils.decoupling.IBaseTalon
-import org.stormgears.utils.decoupling.ISensorCollection
+import org.stormgears.utils.talons.IBaseTalon
+import org.stormgears.utils.talons.ISensorCollection
 
 /**
  * Logs all of the method calls to a motor
