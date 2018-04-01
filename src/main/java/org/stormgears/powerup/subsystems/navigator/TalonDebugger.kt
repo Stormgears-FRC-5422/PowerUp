@@ -6,7 +6,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.commons.text.StringEscapeUtils
 import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.concurrency.WithCoroutines
-import org.stormgears.utils.talons.IBaseTalon
+import org.stormgears.utils.talons.ITalon
 import java.io.PrintWriter
 import java.time.LocalDateTime
 
@@ -20,7 +20,7 @@ fun dashboardify(talons: DriveTalons) {
 	}
 }
 
-class TalonDebugger(val talons: Array<IBaseTalon>, label: String = "") : WithCoroutines {
+class TalonDebugger(val talons: Array<ITalon>, label: String = "") : WithCoroutines {
 	companion object {
 		private val logger = LogManager.getLogger(TalonDebugger::class.java)
 	}

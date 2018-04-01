@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.sensordrivers.NavX;
-import org.stormgears.utils.talons.IBaseTalon;
+import org.stormgears.utils.talons.ITalon;
 
 public class PowerUpMecanumDrive extends MecanumDrive {
 
@@ -17,7 +17,7 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 //talons[3] = new WPI_TalonSRX(3);//right back
 	
 	private static PowerUpMecanumDrive instance;
-	private IBaseTalon[] talons;
+	private ITalon[] talons;
 
 	public static PowerUpMecanumDrive getInstance() {
 		return instance;

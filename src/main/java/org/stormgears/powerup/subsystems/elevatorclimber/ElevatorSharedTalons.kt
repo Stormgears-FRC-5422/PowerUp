@@ -3,7 +3,7 @@ package org.stormgears.powerup.subsystems.elevatorclimber
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.talons.IBaseTalon
+import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
 
 object ElevatorSharedTalons {
@@ -12,8 +12,8 @@ object ElevatorSharedTalons {
 	private val MASTER_MOTOR_TALON_ID = Robot.config.elevatorMasterTalonId
 	private val SLAVE_MOTOR_TALON_ID = Robot.config.elevatorSlaveTalonId
 
-	val masterMotor: IBaseTalon
-	val slaveMotor: IBaseTalon
+	val masterMotor: ITalon
+	val slaveMotor: ITalon
 
 	init {
 		println("Initializing elevator talons")

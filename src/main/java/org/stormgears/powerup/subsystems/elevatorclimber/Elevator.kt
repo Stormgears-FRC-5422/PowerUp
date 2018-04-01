@@ -9,7 +9,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.talons.IBaseTalon
+import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
 
 /**
@@ -20,7 +20,7 @@ object Elevator : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(this::class.java)
 
 	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons!!
-	val sideShiftTalon: IBaseTalon
+	val sideShiftTalon: ITalon
 	private var sideShiftPosition = 0
 
 	private const val TICKS_PER_INCH = 13000

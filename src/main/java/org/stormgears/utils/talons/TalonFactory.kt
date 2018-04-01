@@ -5,9 +5,9 @@ import org.stormgears.utils.logging.MotorLogger
 
 private val logger = LogManager.getLogger()
 
-fun createTalon(deviceNumber: Int): IBaseTalon {
+fun createTalon(deviceNumber: Int): ITalon {
 	if (deviceNumber != -1) {
-		val talon = StormTalon(deviceNumber)
+		val talon = TalonManager(TalonSRXAdapter(deviceNumber))
 
 		if (talon.isAlive) {
 			return talon
@@ -16,7 +16,7 @@ fun createTalon(deviceNumber: Int): IBaseTalon {
 		}
 	}
 
-	return MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber")
+	return TalonManager(MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber"))
 }
 
 /**
