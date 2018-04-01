@@ -2,7 +2,7 @@
 
 # MotorLogger
 
-`class MotorLogger : `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)
+`class MotorLogger : `[`IBaseTalon`](../../org.stormgears.utils.talons/-i-base-talon/index.md)
 
 Logs all of the method calls to a motor
 
@@ -10,14 +10,14 @@ Logs all of the method calls to a motor
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `MotorLogger(motor: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`, name: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`<br>Logs all of the method calls to a motor |
+| [&lt;init&gt;](-init-.md) | `MotorLogger(motor: `[`IBaseTalon`](../../org.stormgears.utils.talons/-i-base-talon/index.md)`, name: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`<br>Logs all of the method calls to a motor |
 
 ### Properties
 
 | Name | Summary |
 |---|---|
 | [dummy](dummy.md) | `val dummy: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [sensorCollection](sensor-collection.md) | `val sensorCollection: `[`ISensorCollection`](../../org.stormgears.utils.decoupling/-i-sensor-collection/index.md) |
+| [sensorCollection](sensor-collection.md) | `val sensorCollection: `[`ISensorCollection`](../../org.stormgears.utils.talons/-i-sensor-collection/index.md) |
 
 ### Functions
 

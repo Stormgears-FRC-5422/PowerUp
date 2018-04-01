@@ -2,4 +2,4 @@
 
 # sideShiftTalon
 
-`val sideShiftTalon: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)
+`val sideShiftTalon: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md)

@@ -2,4 +2,4 @@
 
 # slaveMotor
 
-`val slaveMotor: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)
+`val slaveMotor: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md)

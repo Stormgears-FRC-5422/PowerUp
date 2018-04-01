@@ -2,4 +2,4 @@
 
 # talons
 
-`val talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`>`
+`val talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md)`>`

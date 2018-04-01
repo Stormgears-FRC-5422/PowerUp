@@ -2,7 +2,7 @@
 
 # &lt;init&gt;
 
-`MotorLogger(motor: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`, name: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`
+`MotorLogger(motor: `[`IBaseTalon`](../../org.stormgears.utils.talons/-i-base-talon/index.md)`, name: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`
 
 Logs all of the method calls to a motor
 

@@ -24,3 +24,4 @@ org.stormgears.utils.dsio
 org.stormgears.utils.graveyard
 org.stormgears.utils.logging
 org.stormgears.utils.sensordrivers
+org.stormgears.utils.talons

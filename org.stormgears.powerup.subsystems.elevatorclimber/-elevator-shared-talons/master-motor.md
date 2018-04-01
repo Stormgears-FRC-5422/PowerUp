@@ -2,4 +2,4 @@
 
 # masterMotor
 
-`val masterMotor: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)
+`val masterMotor: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md)

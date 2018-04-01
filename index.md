@@ -27,6 +27,7 @@
 | [org.stormgears.utils.graveyard](org.stormgears.utils.graveyard/index.md) | RIP. |
 | [org.stormgears.utils.logging](org.stormgears.utils.logging/index.md) | Utilities for logging. |
 | [org.stormgears.utils.sensordrivers](org.stormgears.utils.sensordrivers/index.md) | Drivers for sensors (duh). |
+| [org.stormgears.utils.talons](org.stormgears.utils.talons/index.md) |  |
 
 ### Index
 
