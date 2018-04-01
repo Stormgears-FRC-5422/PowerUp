@@ -8,7 +8,7 @@
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `MotionMagic(talon: `[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md)`, maxVel: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`, maxAccel: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`)` |
+| [&lt;init&gt;](-init-.md) | `MotionMagic(talon: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`, maxVel: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`, maxAccel: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`)` |
 
 ### Functions
 

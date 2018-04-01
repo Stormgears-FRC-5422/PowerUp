@@ -2,4 +2,4 @@
 
 # &lt;init&gt;
 
-`TalonDebugger(talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md)`>, label: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = "")`
+`TalonDebugger(talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`>, label: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = "")`

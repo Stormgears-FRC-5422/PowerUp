@@ -8,7 +8,7 @@
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `TalonDebugger(talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md)`>, label: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = "")` |
+| [&lt;init&gt;](-init-.md) | `TalonDebugger(talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`>, label: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = "")` |
 
 ### Properties
 
@@ -16,7 +16,7 @@
 |---|---|
 | [filename](filename.md) | `val filename: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 | [job](job.md) | `var job: `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
-| [talons](talons.md) | `val talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md)`>` |
+| [talons](talons.md) | `val talons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md)`>` |
 | [writer](writer.md) | `val writer: `[`PrintWriter`](http://docs.oracle.com/javase/8/docs/api/java/io/PrintWriter.html) |
 
 ### Functions

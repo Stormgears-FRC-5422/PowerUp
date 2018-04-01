@@ -9,4 +9,3 @@ FIRST Power Up (2018)
 | Name | Summary |
 |---|---|
 | [Robot](-robot/index.md) | `open class Robot : `[`BaseStormgearsRobot`](../org.stormgears.utils/-base-stormgears-robot/index.md) |
-| [TalonIds](-talon-ids/index.md) | `open class ~~TalonIds~~` |

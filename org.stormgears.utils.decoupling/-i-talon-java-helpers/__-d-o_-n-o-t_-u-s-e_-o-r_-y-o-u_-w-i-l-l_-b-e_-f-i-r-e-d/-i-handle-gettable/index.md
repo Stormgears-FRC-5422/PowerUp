@@ -14,4 +14,4 @@
 
 | Name | Summary |
 |---|---|
-| [ITalon](../../../-i-talon/index.md) | `interface ITalon : IMotorControllerEnhanced, SpeedController, MotorSafety, `[`IControlModeGettable`](../-i-control-mode-gettable/index.md)`, `[`IHandleGettable`](./index.md) |
+| [IBaseTalon](../../../-i-base-talon/index.md) | `interface IBaseTalon : IMotorControllerEnhanced, SpeedController, MotorSafety, `[`IControlModeGettable`](../-i-control-mode-gettable/index.md)`, `[`IHandleGettable`](./index.md) |

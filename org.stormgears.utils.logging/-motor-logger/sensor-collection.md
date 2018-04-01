@@ -4,5 +4,5 @@
 
 `val sensorCollection: `[`ISensorCollection`](../../org.stormgears.utils.decoupling/-i-sensor-collection/index.md)
 
-Overrides [ITalon.sensorCollection](../../org.stormgears.utils.decoupling/-i-talon/sensor-collection.md)
+Overrides [IBaseTalon.sensorCollection](../../org.stormgears.utils.decoupling/-i-base-talon/sensor-collection.md)
 

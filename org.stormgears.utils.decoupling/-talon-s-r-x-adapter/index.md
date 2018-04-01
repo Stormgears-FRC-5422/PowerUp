@@ -2,7 +2,7 @@
 
 # TalonSRXAdapter
 
-`class TalonSRXAdapter : `[`ITalon`](../-i-talon/index.md)`, WPI_TalonSRX`
+`class TalonSRXAdapter : `[`IBaseTalon`](../-i-base-talon/index.md)`, WPI_TalonSRX`
 
 ### Constructors
 

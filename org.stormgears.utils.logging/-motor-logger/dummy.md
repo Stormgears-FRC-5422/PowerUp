@@ -4,5 +4,5 @@
 
 `val dummy: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
 
-Overrides [ITalon.dummy](../../org.stormgears.utils.decoupling/-i-talon/dummy.md)
+Overrides [IBaseTalon.dummy](../../org.stormgears.utils.decoupling/-i-base-talon/dummy.md)
 

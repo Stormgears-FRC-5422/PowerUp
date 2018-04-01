@@ -4,5 +4,5 @@
 
 `val dummy: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
 
-Overrides [ITalon.dummy](../-i-talon/dummy.md)
+Overrides [IBaseTalon.dummy](../-i-base-talon/dummy.md)
 

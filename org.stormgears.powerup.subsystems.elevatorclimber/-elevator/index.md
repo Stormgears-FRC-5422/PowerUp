@@ -16,7 +16,7 @@ Default constructor for the creation of the elevator
 | [SCALE_POSITIONS](-s-c-a-l-e_-p-o-s-i-t-i-o-n-s.md) | `val SCALE_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [SWITCH_POSITIONS](-s-w-i-t-c-h_-p-o-s-i-t-i-o-n-s.md) | `val SWITCH_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [elevatorZeroed](elevator-zeroed.md) | `var elevatorZeroed: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [sideShiftTalon](side-shift-talon.md) | `val sideShiftTalon: `[`ITalon`](../../org.stormgears.utils.decoupling/-i-talon/index.md) |
+| [sideShiftTalon](side-shift-talon.md) | `val sideShiftTalon: `[`IBaseTalon`](../../org.stormgears.utils.decoupling/-i-base-talon/index.md) |
 | [useGartnerRate](use-gartner-rate.md) | `var useGartnerRate: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
 ### Inherited Properties

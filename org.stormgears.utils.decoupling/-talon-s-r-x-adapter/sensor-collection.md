@@ -4,5 +4,5 @@
 
 `val sensorCollection: `[`ISensorCollection`](../-i-sensor-collection/index.md)
 
-Overrides [ITalon.sensorCollection](../-i-talon/sensor-collection.md)
+Overrides [IBaseTalon.sensorCollection](../-i-base-talon/sensor-collection.md)
 
