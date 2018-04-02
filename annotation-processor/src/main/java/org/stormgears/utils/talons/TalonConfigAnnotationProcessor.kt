@@ -84,6 +84,7 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 				addInitializerBlock(CodeBlock.of("setConfig(config)"))
 
 				addFunction(FunSpec.builder("setConfig").apply {
+					addModifiers(KModifier.OPEN)
 					buildSetConfig(clazz, executableElements)
 					addStatement("this.prevConfig = config")
 				}.build())
