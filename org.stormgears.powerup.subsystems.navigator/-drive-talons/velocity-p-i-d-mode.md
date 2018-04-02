@@ -2,4 +2,4 @@
 
 # velocityPIDMode
 
-`open fun velocityPIDMode(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun velocityPIDMode(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)

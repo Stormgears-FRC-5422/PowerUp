@@ -9,7 +9,7 @@ Subsystem that moves the robot around.
 | Name | Summary |
 |---|---|
 | [Drive](-drive/index.md) | `object Drive : `[`TerminableSubsystem`](../org.stormgears.utils.concurrency/-terminable-subsystem/index.md) |
-| [DriveTalons](-drive-talons/index.md) | `open class DriveTalons` |
+| [DriveTalons](-drive-talons/index.md) | `class DriveTalons` |
 | [GlobalMapping](-global-mapping/index.md) | `open class GlobalMapping` |
 | [Position](-position/index.md) | `open class Position` |
 | [PowerUpMecanumDrive](-power-up-mecanum-drive/index.md) | `open class PowerUpMecanumDrive : MecanumDrive` |

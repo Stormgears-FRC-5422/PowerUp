@@ -4,6 +4,12 @@
 
 `class MotionMagic`
 
+### Types
+
+| Name | Summary |
+|---|---|
+| [MotionMagicDriveConfig](-motion-magic-drive-config/index.md) | `class MotionMagicDriveConfig : `[`DriveTalonConfig`](../../org.stormgears.powerup.subsystems.navigator/-drive-talons/-drive-talon-config/index.md) |
+
 ### Constructors
 
 | Name | Summary |

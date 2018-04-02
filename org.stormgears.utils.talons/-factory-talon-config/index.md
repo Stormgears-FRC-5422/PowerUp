@@ -57,3 +57,9 @@ Factory default Talon configuration
 | [velocityMeasurementWindow](velocity-measurement-window.md) | `open val velocityMeasurementWindow: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Sets the number of velocity samples used in the rolling average velocity measurement. |
 | [voltageCompSaturation](voltage-comp-saturation.md) | `open val voltageCompSaturation: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)<br>Configures the Voltage Compensation saturation voltage. |
 | [voltageMeasurementFilter](voltage-measurement-filter.md) | `open val voltageMeasurementFilter: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Configures the voltage measurement filter. |
+
+### Inheritors
+
+| Name | Summary |
+|---|---|
+| [DriveTalonConfig](../../org.stormgears.powerup.subsystems.navigator/-drive-talons/-drive-talon-config/index.md) | `class DriveTalonConfig : `[`FactoryTalonConfig`](./index.md) |

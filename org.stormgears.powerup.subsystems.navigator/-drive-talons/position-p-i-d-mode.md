@@ -2,4 +2,4 @@
 
 # positionPIDMode
 
-`open fun positionPIDMode(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun positionPIDMode(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
