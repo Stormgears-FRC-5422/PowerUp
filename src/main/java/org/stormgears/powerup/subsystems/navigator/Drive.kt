@@ -298,6 +298,7 @@ object Drive : TerminableSubsystem() {
 		for (talon in talons) {
 			talon.set(ControlMode.PercentOutput, 0.0)
 			talon.sensorCollection.setQuadraturePosition(0, 250)
+			talon.setConfig(driveTalons.driveTalonConfig)
 //			talon.set(ControlMode.MotionMagic, 0.0)
 		}
 

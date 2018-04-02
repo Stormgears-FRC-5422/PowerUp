@@ -109,8 +109,7 @@ public class Robot extends BaseStormgearsRobot {
 //		globalMapping = GlobalMapping.getInstance();
 
 		if (config.getEnableDrive()) {
-			DriveTalons.init();
-			driveTalons = DriveTalons.getInstance();
+			driveTalons = new DriveTalons();
 
 			drive = Drive.INSTANCE;
 
