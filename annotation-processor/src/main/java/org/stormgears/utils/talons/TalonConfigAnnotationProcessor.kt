@@ -85,6 +85,7 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 
 				addFunction(FunSpec.builder("setConfig").apply {
 					buildSetConfig(clazz, executableElements)
+					addStatement("this.prevConfig = config")
 				}.build())
 			}.build())
 		}.build()
