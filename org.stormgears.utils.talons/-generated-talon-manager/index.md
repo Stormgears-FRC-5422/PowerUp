@@ -21,7 +21,7 @@
 
 | Name | Summary |
 |---|---|
-| [setConfig](set-config.md) | `fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [setConfig](set-config.md) | `open fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 
 ### Inheritors
 

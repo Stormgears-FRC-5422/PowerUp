@@ -23,8 +23,8 @@
 | [prevConfig](../-generated-talon-manager/prev-config.md) | `var prevConfig: `[`TalonConfig`](../-talon-config/index.md)`?` |
 | [talon](../-generated-talon-manager/talon.md) | `val talon: `[`IBaseTalon`](../-i-base-talon/index.md) |
 
-### Inherited Functions
+### Functions
 
 | Name | Summary |
 |---|---|
-| [setConfig](../-i-talon/set-config.md) | `abstract fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [setConfig](set-config.md) | `fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |

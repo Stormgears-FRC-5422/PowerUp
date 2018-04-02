@@ -2,4 +2,4 @@
 
 # setConfig
 
-`fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`open fun setConfig(config: `[`TalonConfig`](../-talon-config/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
