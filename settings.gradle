@@ -1,2 +1,3 @@
 rootProject.name = 'PowerUp'
+include 'annotation-processor'
 

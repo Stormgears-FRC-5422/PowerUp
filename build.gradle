@@ -1,7 +1,7 @@
+import jaci.gradle.deploy.DeployContext
 import jaci.openrio.gradle.GradleRIOPlugin
 import jaci.openrio.gradle.frc.FRCJavaArtifact
 import jaci.openrio.gradle.frc.RoboRIO
-import jaci.gradle.deploy.DeployContext
 
 buildscript {
 	repositories {
@@ -22,6 +22,7 @@ plugins {
 }
 
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'kotlin-kapt'
 
 group 'org.stormgears.powerup'
 version '1.0-SNAPSHOT'
@@ -32,7 +33,8 @@ def ROBOT_CLASS = "org.stormgears.powerup.Robot"
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	maven { url 'https://jitpack.io' }
 }
 
 wpi {
@@ -82,6 +84,9 @@ dependencies {
 	compile navx()
 	compile ctre()
 
+	compileOnly project(':annotation-processor')
+	kapt project(':annotation-processor')
+
 	testCompile group: 'junit', name: 'junit', version: '4.12'
 	testCompile 'org.powermock:powermock-module-junit4:1.7.3'
 	testCompile 'org.powermock:powermock-api-mockito2:1.7.3'
@@ -102,6 +107,10 @@ kotlin {
 	experimental {
 		coroutines 'enable'
 	}
+}
+
+kapt {
+	correctErrorTypes = true
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {

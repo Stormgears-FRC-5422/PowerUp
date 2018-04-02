@@ -6,13 +6,39 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX
 /**
  * Configuration values for a Talon
  */
+@GenerateTalonConfigReconciler
 interface TalonConfig {
 	/**
-	 * Profile slots
+	 * Profile slot 0
 	 *
 	 * @see TalonSRX.selectProfileSlot
 	 */
-	val profileSlots: Array<PIDSlot>
+	@get:PIDSlotConfig(0)
+	val profileSlot0: PIDSlot
+
+	/**
+	 * Profile slot 1
+	 *
+	 * @see TalonSRX.selectProfileSlot
+	 */
+	@get:PIDSlotConfig(1)
+	val profileSlot1: PIDSlot
+
+	/**
+	 * Profile slot 2
+	 *
+	 * @see TalonSRX.selectProfileSlot
+	 */
+	@get:PIDSlotConfig(2)
+	val profileSlot2: PIDSlot
+
+	/**
+	 * Profile slot 3
+	 *
+	 * @see TalonSRX.selectProfileSlot
+	 */
+	@get:PIDSlotConfig(3)
+	val profileSlot3: PIDSlot
 
 	/**
 	 * Configures the Polarity of the Auxiliary PID (PID1). Standard Polarity: Primary Output = PID0 + PID1 Auxiliary Output
@@ -20,6 +46,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configAuxPIDPolarity
 	 */
+	@get:Config("config")
 	val auxPIDPolarity: Boolean
 
 	/**
@@ -27,6 +54,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configClosedloopRamp
 	 */
+	@get:Config("config")
 	val closedloopRamp: Double
 
 	/**
@@ -36,6 +64,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configForwardLimitSwitchSource
 	 */
+	@get:Config("config", deep = true)
 	val forwardLimitSwitchSource: LimitSwitchSourceConfig
 
 	/**
@@ -43,6 +72,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configForwardSoftLimitEnable
 	 */
+	@get:Config("config")
 	val forwardSoftLimitEnable: Boolean
 
 	/**
@@ -50,6 +80,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configForwardSoftLimitThreshold
 	 */
+	@get:Config("config")
 	val forwardSoftLimitThreshold: Int
 
 	/**
@@ -58,6 +89,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configMotionAcceleration
 	 */
+	@get:Config("config")
 	val motionAcceleration: Int
 
 	/**
@@ -66,6 +98,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configMotionCruiseVelocity
 	 */
+	@get:Config("config")
 	val motionCruiseVelocity: Int
 
 	/**
@@ -76,6 +109,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configMotionProfileTrajectoryPeriod
 	 */
+	@get:Config("config")
 	val motionProfileTrajectoryPeriod: Int
 
 	/**
@@ -83,6 +117,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configNeutralDeadband
 	 */
+	@get:Config("config")
 	val neutralDeadband: Double
 
 	/**
@@ -90,13 +125,16 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configNominalOutputForward
 	 */
+	@get:Config("config")
 	val nominalOutputForward: Double
 
 	/**
+	 * @get:Config("config")
 	 * Configures the reverse nominal output percentage.
 	 *
 	 * @see TalonSRX.configNominalOutputReverse
 	 */
+	@get:Config("config")
 	val nominalOutputReverse: Double
 
 	/**
@@ -104,6 +142,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configOpenloopRamp
 	 */
+	@get:Config("config")
 	val openloopRamp: Double
 
 	/**
@@ -111,6 +150,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configPeakOutputForward
 	 */
+	@get:Config("config")
 	val peakOutputForward: Double
 
 	/**
@@ -118,6 +158,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configPeakOutputReverse
 	 */
+	@get:Config("config")
 	val peakOutputReverse: Double
 
 	/**
@@ -126,6 +167,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configRemoteFeedbackFilter
 	 */
+	@get:Config("config", deep = true)
 	val remoteFeedbackFilter: RemoteFeedbackFilterConfig
 
 	/**
@@ -133,6 +175,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configReverseLimitSwitchSource
 	 */
+	@get:Config("config", deep = true)
 	val reverseLimitSwitchSource: LimitSwitchSourceConfig
 
 	/**
@@ -140,6 +183,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configReverseSoftLimitEnable
 	 */
+	@get:Config("config")
 	val reverseSoftLimitEnable: Boolean
 
 	/**
@@ -147,6 +191,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configReverseSoftLimitThreshold
 	 */
+	@get:Config("config")
 	val reverseSoftLimitThreshold: Int
 
 	/**
@@ -157,6 +202,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configSelectedFeedbackCoefficient
 	 */
+	@get:Config("config", pidIdx = true)
 	val selectedFeedbackCoefficient: Double // TODO: Add support for pidIdx
 
 	/**
@@ -164,26 +210,29 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configSelectedFeedbackSensor
 	 */
+	@get:Config("config", deep = true)
 	val selectedFeedbackSensor: FeedbackDeviceConfig
 
-	/**
-	 * Select what sensor term should be bound to switch feedback device.
-	 *
-	 * Sensor Sum = Sensor Sum Term 0 - Sensor Sum Term 1
-	 *
-	 * Sensor Difference = Sensor Diff Term 0 - Sensor Diff Term 1
-	 *
-	 * The four terms are specified with this routine. Then Sensor Sum/Difference can be selected for closed-looping.
-	 *
-	 * @see TalonSRX.configSensorTerm
-	 */
-	val sensorTerm: SensorTermConfig?
+//	/**
+//	 * Select what sensor term should be bound to switch feedback device.
+//	 *
+//	 * Sensor Sum = Sensor Sum Term 0 - Sensor Sum Term 1
+//	 *
+//	 * Sensor Difference = Sensor Diff Term 0 - Sensor Diff Term 1
+//	 *
+//	 * The four terms are specified with this routine. Then Sensor Sum/Difference can be selected for closed-looping.
+//	 *
+//	 * @see TalonSRX.configSensorTerm
+//	 */
+//	@get:Config("config", deep = true)
+//	val sensorTerm: SensorTermConfig
 
 	/**
 	 * Sets the period over which velocity measurements are taken.
 	 *
 	 * @see TalonSRX.configVelocityMeasurementPeriod
 	 */
+	@get:Config("config")
 	val velocityMeasurementPeriod: VelocityMeasPeriod
 
 	/**
@@ -191,6 +240,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configVelocityMeasurementWindow
 	 */
+	@get:Config("config")
 	val velocityMeasurementWindow: Int
 
 	/**
@@ -198,6 +248,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configVoltageCompSaturation
 	 */
+	@get:Config("config")
 	val voltageCompSaturation: Double
 
 	/**
@@ -205,21 +256,24 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configVoltageMeasurementFilter
 	 */
+	@get:Config("config")
 	val voltageMeasurementFilter: Int
 
-	/**
-	 * Enables a future feature called "Heading Hold". For now this simply updates the CAN signal to the motor
-	 * controller. Future firmware updates will use this.
-	 *
-	 * @see TalonSRX.enableHeadingHold
-	 */
-	val enableHeadingHold: Boolean
+//	/**
+//	 * Enables a future feature called "Heading Hold". For now this simply updates the CAN signal to the motor
+//	 * controller. Future firmware updates will use this.
+//	 *
+//	 * @see TalonSRX.enableHeadingHold
+//	 */
+//	@get:Config("")
+//	val enableHeadingHold: Boolean
 
 	/**
 	 * Enables voltage compensation. If enabled, voltage compensation works in all control modes.
 	 *
 	 * @see TalonSRX.enableVoltageCompensation
 	 */
+	@get:Config("", false)
 	val enableVoltageCompensation: Boolean
 
 //	/**
@@ -240,6 +294,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setInverted
 	 */
+	@get:Config("set", false)
 	val inverted: Boolean
 
 	/**
@@ -247,6 +302,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setNeutralMode
 	 */
+	@get:Config("set", false)
 	val neutralMode: NeutralMode
 
 	/**
@@ -256,6 +312,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setSensorPhase
 	 */
+	@get:Config("set", false)
 	val sensorPhase: Boolean
 
 	// Only in TalonSRX class
@@ -269,6 +326,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configContinuousCurrentLimit
 	 */
+	@get:Config("config")
 	val continuousCurrentLimit: Int
 
 	/**
@@ -279,6 +337,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configPeakCurrentDuration
 	 */
+	@get:Config("config")
 	val peakCurrentDuration: Int
 
 	/**
@@ -289,6 +348,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.configPeakCurrentLimit
 	 */
+	@get:Config("config")
 	val peakCurrentLimit: Int
 }
 
@@ -303,6 +363,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.config_kI
 	 */
+	@get:Config("config_")
 	val integralZone: Int
 
 	/**
@@ -310,6 +371,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.config_kD
 	 */
+	@get:Config("config_", camel = false)
 	val kD: Double
 
 	/**
@@ -317,6 +379,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.config_kF
 	 */
+	@get:Config("config_", camel = false)
 	val kF: Double
 
 	/**
@@ -324,6 +387,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.config_kI
 	 */
+	@get:Config("config_", camel = false)
 	val kI: Double
 
 	/**
@@ -331,6 +395,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.config_kP
 	 */
+	@get:Config("config_", camel = false)
 	val kP: Double
 
 	/**
@@ -338,6 +403,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.configAllowableClosedloopError
 	 */
+	@get:Config("config")
 	val allowableClosedloopError: Int
 
 	/**
@@ -346,6 +412,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.configClosedLoopPeakOutput
 	 */
+	@get:Config("config")
 	val closedLoopPeakOutput: Double
 
 	/**
@@ -353,6 +420,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.configClosedLoopPeriod
 	 */
+	@get:Config("config")
 	val closedLoopPeriod: Int
 
 	/**
@@ -360,6 +428,7 @@ interface PIDSlot {
 	 *
 	 * @see TalonSRX.configMaxIntegralAccumulator
 	 */
+	@get:Config("config")
 	val maxIntegralAccumulator: Double
 }
 
@@ -378,11 +447,13 @@ data class LocalLimitSwitchSourceConfig(
 	 * Limit switch source. See [LimitSwitchSource]. User can choose between the feedback connector, remote Talon SRX,
 	 * CANifier, or deactivate the feature.
 	 */
+	@ConfigParam
 	val type: LimitSwitchSource,
 
 	/**
 	 * Setting for normally open, normally closed, or disabled. This setting matches the web-based configuration drop down.
 	 */
+	@ConfigParam
 	val normalOpenOrClose: LimitSwitchNormal
 ) : LimitSwitchSourceConfig
 
@@ -397,16 +468,19 @@ data class RemoteLimitSwitchSourceConfig(
 	/**
 	 * Remote limit switch source. User can choose between a remote Talon SRX, CANifier, or deactivate the feature.
 	 */
+	@ConfigParam
 	val type: RemoteLimitSwitchSource,
 
 	/**
 	 * Setting for normally open, normally closed, or disabled. This setting matches the web-based configuration drop down.
 	 */
+	@ConfigParam
 	val normalOpenOrClose: LimitSwitchNormal,
 
 	/**
 	 * Device ID of remote source (Talon SRX or CANifier device ID).
 	 */
+	@ConfigParam
 	val deviceID: Int
 ) : LimitSwitchSourceConfig
 
@@ -420,17 +494,20 @@ data class RemoteFeedbackFilterConfig(
 	/**
 	 * The CAN ID of the remote sensor device.
 	 */
+	@ConfigParam
 	val deviceID: Int,
 
 	/**
 	 * The remote sensor device and signal type to bind.
 	 */
+	@ConfigParam
 	val remoteSensorSource: RemoteSensorSource,
 
 	/**
 	 * 0 for configuring Remote Sensor 0
 	 * 1 for configuring Remote Sensor 1
 	 */
+	@ConfigParam
 	val remoteOrdinal: Int
 )
 
@@ -441,27 +518,31 @@ interface FeedbackDeviceConfig
  *
  * @see TalonSRX.configSelectedFeedbackSensor
  */
-data class LocalFeedbackDeviceConfig(val feedbackDevice: FeedbackDevice) : FeedbackDeviceConfig
+data class LocalFeedbackDeviceConfig(@ConfigParam val feedbackDevice: FeedbackDevice) : FeedbackDeviceConfig
 
 /**
  * Select the remote feedback device for the motor controller.
  *
  * @see TalonSRX.configSelectedFeedbackSensor
  */
-data class RemoteFeedbackDeviceConfig(val remoteFeedbackDevice: RemoteFeedbackDevice) : FeedbackDeviceConfig
+data class RemoteFeedbackDeviceConfig(@ConfigParam val remoteFeedbackDevice: RemoteFeedbackDevice) : FeedbackDeviceConfig
 
 /**
  * Select what sensor term should be bound to switch feedback device.
+ *
+ * @see TalonSRX.configSensorTerm
  */
 data class SensorTermConfig(
 	/**
 	 * Which sensor term to bind to a feedback source.
 	 */
+	@ConfigParam
 	val sensorTerm: SensorTerm,
 
 	/**
 	 * The sensor signal to attach to sensorTerm.
 	 */
+	@ConfigParam
 	val feedbackDevice: FeedbackDevice
 )
 

@@ -41,7 +41,7 @@ Helpers for concurrent programming with coroutines.
 Processes config.properties files for unique configurations between robots.
 
 # Package org.stormgears.utils.decoupling
-Shims and interfaces for decoupling the robot code from physical motors.
+Shims and interfaces for decoupling the robot code from actual hardware, etc.
 
 # Package org.stormgears.utils.dsio
 Utilities for driver station I/O
@@ -57,3 +57,6 @@ Utilities for logging.
 
 # Package org.stormgears.utils.sensordrivers
 Drivers for sensors (duh).
+
+# Package org.stormgears.utils.talons
+Helpers regarding Talon SRX devices

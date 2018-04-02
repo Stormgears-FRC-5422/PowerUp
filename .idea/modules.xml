@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PowerUp.iml" filepath="$PROJECT_DIR$/.idea/modules/PowerUp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PowerUp_main.iml" filepath="$PROJECT_DIR$/.idea/modules/PowerUp_main.iml" group="PowerUp" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/PowerUp_test.iml" filepath="$PROJECT_DIR$/.idea/modules/PowerUp_test.iml" group="PowerUp" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation-processor.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation-processor.iml" group="annotation-processor" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation-processor/annotation-processor_main.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation-processor/annotation-processor_main.iml" group="annotation-processor" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/annotation-processor/annotation-processor_test.iml" filepath="$PROJECT_DIR$/.idea/modules/annotation-processor/annotation-processor_test.iml" group="annotation-processor" />
     </modules>
   </component>
 </project>
