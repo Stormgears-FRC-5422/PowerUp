@@ -316,6 +316,9 @@ object Drive : TerminableSubsystem() {
 		val wheelCircumference = 2.0 * Math.PI * Robot.config.wheelRadius
 		val distanceTicks = distance / wheelCircumference * 8192.0
 
+		for (talon in talons) {
+			talon.setConfig(driveTalons.driveTalonConfig)
+		}
 		driveTalons.velocityPIDMode()
 
 		val talonFL = talons[0]
@@ -379,6 +382,9 @@ object Drive : TerminableSubsystem() {
 
 		val targets = modifiers.map { distanceTicks * it }.toDoubleArray()
 
+		for (talon in talons) {
+			talon.setConfig(driveTalons.driveTalonConfig)
+		}
 		driveTalons.velocityPIDMode()
 
 		val talonFL = talons[0]
@@ -483,6 +489,10 @@ object Drive : TerminableSubsystem() {
 				motions[i]?.runMotionMagic((negative * encoderTicks).toInt())
 
 			}
+		}
+
+		for (talon in talons) {
+			talon.setConfig(driveTalons.driveTalonConfig)
 		}
 
 		// TODO: wtf?
