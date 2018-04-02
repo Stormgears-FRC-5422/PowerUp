@@ -2,14 +2,16 @@
 
 ## Package org.stormgears.utils.talons
 
+Helpers regarding Talon SRX devices
+
 ### Types
 
 | Name | Summary |
 |---|---|
-| [DefaultPIDSlot](-default-p-i-d-slot/index.md) | `open class DefaultPIDSlot : `[`PIDSlot`](-p-i-d-slot/index.md) |
 | [DummyTalon](-dummy-talon/index.md) | `class DummyTalon : `[`IBaseTalon`](-i-base-talon/index.md) |
 | [FactoryTalonConfig](-factory-talon-config/index.md) | `open class FactoryTalonConfig : `[`TalonConfig`](-talon-config/index.md)<br>Factory default Talon configuration |
 | [FeedbackDeviceConfig](-feedback-device-config.md) | `interface FeedbackDeviceConfig` |
+| [GeneratedTalonManager](-generated-talon-manager/index.md) | `open class GeneratedTalonManager` |
 | [IBaseTalon](-i-base-talon/index.md) | `interface IBaseTalon : IMotorControllerEnhanced, SpeedController, MotorSafety, `[`IControlModeGettable`](-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-control-mode-gettable/index.md)`, `[`IHandleGettable`](-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-handle-gettable/index.md) |
 | [ISensorCollection](-i-sensor-collection/index.md) | `interface ISensorCollection` |
 | [ITalon](-i-talon/index.md) | `interface ITalon : `[`IBaseTalon`](-i-base-talon/index.md)<br>Talon + Config management |
@@ -23,7 +25,7 @@
 | [RemoteLimitSwitchSourceConfig](-remote-limit-switch-source-config/index.md) | `data class RemoteLimitSwitchSourceConfig : `[`LimitSwitchSourceConfig`](-limit-switch-source-config.md)<br>Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the Limit-F pin of another Talon or CANifier. |
 | [SensorTermConfig](-sensor-term-config/index.md) | `data class SensorTermConfig`<br>Select what sensor term should be bound to switch feedback device. |
 | [TalonConfig](-talon-config/index.md) | `interface TalonConfig`<br>Configuration values for a Talon |
-| [TalonManager](-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](-i-base-talon/index.md)`, `[`ITalon`](-i-talon/index.md) |
+| [TalonManager](-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](-i-base-talon/index.md)`, `[`ITalon`](-i-talon/index.md)`, `[`GeneratedTalonManager`](-generated-talon-manager/index.md) |
 | [TalonSRXAdapter](-talon-s-r-x-adapter/index.md) | `class TalonSRXAdapter : `[`IBaseTalon`](-i-base-talon/index.md)`, WPI_TalonSRX` |
 
 ### Functions

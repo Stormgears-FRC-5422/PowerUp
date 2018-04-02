@@ -6,6 +6,10 @@
 
 Select what sensor term should be bound to switch feedback device.
 
+**See Also**
+
+[TalonSRX.configSensorTerm](#)
+
 ### Constructors
 
 | Name | Summary |

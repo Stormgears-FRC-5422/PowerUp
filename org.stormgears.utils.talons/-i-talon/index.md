@@ -23,4 +23,4 @@ Talon + Config management
 
 | Name | Summary |
 |---|---|
-| [TalonManager](../-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](../-i-base-talon/index.md)`, `[`ITalon`](./index.md) |
+| [TalonManager](../-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](../-i-base-talon/index.md)`, `[`ITalon`](./index.md)`, `[`GeneratedTalonManager`](../-generated-talon-manager/index.md) |

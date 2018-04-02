@@ -2,7 +2,7 @@
 
 ## Package org.stormgears.utils.decoupling
 
-Shims and interfaces for decoupling the robot code from physical motors.
+Shims and interfaces for decoupling the robot code from actual hardware, etc.
 
 ### Types
 

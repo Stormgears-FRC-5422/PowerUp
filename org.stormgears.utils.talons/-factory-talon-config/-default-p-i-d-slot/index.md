@@ -1,8 +1,8 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.talons](../index.md) / [DefaultPIDSlot](./index.md)
+[PowerUp](../../../index.md) / [org.stormgears.utils.talons](../../index.md) / [FactoryTalonConfig](../index.md) / [DefaultPIDSlot](./index.md)
 
 # DefaultPIDSlot
 
-`open class DefaultPIDSlot : `[`PIDSlot`](../-p-i-d-slot/index.md)
+`open class DefaultPIDSlot : `[`PIDSlot`](../../-p-i-d-slot/index.md)
 
 ### Constructors
 

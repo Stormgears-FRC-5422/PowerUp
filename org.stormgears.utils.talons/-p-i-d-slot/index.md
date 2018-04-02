@@ -24,4 +24,4 @@ Config specific to a single PID slot
 
 | Name | Summary |
 |---|---|
-| [DefaultPIDSlot](../-default-p-i-d-slot/index.md) | `open class DefaultPIDSlot : `[`PIDSlot`](./index.md) |
+| [DefaultPIDSlot](../-factory-talon-config/-default-p-i-d-slot/index.md) | `open class DefaultPIDSlot : `[`PIDSlot`](./index.md) |

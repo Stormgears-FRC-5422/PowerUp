@@ -22,12 +22,12 @@
 | [org.stormgears.utils](org.stormgears.utils/index.md) | Utilities that can be shared between robots/seasons. |
 | [org.stormgears.utils.concurrency](org.stormgears.utils.concurrency/index.md) | Helpers for concurrent programming with coroutines. |
 | [org.stormgears.utils.configurationfile](org.stormgears.utils.configurationfile/index.md) | Processes config.properties files for unique configurations between robots. |
-| [org.stormgears.utils.decoupling](org.stormgears.utils.decoupling/index.md) | Shims and interfaces for decoupling the robot code from physical motors. |
+| [org.stormgears.utils.decoupling](org.stormgears.utils.decoupling/index.md) | Shims and interfaces for decoupling the robot code from actual hardware, etc. |
 | [org.stormgears.utils.dsio](org.stormgears.utils.dsio/index.md) | Utilities for driver station I/O |
 | [org.stormgears.utils.graveyard](org.stormgears.utils.graveyard/index.md) | RIP. |
 | [org.stormgears.utils.logging](org.stormgears.utils.logging/index.md) | Utilities for logging. |
 | [org.stormgears.utils.sensordrivers](org.stormgears.utils.sensordrivers/index.md) | Drivers for sensors (duh). |
-| [org.stormgears.utils.talons](org.stormgears.utils.talons/index.md) |  |
+| [org.stormgears.utils.talons](org.stormgears.utils.talons/index.md) | Helpers regarding Talon SRX devices |
 
 ### Index
 

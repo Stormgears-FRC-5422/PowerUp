@@ -2,4 +2,4 @@
 
 # &lt;init&gt;
 
-`TalonManager(base: `[`IBaseTalon`](../-i-base-talon/index.md)`)`
+`TalonManager(base: `[`IBaseTalon`](../-i-base-talon/index.md)`, defaultConfig: `[`TalonConfig`](../-talon-config/index.md)` = FactoryTalonConfig())`

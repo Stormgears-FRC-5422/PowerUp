@@ -6,6 +6,8 @@
 
 Overrides [TalonConfig.nominalOutputReverse](../-talon-config/nominal-output-reverse.md)
 
+**Get**
+:Config("config")
 Configures the reverse nominal output percentage.
 
 **See Also**

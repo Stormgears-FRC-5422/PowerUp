@@ -4,6 +4,8 @@
 
 `abstract val nominalOutputReverse: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)
 
+**Get**
+:Config("config")
 Configures the reverse nominal output percentage.
 
 **See Also**
