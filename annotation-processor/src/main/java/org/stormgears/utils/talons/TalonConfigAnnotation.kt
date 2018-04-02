@@ -1,7 +1,7 @@
 package org.stormgears.utils.talons
 
 import com.squareup.kotlinpoet.*
-import com.sun.tools.javac.code.Type
+import com.sun.tools.javac.code.Type // TODO: Update for Java 9+
 import java.io.File
 import javax.annotation.processing.AbstractProcessor
 import javax.annotation.processing.RoundEnvironment
