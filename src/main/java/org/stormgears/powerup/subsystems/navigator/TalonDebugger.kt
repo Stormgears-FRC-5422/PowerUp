@@ -6,7 +6,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.commons.text.StringEscapeUtils
 import org.apache.logging.log4j.LogManager
 import org.stormgears.utils.concurrency.WithCoroutines
-import org.stormgears.utils.decoupling.ITalon
+import org.stormgears.utils.talons.ITalon
 import java.io.PrintWriter
 import java.time.LocalDateTime
 

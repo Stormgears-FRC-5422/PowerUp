@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="annotation-processor_main" target="1.8" />
+      <module name="annotation-processor_test" target="1.8" />
       <module name="PowerUp_main" target="1.8" />
       <module name="PowerUp_test" target="1.8" />
     </bytecodeTargetLevel>

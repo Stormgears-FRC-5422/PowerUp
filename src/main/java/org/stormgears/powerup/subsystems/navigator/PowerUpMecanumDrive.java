@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.drive.Vector2d;
 import org.stormgears.powerup.Robot;
-import org.stormgears.utils.decoupling.ITalon;
 import org.stormgears.utils.sensordrivers.NavX;
+import org.stormgears.utils.talons.ITalon;
 
 public class PowerUpMecanumDrive extends MecanumDrive {
 

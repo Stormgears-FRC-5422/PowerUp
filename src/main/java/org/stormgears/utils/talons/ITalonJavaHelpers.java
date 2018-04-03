@@ -1,4 +1,4 @@
-package org.stormgears.utils.decoupling;
+package org.stormgears.utils.talons;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import org.jetbrains.annotations.Nullable;

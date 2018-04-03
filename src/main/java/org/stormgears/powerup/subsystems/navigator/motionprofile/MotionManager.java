@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.stormgears.powerup.Robot;
 import org.stormgears.utils.RegisteredNotifier;
-import org.stormgears.utils.decoupling.ITalon;
+import org.stormgears.utils.talons.ITalon;
 
 import java.util.ArrayList;
 import java.util.List;

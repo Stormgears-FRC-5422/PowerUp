@@ -9,8 +9,8 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
-import org.stormgears.utils.decoupling.ITalon
-import org.stormgears.utils.decoupling.createTalon
+import org.stormgears.utils.talons.ITalon
+import org.stormgears.utils.talons.createTalon
 
 /**
  * Default constructor for the creation of the elevator

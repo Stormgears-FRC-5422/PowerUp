@@ -3,8 +3,8 @@ package org.stormgears.powerup.subsystems.elevatorclimber
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import org.stormgears.powerup.Robot
-import org.stormgears.utils.decoupling.ITalon
-import org.stormgears.utils.decoupling.createTalon
+import org.stormgears.utils.talons.ITalon
+import org.stormgears.utils.talons.createTalon
 
 object ElevatorSharedTalons {
 	const val TALON_FPID_TIMEOUT = 10
