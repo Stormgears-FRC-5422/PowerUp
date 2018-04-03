@@ -37,7 +37,7 @@ object Elevator : TerminableSubsystem() {
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
-	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 91) // first one = 56
+	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 92) // first one = 56
 
 	// Side shift stuff
 	private val SIDE_SHIFT_TALON_ID = Robot.config.sideshiftTalonId
@@ -117,8 +117,8 @@ object Elevator : TerminableSubsystem() {
 		// Wait until elevator finishes
 		while (!shouldStop) {
 			// If within 10000 ticks (0.75 in) of destination, stop
-			shouldStop = if (lowering) currentPositionTicks > destinationTicks - 10000
-			else (currentPositionTicks < destinationTicks + 10000 || currentPositionTicks < -1100000)
+			shouldStop = if (lowering) currentPositionTicks > destinationTicks - 20000
+			else (currentPositionTicks < destinationTicks + 20000 || currentPositionTicks < -1100000)
 
 //			if (lowering && Intake.isUp && currentPositionTicks > INTAKE_HEIGHT) {
 //				holdElevator()
@@ -132,7 +132,7 @@ object Elevator : TerminableSubsystem() {
 		}
 		logger.trace("Elevator has moved to encoder position: {}", currentPositionTicks)
 //		holdElevator()    // Replace this with talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble()) if it doesn't work well
-		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+//		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
 
 	private var overrodeSide = false
@@ -192,9 +192,13 @@ object Elevator : TerminableSubsystem() {
 
 			sideShiftTalon.set(ControlMode.Position, destinationTicks.toDouble())
 
-			while (Math.abs(destinationTicks - sideShiftTalon.sensorCollection.quadraturePosition) > 2000) {
-				delay(20)
-			}
+//			while (Math.abs(destinationTicks - sideShiftTalon.sensorCollection.quadraturePosition) > 2000) {
+//				delay(20)
+//			}
+
+			delay(2000)
+
+			logger.trace("Side shift reached destination")
 
 			sideShiftPosition = position
 		}

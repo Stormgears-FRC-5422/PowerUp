@@ -390,8 +390,8 @@ object Drive : TerminableSubsystem() {
 
 		logger.trace("initPos = {} targets = {}", Arrays.toString(initPos), Arrays.toString(targets))
 
-//		val maxVel = if (dist < 150) 2000 else 4000
-		val maxVel = 4000
+		val maxVel = if (dist < 150) 2000 else 4000
+//		val maxVel = 4000
 
 		var avgPos: Double
 		var progress: Double
@@ -417,7 +417,7 @@ object Drive : TerminableSubsystem() {
 
 //			delay(10)
 			yield()
-		} while (progress < 1.0);
+		} while (progress < 1.0)
 
 		setDriveTalonsZeroVelocity()
 	}

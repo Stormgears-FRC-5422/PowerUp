@@ -29,23 +29,27 @@ object AutoDriveMoveCommand {
 		}
 
 		if (selectedPlacementSpot == FieldPositions.PlacementSpot.SCALE) {
-			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L && selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				move(autoRoute.pathToLeftScale)
-			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+			} else if (selectedScalePlateAssignment == FieldPositions.LeftRight.R && selectedStartingSpot == FieldPositions.StartingSpots.RIGHT) { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
 				move(autoRoute.pathToRightScale)
+			} else {
+				move(autoRoute.pathToCrossLine)
+				return
 			}
-
-			// TODO: wtf if this
-//			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
-//				move(autoRoute.strafeToLeftScale)
-//			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-//				move(autoRoute.strafeToRightScale)
-//			}
 
 //			finesseJob.join()
 
-			//USED TO SAY 40 instead of elevator.scale_positions[2]
+			finesseJob.cancel()
+			1
+			//USED TO SAY 40 instead of elevator.scale_positions[1]
 			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[1]).join()
+
+			if (selectedScalePlateAssignment == FieldPositions.LeftRight.L) {
+				move(autoRoute.strafeToLeftScale)
+			} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
+				move(autoRoute.strafeToRightScale)
+			}
 
 			Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
 				FieldPositions.LeftRight.L -> Elevator.RIGHT
