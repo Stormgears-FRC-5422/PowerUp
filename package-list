@@ -8,7 +8,6 @@ org.stormgears.powerup.subsystems.dsio
 org.stormgears.powerup.subsystems.dsio.joystickdetection
 org.stormgears.powerup.subsystems.elevatorclimber
 org.stormgears.powerup.subsystems.field
-org.stormgears.powerup.subsystems.gripper
 org.stormgears.powerup.subsystems.information
 org.stormgears.powerup.subsystems.intake
 org.stormgears.powerup.subsystems.navigator

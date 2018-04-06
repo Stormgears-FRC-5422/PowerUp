@@ -2,4 +2,4 @@
 
 # createTalon
 
-`fun createTalon(deviceNumber: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`ITalon`](-i-talon/index.md)
+`fun createTalon(deviceNumber: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, name: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = deviceNumber.toString()): `[`ITalon`](-i-talon/index.md)

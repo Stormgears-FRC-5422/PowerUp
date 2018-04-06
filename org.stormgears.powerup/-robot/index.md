@@ -21,7 +21,6 @@
 | [dsio](dsio.md) | `static var dsio: `[`DSIO`](../../org.stormgears.powerup.subsystems.dsio/-d-s-i-o/index.md) |
 | [elevator](elevator.md) | `static var elevator: `[`Elevator`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.md) |
 | [elevatorSharedTalons](elevator-shared-talons.md) | `static var elevatorSharedTalons: `[`ElevatorSharedTalons`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/index.md) |
-| [gripper](gripper.md) | `static var gripper: `[`Gripper`](../../org.stormgears.powerup.subsystems.gripper/-gripper/index.md) |
 | [intake](intake.md) | `static var intake: `[`Intake`](../../org.stormgears.powerup.subsystems.intake/-intake/index.md) |
 | [notifierRegistry](notifier-registry.md) | `static val notifierRegistry: `[`ArrayList`](http://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)`<`[`RegisteredNotifier`](../../org.stormgears.utils/-registered-notifier/index.md)`>` |
 | [sensors](sensors.md) | `static var sensors: `[`Sensors`](../../org.stormgears.powerup.subsystems.sensors/-sensors/index.md) |

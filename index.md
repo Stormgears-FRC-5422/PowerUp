@@ -11,7 +11,6 @@
 | [org.stormgears.powerup.subsystems.dsio.joystickdetection](org.stormgears.powerup.subsystems.dsio.joystickdetection/index.md) | Helpers for determining which joystick does what. |
 | [org.stormgears.powerup.subsystems.elevatorclimber](org.stormgears.powerup.subsystems.elevatorclimber/index.md) | Elevator/Climber subsystem. |
 | [org.stormgears.powerup.subsystems.field](org.stormgears.powerup.subsystems.field/index.md) | Field information (dimensions, paths, etc.). |
-| [org.stormgears.powerup.subsystems.gripper](org.stormgears.powerup.subsystems.gripper/index.md) | Gripper subsystem. |
 | [org.stormgears.powerup.subsystems.information](org.stormgears.powerup.subsystems.information/index.md) | Robot configuration specific to PowerUp. |
 | [org.stormgears.powerup.subsystems.intake](org.stormgears.powerup.subsystems.intake/index.md) | Intake subsystem. |
 | [org.stormgears.powerup.subsystems.navigator](org.stormgears.powerup.subsystems.navigator/index.md) | Subsystem that moves the robot around. |

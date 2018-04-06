@@ -36,7 +36,6 @@
 | [org.stormgears.powerup.subsystems.field.FieldPositions](../org.stormgears.powerup.subsystems.field/-field-positions/index.md) |  |
 | [org.stormgears.utils.talons.GeneratedTalonManager](../org.stormgears.utils.talons/-generated-talon-manager/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.GlobalMapping](../org.stormgears.powerup.subsystems.navigator/-global-mapping/index.md) |  |
-| [org.stormgears.powerup.subsystems.gripper.Gripper](../org.stormgears.powerup.subsystems.gripper/-gripper/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.stormnet.I2CEthernetVoice](../org.stormgears.powerup.subsystems.sensors.stormnet/-i2-c-ethernet-voice/index.md) |  |
 | [org.stormgears.powerup.subsystems.sensors.stormnet.I2CVoice](../org.stormgears.powerup.subsystems.sensors.stormnet/-i2-c-voice/index.md) |  |
 | [org.stormgears.utils.talons.IBaseTalon](../org.stormgears.utils.talons/-i-base-talon/index.md) |  |
