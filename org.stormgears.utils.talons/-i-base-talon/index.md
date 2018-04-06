@@ -23,6 +23,6 @@
 |---|---|
 | [DummyTalon](../-dummy-talon/index.md) | `class DummyTalon : `[`IBaseTalon`](./index.md) |
 | [ITalon](../-i-talon/index.md) | `interface ITalon : `[`IBaseTalon`](./index.md)<br>Talon + Config management |
+| [ManagedTalon](../-managed-talon/index.md) | `class ManagedTalon : `[`IBaseTalon`](./index.md)`, `[`ITalon`](../-i-talon/index.md)`, `[`GeneratedTalonManager`](../-generated-talon-manager/index.md) |
 | [MotorLogger](../../org.stormgears.utils.logging/-motor-logger/index.md) | `class MotorLogger : `[`IBaseTalon`](./index.md)<br>Logs all of the method calls to a motor |
-| [TalonManager](../-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](./index.md)`, `[`ITalon`](../-i-talon/index.md)`, `[`GeneratedTalonManager`](../-generated-talon-manager/index.md) |
 | [TalonSRXAdapter](../-talon-s-r-x-adapter/index.md) | `class TalonSRXAdapter : `[`IBaseTalon`](./index.md)`, WPI_TalonSRX` |

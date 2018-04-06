@@ -4,10 +4,16 @@
 
 `object ElevatorSharedTalons`
 
+### Types
+
+| Name | Summary |
+|---|---|
+| [ElevatorTalonConfig](-elevator-talon-config/index.md) | `class ElevatorTalonConfig : `[`FactoryTalonConfig`](../../org.stormgears.utils.talons/-factory-talon-config/index.md) |
+
 ### Properties
 
 | Name | Summary |
 |---|---|
-| [TALON_FPID_TIMEOUT](-t-a-l-o-n_-f-p-i-d_-t-i-m-e-o-u-t.md) | `const val TALON_FPID_TIMEOUT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [elevatorTalonConfig](elevator-talon-config.md) | `val elevatorTalonConfig: `[`ElevatorTalonConfig`](-elevator-talon-config/index.md) |
 | [masterMotor](master-motor.md) | `val masterMotor: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md) |
 | [slaveMotor](slave-motor.md) | `val slaveMotor: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md) |

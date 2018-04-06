@@ -59,6 +59,7 @@
 | [org.stormgears.utils.talons.LocalFeedbackDeviceConfig](../org.stormgears.utils.talons/-local-feedback-device-config/index.md) | Select the feedback device for the motor controller. |
 | [org.stormgears.utils.talons.LocalLimitSwitchSourceConfig](../org.stormgears.utils.talons/-local-limit-switch-source-config/index.md) | Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the Limit-R pin of another Talon, CANifier, or local Gadgeteer feedback connector. If the sensor is remote, a device ID of zero is assumed. If that's not desired, use the four parameter version of this function. |
 | [org.stormgears.utils.dsio.LogitechJoystick](../org.stormgears.utils.dsio/-logitech-joystick/index.md) | Construct an instance of a joystick. The joystick index is the USB port on the drivers station. |
+| [org.stormgears.utils.talons.ManagedTalon](../org.stormgears.utils.talons/-managed-talon/index.md) |  |
 | [org.stormgears.utils.graveyard.MecanumDrive](../org.stormgears.utils.graveyard/-mecanum-drive/index.md) |  |
 | [org.stormgears.utils.MemWatch](../org.stormgears.utils/-mem-watch/index.md) |  |
 | [org.stormgears.powerup.subsystems.navigator.motionprofile.MotionControl](../org.stormgears.powerup.subsystems.navigator.motionprofile/-motion-control/index.md) |  |
@@ -92,7 +93,6 @@
 | [org.stormgears.utils.dsio.SwitchControl](../org.stormgears.utils.dsio/-switch-control/index.md) | Create a joystick button for triggering commands. |
 | [org.stormgears.utils.talons.TalonConfig](../org.stormgears.utils.talons/-talon-config/index.md) | Configuration values for a Talon |
 | [org.stormgears.powerup.subsystems.navigator.TalonDebugger](../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md) |  |
-| [org.stormgears.utils.talons.TalonManager](../org.stormgears.utils.talons/-talon-manager/index.md) |  |
 | [org.stormgears.utils.talons.TalonSRXAdapter](../org.stormgears.utils.talons/-talon-s-r-x-adapter/index.md) |  |
 | [org.stormgears.utils.concurrency.TerminableSubsystem](../org.stormgears.utils.concurrency/-terminable-subsystem/index.md) |  |
 | [org.stormgears.utils.concurrency.Terminator](../org.stormgears.utils.concurrency/-terminator/index.md) |  |

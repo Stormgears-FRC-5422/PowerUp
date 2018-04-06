@@ -1,4 +1,4 @@
-[PowerUp](../../index.md) / [org.stormgears.utils.talons](../index.md) / [TalonManager](index.md) / [setConfig](./set-config.md)
+[PowerUp](../../index.md) / [org.stormgears.utils.talons](../index.md) / [ManagedTalon](index.md) / [setConfig](./set-config.md)
 
 # setConfig
 

@@ -27,4 +27,4 @@
 
 | Name | Summary |
 |---|---|
-| [TalonManager](../-talon-manager/index.md) | `class TalonManager : `[`IBaseTalon`](../-i-base-talon/index.md)`, `[`ITalon`](../-i-talon/index.md)`, `[`GeneratedTalonManager`](./index.md) |
+| [ManagedTalon](../-managed-talon/index.md) | `class ManagedTalon : `[`IBaseTalon`](../-i-base-talon/index.md)`, `[`ITalon`](../-i-talon/index.md)`, `[`GeneratedTalonManager`](./index.md) |
