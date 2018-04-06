@@ -33,7 +33,6 @@ object Intake : TerminableSubsystem() {
 
 	private val leftTalon: ITalon
 	private val rightTalon: ITalon
-	private val articulatorTalon: ITalon
 
 	private var position = VERTICAL
 	private var job: Job? = null
@@ -44,9 +43,8 @@ object Intake : TerminableSubsystem() {
 	init {
 		leftTalon = createTalon(LEFT_TALON_ID)
 		rightTalon = createTalon(RIGHT_TALON_ID)
-		articulatorTalon = createTalon(ARTICULATOR_TALON_ID)
 
-		if (leftTalon.dummy || rightTalon.dummy || articulatorTalon.dummy) {
+		if (leftTalon.dummy || rightTalon.dummy) {
 			logger.warn("Requires physical talon, disabling Intake!")
 			this.disabled = true
 		}
@@ -73,95 +71,103 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun moveIntakeToPosition(position: Int): Job {
-		if (job != null) {
-			job!!.cancel()
-			println("Canceled intake rotation job")
+	fun eject(): Job {
+		return launch("Intake Eject") {
+			startWheelsOut()
+			delay(2000)
+			stopWheels()
 		}
-
-		val job = launch("Articulator Mover") {
-			moveIntakeToPositionSuspend(position)
-		}
-
-		this.job = job
-		return job
 	}
 
-	private suspend fun moveIntakeToPositionSuspend(position: Int) {
-//		if (position == this@Intake.position) return
-
-		val multiplier: Double
-		val time: Int
-		when (position) {
-			VERTICAL -> {
-				logger.info("Moving to vertical position.")
-				multiplier = 1.0
-				time = 23
-			}
-			HORIZONTAL -> {
-				logger.info("Moving to horizontal position.")
-				multiplier = -0.7
-				time = 6
-			}
-			else -> {
-				logger.info("Position value for intake rotation does not match a valid position.")
-				return
-			}
-		}
-
-		var stopped = false
-		var iteration = 0
-
-		println("Articulator moving with ${POWER * multiplier}")
-		articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
-		while (articulatorTalon.outputCurrent < CURRENT_LIMIT && !stopped) {
-			iteration++
-
-			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && iteration > 60) {
-				stopped = true
-				println("Articulator stopped")
-			} else if (iteration > time) {
-				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
-				println("Articulator power set to 0")
-			}
-
-			delay(20)
-		}
-
-		this@Intake.position = position
-
-		articulatorTalon.set(ControlMode.PercentOutput, 0.0)
-	}
-
-	fun controlWithThrottle() {
-		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.throttleV)
-		if (articulatorTalon.outputCurrent > CURRENT_LIMIT) articulatorTalon.set(ControlMode.PercentOutput, 0.0)
-	}
-
-	fun applyPower(power: Double, timeMs: Int): Job {
-		logger.info("Applying power to intake rotation motor")
-
-		if (job != null) {
-			job!!.cancel()
-			println("Canceled intake rotation job")
-		}
-
-		val job = launch("Articulator Apply Power") {
-			articulatorTalon.set(ControlMode.PercentOutput, power)
-			delay(timeMs)
-		}
-
-		this.job = job
-		return job
-	}
-
-	fun debug() {
-		SmartDashboard.putNumber("Articulator encoder position", articulatorTalon.sensorCollection.quadraturePosition.toDouble())
-		SmartDashboard.putNumber("Left wheel position", leftTalon.sensorCollection.quadraturePosition.toDouble())
-		SmartDashboard.putNumber("Right wheel position", rightTalon.sensorCollection.quadraturePosition.toDouble())
-	}
-
-	fun joystickify() {
-		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.joystickY)
-	}
+//	fun moveIntakeToPosition(position: Int): Job {
+//		if (job != null) {
+//			job!!.cancel()
+//			println("Canceled intake rotation job")
+//		}
+//
+//		val job = launch("Articulator Mover") {
+//			moveIntakeToPositionSuspend(position)
+//		}
+//
+//		this.job = job
+//		return job
+//	}
+//
+//	private suspend fun moveIntakeToPositionSuspend(position: Int) {
+////		if (position == this@Intake.position) return
+//
+//		val multiplier: Double
+//		val time: Int
+//		when (position) {
+//			VERTICAL -> {
+//				logger.info("Moving to vertical position.")
+//				multiplier = 1.0
+//				time = 23
+//			}
+//			HORIZONTAL -> {
+//				logger.info("Moving to horizontal position.")
+//				multiplier = -0.7
+//				time = 6
+//			}
+//			else -> {
+//				logger.info("Position value for intake rotation does not match a valid position.")
+//				return
+//			}
+//		}
+//
+//		var stopped = false
+//		var iteration = 0
+//
+//		println("Articulator moving with ${POWER * multiplier}")
+//		articulatorTalon.set(ControlMode.PercentOutput, POWER * multiplier)
+//		while (articulatorTalon.outputCurrent < CURRENT_LIMIT && !stopped) {
+//			iteration++
+//
+//			if (abs(articulatorTalon.sensorCollection.quadratureVelocity) < 100 && iteration > 60) {
+//				stopped = true
+//				println("Articulator stopped")
+//			} else if (iteration > time) {
+//				articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+//				println("Articulator power set to 0")
+//			}
+//
+//			delay(20)
+//		}
+//
+//		this@Intake.position = position
+//
+//		articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+//	}
+//
+//	fun controlWithThrottle() {
+//		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.throttleV)
+//		if (articulatorTalon.outputCurrent > CURRENT_LIMIT) articulatorTalon.set(ControlMode.PercentOutput, 0.0)
+//	}
+//
+//	fun applyPower(power: Double, timeMs: Int): Job {
+//		logger.info("Applying power to intake rotation motor")
+//
+//		if (job != null) {
+//			job!!.cancel()
+//			println("Canceled intake rotation job")
+//		}
+//
+//		val job = launch("Articulator Apply Power") {
+//			articulatorTalon.set(ControlMode.PercentOutput, power)
+//			delay(timeMs)
+//		}
+//
+//		this.job = job
+//		return job
+//	}
+//
+//	fun debug() {
+//		SmartDashboard.putNumber("Articulator encoder position", articulatorTalon.sensorCollection.quadraturePosition.toDouble())
+//		SmartDashboard.putNumber("Left wheel position", leftTalon.sensorCollection.quadraturePosition.toDouble())
+//		SmartDashboard.putNumber("Right wheel position", rightTalon.sensorCollection.quadraturePosition.toDouble())
+//	}
+//
+//	fun joystickify() {
+//		articulatorTalon.set(ControlMode.PercentOutput, Robot.dsio.joystick.joystickY)
+//	}
 }

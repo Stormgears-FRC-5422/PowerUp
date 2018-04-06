@@ -10,7 +10,6 @@ import org.stormgears.powerup.subsystems.elevatorclimber.Elevator;
 import org.stormgears.powerup.subsystems.elevatorclimber.ElevatorSharedTalons;
 import org.stormgears.powerup.subsystems.field.FieldPositions;
 import org.stormgears.powerup.subsystems.field.FmsInterfaceKt;
-import org.stormgears.powerup.subsystems.gripper.Gripper;
 import org.stormgears.powerup.subsystems.information.RobotConfiguration;
 import org.stormgears.powerup.subsystems.intake.Intake;
 import org.stormgears.powerup.subsystems.navigator.Drive;
@@ -72,9 +71,6 @@ public class Robot extends BaseStormgearsRobot {
 	@Nullable
 	public static Climber climber;
 
-	@Nullable
-	public static Gripper gripper;
-
 	private FieldPositions.Alliance selectedAlliance;
 	private FieldPositions.StartingSpots selectedStartSpot;
 	private FieldPositions.PlacementSpot selectedPlacementSpot;
@@ -126,19 +122,14 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		if (config.getEnableElevator()) {
-//			ElevatorSharedTalons.Companion.init();
 			elevatorSharedTalons = ElevatorSharedTalons.INSTANCE;
 
 			elevator = Elevator.INSTANCE;
 		}
 
 		if (config.getEnableClimber()) {
-//		Climber.init();
-//		climber = Climber.getInstance();
-		}
-
-		if (config.getEnableGripper()) {
-			gripper = Gripper.INSTANCE;
+			Climber.init();
+			climber = Climber.getInstance();
 		}
 	}
 
@@ -200,7 +191,6 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		Terminator.INSTANCE.setDisabled(DSIO.INSTANCE.getButtonBoard().getOverrideSwitch().get());
-//		elevator.moveElevatorTest();
 
 //		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
@@ -237,9 +227,6 @@ public class Robot extends BaseStormgearsRobot {
 	public void teleopPeriodic() {
 		super.teleopPeriodic();
 
-		//	sideShiftTalon.sensorCollection.quadraturePosition
-//		SmartDashboard.putNumber("Side shift output current", elevator.getSideShiftTalon().getOutputCurrent());
-//		SmartDashboard.putNumber("Side shift encoder pos", elevator.getSideShiftTalon().getSensorCollection().getQuadraturePosition());
 		StormScheduler.getInstance().run();
 
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
@@ -298,7 +285,6 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevator != null) {
 			elevator.turnOffElevator();
-//			elevator.zeroSideShift();
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {

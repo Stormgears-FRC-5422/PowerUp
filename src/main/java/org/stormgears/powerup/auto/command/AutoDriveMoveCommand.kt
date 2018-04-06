@@ -9,7 +9,7 @@ import org.stormgears.powerup.subsystems.field.FieldPositions.LeftRight.R
 import org.stormgears.powerup.subsystems.field.FieldPositions.PlacementSpot.*
 import org.stormgears.powerup.subsystems.field.FieldPositions.StartingSpots.*
 import org.stormgears.powerup.subsystems.field.Segment
-import org.stormgears.powerup.subsystems.gripper.Gripper
+import org.stormgears.powerup.subsystems.intake.Intake
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
