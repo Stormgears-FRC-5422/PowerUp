@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Joystick
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
-import org.stormgears.powerup.subsystems.dsio.ButtonBoard2017
 import org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1
 import org.stormgears.powerup.subsystems.dsio.DummyButtonBoard
 import org.stormgears.powerup.subsystems.dsio.IButtonBoard
@@ -51,9 +50,6 @@ class JoystickDetector {
 				logger.info("Selecting ButtonBoard2018v1")
 				val drivingJoystick = drivingJoystick
 				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel), if (drivingJoystick is LogitechJoystick) drivingJoystick else null)
-			} else if (mspChannel != -1 && drivingJoystickChannel != -1) {
-				logger.info("Selecting ButtonBoard2017")
-				ButtonBoard2017.getInstance(Joystick(mspChannel), Joystick(drivingJoystickChannel))
 			} else {
 				logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.")
 				DummyButtonBoard()

@@ -435,12 +435,8 @@ object Drive : TerminableSubsystem() {
 	 *
 	 * @param theta Angle desired for robot turn
 	 */
-	suspend fun turnTo(theta: Double) {
+	suspend fun turn(theta: Double) {
 		var theta = theta
-		if (useAbsoluteControl) {
-			val navxTheta = sensors.navX.getTheta()
-			theta -= navxTheta
-		}
 
 		var negative = -1.0
 
