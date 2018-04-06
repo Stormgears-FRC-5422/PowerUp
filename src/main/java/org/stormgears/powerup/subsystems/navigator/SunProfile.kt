@@ -5,7 +5,7 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
 
-// See: https://www.desmos.com/calculator/urbpj5x9fg
+// See: https://www.desmos.com/calculator/djcgmeucjb
 
 /**
  * Target maximum velocity in ticks/100ms
@@ -41,7 +41,7 @@ fun vI(y: Double): Double {
  */
 fun rBase(x: Double, xT: Double, yT: Double): Double {
 	val vI1 = vI(yT)
-	return max((sin(PI * (x / xT - 0.5)) + 1) * ((yT - vI1) / 2) + vI1, vMin)
+	return max(sin(PI / 2 * (x / xT - 4)) * (yT - vI1) + vI1, vMin)
 }
 
 /**
@@ -67,7 +67,7 @@ fun sunProfile(x: Double, d: Double): Double {
 	return when {
 		x < mX -> rBase(x, mX, mYmX)
 		x in mX..(d - mX) -> vTarget
-		x in (d - mX)..d -> rBase(x - d, mX, mYmX)
+		x in (d - mX)..d -> rBase(d - x, mX, mYmX)
 		else -> 0.0
 	}
 }
