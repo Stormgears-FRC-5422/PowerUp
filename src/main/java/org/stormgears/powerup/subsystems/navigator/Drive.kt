@@ -39,7 +39,9 @@ object Drive : TerminableSubsystem() {
 	private val motions: Array<MotionMagic?> = arrayOfNulls(driveTalons.talons.size)
 	private val motionManager: MotionManager = MotionManager()
 
-	fun move() {
+	private val sunProfile = SunProfile()
+
+	fun joystickMove() {
 		val x = Robot.dsio.joystickX
 		val y = Robot.dsio.joystickY
 		val z = Robot.dsio.joystickZ
@@ -171,7 +173,7 @@ object Drive : TerminableSubsystem() {
 
 	private fun setDriveTalonsZeroVelocity() {
 		for (t in talons) {
-			t.set(ControlMode.PercentOutput, 0.0)
+			t.set(ControlMode.Velocity, 0.0)
 		}
 	}
 
@@ -338,7 +340,7 @@ object Drive : TerminableSubsystem() {
 			progress = sign * avgPos / distanceTicks
 
 //			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
-			val currVel = sunProfile(progress * dist, dist)
+			val currVel = sunProfile.profile(progress * dist, dist)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -407,7 +409,7 @@ object Drive : TerminableSubsystem() {
 			progress /= 4
 
 //			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
-			val currVel = sunProfile(progress * dist, dist)
+			val currVel = sunProfile.profile(progress * dist, dist)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -493,7 +495,7 @@ object Drive : TerminableSubsystem() {
 
 		// TODO: wtf?
 		logger.trace("totTime: {}", totTime)
-		delay((totTime / 10.0 * 1000).toInt())
+		delay((totTime * 1000).toInt())
 	}
 
 

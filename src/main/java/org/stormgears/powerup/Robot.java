@@ -266,7 +266,7 @@ public class Robot extends BaseStormgearsRobot {
 		if (drive != null) {
 			if (!sensors.getNavX().isCalibrating()) {
 				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
-				drive.move();
+				drive.joystickMove();
 			} else {
 				logger.fatal("NavX is currently calibrating! Cannot drive!");
 			}
