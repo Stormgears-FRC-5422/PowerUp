@@ -1,6 +1,5 @@
 package org.stormgears.powerup;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -18,7 +17,10 @@ import org.stormgears.powerup.subsystems.navigator.Drive;
 import org.stormgears.powerup.subsystems.navigator.DriveTalons;
 import org.stormgears.powerup.subsystems.navigator.TalonDebugger;
 import org.stormgears.powerup.subsystems.sensors.Sensors;
-import org.stormgears.utils.*;
+import org.stormgears.utils.BaseStormgearsRobot;
+import org.stormgears.utils.FixPermissionsKt;
+import org.stormgears.utils.RegisteredNotifier;
+import org.stormgears.utils.StormScheduler;
 import org.stormgears.utils.concurrency.Terminator;
 import org.stormgears.utils.logging.StormyLog;
 
@@ -96,7 +98,7 @@ public class Robot extends BaseStormgearsRobot {
 	public void robotInit() {
 		logger.info("{} is running", config.getRobotName());
 
-		MemWatch.INSTANCE.start();
+//		MemWatch.INSTANCE.start();
 
 		StormScheduler.init();
 
@@ -236,8 +238,8 @@ public class Robot extends BaseStormgearsRobot {
 		super.teleopPeriodic();
 
 		//	sideShiftTalon.sensorCollection.quadraturePosition
-		SmartDashboard.putNumber("Side shift output current", elevator.getSideShiftTalon().getOutputCurrent());
-		SmartDashboard.putNumber("Side shift encoder pos", elevator.getSideShiftTalon().getSensorCollection().getQuadraturePosition());
+//		SmartDashboard.putNumber("Side shift output current", elevator.getSideShiftTalon().getOutputCurrent());
+//		SmartDashboard.putNumber("Side shift encoder pos", elevator.getSideShiftTalon().getSensorCollection().getQuadraturePosition());
 		StormScheduler.getInstance().run();
 
 //		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
@@ -262,12 +264,12 @@ public class Robot extends BaseStormgearsRobot {
 		}
 
 		if (drive != null) {
-//			if (!sensors.getNavX().isCalibrating()) {
-//				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
+			if (!sensors.getNavX().isCalibrating()) {
+				if (!sensors.getNavX().thetaIsSet()) sensors.getNavX().setInitialTheta();
 				drive.move();
-//			} else {
-//				logger.fatal("NavX is currently calibrating! Cannot drive!");
-//			}
+			} else {
+				logger.fatal("NavX is currently calibrating! Cannot drive!");
+			}
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!");
 		}
@@ -296,7 +298,7 @@ public class Robot extends BaseStormgearsRobot {
 
 		if (elevator != null) {
 			elevator.turnOffElevator();
-			elevator.zeroSideShift();
+//			elevator.zeroSideShift();
 		}
 
 		for (RegisteredNotifier rn : notifierRegistry) {

@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource
 import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.StatusFrame
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
@@ -49,10 +50,14 @@ object ElevatorSharedTalons {
 	val elevatorTalonConfig = ElevatorTalonConfig()
 
 	init {
-		println("Initializing elevator talons")
+//		println("Initializing elevator talons")
 
 		masterMotor = createTalon(MASTER_MOTOR_TALON_ID)
 		slaveMotor = createTalon(SLAVE_MOTOR_TALON_ID)
+		masterMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
+		slaveMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
+//		println("STATUS FRAME HAS BEEN SET")
+
 
 		masterMotor.setConfig(elevatorTalonConfig)
 		slaveMotor.setConfig(elevatorTalonConfig)
