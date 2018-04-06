@@ -5,7 +5,7 @@ import org.stormgears.utils.logging.MotorLogger
 
 private val logger = LogManager.getLogger()
 
-fun createTalon(deviceNumber: Int): ITalon {
+fun createTalon(deviceNumber: Int, name: String = deviceNumber.toString()): ITalon {
 	if (deviceNumber != -1) {
 		val talon = ManagedTalon(TalonSRXAdapter(deviceNumber))
 

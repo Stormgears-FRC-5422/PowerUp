@@ -1,11 +1,8 @@
 package org.stormgears.powerup.subsystems.elevatorclimber
 
-import com.ctre.phoenix.motorcontrol.ControlMode
-import com.ctre.phoenix.motorcontrol.LimitSwitchNormal
-import com.ctre.phoenix.motorcontrol.LimitSwitchSource
-import com.ctre.phoenix.motorcontrol.NeutralMode
-import com.ctre.phoenix.motorcontrol.StatusFrame
+import com.ctre.phoenix.motorcontrol.*
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.navigator.TalonDebugger
 import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.LocalLimitSwitchSourceConfig
@@ -43,8 +40,16 @@ object ElevatorSharedTalons {
 		override val continuousCurrentLimit = 60
 		override val enableCurrentLimit = true
 
+		override val forwardSoftLimitThreshold = -1145000
+		override val forwardSoftLimitEnable = true
+
 		override val forwardLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
 		override val reverseLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
+
+		override val statusFramePeriod = mapOf(
+			StatusFrameEnhanced.Status_13_Base_PIDF0 to 10,
+			StatusFrameEnhanced.Status_3_Quadrature to 10
+		)
 	}
 
 	val elevatorTalonConfig = ElevatorTalonConfig()
@@ -54,9 +59,8 @@ object ElevatorSharedTalons {
 
 		masterMotor = createTalon(MASTER_MOTOR_TALON_ID)
 		slaveMotor = createTalon(SLAVE_MOTOR_TALON_ID)
-		masterMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
-		slaveMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
-//		println("STATUS FRAME HAS BEEN SET")
+
+//		TalonDebugger(arrayOf(masterMotor, slaveMotor)).start()
 
 
 		masterMotor.setConfig(elevatorTalonConfig)

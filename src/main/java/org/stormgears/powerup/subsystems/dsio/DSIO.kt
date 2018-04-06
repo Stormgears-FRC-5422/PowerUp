@@ -50,13 +50,13 @@ object DSIO {
 			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 		}
 
-//		buttonBoard.dropButton.whenPressed { Robot.gripper?.openGripper() }
+		buttonBoard.dropButton.whenPressed { Intake.eject() }
 
-//		buttonBoard.sideLeftButton.whenPressed {Robot.elevator?.moveSideShiftOverLeft() }
-//		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
+		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
 
-//		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftOverLeft() }
-//		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
+		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 
@@ -76,32 +76,32 @@ object DSIO {
 			logger.warn("Intake wheels switch is not ternary, not sure what to do!")
 		}
 
-		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
-		if (intakeLiftSwitch is ITernarySwitch) {
-			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
-				when (state) {
-					ITernarySwitch.SwitchState.Up -> Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-					ITernarySwitch.SwitchState.Down -> Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)
-					ITernarySwitch.SwitchState.Neutral -> {
-					}
-				}
-			})
-		} else {
-			logger.warn("Intake lift switch is not ternary, not sure what to do!")
-		}
+//		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
+//		if (intakeLiftSwitch is ITernarySwitch) {
+//			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
+//				when (state) {
+//					ITernarySwitch.SwitchState.Up -> Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+//					ITernarySwitch.SwitchState.Down -> Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)
+//					ITernarySwitch.SwitchState.Neutral -> {
+//					}
+//				}
+//			})
+//		} else {
+//			logger.warn("Intake lift switch is not ternary, not sure what to do!")
+//		}
 
-		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper?.closeGripper() }
-		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper?.openGripper() }
+		buttonBoard.gripCloseButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.gripOpenButton.whenPressed { /* TODO: This button is unused */ }
 
-//		buttonBoard.climbUpButton.whenPressed { Elevator.moveSideShiftToPosition(Elevator.CENTER)/* Raise Climber */ }
-		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
+		buttonBoard.climbUpButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.climbDownButton.whenPressed { /* TODO: This button is unused */ }
 
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
 		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }
 		buttonBoard.overrideUp.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideDown.whenReleased { Robot.elevator?.stop() }
-//		buttonBoard.overrideLeft.whenPressed { Robot.elevator?.moveLeftManual() }
-//		buttonBoard.overrideRight.whenPressed { Robot.elevator?.moveRightManual() }
+		buttonBoard.overrideLeft.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.overrideRight.whenPressed { /* TODO: This button is unused */ }
 		buttonBoard.overrideLeft.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideRight.whenReleased { Robot.elevator?.stop() }
 

@@ -4,7 +4,6 @@ import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
-import org.stormgears.powerup.subsystems.gripper.Gripper
 import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
@@ -21,61 +20,8 @@ object Commands : TerminableSubsystem() {
 
 	}
 
-	fun grabCube() {
-		if (job != null) {
-			job!!.cancel()
-		}
-
-		launch("Cube Grab") {
-			grabCubeSuspend()
-		}
-
-	}
-
-	suspend fun grabCubeSuspend() {
-		println("Grabbing cube!\nOpening gripper!")
-		Gripper.openGripper().join()
-		println("Moving elevator down!")
-		Elevator.moveElevatorToPosition(2).join()
-		println("Closing gripper!")
-		Gripper.closeGripper().join()
-		println("Moving elevator to SWITCH 0!")
-		Elevator.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]).join()
-	}
-
 	suspend fun finesseTheCube(side: Int) {
-		Elevator.zeroElevatorEncoder()
-		Intake.startWheelsIn()
-		Intake.applyPower(0.2, 2000)
-		Elevator.moveElevatorToPosition(5).join()
-		Gripper.openGripper().join()
-		Elevator.moveElevatorToPosition(-2).join()
-		Gripper.closeGripper(useTime = true, timeMs = 3000)
-		Intake.stopWheels()
-		delay(1200)
-		Elevator.moveElevatorToPosition(20).join()
-
-//		Elevator.zeroElevatorEncoder()
-//		Intake.startWheelsIn()
-//		Intake.applyPower(0.2, 2000)
-//		delay(100)
-//		Gripper.openGripper().join()
-//		Elevator.moveElevatorToPosition(-3)
-//		delay(200)
-//		Gripper.closeGripper(useTime = true, timeMs = 3000).join()
-//		//delay(600) // 700 3-28 replica
-//		Elevator.moveElevatorToPosition(20).join()
-//		Intake.stopWheels()
-
-//		Elevator.moveElevatorToPosition(3)
-//		delay(500)
-//		Gripper.openGripper().join()
-//		Elevator.moveElevatorToPosition(-3)
-//		delay(500)
-//		Gripper.closeGripper(useTime = true, timeMs = 2000)
-//		delay(700)// 700 3-28 replica
-//		Elevator.moveElevatorToPosition(20)
-//		delay(500)
+		// TODO: New finesseTheCube needed since half the robot was removed
 
 //		Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 //		Elevator.moveSideShiftToPositionSuspend(side)
