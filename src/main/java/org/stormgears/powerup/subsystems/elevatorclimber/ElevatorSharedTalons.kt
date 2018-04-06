@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.StatusFrame
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
@@ -16,10 +17,14 @@ object ElevatorSharedTalons {
 	val slaveMotor: ITalon
 
 	init {
-		println("Initializing elevator talons")
+//		println("Initializing elevator talons")
 
 		masterMotor = createTalon(MASTER_MOTOR_TALON_ID)
 		slaveMotor = createTalon(SLAVE_MOTOR_TALON_ID)
+		masterMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
+		slaveMotor.setStatusFramePeriod(StatusFrame.Status_13_Base_PIDF0, 10, 0)
+//		println("STATUS FRAME HAS BEEN SET")
+
 
 		masterMotor.setNeutralMode(NeutralMode.Brake)
 		slaveMotor.setNeutralMode(NeutralMode.Brake)

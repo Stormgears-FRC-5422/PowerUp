@@ -41,16 +41,22 @@ object DSIO {
 			buttonBoard.scaleButtons[i].whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[i]) }
 		}
 
-		buttonBoard.switch0Button.whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0]) }
-		buttonBoard.switch1Button.whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1]) }
+		buttonBoard.switch0Button.whenPressed {
+			logger.trace("SWITCH BUTTON PRESSED 1")
+			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0])
+		}
+		buttonBoard.switch1Button.whenPressed {
+			logger.trace("SWITCH BUTTON PRESSED 2")
+			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+		}
 
-		buttonBoard.dropButton.whenPressed { Robot.gripper?.openGripper() }
+//		buttonBoard.dropButton.whenPressed { Robot.gripper?.openGripper() }
 
 //		buttonBoard.sideLeftButton.whenPressed {Robot.elevator?.moveSideShiftOverLeft() }
 //		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
 
-		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftOverLeft() }
-		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
+//		buttonBoard.sideLeftButton.whenPressed { Robot.elevator?.moveSideShiftOverLeft() }
+//		buttonBoard.sideRightButton.whenPressed { Robot.elevator?.moveSideShiftOverRight() }
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 
@@ -87,15 +93,15 @@ object DSIO {
 		buttonBoard.gripCloseButton.whenPressed { println("close"); Robot.gripper?.closeGripper() }
 		buttonBoard.gripOpenButton.whenPressed { println("open"); Robot.gripper?.openGripper() }
 
-		buttonBoard.climbUpButton.whenPressed { Elevator.moveSideShiftToPosition(Elevator.CENTER)/* Raise Climber */ }
+//		buttonBoard.climbUpButton.whenPressed { Elevator.moveSideShiftToPosition(Elevator.CENTER)/* Raise Climber */ }
 		buttonBoard.climbDownButton.whenPressed { /* Lower Climber */ }
 
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
 		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }
 		buttonBoard.overrideUp.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideDown.whenReleased { Robot.elevator?.stop() }
-		buttonBoard.overrideLeft.whenPressed { Robot.elevator?.moveLeftManual() }
-		buttonBoard.overrideRight.whenPressed { Robot.elevator?.moveRightManual() }
+//		buttonBoard.overrideLeft.whenPressed { Robot.elevator?.moveLeftManual() }
+//		buttonBoard.overrideRight.whenPressed { Robot.elevator?.moveRightManual() }
 		buttonBoard.overrideLeft.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideRight.whenReleased { Robot.elevator?.stop() }
 

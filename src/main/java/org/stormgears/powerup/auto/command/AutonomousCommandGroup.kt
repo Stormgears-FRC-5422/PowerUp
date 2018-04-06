@@ -1,8 +1,6 @@
 package org.stormgears.powerup.auto.command
 
 import org.apache.logging.log4j.LogManager
-import org.stormgears.powerup.commands.Commands
-import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.utils.concurrency.TerminableSubsystem
 
@@ -19,7 +17,7 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 
 		launch {
 			val finesseJob = launch {
-				Commands.finesseTheCube(Elevator.LEFT)
+				//				Commands.finesseTheCube(Elevator.LEFT)
 			}
 
 			AutoDriveMoveCommand.execute(selectedAlliance,

@@ -9,7 +9,6 @@ import org.stormgears.powerup.subsystems.field.AutoRoutes
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.Segment
 import org.stormgears.powerup.subsystems.gripper.Gripper
-import org.stormgears.powerup.subsystems.intake.Intake
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
@@ -51,14 +50,14 @@ object AutoDriveMoveCommand {
 				move(autoRoute.strafeToRightScale)
 			}
 
-			Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
-				FieldPositions.LeftRight.L -> Elevator.RIGHT
-				FieldPositions.LeftRight.R -> Elevator.LEFT
-			}).join()
-
-			Gripper.openGripper().join()
-			Elevator.moveSideShiftToPosition(Elevator.CENTER).join()
-			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+//			Elevator.moveSideShiftToPosition(when (selectedScalePlateAssignment) {
+//				FieldPositions.LeftRight.L -> Elevator.RIGHT
+//				FieldPositions.LeftRight.R -> Elevator.LEFT
+//			}).join()
+//
+//			Gripper.openGripper().join()
+//			Elevator.moveSideShiftToPosition(Elevator.CENTER).join()
+//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Elevator.zeroElevator()
 
 		} else if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
@@ -75,9 +74,9 @@ object AutoDriveMoveCommand {
 			if (selectedStartingSpot == FieldPositions.StartingSpots.LEFT) {
 				if (selectedPlacementSpot == FieldPositions.PlacementSpot.SWITCH) {
 					if (selectedOwnSwitchPlateAssignment == FieldPositions.LeftRight.L) {
-						Elevator.moveSideShiftToPosition(Elevator.RIGHT).join()
+//						Elevator.moveSideShiftToPosition(Elevator.RIGHT).join()
 					} else { //if (selectedScalePlateAssignment == FieldPositions.LeftRight.R)
-						Elevator.moveSideShiftToPosition(Elevator.LEFT).join()
+//						Elevator.moveSideShiftToPosition(Elevator.LEFT).join()
 					}
 				}
 			}
