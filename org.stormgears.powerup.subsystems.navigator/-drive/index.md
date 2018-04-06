@@ -28,7 +28,7 @@
 | [moveStraightNavX](move-straight-nav-x.md) | `suspend fun moveStraightNavX(dist: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Moves the robot forwards or backwards |
 | [moveToPos](move-to-pos.md) | `suspend fun moveToPos(p1: `[`Position`](../-position/index.md)`, p2: `[`Position`](../-position/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>MoveToPos Method; Moves robot between two positions |
 | [strafeNavX](strafe-nav-x.md) | `suspend fun strafeNavX(dist: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Moves the robot left or right |
-| [turnTo](turn-to.md) | `suspend fun turnTo(theta: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>This method takes in an angle, theta, and turns the robot to the corresponding direction so that its front faces the angle passed in. |
+| [turn](turn.md) | `suspend fun turn(theta: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>This method takes in an angle, theta, and turns the robot to the corresponding direction so that its front faces the angle passed in. |
 
 ### Inherited Functions
 

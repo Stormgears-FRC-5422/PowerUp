@@ -8,8 +8,6 @@ Field information (dimensions, paths, etc.).
 
 | Name | Summary |
 |---|---|
-| [AutoRoute](-auto-route/index.md) | `interface AutoRoute` |
-| [AutoRoutes](-auto-routes/index.md) | `object AutoRoutes`<br>Routes for robot in AUTONOMOUS ONLY!!! |
 | [FieldElements](-field-elements/index.md) | `open class FieldElements` |
 | [FieldPositions](-field-positions/index.md) | `open class FieldPositions` |
 | [Segment](-segment/index.md) | `open class Segment` |
