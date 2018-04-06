@@ -60,4 +60,6 @@ open class FactoryTalonConfig : TalonConfig {
 	override val continuousCurrentLimit: Int = 0
 	override val peakCurrentDuration: Int = 0
 	override val peakCurrentLimit: Int = 0
+	override val enableCurrentLimit: Boolean = false
+	override val statusFramePeriod: Map<StatusFrameEnhanced, Int> = mapOf()
 }

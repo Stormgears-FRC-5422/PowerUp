@@ -20,7 +20,14 @@ annotation class GenerateTalonConfigReconciler
 
 @Target(AnnotationTarget.PROPERTY_GETTER)
 @Retention(AnnotationRetention.SOURCE)
-annotation class Config(val prefix: String, val timeout: Boolean = true, val deep: Boolean = false, val pidIdx: Boolean = false, val camel: Boolean = true)
+annotation class Config(
+	val prefix: String,
+	val timeout: Boolean = true,
+	val deep: Boolean = false,
+	val pidIdx: Boolean = false,
+	val camel: Boolean = true,
+	val map: Boolean = false
+)
 
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.SOURCE)
@@ -148,6 +155,12 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 					throw IllegalStateException("???")
 				}
 
+			} else if (ann.map) {
+				// TODO: Diff individual map keys
+				codeBlock = """for ((key, value) in config.$propName) {
+    |    talon.$talonConfig(key, value${if (ann.timeout) ", 10" else ""})
+    |}
+""".trimMargin()
 			} else {
 				argStr = "config.$propName"
 			}

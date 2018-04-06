@@ -350,6 +350,24 @@ interface TalonConfig {
 	 */
 	@get:Config("config")
 	val peakCurrentLimit: Int
+
+	/**
+	 * Enable or disable Current Limit.
+	 *
+	 * @see TalonSRX.enableCurrentLimit
+	 */
+	@get:Config("", timeout = false)
+	val enableCurrentLimit: Boolean
+
+	/**
+	 * Sets the period of each status frame in the given map. User ensure CAN Bus utilization is not high. This setting
+	 * is not persistent and is lost when device is reset. If this is a concern, calling application can use
+	 * [TalonSRX.hasResetOccurred] to determine if the status frame needs to be reconfigured.
+	 *
+	 * @see TalonSRX.setStatusFramePeriod
+	 */
+	@get:Config("set", map = true)
+	val statusFramePeriod: Map<StatusFrameEnhanced, Int>
 }
 
 /**
@@ -545,4 +563,3 @@ data class SensorTermConfig(
 	@ConfigParam
 	val feedbackDevice: FeedbackDevice
 )
-

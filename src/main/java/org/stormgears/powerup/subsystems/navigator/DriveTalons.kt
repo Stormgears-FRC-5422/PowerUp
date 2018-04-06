@@ -2,7 +2,9 @@ package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice
 import com.ctre.phoenix.motorcontrol.NeutralMode
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic.Companion.TALON_FPID_TIMEOUT
 import org.stormgears.utils.talons.*
 
 class DriveTalons {
@@ -34,6 +36,11 @@ class DriveTalons {
 		override val inverted: Boolean = true
 		override val sensorPhase: Boolean = true
 		override val selectedFeedbackSensor: FeedbackDeviceConfig = LocalFeedbackDeviceConfig(FeedbackDevice.QuadEncoder)
+
+		override val statusFramePeriod: Map<StatusFrameEnhanced, Int> = mapOf(
+			StatusFrameEnhanced.Status_13_Base_PIDF0 to TALON_FPID_TIMEOUT,
+			StatusFrameEnhanced.Status_10_MotionMagic to TALON_FPID_TIMEOUT
+		)
 	}
 
 	val driveTalonConfig = DriveTalonConfig()

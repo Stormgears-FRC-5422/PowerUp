@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator.motionprofile
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced
 import org.stormgears.powerup.subsystems.navigator.DriveTalons
 import org.stormgears.utils.talons.ITalon
 
@@ -22,10 +21,6 @@ class MotionMagic(private val talon: ITalon, maxVel: Double, maxAccel: Double) {
 //		talon.inverted = true
 
 		talon.setConfig(MotionMagicDriveConfig(maxVel, maxAccel))
-
-		/* Set relevant frame periods to be at least as fast as periodic rate */
-		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, TALON_FPID_TIMEOUT, TALON_FPID_TIMEOUT)
-		talon.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, TALON_FPID_TIMEOUT, TALON_FPID_TIMEOUT)
 
 		/* set closed loop gains in slot0 - see documentation */
 		talon.selectProfileSlot(0, 0)

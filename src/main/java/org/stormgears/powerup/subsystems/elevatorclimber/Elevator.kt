@@ -89,23 +89,13 @@ object Elevator : TerminableSubsystem() {
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 		lowering = if (destinationTicks < currentPositionTicks) {     // Raising elevator
 			logger.info("Using raise elevator PID values")
-			talons.masterMotor.config_kP(0, 0.01, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			talons.masterMotor.config_kI(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			talons.masterMotor.config_kD(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-
-
-			//talons.masterMotor.config_kP(0, Robot.config.elevatorRaiseP, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			//talons.masterMotor.config_kI(0, Robot.config.elevatorRaiseI, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			//talons.masterMotor.config_kD(0, Robot.config.elevatorRaiseD, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.selectProfileSlot(0, 0)
 			false
 		} else {    // Lowering elevator
 			logger.info("Using lower elevator PID values")
-			talons.masterMotor.config_kP(0, Robot.config.elevatorLowerP, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			talons.masterMotor.config_kI(0, Robot.config.elevatorLowerI, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
-			talons.masterMotor.config_kD(0, Robot.config.elevatorLowerD, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
+			talons.masterMotor.selectProfileSlot(1, 0)
 			true
 		}
-		talons.masterMotor.config_kF(0, 0.0, ElevatorSharedTalons.TALON_FPID_TIMEOUT)
 
 		SmartDashboard.putNumber("Desired encoder position", destinationTicks.toDouble())
 		SmartDashboard.putBoolean("Elevator lowering", lowering)

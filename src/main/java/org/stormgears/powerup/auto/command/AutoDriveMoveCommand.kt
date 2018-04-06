@@ -40,7 +40,7 @@ object AutoDriveMoveCommand {
 //			finesseJob.join()
 
 			finesseJob.cancel()
-			1
+
 			//USED TO SAY 40 instead of elevator.scale_positions[1]
 			Elevator.moveElevatorToPosition(Elevator.SCALE_POSITIONS[1]).join()
 
