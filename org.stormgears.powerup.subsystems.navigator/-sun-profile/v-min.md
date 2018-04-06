@@ -1,4 +1,4 @@
-[PowerUp](../index.md) / [org.stormgears.powerup.subsystems.navigator](index.md) / [vMin](./v-min.md)
+[PowerUp](../../index.md) / [org.stormgears.powerup.subsystems.navigator](../index.md) / [SunProfile](index.md) / [vMin](./v-min.md)
 
 # vMin
 

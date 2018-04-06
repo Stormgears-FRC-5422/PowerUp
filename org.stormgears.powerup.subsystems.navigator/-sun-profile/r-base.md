@@ -1,4 +1,4 @@
-[PowerUp](../index.md) / [org.stormgears.powerup.subsystems.navigator](index.md) / [rBase](./r-base.md)
+[PowerUp](../../index.md) / [org.stormgears.powerup.subsystems.navigator](../index.md) / [SunProfile](index.md) / [rBase](./r-base.md)
 
 # rBase
 

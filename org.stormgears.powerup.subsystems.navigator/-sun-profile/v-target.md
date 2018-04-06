@@ -1,4 +1,4 @@
-[PowerUp](../index.md) / [org.stormgears.powerup.subsystems.navigator](index.md) / [vTarget](./v-target.md)
+[PowerUp](../../index.md) / [org.stormgears.powerup.subsystems.navigator](../index.md) / [SunProfile](index.md) / [vTarget](./v-target.md)
 
 # vTarget
 

@@ -89,6 +89,7 @@
 | [org.stormgears.powerup.subsystems.sensors.stormnet.StormNetVoice](../org.stormgears.powerup.subsystems.sensors.stormnet/-storm-net-voice/index.md) |  |
 | [org.stormgears.utils.StormScheduler](../org.stormgears.utils/-storm-scheduler/index.md) |  |
 | [org.stormgears.utils.logging.StormyLog](../org.stormgears.utils.logging/-stormy-log/index.md) |  |
+| [org.stormgears.powerup.subsystems.navigator.SunProfile](../org.stormgears.powerup.subsystems.navigator/-sun-profile/index.md) |  |
 | [org.stormgears.utils.dsio.SwitchControl](../org.stormgears.utils.dsio/-switch-control/index.md) | Create a joystick button for triggering commands. |
 | [org.stormgears.utils.talons.TalonConfig](../org.stormgears.utils.talons/-talon-config/index.md) | Configuration values for a Talon |
 | [org.stormgears.powerup.subsystems.navigator.TalonDebugger](../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md) |  |
