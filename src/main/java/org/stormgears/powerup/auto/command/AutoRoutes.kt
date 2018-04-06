@@ -11,7 +11,7 @@ object AutoRoutes {
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
 			Robot.drive?.moveStraightNavX(305.0)
-			Robot.drive?.turn(PI / 2)
+			Robot.drive?.turnNavX(PI / 2)
 			Robot.drive?.moveStraightNavX(12.0)
 			Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])?.join()
 			Robot.intake?.startWheelsOut()

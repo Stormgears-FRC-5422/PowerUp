@@ -432,70 +432,45 @@ object Drive : TerminableSubsystem() {
 	}
 
 	/**
-	 * This method takes in an angle, theta, and turns the robot to the
-	 * corresponding direction so that its front faces the angle passed in.
+	 * Turns the robot using the NavX
 	 *
-	 * @param theta Angle desired for robot turn
+	 * @param theta in radians
 	 */
-	suspend fun turn(theta: Double) {
-		var theta = theta
-
-		var negative = -1.0
-
-
-		theta %= (2 * Math.PI)
-		if (theta < 0) {
-			theta += 2 * Math.PI
-			logger.trace("Theta 2 {}", box(theta))
-		}
-
-		if (theta > Math.PI) {
-			negative = 1.0
-			logger.trace("Theta 1 {}", theta)
-			theta -= Math.PI
-
-			logger.trace(box(theta))
-		}
-
-		val robotLength = Robot.config.robotLength
-		val robotWidth = Robot.config.robotWidth
-
-		val r = (robotLength + robotWidth) / 3.8
-
-		val s = r * theta
-
-
-		var encoderTicks = s / (2.0 * Math.PI * Robot.config.wheelRadius) * 8192.0
-		encoderTicks *= Math.sqrt(2.0)
-
-
-		val t1 = (MAX_VELOCITY / MAX_ACCELERATION).toDouble()
-		val totTime = t1 + s / MAX_VELOCITY / 10.0 //TODO: FIND TOTAL
-
-		for (i in motions.indices) {
-			motions[i] = MotionMagic(talons[i], (MAX_VELOCITY / 2).toDouble(), (MAX_ACCELERATION / 2).toDouble())
-		}
-
-		logger.trace(box(encoderTicks))
-
-		for (i in motions.indices) {
-			if (i == 0 || i == 2) {
-				logger.trace("Talon {} Commanded: {}", box(i), box(encoderTicks))
-				motions[i]?.runMotionMagic((negative * encoderTicks).toInt())
-			} else {
-				logger.trace("Talon {} Commanded: {}", box(i), box(encoderTicks))
-				motions[i]?.runMotionMagic((negative * encoderTicks).toInt())
-
-			}
-		}
+	suspend fun turnNavX(theta: Double) {
+		val sign = -Math.signum(theta) // I don't know why this works...
+		val theta = abs(theta)
 
 		for (talon in talons) {
 			talon.setConfig(driveTalons.driveTalonConfig)
 		}
 
-		// TODO: wtf?
-		logger.trace("totTime: {}", totTime)
-		delay((totTime * 1000).toInt())
+		driveTalons.velocityPIDMode()
+
+		val talonFL = talons[0]
+		val talonFR = talons[1]
+		val talonRL = talons[2]
+		val talonRR = talons[3]
+
+		val initTheta = sensors.navX.getTheta(NavX.AngleUnit.Radians, false) // radians
+
+		var progress: Double
+		do {
+			progress = abs(sensors.navX.getTheta(NavX.AngleUnit.Radians, false) - initTheta) / theta
+
+			val currVel = sunProfile.profile(progress * 60, 60.0) * 0.7
+
+//			logger.trace("progress = {} currTheta = {} delta = {} compensation = {} currVel = {}", box(progress), box(currTheta), box(delta), box(compensation), box(currVel));
+
+			talonFL.set(ControlMode.Velocity, sign * currVel)
+			talonFR.set(ControlMode.Velocity, sign * currVel)
+			talonRL.set(ControlMode.Velocity, sign * currVel)
+			talonRR.set(ControlMode.Velocity, sign * currVel)
+
+//			delay(10)
+			yield()
+		} while (progress < 1.0);
+
+		setDriveTalonsZeroVelocity()
 	}
 
 
