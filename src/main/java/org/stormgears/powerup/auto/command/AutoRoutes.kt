@@ -34,7 +34,7 @@ object AutoRoutes {
 		}
 
 		override suspend fun crossBaseline() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			Robot.drive?.moveStraightNavX(150.0)
 		}
 	}
 
