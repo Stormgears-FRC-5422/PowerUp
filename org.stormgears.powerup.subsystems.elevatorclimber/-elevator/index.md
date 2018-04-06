@@ -10,13 +10,9 @@ Default constructor for the creation of the elevator
 
 | Name | Summary |
 |---|---|
-| [CENTER](-c-e-n-t-e-r.md) | `const val CENTER: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [LEFT](-l-e-f-t.md) | `const val LEFT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| [RIGHT](-r-i-g-h-t.md) | `const val RIGHT: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [SCALE_POSITIONS](-s-c-a-l-e_-p-o-s-i-t-i-o-n-s.md) | `val SCALE_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [SWITCH_POSITIONS](-s-w-i-t-c-h_-p-o-s-i-t-i-o-n-s.md) | `val SWITCH_POSITIONS: `[`IntArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int-array/index.html) |
 | [elevatorZeroed](elevator-zeroed.md) | `var elevatorZeroed: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
-| [sideShiftTalon](side-shift-talon.md) | `val sideShiftTalon: `[`ITalon`](../../org.stormgears.utils.talons/-i-talon/index.md) |
 | [useGartnerRate](use-gartner-rate.md) | `var useGartnerRate: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
 ### Inherited Properties
@@ -32,17 +28,11 @@ Default constructor for the creation of the elevator
 | [debug](debug.md) | `fun debug(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveDownManual](move-down-manual.md) | `fun moveDownManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [moveElevatorToPosition](move-elevator-to-position.md) | `fun moveElevatorToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move the elevator to a position |
-| [moveLeftManual](move-left-manual.md) | `fun moveLeftManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveRightManual](move-right-manual.md) | `fun moveRightManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [moveSideShiftOverLeft](move-side-shift-over-left.md) | `fun moveSideShiftOverLeft(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
-| [moveSideShiftOverRight](move-side-shift-over-right.md) | `fun moveSideShiftOverRight(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)`?` |
-| [moveSideShiftToPosition](move-side-shift-to-position.md) | `fun moveSideShiftToPosition(position: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Move side shift to position |
 | [moveUpManual](move-up-manual.md) | `fun moveUpManual(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [stop](stop.md) | `fun stop(): `[`Job`](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html)<br>Stop all motion |
 | [turnOffElevator](turn-off-elevator.md) | `fun turnOffElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [zeroElevator](zero-elevator.md) | `suspend fun zeroElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [zeroElevator](zero-elevator.md) | `suspend fun zeroElevator(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Move side shift to position |
 | [zeroElevatorEncoder](zero-elevator-encoder.md) | `fun zeroElevatorEncoder(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
-| [zeroSideShift](zero-side-shift.md) | `fun zeroSideShift(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 
 ### Inherited Functions
 
