@@ -1,10 +1,13 @@
 package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
+import org.stormgears.utils.talons.LocalLimitSwitchSourceConfig
 import org.stormgears.utils.talons.createTalon
 
 object ElevatorSharedTalons {
@@ -38,6 +41,9 @@ object ElevatorSharedTalons {
 		override val peakCurrentLimit = 30
 		override val continuousCurrentLimit = 60
 		override val enableCurrentLimit = true
+
+		override val forwardLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
+		override val reverseLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
 	}
 
 	val elevatorTalonConfig = ElevatorTalonConfig()
