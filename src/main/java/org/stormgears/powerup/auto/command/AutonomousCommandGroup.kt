@@ -16,17 +16,12 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 		logger.trace("initiating autonomous command group")
 
 		launch {
-			val finesseJob = launch {
-				//				Commands.finesseTheCube(Elevator.LEFT)
-			}
-
 			AutoDriveMoveCommand.execute(selectedAlliance,
 				selectedStartingSpot,
 				selectedPlacementSpot,
 				selectedOwnSwitchPlateAssignment,
 				selectedScalePlateAssignment,
-				selectedOpponentSwitchPlateAssignmentChooser,
-				finesseJob
+				selectedOpponentSwitchPlateAssignmentChooser
 			)
 
 			// Should move elevator upwards
