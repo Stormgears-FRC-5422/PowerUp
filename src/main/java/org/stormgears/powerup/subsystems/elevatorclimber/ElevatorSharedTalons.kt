@@ -3,17 +3,44 @@ package org.stormgears.powerup.subsystems.elevatorclimber
 import com.ctre.phoenix.motorcontrol.ControlMode
 import com.ctre.phoenix.motorcontrol.NeutralMode
 import org.stormgears.powerup.Robot
+import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
 
 object ElevatorSharedTalons {
-	const val TALON_FPID_TIMEOUT = 10
-
 	private val MASTER_MOTOR_TALON_ID = Robot.config.elevatorMasterTalonId
 	private val SLAVE_MOTOR_TALON_ID = Robot.config.elevatorSlaveTalonId
 
 	val masterMotor: ITalon
 	val slaveMotor: ITalon
+
+	class ElevatorTalonConfig : FactoryTalonConfig() {
+		// Raise
+		override val profileSlot0 = object : DefaultPIDSlot() {
+			override val kP = Robot.config.elevatorRaiseP
+			override val kI = Robot.config.elevatorRaiseI
+			override val kD = Robot.config.elevatorRaiseD
+			override val kF = 0.0
+		}
+
+		// Lower
+		override val profileSlot1 = object : DefaultPIDSlot() {
+			override val kP = Robot.config.elevatorLowerP
+			override val kI = Robot.config.elevatorLowerI
+			override val kD = Robot.config.elevatorLowerD
+			override val kF = 0.0
+		}
+
+		override val neutralMode = NeutralMode.Brake
+		override val inverted = true
+		override val sensorPhase = true
+
+		override val peakCurrentLimit = 30
+		override val continuousCurrentLimit = 60
+		override val enableCurrentLimit = true
+	}
+
+	val elevatorTalonConfig = ElevatorTalonConfig()
 
 	init {
 		println("Initializing elevator talons")
@@ -21,23 +48,9 @@ object ElevatorSharedTalons {
 		masterMotor = createTalon(MASTER_MOTOR_TALON_ID)
 		slaveMotor = createTalon(SLAVE_MOTOR_TALON_ID)
 
-		masterMotor.setNeutralMode(NeutralMode.Brake)
-		slaveMotor.setNeutralMode(NeutralMode.Brake)
+		masterMotor.setConfig(elevatorTalonConfig)
+		slaveMotor.setConfig(elevatorTalonConfig)
+
 		slaveMotor.set(ControlMode.Follower, MASTER_MOTOR_TALON_ID.toDouble())
-
-		invert(true)
-		masterMotor.setSensorPhase(true)
-
-		masterMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT)
-		masterMotor.configContinuousCurrentLimit(60, TALON_FPID_TIMEOUT)
-		masterMotor.enableCurrentLimit(true)
-		slaveMotor.configPeakCurrentLimit(30, TALON_FPID_TIMEOUT)
-		slaveMotor.configContinuousCurrentLimit(60, TALON_FPID_TIMEOUT)
-		slaveMotor.enableCurrentLimit(true)
-	}
-
-	internal fun invert(inverted: Boolean) {
-		masterMotor.inverted = inverted
-		slaveMotor.inverted = inverted
 	}
 }
