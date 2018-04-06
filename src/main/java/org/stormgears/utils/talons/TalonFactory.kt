@@ -7,7 +7,7 @@ private val logger = LogManager.getLogger()
 
 fun createTalon(deviceNumber: Int): ITalon {
 	if (deviceNumber != -1) {
-		val talon = TalonManager(TalonSRXAdapter(deviceNumber))
+		val talon = ManagedTalon(TalonSRXAdapter(deviceNumber))
 
 		if (talon.isAlive) {
 			return talon
@@ -16,6 +16,6 @@ fun createTalon(deviceNumber: Int): ITalon {
 		}
 	}
 
-	return TalonManager(MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber"))
+	return ManagedTalon(MotorLogger(DummyTalon(deviceNumber), "DummyTalon $deviceNumber"))
 }
 
