@@ -25,4 +25,4 @@
 
 | Name | Summary |
 |---|---|
-| [Robot](../../org.stormgears.powerup/-robot/index.md) | `open class Robot : `[`BaseStormgearsRobot`](./index.md) |
+| [Robot](../../org.stormgears.powerup/-robot/index.md) | `class Robot : `[`BaseStormgearsRobot`](./index.md) |

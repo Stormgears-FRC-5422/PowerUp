@@ -2,7 +2,7 @@
 
 # teleopInit
 
-`open fun teleopInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun teleopInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Runs when operator control starts
 

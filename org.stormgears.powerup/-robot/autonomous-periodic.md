@@ -2,7 +2,7 @@
 
 # autonomousPeriodic
 
-`open fun autonomousPeriodic(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun autonomousPeriodic(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Overrides [BaseStormgearsRobot.autonomousPeriodic](../../org.stormgears.utils/-base-stormgears-robot/autonomous-periodic.md)
 

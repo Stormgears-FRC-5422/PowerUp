@@ -2,4 +2,4 @@
 
 # config
 
-`static var config: `[`RobotConfiguration`](../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.md)
+`@JvmStatic var config: `[`RobotConfiguration`](../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.md)

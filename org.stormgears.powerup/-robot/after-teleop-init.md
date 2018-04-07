@@ -2,7 +2,7 @@
 
 # afterTeleopInit
 
-`open fun afterTeleopInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun afterTeleopInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Overrides [BaseStormgearsRobot.afterTeleopInit](../../org.stormgears.utils/-base-stormgears-robot/after-teleop-init.md)
 

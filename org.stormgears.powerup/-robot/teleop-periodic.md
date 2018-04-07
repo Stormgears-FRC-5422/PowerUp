@@ -2,7 +2,7 @@
 
 # teleopPeriodic
 
-`open fun teleopPeriodic(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun teleopPeriodic(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Overrides [BaseStormgearsRobot.teleopPeriodic](../../org.stormgears.utils/-base-stormgears-robot/teleop-periodic.md)
 

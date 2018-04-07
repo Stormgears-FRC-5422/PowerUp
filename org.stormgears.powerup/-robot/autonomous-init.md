@@ -2,7 +2,7 @@
 
 # autonomousInit
 
-`open fun autonomousInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun autonomousInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Runs when autonomous mode starts
 

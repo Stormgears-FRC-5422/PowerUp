@@ -2,7 +2,7 @@
 
 # disabledInit
 
-`open fun disabledInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun disabledInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Overrides [BaseStormgearsRobot.disabledInit](../../org.stormgears.utils/-base-stormgears-robot/disabled-init.md)
 

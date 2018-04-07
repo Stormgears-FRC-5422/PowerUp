@@ -2,7 +2,7 @@
 
 # afterAutonomousInit
 
-`open fun afterAutonomousInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`fun afterAutonomousInit(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
 
 Overrides [BaseStormgearsRobot.afterAutonomousInit](../../org.stormgears.utils/-base-stormgears-robot/after-autonomous-init.md)
 

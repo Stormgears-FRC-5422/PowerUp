@@ -2,4 +2,4 @@
 
 # dsio
 
-`static var dsio: `[`DSIO`](../../org.stormgears.powerup.subsystems.dsio/-d-s-i-o/index.md)
+`@JvmStatic var dsio: `[`DSIO`](../../org.stormgears.powerup.subsystems.dsio/-d-s-i-o/index.md)`?`
