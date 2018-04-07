@@ -128,9 +128,7 @@ class Robot : BaseStormgearsRobot() {
 			climber = Climber.getInstance()
 		}
 
-		if (Robot.elevator != null) {
-			Robot.elevator!!.zeroElevatorEncoder()
-		}
+		Robot.elevator?.zeroElevatorEncoder()
 	}
 
 	/**
@@ -179,9 +177,7 @@ class Robot : BaseStormgearsRobot() {
 	override fun teleopInit() {
 		logger.trace("teleop init")
 
-		if (driveTalons != null) {
-			driveTalons!!.velocityPIDMode()
-		}
+		driveTalons?.velocityPIDMode()
 
 		if (dsio == null) {
 			dsio = DSIO
@@ -240,13 +236,14 @@ class Robot : BaseStormgearsRobot() {
 		//			TalonDebuggerKt.dashboardify(driveTalons);
 		//		}
 
-		if (elevator != null) {
-			elevator!!.debug()
-		}
+		elevator?.debug()
 
 		if (drive != null) {
 			if (!sensors!!.navX.isCalibrating) {
-				if (!sensors!!.navX.thetaIsSet()) sensors!!.navX.setInitialTheta()
+				if (!sensors!!.navX.thetaIsSet()) {
+					sensors!!.navX.setInitialTheta()
+				}
+
 				drive!!.joystickMove()
 			} else {
 				logger.fatal("NavX is currently calibrating! Cannot drive!")
@@ -265,20 +262,9 @@ class Robot : BaseStormgearsRobot() {
 
 		Terminator.disabled = true
 
-		if (talonDebugger != null && talonDebugger!!.job != null) {
-			talonDebugger!!.job!!.cancel(null)
-		}
+		talonDebugger?.job?.cancel(null)
 
-		if (elevatorSharedTalons != null) {
-			elevatorSharedTalons!!.masterMotor.sensorCollection.setQuadraturePosition(0, 10)
-			if (elevator != null) {
-				elevator!!.elevatorZeroed = true
-			}
-		}
-
-		if (elevator != null) {
-			elevator!!.turnOffElevator()
-		}
+		elevator?.turnOffElevator()
 
 		for (rn in notifierRegistry) {
 			rn.stop()
@@ -286,6 +272,7 @@ class Robot : BaseStormgearsRobot() {
 	}
 
 	private fun getSelectedAutonomousCommand() {
+		// TODO: Untangle this spaghetti
 		selectedAlliance = dsio!!.choosers.alliance
 		selectedStartSpot = dsio!!.choosers.startingSpot
 		selectedPlacementSpot = dsio!!.choosers.placementSpot
