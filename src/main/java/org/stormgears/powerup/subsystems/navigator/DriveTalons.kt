@@ -39,7 +39,8 @@ class DriveTalons {
 
 		override val statusFramePeriod: Map<StatusFrameEnhanced, Int> = mapOf(
 			StatusFrameEnhanced.Status_13_Base_PIDF0 to TALON_FPID_TIMEOUT,
-			StatusFrameEnhanced.Status_10_MotionMagic to TALON_FPID_TIMEOUT
+			StatusFrameEnhanced.Status_10_MotionMagic to TALON_FPID_TIMEOUT,
+			StatusFrameEnhanced.Status_3_Quadrature to 10
 		)
 	}
 

@@ -72,10 +72,10 @@ abstract class TerminableSubsystem : WithCoroutines {
 		return super.async(context = context, start = start, parent = parentJob, block = block)
 	}
 
-	override fun <E> produce(context: CoroutineContext, capacity: Int, parent: Job?, block: suspend ProducerScope<E>.() -> Unit): ReceiveChannel<E> {
+	override fun <E> produce(context: CoroutineContext, capacity: Int, parent: Job?, block: suspend ProducerScope<E>.() -> Unit): ReceiveChannel<E>? {
 		if (disabled) {
 			logger.error("Cannot run produce in {}; subsystem is disabled", subclassName)
-			throw IllegalStateException()
+			return null
 		}
 
 		return super.produce(context = context, capacity = capacity, parent = parentJob, block = block)

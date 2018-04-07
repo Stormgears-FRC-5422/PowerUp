@@ -68,7 +68,7 @@ interface WithCoroutines {
 		capacity: Int = 0,
 		parent: Job? = null,
 		block: suspend ProducerScope<E>.() -> Unit
-	) = kotlinx.coroutines.experimental.channels.produce(
+	): ReceiveChannel<E>? = kotlinx.coroutines.experimental.channels.produce(
 		context = context,
 		capacity = capacity,
 		parent = parent,

@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.intake
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
@@ -9,7 +8,6 @@ import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
-import java.lang.Math.abs
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -50,11 +48,11 @@ object Intake : TerminableSubsystem() {
 		}
 	}
 
-	fun startWheelsIn() {
+	fun startWheelsIn(output: Double = 1.0) {
 		logger.info("Intake wheels pulling in")
 
-		leftTalon.set(ControlMode.PercentOutput, 1.0)
-		rightTalon.set(ControlMode.PercentOutput, -1.0)
+		leftTalon.set(ControlMode.PercentOutput, output)
+		rightTalon.set(ControlMode.PercentOutput, -output)
 	}
 
 	fun startWheelsOut() {

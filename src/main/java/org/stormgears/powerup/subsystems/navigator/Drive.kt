@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.ControlMode
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
@@ -80,7 +81,10 @@ object Drive : TerminableSubsystem() {
 
 		if (useAbsoluteControl) {
 			val navxTheta = -sensors.navX.getTheta()
+			SmartDashboard.putNumber("navXTheta", navxTheta * 57.296);
+			SmartDashboard.putNumber("theta", theta * 57.296);
 			theta = theta - navxTheta - Math.PI / 2
+			SmartDashboard.putNumber("new theta", theta * 57.296);
 		}
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
@@ -311,7 +315,7 @@ object Drive : TerminableSubsystem() {
 	 * Moves the robot forwards or backwards
 	 * @param dist in inches
 	 */
-	suspend fun moveStraightNavX(dist: Double) {
+	suspend fun moveStraightNavX(dist: Double, progressListener: (progress: Double) -> Unit = fun(_) {}) {
 		val sign = Math.signum(dist)
 		val distance = abs(dist)
 
@@ -356,6 +360,7 @@ object Drive : TerminableSubsystem() {
 			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 
 //			delay(10)
+			progressListener(progress)
 			yield()
 		} while (progress < 1.0);
 
