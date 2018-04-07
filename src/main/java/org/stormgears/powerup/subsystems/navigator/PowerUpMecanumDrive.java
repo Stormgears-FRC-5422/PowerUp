@@ -25,8 +25,8 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 
 	private PowerUpMecanumDrive() {
 //		MecanumDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-		super(Robot.driveTalons.getTalons()[0], Robot.driveTalons.getTalons()[2], Robot.driveTalons.getTalons()[1], Robot.driveTalons.getTalons()[3]);
-		talons = Robot.driveTalons.getTalons();
+		super(Robot.getDriveTalons().getTalons()[0], Robot.getDriveTalons().getTalons()[2], Robot.getDriveTalons().getTalons()[1], Robot.getDriveTalons().getTalons()[3]);
+		talons = Robot.getDriveTalons().getTalons();
 	}
 
 	public static void init() {
@@ -42,19 +42,19 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 	}
 
 	public void move() {
-		double x = Robot.dsio.getJoystickX(),
-			y = Robot.dsio.getJoystickY(),
-			z = Robot.dsio.getJoystickZ();
+		double x = Robot.getDsio().getJoystickX(),
+			y = Robot.getDsio().getJoystickY(),
+			z = Robot.getDsio().getJoystickZ();
 		
 		this.driveCartesian(-x, y, z, 0);
 	}
 	
 	public void moveFieldOriented() {
-		double x = Robot.dsio.getJoystickX(),
-			y = Robot.dsio.getJoystickY(),
-			z = Robot.dsio.getJoystickZ();
+		double x = Robot.getDsio().getJoystickX(),
+			y = Robot.getDsio().getJoystickY(),
+			z = Robot.getDsio().getJoystickZ();
 
-		double navX_theta = Robot.sensors.getNavX().getTheta(NavX.AngleUnit.Radians, true);
+		double navX_theta = Robot.getSensors().getNavX().getTheta(NavX.AngleUnit.Radians, true);
 		
 		this.driveCartesian(-x, y, z, navX_theta);
 	}
@@ -62,10 +62,10 @@ public class PowerUpMecanumDrive extends MecanumDrive {
 	
 	//this function is NOT tested
 	public void turnTo(double theta) {
-		double navX_theta = Robot.sensors.getNavX().getTheta(NavX.AngleUnit.Radians, true);
-		double x = Robot.dsio.getJoystickX(),
-				y = Robot.dsio.getJoystickY(),
-				z = Robot.dsio.getJoystickZ();
+		double navX_theta = Robot.getSensors().getNavX().getTheta(NavX.AngleUnit.Radians, true);
+		double x = Robot.getDsio().getJoystickX(),
+			y = Robot.getDsio().getJoystickY(),
+			z = Robot.getDsio().getJoystickZ();
 
 		this.driveCartesian(-x, y, z, navX_theta);
 	}

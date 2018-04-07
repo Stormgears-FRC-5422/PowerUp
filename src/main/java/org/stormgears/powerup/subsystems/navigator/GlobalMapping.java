@@ -48,7 +48,7 @@ public class GlobalMapping {
 
 	static double smoothingFactor = 0.9;
 
-	static public AHRS ahrs = Robot.sensors.getNavX().getAhrs();
+	static public AHRS ahrs = Robot.getSensors().getNavX().getAhrs();
 
 	public GlobalMapping() {
 		enc_fl = 0;
@@ -112,10 +112,10 @@ public class GlobalMapping {
 
 	public static void updatePos() {
 
-		enc_fl = -1 * Robot.driveTalons.getTalons()[0].getSensorCollection().getQuadraturePosition();
-		enc_fr = Robot.driveTalons.getTalons()[1].getSensorCollection().getQuadraturePosition();
-		enc_bl = -1 * Robot.driveTalons.getTalons()[2].getSensorCollection().getQuadraturePosition();
-		enc_br = Robot.driveTalons.getTalons()[3].getSensorCollection().getQuadraturePosition();
+		enc_fl = -1 * Robot.getDriveTalons().getTalons()[0].getSensorCollection().getQuadraturePosition();
+		enc_fr = Robot.getDriveTalons().getTalons()[1].getSensorCollection().getQuadraturePosition();
+		enc_bl = -1 * Robot.getDriveTalons().getTalons()[2].getSensorCollection().getQuadraturePosition();
+		enc_br = Robot.getDriveTalons().getTalons()[3].getSensorCollection().getQuadraturePosition();
 
 		int d_enc_fl = (int) (enc_fl - prev_enc_fl);
 		int d_enc_fr = (int) (enc_fr - prev_enc_fr);

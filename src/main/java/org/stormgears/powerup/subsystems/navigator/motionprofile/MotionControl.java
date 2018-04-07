@@ -38,13 +38,13 @@ public class MotionControl {
 
 			synchronized (this) {
 //				if (numPoints > 0) {
-				for (ITalon t : Robot.driveTalons.getTalons()) {
+				for (ITalon t : Robot.getDriveTalons().getTalons()) {
 					t.clearMotionProfileHasUnderrun(10);
 					t.processMotionProfileBuffer();
 //						t.clearMotionProfileHasUnderrun();
 				}
 				logger.trace("HERE1");
-				Robot.driveTalons.getTalons()[0].getMotionProfileStatus(statuses[0]);
+				Robot.getDriveTalons().getTalons()[0].getMotionProfileStatus(statuses[0]);
 				logger.trace("HERE2");
 				btmBufferPoints = statuses[0].btmBufferCnt;
 				numPoints = --numPoints < 0 ? 0 : numPoints;
@@ -55,7 +55,7 @@ public class MotionControl {
 
 	public MotionControl() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
 			t.getSensorCollection().setQuadraturePosition(0, 10);
@@ -73,7 +73,7 @@ public class MotionControl {
 
 	public void startControlThread() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.changeMotionControlFramePeriod(5);
 			t.getSensorCollection().setQuadraturePosition(0, 10);
@@ -89,14 +89,14 @@ public class MotionControl {
 
 	public void printStatus() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 		}
 	}
 
 	public void shutDownProfiling() {
 		numPoints = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.clearMotionProfileTrajectories();
 			t.clearMotionProfileHasUnderrun(10);
 		}
@@ -104,7 +104,7 @@ public class MotionControl {
 
 	public void clearMotionProfileTrajectories() {
 		numPoints = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.clearMotionProfileTrajectories();
 		}
 	}
@@ -119,37 +119,37 @@ public class MotionControl {
 
 	// wrapper functions for talon
 	public synchronized ErrorCode pushMotionProfileTrajectory(int talonIndex, TrajectoryPoint pt) {
-		if (talonIndex == Robot.driveTalons.getTalons().length - 1)
+		if (talonIndex == Robot.getDriveTalons().getTalons().length - 1)
 			numPoints++;
 
-		return Robot.driveTalons.getTalons()[talonIndex].pushMotionProfileTrajectory(pt);
+		return Robot.getDriveTalons().getTalons()[talonIndex].pushMotionProfileTrajectory(pt);
 	}
 
 	public int getEncVel(int talonIndex) {
-		return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
+		return Robot.getDriveTalons().getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
 	}
 
 	public int getEncPos(int talonIndex) {
-		return Robot.driveTalons.getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
+		return Robot.getDriveTalons().getTalons()[talonIndex].getSensorCollection().getQuadratureVelocity();
 	}
 
 	//TODO: add in some edge case error checking
 	public void enable() {
 		int i = 0;
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.getMotionProfileStatus(statuses[i++]);
 			t.set(1);
 		}
 	}
 
 	public void disable() {
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.set(0);
 		}
 	}
 
 	public void holdProfile() {
-		for (ITalon t : Robot.driveTalons.getTalons()) {
+		for (ITalon t : Robot.getDriveTalons().getTalons()) {
 			t.set(2);
 		}
 	}

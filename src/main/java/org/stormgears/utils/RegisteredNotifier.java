@@ -15,8 +15,8 @@ public class RegisteredNotifier extends Notifier {
 
 	public RegisteredNotifier(Runnable run, String name) {
 		super(run);
-		synchronized (Robot.notifierRegistry) {
-			Robot.notifierRegistry.add(this);
+		synchronized (Robot.getNotifierRegistry()) {
+			Robot.getNotifierRegistry().add(this);
 		}
 
 		this.name = name;

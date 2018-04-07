@@ -154,7 +154,7 @@ public class MotionManager {
 	}
 
 	public MotionManager() {
-		numTalons = Robot.driveTalons.getTalons().length;
+		numTalons = Robot.getDriveTalons().getTalons().length;
 		control = new MotionControl();
 	}
 
@@ -185,7 +185,7 @@ public class MotionManager {
 		//TODO: fix this so that auto and teleops have two different flags
 		//Navigator.getMecanumDrive().initializeDriveMode(RobotModes.TELEOP, RobotDriveProfile.VELOCITY);
 
-		ITalon[] driveTalons = Robot.driveTalons.getTalons();
+		ITalon[] driveTalons = Robot.getDriveTalons().getTalons();
 	/*
 		driveTalons[Robot.config.frontLeftTalonId].set(ControlMode.Velocity, 0);
 		driveTalons[Robot.config.rearLeftTalonId].set(ControlMode.Velocity, 0);
@@ -208,10 +208,10 @@ public class MotionManager {
 //		System.out.println("Adjust PIDTurnRate with angleRate = " + angleRate);
 		// Note that the left and right wheels turning the same direction at the same speed causes
 		// a rotation since the wheels face opposite directions.
-		Robot.driveTalons.getTalons()[Robot.config.getFrontLeftTalonId()].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.getRearLeftTalonId()].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.getFrontRightTalonId()].set(ControlMode.Velocity, vel);
-		Robot.driveTalons.getTalons()[Robot.config.getRearRightTalonId()].set(ControlMode.Velocity, vel);
+		Robot.getDriveTalons().getTalons()[Robot.getConfig().getFrontLeftTalonId()].set(ControlMode.Velocity, vel);
+		Robot.getDriveTalons().getTalons()[Robot.getConfig().getRearLeftTalonId()].set(ControlMode.Velocity, vel);
+		Robot.getDriveTalons().getTalons()[Robot.getConfig().getFrontRightTalonId()].set(ControlMode.Velocity, vel);
+		Robot.getDriveTalons().getTalons()[Robot.getConfig().getRearRightTalonId()].set(ControlMode.Velocity, vel);
 	}
 
 	/*

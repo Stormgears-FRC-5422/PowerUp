@@ -14,7 +14,7 @@ public class Climber extends Subsystem {
 	private ElevatorSharedTalons talons;
 
 	private Climber() {
-		talons = Robot.elevatorSharedTalons;
+		talons = Robot.getElevatorSharedTalons();
 	}
 
 	public static void init() {
