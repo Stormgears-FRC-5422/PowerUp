@@ -42,9 +42,9 @@ object Drive : TerminableSubsystem() {
 	private val sunProfile = SunProfile()
 
 	fun joystickMove() {
-		val x = Robot.dsio.joystickX
-		val y = Robot.dsio.joystickY
-		val z = Robot.dsio.joystickZ
+		val x = Robot.dsio!!.joystickX
+		val y = Robot.dsio!!.joystickY
+		val z = Robot.dsio!!.joystickZ
 
 		//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
 
@@ -194,7 +194,7 @@ object Drive : TerminableSubsystem() {
 	}
 
 	private fun driverInputEligibleForTractionControl(): Boolean {
-		return Math.abs(Robot.dsio.joystickX) < 0.4 && Math.abs(Robot.dsio.joystickZ) < 0.4
+		return Math.abs(Robot.dsio!!.joystickX) < 0.4 && Math.abs(Robot.dsio!!.joystickZ) < 0.4
 
 	}
 
