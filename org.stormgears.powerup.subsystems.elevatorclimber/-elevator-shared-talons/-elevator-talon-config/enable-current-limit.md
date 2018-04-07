@@ -2,7 +2,7 @@
 
 # enableCurrentLimit
 
-`val enableCurrentLimit: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
+`open val enableCurrentLimit: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
 
 Overrides [FactoryTalonConfig.enableCurrentLimit](../../../org.stormgears.utils.talons/-factory-talon-config/enable-current-limit.md)
 

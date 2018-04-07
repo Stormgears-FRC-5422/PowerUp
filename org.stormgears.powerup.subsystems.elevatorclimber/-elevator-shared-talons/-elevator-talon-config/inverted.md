@@ -2,7 +2,7 @@
 
 # inverted
 
-`val inverted: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
+`open val inverted: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
 
 Overrides [FactoryTalonConfig.inverted](../../../org.stormgears.utils.talons/-factory-talon-config/inverted.md)
 

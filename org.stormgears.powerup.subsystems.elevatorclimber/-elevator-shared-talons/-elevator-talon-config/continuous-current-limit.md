@@ -2,7 +2,7 @@
 
 # continuousCurrentLimit
 
-`val continuousCurrentLimit: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+`open val continuousCurrentLimit: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
 
 Overrides [FactoryTalonConfig.continuousCurrentLimit](../../../org.stormgears.utils.talons/-factory-talon-config/continuous-current-limit.md)
 

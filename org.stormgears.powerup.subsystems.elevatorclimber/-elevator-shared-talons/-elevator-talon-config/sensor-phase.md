@@ -2,7 +2,7 @@
 
 # sensorPhase
 
-`val sensorPhase: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
+`open val sensorPhase: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)
 
 Overrides [FactoryTalonConfig.sensorPhase](../../../org.stormgears.utils.talons/-factory-talon-config/sensor-phase.md)
 

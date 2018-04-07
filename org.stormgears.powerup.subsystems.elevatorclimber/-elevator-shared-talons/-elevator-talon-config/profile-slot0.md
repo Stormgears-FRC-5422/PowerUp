@@ -2,7 +2,7 @@
 
 # profileSlot0
 
-`val profileSlot0: `[`DefaultPIDSlot`](../../../org.stormgears.utils.talons/-factory-talon-config/-default-p-i-d-slot/index.md)
+`open val profileSlot0: `[`DefaultPIDSlot`](../../../org.stormgears.utils.talons/-factory-talon-config/-default-p-i-d-slot/index.md)
 
 Overrides [FactoryTalonConfig.profileSlot0](../../../org.stormgears.utils.talons/-factory-talon-config/profile-slot0.md)
 

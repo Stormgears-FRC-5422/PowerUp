@@ -2,7 +2,7 @@
 
 # neutralMode
 
-`val neutralMode: NeutralMode`
+`open val neutralMode: NeutralMode`
 
 Overrides [FactoryTalonConfig.neutralMode](../../../org.stormgears.utils.talons/-factory-talon-config/neutral-mode.md)
 

@@ -11,6 +11,7 @@
 | [climbDownButton](climb-down-button.md) | `abstract val climbDownButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [climbUpButton](climb-up-button.md) | `abstract val climbUpButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [dropButton](drop-button.md) | `abstract val dropButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
+| [forceZeroElevatorButton](force-zero-elevator-button.md) | `abstract val forceZeroElevatorButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [gripCloseButton](grip-close-button.md) | `abstract val gripCloseButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [gripOpenButton](grip-open-button.md) | `abstract val gripOpenButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [intakeGrabButton](intake-grab-button.md) | `abstract val intakeGrabButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |

@@ -2,7 +2,7 @@
 
 # forwardLimitSwitchSource
 
-`val forwardLimitSwitchSource: `[`LocalLimitSwitchSourceConfig`](../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.md)
+`open val forwardLimitSwitchSource: `[`LocalLimitSwitchSourceConfig`](../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.md)
 
 Overrides [FactoryTalonConfig.forwardLimitSwitchSource](../../../org.stormgears.utils.talons/-factory-talon-config/forward-limit-switch-source.md)
 

@@ -2,7 +2,7 @@
 
 # reverseLimitSwitchSource
 
-`val reverseLimitSwitchSource: `[`LocalLimitSwitchSourceConfig`](../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.md)
+`open val reverseLimitSwitchSource: `[`LocalLimitSwitchSourceConfig`](../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.md)
 
 Overrides [FactoryTalonConfig.reverseLimitSwitchSource](../../../org.stormgears.utils.talons/-factory-talon-config/reverse-limit-switch-source.md)
 

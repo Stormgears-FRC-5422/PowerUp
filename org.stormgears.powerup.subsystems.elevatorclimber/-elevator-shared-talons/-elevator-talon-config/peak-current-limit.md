@@ -2,7 +2,7 @@
 
 # peakCurrentLimit
 
-`val peakCurrentLimit: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+`open val peakCurrentLimit: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
 
 Overrides [FactoryTalonConfig.peakCurrentLimit](../../../org.stormgears.utils.talons/-factory-talon-config/peak-current-limit.md)
 
