@@ -10,10 +10,10 @@ object AutoRoutes {
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
 			Robot.drive?.moveStraightNavX(253.0)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			Robot.drive?.strafeNavX(38.0)
-//			Robot.drive?.turnNavX(PI / 2)
-			Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])?.join()
 			Robot.drive?.moveStraightNavX(24.0)
+			elevatorJob?.join()
 			Robot.intake?.startWheelsOut()
 		}
 
