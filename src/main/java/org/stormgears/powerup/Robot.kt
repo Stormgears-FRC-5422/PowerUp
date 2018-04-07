@@ -2,11 +2,13 @@ package org.stormgears.powerup
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup
+import org.stormgears.powerup.subsystems.dsio.Choosers
 import org.stormgears.powerup.subsystems.dsio.DSIO
 import org.stormgears.powerup.subsystems.elevatorclimber.Climber
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.elevatorclimber.ElevatorSharedTalons
 import org.stormgears.powerup.subsystems.field.FieldPositions
+import org.stormgears.powerup.subsystems.field.fmsInterfaceWarmup
 import org.stormgears.powerup.subsystems.field.parseFmsData
 import org.stormgears.powerup.subsystems.information.RobotConfiguration
 import org.stormgears.powerup.subsystems.intake.Intake
@@ -44,10 +46,10 @@ class Robot : BaseStormgearsRobot() {
 		var dsio: DSIO? = null
 
 		@JvmStatic
-		var sensors: Sensors? = null
+		var choosers: Choosers? = null
 
-		// @Nullable
-		// public static GlobalMapping globalMapping;
+		@JvmStatic
+		var sensors: Sensors? = null
 
 		@JvmStatic
 		var driveTalons: DriveTalons? = null
@@ -99,9 +101,6 @@ class Robot : BaseStormgearsRobot() {
 			sensors = Sensors.getInstance()
 		}
 
-		//		GlobalMapping.init();
-		//		globalMapping = GlobalMapping.getInstance();
-
 		if (config.enableDrive) {
 			driveTalons = DriveTalons()
 
@@ -129,6 +128,8 @@ class Robot : BaseStormgearsRobot() {
 		}
 
 		Robot.elevator?.zeroElevatorEncoder()
+
+		fmsInterfaceWarmup()
 	}
 
 	/**
@@ -137,13 +138,13 @@ class Robot : BaseStormgearsRobot() {
 	override fun autonomousInit() {
 		logger.trace("autonomous init")
 
-		if (dsio == null) {
-			dsio = DSIO
+		if (choosers == null) {
+			choosers = Choosers
 		}
 
 		parseFmsData()
 
-		Terminator.disabled = DSIO.buttonBoard.overrideSwitch.get()
+		Terminator.disabled = false //DSIO.buttonBoard.overrideSwitch.get()
 
 		// Get all the selected autonomous command properties for this run
 		getSelectedAutonomousCommand()
@@ -273,15 +274,12 @@ class Robot : BaseStormgearsRobot() {
 
 	private fun getSelectedAutonomousCommand() {
 		// TODO: Untangle this spaghetti
-		selectedAlliance = dsio!!.choosers.alliance
-		selectedStartSpot = dsio!!.choosers.startingSpot
-		selectedPlacementSpot = dsio!!.choosers.placementSpot
+		selectedAlliance = choosers!!.alliance
+		selectedStartSpot = choosers!!.startingSpot
+		selectedPlacementSpot = choosers!!.placementSpot
 		selectedScalePlateAssignment = FieldPositions.SCALE_PLATE_ASSIGNMENT
 		selectedOwnSwitchPlateAssignment = FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT
 		selectedOpponentSwitchPlateAssignmentChooser = FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT
-		//		selectedScalePlateAssignment = dsio.getChoosers().getScalePlateAssignmentChooser();
-		//		selectedOwnSwitchPlateAssignment = dsio.getChoosers().getOwnSwitchPlateAssignmentChooser();
-		//		selectedOpponentSwitchPlateAssignmentChooser = dsio.getChoosers().getOpponentSwitchPlateAssignmentChooser();
 
 		logger.info("Selected Alliance: {}", selectedAlliance!!.toString())
 		logger.info("Selected Starting Spot: {}", selectedStartSpot!!.toString())
@@ -290,7 +288,5 @@ class Robot : BaseStormgearsRobot() {
 		logger.info("Selected Own Switch Plate Assignment: {}", selectedOwnSwitchPlateAssignment!!.toString())
 		logger.info("Selected Opponent Switch Plate Assignment: {}", selectedOpponentSwitchPlateAssignmentChooser!!.toString())
 	}
-
-
 }
 

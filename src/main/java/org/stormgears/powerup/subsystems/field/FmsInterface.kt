@@ -5,6 +5,8 @@ import org.apache.logging.log4j.LogManager
 
 private val logger = LogManager.getLogger()
 
+fun fmsInterfaceWarmup() {}
+
 fun parseFmsData() {
 	logger.info("Polling for FMS data")
 

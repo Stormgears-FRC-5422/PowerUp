@@ -14,8 +14,6 @@ object DSIO {
 
 	private var joystickEnabled = true
 
-	var choosers = Choosers()
-
 	val joystick: IRawJoystick
 	val buttonBoard: IButtonBoard
 
