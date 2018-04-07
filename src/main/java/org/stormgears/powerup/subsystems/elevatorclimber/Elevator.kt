@@ -13,7 +13,6 @@ import org.stormgears.utils.concurrency.TerminableSubsystem
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.pow
 
 /**
  * Default constructor for the creation of the elevator
@@ -97,7 +96,7 @@ object Elevator : TerminableSubsystem() {
 			delay(10)
 
 			val relDist = abs((currentPositionTicks.toDouble() - destinationTicks) / destinationTicks)
-			val powerMul = relDist.pow(1 / 3) + 0.15
+			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
 			talons.masterMotor.set(ControlMode.PercentOutput, max(min(basePower * powerMul * multiplier, 1.0), -1.0))
 
 			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
