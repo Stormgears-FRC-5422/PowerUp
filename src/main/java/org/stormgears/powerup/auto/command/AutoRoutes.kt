@@ -2,7 +2,6 @@ package org.stormgears.powerup.auto.command
 
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
-import kotlin.math.PI
 
 /**
  * Routes for robot in AUTONOMOUS ONLY!!!
@@ -10,10 +9,11 @@ import kotlin.math.PI
 object AutoRoutes {
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
-			Robot.drive?.moveStraightNavX(305.0)
-			Robot.drive?.turnNavX(PI / 2)
-			Robot.drive?.moveStraightNavX(12.0)
+			Robot.drive?.moveStraightNavX(253.0)
+			Robot.drive?.strafeNavX(38.0)
+//			Robot.drive?.turnNavX(PI / 2)
 			Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])?.join()
+			Robot.drive?.moveStraightNavX(24.0)
 			Robot.intake?.startWheelsOut()
 		}
 

@@ -32,6 +32,7 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick, r
 	override val intakeWheelsSwitch: ISwitch = TernarySwitch(msp, 9, 5)
 	override val intakeLiftSwitch: ISwitch = TernarySwitch(msp, 3, 10)
 
+	override val forceZeroElevatorButton: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 7) else DummyButton()
 	override val zeroElevatorButton: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 8) else DummyButton()
 
 	override val overrideSwitch: ISwitch = SwitchControl(msp, 4)

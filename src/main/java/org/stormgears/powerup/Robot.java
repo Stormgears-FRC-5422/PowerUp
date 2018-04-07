@@ -131,6 +131,10 @@ public class Robot extends BaseStormgearsRobot {
 			Climber.init();
 			climber = Climber.getInstance();
 		}
+
+		if (Robot.elevator != null) {
+			Robot.elevator.zeroElevatorEncoder();
+		}
 	}
 
 	/**

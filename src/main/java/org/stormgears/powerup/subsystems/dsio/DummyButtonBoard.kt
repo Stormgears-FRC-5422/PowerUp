@@ -3,6 +3,7 @@ package org.stormgears.powerup.subsystems.dsio
 import org.stormgears.utils.dsio.*
 
 class DummyButtonBoard : IButtonBoard {
+	override val forceZeroElevatorButton: IButton = DummyButton()
 	override val dropButton: IButton = DummyButton()
 	override val zeroElevatorButton: IButton = DummyButton()
 	override val switch0Button: IButton = DummyButton()

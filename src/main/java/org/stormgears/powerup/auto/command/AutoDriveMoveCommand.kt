@@ -9,7 +9,6 @@ import org.stormgears.powerup.subsystems.field.FieldPositions.LeftRight.R
 import org.stormgears.powerup.subsystems.field.FieldPositions.PlacementSpot.*
 import org.stormgears.powerup.subsystems.field.FieldPositions.StartingSpots.*
 import org.stormgears.powerup.subsystems.field.Segment
-import org.stormgears.powerup.subsystems.intake.Intake
 
 // TODO: Cleanup
 object AutoDriveMoveCommand {
@@ -21,6 +20,9 @@ object AutoDriveMoveCommand {
 						switchSide: FieldPositions.LeftRight,
 						scaleSide: FieldPositions.LeftRight,
 						opponentSwitchSide: FieldPositions.LeftRight) {
+//		Robot.elevator?.zeroElevator()
+		Robot.elevator?.moveElevatorToPosition(12)
+
 		val autoRoute = when (startingSpot) {
 			LEFT -> AutoRoutes.FromLeft
 			CENTER -> AutoRoutes.FromCenter

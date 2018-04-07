@@ -25,7 +25,6 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 			)
 
 			// Should move elevator upwards
-//			Elevator.elevatorAutoMove(5)
 //			Intake.moveIntakeToPositionSuspend(Intake.HORIZONTAL)
 //			delay(500)
 //			Elevator.zeroElevator()

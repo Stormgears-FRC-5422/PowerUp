@@ -60,6 +60,7 @@ object DSIO {
 
 		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
 
+		buttonBoard.forceZeroElevatorButton.whenPressed { Robot.elevator?.launchZeroElevator() }
 		buttonBoard.zeroElevatorButton.whenPressed { Robot.elevator?.zeroElevatorEncoder() }
 
 

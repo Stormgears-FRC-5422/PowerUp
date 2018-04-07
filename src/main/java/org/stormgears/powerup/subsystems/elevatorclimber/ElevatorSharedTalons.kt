@@ -2,7 +2,6 @@ package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.*
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.subsystems.navigator.TalonDebugger
 import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.LocalLimitSwitchSourceConfig
@@ -15,7 +14,7 @@ object ElevatorSharedTalons {
 	val masterMotor: ITalon
 	val slaveMotor: ITalon
 
-	class ElevatorTalonConfig : FactoryTalonConfig() {
+	open class ElevatorTalonConfig : FactoryTalonConfig() {
 		// Raise
 		override val profileSlot0 = object : DefaultPIDSlot() {
 			override val kP = Robot.config.elevatorRaiseP
@@ -40,9 +39,6 @@ object ElevatorSharedTalons {
 		override val continuousCurrentLimit = 60
 		override val enableCurrentLimit = true
 
-		override val forwardSoftLimitThreshold = -1145000
-		override val forwardSoftLimitEnable = true
-
 		override val forwardLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
 		override val reverseLimitSwitchSource = LocalLimitSwitchSourceConfig(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen)
 
@@ -52,7 +48,13 @@ object ElevatorSharedTalons {
 		)
 	}
 
+	class MasterElevatorTalonConfig : ElevatorTalonConfig() {
+//		override val forwardSoftLimitThreshold = -1145000
+//		override val forwardSoftLimitEnable = true
+	}
+
 	val elevatorTalonConfig = ElevatorTalonConfig()
+	val masterElevatorTalonConfig = MasterElevatorTalonConfig()
 
 	init {
 //		println("Initializing elevator talons")
@@ -63,7 +65,7 @@ object ElevatorSharedTalons {
 //		TalonDebugger(arrayOf(masterMotor, slaveMotor)).start()
 
 
-		masterMotor.setConfig(elevatorTalonConfig)
+		masterMotor.setConfig(masterElevatorTalonConfig)
 		slaveMotor.setConfig(elevatorTalonConfig)
 
 		slaveMotor.set(ControlMode.Follower, MASTER_MOTOR_TALON_ID.toDouble())

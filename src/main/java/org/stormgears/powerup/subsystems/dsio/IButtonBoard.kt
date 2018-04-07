@@ -26,6 +26,7 @@ interface IButtonBoard {
 
 	val climbDownButton: IButton
 
+	val forceZeroElevatorButton: IButton
 	val zeroElevatorButton: IButton
 
 	val intakeWheelsSwitch: ISwitch

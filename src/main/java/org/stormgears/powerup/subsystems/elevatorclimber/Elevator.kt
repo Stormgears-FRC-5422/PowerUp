@@ -1,17 +1,19 @@
 package org.stormgears.powerup.subsystems.elevatorclimber
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import edu.wpi.first.wpilibj.DriverStation
 import edu.wpi.first.wpilibj.Timer
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
-import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.navigator.SunProfile
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
+import kotlin.math.pow
 
 /**
  * Default constructor for the creation of the elevator
@@ -31,11 +33,11 @@ object Elevator : TerminableSubsystem() {
 		get() = talons.masterMotor.sensorCollection.quadraturePosition
 
 	private const val ZERO_POWER = 0.2
-	private const val ZERO_CURRENT_LIMIT = 8.0 // 8.7
+	private const val ZERO_CURRENT_LIMIT = 3.1 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
-	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 90, 92) // first one = 56
+	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 83, 85) // first one = 56
 
 	// Jobs
 	private var elevatorJob: Job? = null
@@ -82,32 +84,32 @@ object Elevator : TerminableSubsystem() {
 			multiplier = 1
 			true
 		}
-		var power = if (lowering) 0.5 else 1.0
+		var basePower = if (lowering) 0.5 else 1.0
 
 		SmartDashboard.putNumber("Desired encoder position", destinationTicks.toDouble())
 		SmartDashboard.putBoolean("Elevator lowering", lowering)
 
 		logger.trace("Elevator moving!")
-		talons.masterMotor.set(ControlMode.PercentOutput, multiplier * power)
+		talons.masterMotor.set(ControlMode.PercentOutput, multiplier * basePower)
 
-		var shouldStop = false
-
-		while (!shouldStop) {
-			if (abs(destinationTicks - currentPositionTicks) < 100000 && power > 0.1) {
-				power -= 0.07 * 13 / DriverStation.getInstance().batteryVoltage
-//				val power = sunProfile.profile(abs((currentPositionTicks.toDouble() - destinationTicks) / destinationTicks) * 100, 100.0) / 5000
-				talons.masterMotor.set(ControlMode.PercentOutput, power * multiplier)
-			}
-
-			// If within 10000 ticks (0.75 in) of destination, stop
-			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 2000
-			else currentPositionTicks < destinationTicks + 2000) ||
-				talons.masterMotor.sensorCollection.isRevLimitSwitchClosed
-
+		var shouldStop: Boolean
+		do {
 			delay(10)
-		}
 
-		logger.trace(Timer.getFPGATimestamp().toString() + " Elevator has moved to encoder position: {}", currentPositionTicks)
+			val relDist = abs((currentPositionTicks.toDouble() - destinationTicks) / destinationTicks)
+			val powerMul = relDist.pow(1 / 3) + 0.15
+			talons.masterMotor.set(ControlMode.PercentOutput, max(min(basePower * powerMul * multiplier, 1.0), -1.0))
+
+			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
+
+//			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 2000
+//			else currentPositionTicks < destinationTicks + 3000)
+
+			shouldStop = relDist < 0.04
+
+		} while (!shouldStop)
+
+		logger.trace("{} Elevator has moved to encoder position: {}", box(Timer.getFPGATimestamp()), box(currentPositionTicks))
 //		holdElevator()
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 	}
@@ -121,6 +123,17 @@ object Elevator : TerminableSubsystem() {
 
 //			holdElevator()
 		}
+	}
+
+	fun launchZeroElevator(): Job {
+		this.elevatorJob?.cancel()
+
+		val job = launch("Zero elevator") {
+			zeroElevator()
+		}
+
+		this.elevatorJob = job
+		return job
 	}
 
 	suspend fun zeroElevator() {
@@ -166,15 +179,14 @@ object Elevator : TerminableSubsystem() {
 			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 //			holdElevator()
 		} else {
-			talons.masterMotor.set(ControlMode.PercentOutput, -0.8)
+			talons.masterMotor.set(ControlMode.PercentOutput, -0.9)
 		}
 	}
-
-	private var downPower = 0.33
 
 	fun moveDownManual() {
 //		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
 //		else downPower = 0.33
+		val downPower = if (currentPositionTicks > -100000) 0.3 else 0.4
 
 		logger.trace("downPower = {}", downPower)
 

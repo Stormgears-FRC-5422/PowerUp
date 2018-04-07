@@ -13,8 +13,8 @@ class NavX {
 	}
 
     val ahrs: AHRS = when (Robot.config.navXPort) {
-		"MXP" -> AHRS(SPI.Port.kMXP, 127)
-		"USB" -> AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, 127)
+		"MXP" -> AHRS(SPI.Port.kMXP, -128)
+		"USB" -> AHRS(SerialPort.Port.kUSB, AHRS.SerialDataType.kProcessedData, -128)
 		else -> {
 			throw IllegalStateException()
 		}
