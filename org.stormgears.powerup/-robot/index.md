@@ -33,6 +33,7 @@
 
 | Name | Summary |
 |---|---|
+| [choosers](choosers.md) | `var choosers: `[`Choosers`](../../org.stormgears.powerup.subsystems.dsio/-choosers/index.md)`?` |
 | [climber](climber.md) | `var climber: `[`Climber`](../../org.stormgears.powerup.subsystems.elevatorclimber/-climber/index.md)`?` |
 | [config](config.md) | `var config: `[`RobotConfiguration`](../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.md) |
 | [drive](drive.md) | `var drive: `[`Drive`](../../org.stormgears.powerup.subsystems.navigator/-drive/index.md)`?` |
