@@ -83,7 +83,7 @@ object Elevator : TerminableSubsystem() {
 			multiplier = 1
 			true
 		}
-		var basePower = if (lowering) 0.5 else 1.0
+		var basePower = if (lowering) 0.7 else 1.0
 
 		SmartDashboard.putNumber("Desired encoder position", destinationTicks.toDouble())
 		SmartDashboard.putBoolean("Elevator lowering", lowering)
@@ -169,7 +169,7 @@ object Elevator : TerminableSubsystem() {
 
 //		delay(300)
 
-		// Hold current elevator position
+		// Hold current elevator position Tejus blows
 		talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble())
 	}
 

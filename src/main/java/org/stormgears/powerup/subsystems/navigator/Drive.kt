@@ -34,7 +34,7 @@ object Drive : TerminableSubsystem() {
 	private val sensors = Robot.sensors!!
 	private val vels = DoubleArray(talons.size)
 
-	var useAbsoluteControl = false
+	var useAbsoluteControl = true
 	var useTractionControl = false
 
 	private val motions: Array<MotionMagic?> = arrayOfNulls(driveTalons.talons.size)
@@ -80,10 +80,10 @@ object Drive : TerminableSubsystem() {
 //		talons[2].setSensorPhase(true)
 
 		if (useAbsoluteControl) {
-			val navxTheta = -sensors.navX.getTheta()
+			val navxTheta = sensors.navX.getTheta()
 			SmartDashboard.putNumber("navXTheta", navxTheta * 57.296);
 			SmartDashboard.putNumber("theta", theta * 57.296);
-			theta = theta - navxTheta - Math.PI / 2
+			theta = theta - navxTheta
 			SmartDashboard.putNumber("new theta", theta * 57.296);
 		}
 
@@ -215,11 +215,6 @@ object Drive : TerminableSubsystem() {
 	suspend fun moveStraight(distance: Double, theta: Double) {
 		var distance = distance
 
-		//		if (useAbsoluteControl) {
-		//			double navX_theta = Robot.sensors.getNavX().getTheta();
-		//			theta = theta - navX_theta;
-		//		}
-
 		distance *= if (Math.abs(theta) == Math.PI / 2.0) FieldPositions.STRAFING_FACTOR else FieldPositions.STRAIGHT_FACTOR
 
 		logger.trace("distance: {}", box(distance))
@@ -315,7 +310,7 @@ object Drive : TerminableSubsystem() {
 	 * Moves the robot forwards or backwards
 	 * @param dist in inches
 	 */
-	suspend fun moveStraightNavX(dist: Double, progressListener: (progress: Double) -> Unit = fun(_) {}) {
+	suspend fun moveStraightNavX(dist: Double, progressListener: ((progress: Double) -> Unit)? = null, maxAMultiplier: Double = 1.0) {
 		val sign = Math.signum(dist)
 		val distance = abs(dist)
 
@@ -344,7 +339,7 @@ object Drive : TerminableSubsystem() {
 			progress = sign * avgPos / distanceTicks
 
 //			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
-			val currVel = sunProfile.profile(progress * dist, dist)
+			val currVel = sunProfile.profile(progress * distance, distance, maxAMultiplier)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees
@@ -360,7 +355,9 @@ object Drive : TerminableSubsystem() {
 			talonRR.set(ControlMode.Velocity, sign * currVel * (1 + compensation))
 
 //			delay(10)
-			progressListener(progress)
+			if (progressListener != null) {
+				progressListener(progress)
+			}
 			yield()
 		} while (progress < 1.0);
 
@@ -372,7 +369,7 @@ object Drive : TerminableSubsystem() {
 	 *
 	 * @param dist in inches
 	 */
-	suspend fun strafeNavX(dist: Double) {
+	suspend fun strafeNavX(dist: Double, maxAMultiplier: Double = 1.0) {
 		val sign = Math.signum(dist)
 		val distance = abs(dist)
 
@@ -414,7 +411,7 @@ object Drive : TerminableSubsystem() {
 			progress /= 4
 
 //			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
-			val currVel = sunProfile.profile(progress * dist, dist)
+			val currVel = sunProfile.profile(progress * distance, distance, maxAMultiplier)
 
 			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
 			val delta = currTheta - initTheta // degrees

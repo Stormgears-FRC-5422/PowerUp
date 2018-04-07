@@ -62,11 +62,11 @@ class SunProfile(
 	/**
 	 * Calculates the PID velocity of a motor given movement progress [x] in inches and target distance [d] in inches
 	 */
-	fun profile(x: Double, d: Double): Double {
-		val mX = mX(vTarget, d, maxA(d))
-		val mX2 = mX(vTarget, d, maxA(d) * 0.7)
-		val mYmX = mY(mX, d, maxA(d))
-		val mYmX2 = mY(mX, d, maxA(d) * 0.7)
+	fun profile(x: Double, d: Double, maxAMultiplier: Double = 1.0): Double {
+		val mX = mX(vTarget, d, maxA(d) * maxAMultiplier)
+		val mX2 = mX(vTarget, d, maxA(d) * 0.7 * maxAMultiplier)
+		val mYmX = mY(mX, d, maxA(d) * maxAMultiplier)
+//		val mYmX2 = mY(mX, d, maxA(d) * 0.7 * maxAMultiplier)
 		return when {
 			x < mX -> rBase(x, mX, mYmX)
 			x in mX..(d - mX2) -> vTarget

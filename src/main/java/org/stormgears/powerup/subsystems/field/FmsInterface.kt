@@ -24,13 +24,13 @@ fun parseFmsData() {
 		'R' -> FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R
 	}
 
-	// Own switch
+	// Scale
 	when (data[1]) {
 		'L' -> FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.LeftRight.L
 		'R' -> FieldPositions.SCALE_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R
 	}
 
-	// Own switch
+	// Opponent switch
 	when (data[2]) {
 		'L' -> FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.L
 		'R' -> FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT = FieldPositions.LeftRight.R
