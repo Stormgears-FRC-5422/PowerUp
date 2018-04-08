@@ -89,11 +89,17 @@ object DSIO {
 //			logger.warn("Intake lift switch is not ternary, not sure what to do!")
 //		}
 
-		buttonBoard.gripCloseButton.whenPressed { /* TODO: This button is unused */ }
-		buttonBoard.gripOpenButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.gripCloseButton.whenPressed { Robot.drive.overrideAbsoluteControl = true }
+		buttonBoard.gripCloseButton.whenReleased { Robot.drive.overrideAbsoluteControl = false }
 
-		buttonBoard.climbUpButton.whenPressed { /* TODO: This button is unused */ }
-		buttonBoard.climbDownButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.gripOpenButton.whenPressed { Robot.drive.overrideAbsoluteControl = true  }
+		buttonBoard.gripOpenButton.whenReleased { Robot.drive.overrideAbsoluteControl = false  }
+
+		buttonBoard.climbUpButton.whenPressed { Robot.drive.overrideAbsoluteControl = true   }
+		buttonBoard.climbUpButton.whenReleased { Robot.drive.overrideAbsoluteControl = false}
+
+		buttonBoard.climbDownButton.whenPressed { Robot.drive.overrideAbsoluteControl = true   }
+		buttonBoard.climbDownButton.whenReleased { Robot.drive.overrideAbsoluteControl = false }
 
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
 		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }

@@ -34,7 +34,8 @@ object Drive : TerminableSubsystem() {
 	private val sensors = Robot.sensors!!
 	private val vels = DoubleArray(talons.size)
 
-	var useAbsoluteControl = true
+	var useAbsoluteControl = true        // default mode - should be a config file setting
+	var overrideAbsoluteControl = false  // to change when button is pressed
 	var useTractionControl = false
 
 	private val motions: Array<MotionMagic?> = arrayOfNulls(driveTalons.talons.size)
@@ -58,7 +59,7 @@ object Drive : TerminableSubsystem() {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
 				x, y, z * TURN_SENSITIVITY_FACTOR,
 				theta,
-				useAbsoluteControl)
+				if (overrideAbsoluteControl) !useAbsoluteControl else useAbsoluteControl)
 		}
 	}
 
@@ -68,7 +69,7 @@ object Drive : TerminableSubsystem() {
 						y: Double,
 						changeVel: Double,
 						theta: Double,
-						useAbsoluteControl: Boolean) {
+						absolute: Boolean) {
 		var theta = theta
 
 		for (i in talons.indices) {
@@ -79,12 +80,9 @@ object Drive : TerminableSubsystem() {
 //		talons[0].setSensorPhase(true)
 //		talons[2].setSensorPhase(true)
 
-		if (useAbsoluteControl) {
+		if (absolute) {
 			val navxTheta = sensors.navX.getTheta()
-			SmartDashboard.putNumber("navXTheta", navxTheta * 57.296);
-			SmartDashboard.putNumber("theta", theta * 57.296);
 			theta = theta - navxTheta
-			SmartDashboard.putNumber("new theta", theta * 57.296);
 		}
 
 		// If +/- 15 degrees of a special angle, assume that angle was the intended direction
