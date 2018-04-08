@@ -3,6 +3,7 @@ package org.stormgears.powerup.auto.command
 import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
+import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.WithCoroutines
 
 /**
@@ -27,6 +28,7 @@ object AutoRoutes : WithCoroutines {
 				}
 			})
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(Math.PI / 6.0)
 			//Robot.drive?.strafeNavX(38.0)
 //			Robot.drive?.turnNavX(PI / 2)
@@ -52,6 +54,7 @@ object AutoRoutes : WithCoroutines {
 //			Robot.drive?.turnNavX(-PI / 2)
 
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
 			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
 			eJ?.join()
@@ -63,26 +66,29 @@ object AutoRoutes : WithCoroutines {
 
 		override suspend fun leftSwitch() {
 			var triggered = false
-			Robot.drive?.moveStraightNavX(141.0, fun(progress) {
+			Robot.drive?.moveStraightNavX(155.0, fun(progress) {
 				if (!triggered && progress > 0.8) {
 					triggered = true
 					Robot.intake?.startWheelsIn()
 				}
 			})
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(Math.PI / 2.0)
-			Robot.drive?.moveStraightNavX(12.0)
+			Robot.drive?.moveStraightNavX(20.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
+			delay(750)
 
 			backOffAndRetractElevator()
 		}
 
 		override suspend fun rightSwitch() {
-			Robot.drive?.moveStraightNavX(60.0)
+			Robot.drive?.moveStraightNavX(50.0)
 			Robot.drive?.strafeNavX(242.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Robot.drive?.moveStraightNavX(25.0)
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(35.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
@@ -105,6 +111,7 @@ object AutoRoutes : WithCoroutines {
 				}
 			})
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(-Math.PI / 6.0)
 			delay(1000)
 			Robot.drive?.moveStraightNavX(34.0, maxAMultiplier = 0.7)
@@ -121,6 +128,7 @@ object AutoRoutes : WithCoroutines {
 			Robot.drive?.strafeNavX(-258.0) // WITH cable protector in the middle
 
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
 			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
 			eJ?.join()
@@ -131,10 +139,11 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftSwitch() {
-			Robot.drive?.moveStraightNavX(60.0)
-			Robot.drive?.strafeNavX(-242.0)
+			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.strafeNavX(-210.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Robot.drive?.moveStraightNavX(25.0)
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(50.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
@@ -144,17 +153,19 @@ object AutoRoutes : WithCoroutines {
 
 		override suspend fun rightSwitch() {
 			var triggered = false
-			Robot.drive?.moveStraightNavX(141.0, fun(progress) {
+			Robot.drive?.moveStraightNavX(155.0, fun(progress) {
 				if (!triggered && progress > 0.8) {
 					triggered = true
 					Robot.intake?.startWheelsIn()
 				}
 			})
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(-Math.PI / 2.0)
-			Robot.drive?.moveStraightNavX(12.0)
+			Robot.drive?.moveStraightNavX(20.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
+			delay(750)
 
 			backOffAndRetractElevator()
 		}
@@ -166,23 +177,41 @@ object AutoRoutes : WithCoroutines {
 
 	object FromCenter : AutoRoute {
 		override suspend fun leftScale() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			// TODO: Not implemented
 		}
 
 		override suspend fun rightScale() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			// TODO: Not implemented
 		}
 
 		override suspend fun leftSwitch() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.strafeNavX(-80.0)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(50.0)
+			elevatorJob?.join()
+			Robot.intake?.eject()
+			delay(750)
+
+			backOffAndRetractElevator()
 		}
 
 		override suspend fun rightSwitch() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.strafeNavX(69.0)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(50.0)
+			elevatorJob?.join()
+			Robot.intake?.eject()
+			delay(750)
+
+			backOffAndRetractElevator()
 		}
 
 		override suspend fun crossBaseline() {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+			// TODO: Not implemented
 		}
 	}
 }

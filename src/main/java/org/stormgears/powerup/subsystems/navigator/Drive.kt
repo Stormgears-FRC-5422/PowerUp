@@ -34,7 +34,7 @@ object Drive : TerminableSubsystem() {
 	private val sensors = Robot.sensors!!
 	private val vels = DoubleArray(talons.size)
 
-	var useAbsoluteControl = true        // default mode - should be a config file setting
+	var useAbsoluteControl = false        // default mode - should be a config file setting
 	var overrideAbsoluteControl = false  // to change when button is pressed
 	var useTractionControl = false
 

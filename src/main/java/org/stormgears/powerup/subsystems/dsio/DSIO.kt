@@ -75,31 +75,31 @@ object DSIO {
 			logger.warn("Intake wheels switch is not ternary, not sure what to do!")
 		}
 
-//		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
-//		if (intakeLiftSwitch is ITernarySwitch) {
-//			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
-//				when (state) {
-//					ITernarySwitch.SwitchState.Up -> Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-//					ITernarySwitch.SwitchState.Down -> Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)
-//					ITernarySwitch.SwitchState.Neutral -> {
-//					}
-//				}
-//			})
-//		} else {
-//			logger.warn("Intake lift switch is not ternary, not sure what to do!")
-//		}
+		val intakeLiftSwitch = buttonBoard.intakeLiftSwitch
+		if (intakeLiftSwitch is ITernarySwitch) {
+			intakeLiftSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
+				when (state) {
+					ITernarySwitch.SwitchState.Up -> Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+					ITernarySwitch.SwitchState.Down -> Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)
+					ITernarySwitch.SwitchState.Neutral -> {
+					}
+				}
+			})
+		} else {
+			logger.warn("Intake lift switch is not ternary, not sure what to do!")
+		}
 
-		buttonBoard.gripCloseButton.whenPressed { Robot.drive.overrideAbsoluteControl = true }
-		buttonBoard.gripCloseButton.whenReleased { Robot.drive.overrideAbsoluteControl = false }
-
-		buttonBoard.gripOpenButton.whenPressed { Robot.drive.overrideAbsoluteControl = true  }
-		buttonBoard.gripOpenButton.whenReleased { Robot.drive.overrideAbsoluteControl = false  }
-
-		buttonBoard.climbUpButton.whenPressed { Robot.drive.overrideAbsoluteControl = true   }
-		buttonBoard.climbUpButton.whenReleased { Robot.drive.overrideAbsoluteControl = false}
-
-		buttonBoard.climbDownButton.whenPressed { Robot.drive.overrideAbsoluteControl = true   }
-		buttonBoard.climbDownButton.whenReleased { Robot.drive.overrideAbsoluteControl = false }
+//		buttonBoard.gripCloseButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true }
+//		buttonBoard.gripCloseButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false }
+//
+//		buttonBoard.gripOpenButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true  }
+//		buttonBoard.gripOpenButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false  }
+//
+//		buttonBoard.climbUpButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true   }
+//		buttonBoard.climbUpButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false}
+//
+//		buttonBoard.climbDownButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true   }
+//		buttonBoard.climbDownButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false }
 
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
 		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }

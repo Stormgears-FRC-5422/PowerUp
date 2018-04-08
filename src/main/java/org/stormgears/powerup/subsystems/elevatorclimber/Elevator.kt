@@ -8,7 +8,6 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
-import org.stormgears.powerup.subsystems.navigator.SunProfile
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import kotlin.math.abs
 import kotlin.math.max
@@ -18,7 +17,6 @@ import kotlin.math.min
  * Default constructor for the creation of the elevator
  */
 object Elevator : TerminableSubsystem() {
-	var useGartnerRate = true
 	private val logger = LogManager.getLogger(this::class.java)
 
 	private val talons: ElevatorSharedTalons = Robot.elevatorSharedTalons!!
@@ -64,8 +62,6 @@ object Elevator : TerminableSubsystem() {
 		return elevatorJob
 	}
 
-	private val sunProfile = SunProfile()
-
 	private suspend fun elevatorAutoMove(position: Int) {
 		val lowering: Boolean
 		val destinationTicks = toEncoderTicks(position.toDouble())
@@ -83,7 +79,7 @@ object Elevator : TerminableSubsystem() {
 			multiplier = 1
 			true
 		}
-		var basePower = if (lowering) 0.7 else 1.0
+		val basePower = if (lowering) 0.7 else 1.0
 
 		SmartDashboard.putNumber("Desired encoder position", destinationTicks.toDouble())
 		SmartDashboard.putBoolean("Elevator lowering", lowering)
