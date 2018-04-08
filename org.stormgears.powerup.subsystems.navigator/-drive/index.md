@@ -8,6 +8,7 @@
 
 | Name | Summary |
 |---|---|
+| [overrideAbsoluteControl](override-absolute-control.md) | `var overrideAbsoluteControl: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [useAbsoluteControl](use-absolute-control.md) | `var useAbsoluteControl: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [useTractionControl](use-traction-control.md) | `var useTractionControl: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 
