@@ -44,7 +44,7 @@ object AutoRoutes : WithCoroutines {
 
 
 		override suspend fun rightScale() {
-			Robot.drive?.moveStraightNavX(225.0)
+			Robot.drive?.moveStraightNavX(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(258.0) // WITH cable protector in the middle
 
@@ -73,7 +73,7 @@ object AutoRoutes : WithCoroutines {
 				}
 			})
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(Math.PI / 2.0)
 			Robot.drive?.moveStraightNavX(20.0)
 			elevatorJob?.join()
@@ -85,10 +85,10 @@ object AutoRoutes : WithCoroutines {
 
 		override suspend fun rightSwitch() {
 			Robot.drive?.moveStraightNavX(50.0)
-			Robot.drive?.strafeNavX(242.0)
+			Robot.drive?.strafeNavX(220.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(35.0)
+//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(72.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
@@ -102,6 +102,7 @@ object AutoRoutes : WithCoroutines {
 	}
 
 	object FromRight : AutoRoute {
+
 		override suspend fun rightScale() {
 			var triggered = false
 			Robot.drive?.moveStraightNavX(254.0 /* for good luck */, fun(progress) {
@@ -123,7 +124,7 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftScale() {
-			Robot.drive?.moveStraightNavX(225.0)
+			Robot.drive?.moveStraightNavX(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(-258.0) // WITH cable protector in the middle
 
@@ -140,10 +141,15 @@ object AutoRoutes : WithCoroutines {
 
 		override suspend fun leftSwitch() {
 			Robot.drive?.moveStraightNavX(50.0)
+			//new stuff
+//			Robot.drive?.turnNavX(-Math.PI/2)
+//			Robot.drive?.moveStraightNavX(115.0)
+//			Robot.drive?.turnNavX(Math.PI/2)
+
 			Robot.drive?.strafeNavX(-210.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.moveStraightNavX(115.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
@@ -153,7 +159,7 @@ object AutoRoutes : WithCoroutines {
 
 		override suspend fun rightSwitch() {
 			var triggered = false
-			Robot.drive?.moveStraightNavX(155.0, fun(progress) {
+			Robot.drive?.moveStraightNavX(162.0, fun(progress) {
 				if (!triggered && progress > 0.8) {
 					triggered = true
 					Robot.intake?.startWheelsIn()
@@ -162,7 +168,7 @@ object AutoRoutes : WithCoroutines {
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(-Math.PI / 2.0)
-			Robot.drive?.moveStraightNavX(20.0)
+			Robot.drive?.moveStraightNavX(23.0)
 			elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
@@ -185,25 +191,29 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftSwitch() {
-			Robot.drive?.moveStraightNavX(50.0)
-			Robot.drive?.strafeNavX(-80.0)
-			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(50.0)
-			elevatorJob?.join()
+			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.9)
+// 			Robot.drive?.moveStraightNavX(50.0)
+//			Robot.drive?.strafeNavX(69.0)
+			Robot.drive?.moveStraightNavX(135.0)
+			//	val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+//			Robot.drive?.moveStraightNavX(70.0)
+			//	elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
 
 			backOffAndRetractElevator()
-		}
 
+		}
 		override suspend fun rightSwitch() {
-			Robot.drive?.moveStraightNavX(50.0)
-			Robot.drive?.strafeNavX(69.0)
-			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(50.0)
-			elevatorJob?.join()
+			Robot.drive?.turnNavX(Math.PI / 12.0)
+// 			Robot.drive?.moveStraightNavX(50.0)
+//			Robot.drive?.strafeNavX(69.0)
+			Robot.drive?.moveStraightNavX(130.0)
+			//	val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+//			Robot.drive?.moveStraightNavX(70.0)
+			//	elevatorJob?.join()
 			Robot.intake?.eject()
 			delay(750)
 

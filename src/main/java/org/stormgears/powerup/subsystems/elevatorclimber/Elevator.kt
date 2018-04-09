@@ -133,6 +133,7 @@ object Elevator : TerminableSubsystem() {
 
 	suspend fun zeroElevator() {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
+
 		logger.trace("Zero-ing Elevator. Watch out!")
 
 		var iteration = 0
@@ -165,7 +166,7 @@ object Elevator : TerminableSubsystem() {
 
 //		delay(300)
 
-		// Hold current elevator position Tejus blows
+		// Hold current elevator position
 		talons.masterMotor.set(ControlMode.Position, currentPositionTicks.toDouble())
 	}
 

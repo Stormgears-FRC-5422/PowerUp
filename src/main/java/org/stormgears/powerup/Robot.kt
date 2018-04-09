@@ -244,7 +244,6 @@ class Robot : BaseStormgearsRobot() {
 				if (!sensors!!.navX.thetaIsSet()) {
 					sensors!!.navX.setInitialTheta()
 				}
-
 				drive!!.joystickMove()
 			} else {
 				logger.fatal("NavX is currently calibrating! Cannot drive!")

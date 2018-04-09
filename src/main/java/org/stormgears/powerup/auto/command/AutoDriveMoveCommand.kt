@@ -3,6 +3,7 @@ package org.stormgears.powerup.auto.command
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.field.FieldPositions.LeftRight.L
 import org.stormgears.powerup.subsystems.field.FieldPositions.LeftRight.R
@@ -21,7 +22,7 @@ object AutoDriveMoveCommand {
 						scaleSide: FieldPositions.LeftRight,
 						opponentSwitchSide: FieldPositions.LeftRight) {
 //		Robot.elevator?.zeroElevator()
-		Robot.elevator?.moveElevatorToPosition(12)
+		Robot.elevator?.moveElevatorToPosition(if (placementSpot == SWITCH) Elevator.SWITCH_POSITIONS[0] else 12)
 
 		val autoRoute = when (startingSpot) {
 			LEFT -> AutoRoutes.FromLeft
