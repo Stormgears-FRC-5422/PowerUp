@@ -13,7 +13,7 @@ object AutoRoutes : WithCoroutines {
 	private suspend fun backOffAndRetractElevator() {
 		launch { Robot.drive?.moveStraightNavX(-12.0, maxAMultiplier = 0.7) }
 		delay(2000)
-		Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0])?.join()
+		Robot.elevator?.moveElevatorToPosition(6)?.join()
 		Robot.elevator?.zeroElevator()
 	}
 
@@ -121,6 +121,14 @@ object AutoRoutes : WithCoroutines {
 			delay(750)
 
 			backOffAndRetractElevator()
+
+			/* Comment this back in for picking up a 2nd cube */
+//			Robot.drive?.turnNavX(-5 * Math.PI / 6.0)
+//			delay(500)
+//			Robot.drive?.moveStraightNavX(30.0)
+//			Robot.drive?.strafeNavX(58.0)
+//			Intake.startWheelsIn()
+//			Robot.drive?.moveStraightNavX(12.0)
 		}
 
 		override suspend fun leftScale() {
