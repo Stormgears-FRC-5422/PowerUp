@@ -9,7 +9,6 @@ import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
-import kotlin.math.abs
 
 object Intake : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(Intake::class.java)
@@ -20,8 +19,7 @@ object Intake : TerminableSubsystem() {
 	const val VERTICAL = 0
 	const val HORIZONTAL = 1
 
-//	private const val POS_VERTICAL = 0
-//	private const val POS_HORIZONTAL = 70000
+	private const val CUBE_GRAB_CURRENT = 30.0
 
 	private val LEFT_TALON_ID = Robot.config.intakeLeftTalonId
 	private val RIGHT_TALON_ID = Robot.config.intakeRightTalonId
@@ -32,7 +30,8 @@ object Intake : TerminableSubsystem() {
 	private val rotationMotor: ITalon
 
 	private var position = VERTICAL
-	private var job: Job? = null
+	private var rotationJob: Job? = null
+	private var wheelsJob: Job? = null
 
 	init {
 		leftTalon = createTalon(LEFT_TALON_ID)
@@ -45,11 +44,23 @@ object Intake : TerminableSubsystem() {
 		}
 	}
 
-	fun startWheelsIn(output: Double = 1.0) {
-		logger.info("Intake wheels pulling in")
+	fun startWheelsIn(output: Double = 1.0): Job {
+		if (wheelsJob != null) {
+			wheelsJob!!.cancel()
+			println("Canceled intake rotation job")
+		}
 
-		leftTalon.set(ControlMode.PercentOutput, output)
-		rightTalon.set(ControlMode.PercentOutput, -output)
+		val job = launch("Intake Wheels") {
+			logger.info("Intake wheels pulling in")
+
+			leftTalon.set(ControlMode.PercentOutput, output)
+			rightTalon.set(ControlMode.PercentOutput, -output)
+
+			while (leftTalon.outputCurrent < CUBE_GRAB_CURRENT) delay(10)
+		}
+
+		this.wheelsJob = job
+		return job
 	}
 
 	fun startWheelsOut(output: Double = 1.0) {
@@ -83,8 +94,8 @@ object Intake : TerminableSubsystem() {
 	}
 
 	fun moveIntakeToPosition(position: Int): Job {
-		if (job != null) {
-			job!!.cancel()
+		if (rotationJob != null) {
+			rotationJob!!.cancel()
 			println("Canceled intake rotation job")
 		}
 
@@ -92,7 +103,7 @@ object Intake : TerminableSubsystem() {
 			moveIntakeToPositionSuspend(position)
 		}
 
-		this.job = job
+		this.rotationJob = job
 		return job
 	}
 

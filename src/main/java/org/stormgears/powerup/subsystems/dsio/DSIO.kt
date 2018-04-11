@@ -66,7 +66,7 @@ object DSIO {
 		if (intakeWheelsSwitch is ITernarySwitch) {
 			intakeWheelsSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
 				when (state) {
-					ITernarySwitch.SwitchState.Up -> Robot.intake?.startWheelsOut()
+					ITernarySwitch.SwitchState.Up -> Robot.intake?.startWheelsOut(output = intakeSpeed)
 					ITernarySwitch.SwitchState.Neutral -> Robot.intake?.stopWheels()
 					ITernarySwitch.SwitchState.Down -> Robot.intake?.startWheelsIn()
 				}
@@ -112,6 +112,9 @@ object DSIO {
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 	}
+
+	val intakeSpeed: Double
+		get(): Double = buttonBoard.speedPot.value
 
 	// Joystick related methods
 

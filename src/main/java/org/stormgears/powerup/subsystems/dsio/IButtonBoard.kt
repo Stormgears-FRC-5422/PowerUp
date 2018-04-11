@@ -1,6 +1,7 @@
 package org.stormgears.powerup.subsystems.dsio
 
 import org.stormgears.utils.dsio.IButton
+import org.stormgears.utils.dsio.IJoystickAxis
 import org.stormgears.utils.dsio.ISwitch
 
 interface IButtonBoard {
@@ -42,6 +43,8 @@ interface IButtonBoard {
 	val overrideLeft: IButton
 
 	val overrideRight: IButton
+
+	val speedPot: IJoystickAxis
 
 	companion object {
 		var initialized = false
