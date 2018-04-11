@@ -37,12 +37,6 @@ public class Vision {
 
 			centerXArray = centerX.getDoubleArray(defaultXArray);
 			centerYArray = centerY.getDoubleArray(defaultYArray);
-
-			if (i > 100) {
-				System.out.println("BROKEN CRAPPPPP");
-				break;
-			}
-			i++;
 		}
 
 		// TODO: What is the purpose of centers?
@@ -109,7 +103,7 @@ public class Vision {
 	}
 
 	public double calculateTheta(double x1, double y1, double x2, double y2) {
-		double distance = Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y2 - y1, 2));
+		double distance = Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y2 - y1), 2));
 
 		System.out.println("Distance: " + distance);
 
@@ -128,7 +122,8 @@ public class Vision {
 
 		System.out.println("Cam: " + camToX1 + ", " + camToX2);
 
-		double commonLen = Math.sqrt(camToX1 + camToX2 + Math.cos(theta) * Math.sqrt(camToX1) * Math.sqrt(camToX2));
+		double commonLen = Math.sqrt(camToX1 + camToX2 + 2 * Math.cos(theta) *
+			Math.sqrt(camToX1) * Math.sqrt(camToX2));
 
 		System.out.println("Length: " + commonLen);
 
@@ -137,7 +132,8 @@ public class Vision {
 
 		System.out.println("Ground Distances: " + X1 + ", " + X2);
 
-		double cos_alpha = (Math.pow(commonLen, 2) - (X1 + X2)) / (2 * Math.sqrt(X1) * Math.sqrt(X2));
+		double cos_alpha = (Math.pow(commonLen, 2) - (X1 + X2)) /
+			(2 * Math.sqrt(X1) * Math.sqrt(X2));
 		System.out.println("cos alpha!!!: " + cos_alpha);
 
 		double alpha = Math.acos(cos_alpha) * 180 / Math.PI;
