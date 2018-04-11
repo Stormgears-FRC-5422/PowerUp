@@ -95,7 +95,7 @@ object Elevator : TerminableSubsystem() {
 			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
 			talons.masterMotor.set(ControlMode.PercentOutput, max(min(basePower * powerMul * multiplier, 1.0), -1.0))
 
-			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
+//			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
 
 //			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 2000
 //			else currentPositionTicks < destinationTicks + 3000)

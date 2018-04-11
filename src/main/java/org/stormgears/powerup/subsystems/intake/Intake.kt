@@ -27,10 +27,6 @@ object Intake : TerminableSubsystem() {
 	private val RIGHT_TALON_ID = Robot.config.intakeRightTalonId
 	private val ARTICULATOR_TALON_ID = Robot.config.intakeArticulatorTalonId
 
-	//	private const val WHEEL_SPEED = 8000
-	private const val POWER = 1.0
-	private const val CURRENT_LIMIT = 90
-
 	private val leftTalon: ITalon
 	private val rightTalon: ITalon
 	private val rotationMotor: ITalon
@@ -56,11 +52,11 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, -output)
 	}
 
-	fun startWheelsOut() {
+	fun startWheelsOut(output: Double = 1.0) {
 		logger.info("Intake wheels pushing out")
 
-		leftTalon.set(ControlMode.PercentOutput, -1.0)
-		rightTalon.set(ControlMode.PercentOutput, 1.0)
+		leftTalon.set(ControlMode.PercentOutput, -output)
+		rightTalon.set(ControlMode.PercentOutput, output)
 	}
 
 	fun stopWheels() {
@@ -70,9 +66,17 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun eject(): Job {
+	fun grab(): Job {
+		return launch("Intake Grab") {
+			startWheelsIn()
+			while (rightTalon.outputCurrent < 30) delay(10)
+			stopWheels()
+		}
+	}
+
+	fun eject(output: Double = 1.0): Job {
 		return launch("Intake Eject") {
-			startWheelsOut()
+			startWheelsOut(output = output)
 			delay(2000)
 			stopWheels()
 		}
@@ -93,25 +97,20 @@ object Intake : TerminableSubsystem() {
 	}
 
 	private suspend fun moveIntakeToPositionSuspend(position: Int) {
-//		if (position == this@Intake.position) return
-
-		/*
-		 * TODO: REMOVE THIS ONCE THE MOTOR IS PLACED ON THE ROBOT
-		 */
 		if (rotationMotor.dummy) return
 
 		val multiplier: Double
 		val time: Int
 		when (position) {
-			VERTICAL -> {
-				logger.info("Moving to vertical position.")
-				multiplier = 1.0
-				time = 23
-			}
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				multiplier = -0.7
-				time = 6
+				multiplier = 0.7
+				time = 5
+			}
+			VERTICAL -> {
+				logger.info("Moving to vertical position.")
+				multiplier = -1.0
+				time = 12
 			}
 			else -> {
 				logger.info("Position value for intake rotation does not match a valid position.")
@@ -119,31 +118,16 @@ object Intake : TerminableSubsystem() {
 			}
 		}
 
-		var stopped = false
-		var iteration = 0
-
-		logger.trace("Articulator moving with {}", multiplier * POWER)
-		rotationMotor.set(ControlMode.PercentOutput, POWER * multiplier)
-		while (rotationMotor.outputCurrent < CURRENT_LIMIT && !stopped) {
-			iteration++
-
-			if (abs(rotationMotor.sensorCollection.quadratureVelocity) < 100 && iteration > 60) {
-				stopped = true
-				println("Articulator stopped")
-			} else if (iteration > time) {
-				rotationMotor.set(ControlMode.PercentOutput, 0.0)
-				println("Articulator power set to 0")
-			}
-
-			delay(20)
-		}
-
-		this@Intake.position = position
-
+		logger.trace("Articulator moving with {}", multiplier)
+		rotationMotor.set(ControlMode.PercentOutput, multiplier)
+		delay(time * 20)
 		rotationMotor.set(ControlMode.PercentOutput, 0.0)
+
+		this.position = position
 	}
 
 	fun debug() {
-		SmartDashboard.putNumber("Articulator encoder position", rotationMotor.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Rotation motor encoder position", rotationMotor.sensorCollection.quadraturePosition.toDouble())
+		SmartDashboard.putNumber("Rotation motor output current", rotationMotor.outputCurrent)
 	}
 }

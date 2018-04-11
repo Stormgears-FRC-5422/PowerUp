@@ -17,7 +17,7 @@ public class Sensors {
 	private ProximitySensor proximitySensor;
 
 	private Sensors() {
-//		vision = new Vision();
+		vision = new Vision();
 		navX = new NavX();
 
 		StormNet.init();
