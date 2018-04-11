@@ -2,4 +2,4 @@
 
 # getVisionCoordinatesFromNetworkTable
 
-`open fun getVisionCoordinatesFromNetworkTable(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+`open fun getVisionCoordinatesFromNetworkTable(): `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`DoubleArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double-array/index.html)`>`
