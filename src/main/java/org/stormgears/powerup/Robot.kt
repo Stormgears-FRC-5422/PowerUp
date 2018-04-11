@@ -239,8 +239,8 @@ class Robot : BaseStormgearsRobot() {
 
 		elevator?.debug()
 
-		val coords = sensors?.vision?.findClosestCube() ?: doubleArrayOf(0.0, 0.0)
-		val alpha = sensors?.vision?.convertAngle(69.0, 104.0, coords[0], coords[1])
+//		val coords = sensors?.vision?.findClosestCube() ?: doubleArrayOf(0.0, 0.0)
+//		val alpha = sensors?.vision?.convertAngle(69.0, 104.0, coords[0], coords[1])
 
 		if (drive != null) {
 			if (!sensors!!.navX.isCalibrating) {
