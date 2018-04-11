@@ -31,6 +31,7 @@
 | [scaleButtons](scale-buttons.md) | `val scaleButtons: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md)`>` |
 | [sideLeftButton](side-left-button.md) | `val sideLeftButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [sideRightButton](side-right-button.md) | `val sideRightButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
+| [speedPot](speed-pot.md) | `val speedPot: `[`IJoystickAxis`](../../org.stormgears.utils.dsio/-i-joystick-axis/index.md) |
 | [switch0Button](switch0-button.md) | `val switch0Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [switch1Button](switch1-button.md) | `val switch1Button: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |
 | [zeroElevatorButton](zero-elevator-button.md) | `val zeroElevatorButton: `[`IButton`](../../org.stormgears.utils.dsio/-i-button/index.md) |

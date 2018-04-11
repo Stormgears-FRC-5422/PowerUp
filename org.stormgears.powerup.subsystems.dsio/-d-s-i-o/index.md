@@ -9,6 +9,7 @@
 | Name | Summary |
 |---|---|
 | [buttonBoard](button-board.md) | `val buttonBoard: `[`IButtonBoard`](../-i-button-board/index.md) |
+| [intakeSpeed](intake-speed.md) | `val intakeSpeed: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [joystick](joystick.md) | `val joystick: `[`IRawJoystick`](../../org.stormgears.utils.dsio/-i-raw-joystick/index.md) |
 | [joystickX](joystick-x.md) | `val joystickX: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [joystickY](joystick-y.md) | `val joystickY: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
