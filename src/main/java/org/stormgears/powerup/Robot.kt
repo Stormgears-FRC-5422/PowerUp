@@ -241,6 +241,8 @@ class Robot : BaseStormgearsRobot() {
 //		val coords = sensors?.vision?.findClosestCube() ?: doubleArrayOf(0.0, 0.0)
 //		val alpha = sensors?.vision?.convertAngle(69.0, 104.0, coords[0], coords[1])
 
+		dsio?.tick()
+
 		if (drive != null) {
 			if (!sensors!!.navX.isCalibrating) {
 				if (!sensors!!.navX.thetaIsSet()) {

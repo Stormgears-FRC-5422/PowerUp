@@ -44,6 +44,11 @@ object Intake : TerminableSubsystem() {
 		}
 	}
 
+	fun setVelocity(output: Double) {
+		leftTalon.set(ControlMode.PercentOutput, output)
+		rightTalon.set(ControlMode.PercentOutput, -output)
+	}
+
 	fun startWheelsIn(output: Double = 1.0): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()

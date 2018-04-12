@@ -41,7 +41,7 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick, r
 	override val overrideLeft: IButton = EnhancedButton(msp, 12)
 	override val overrideRight: IButton = EnhancedButton(msp, 13)
 
-	override val speedPot: IJoystickAxis = JoystickAxis(msp, 3)
+	override val speedPot: IJoystickAxis = JoystickAxis(msp, 1, -1.0)
 
 	companion object {
 		private var instance: ButtonBoard2018V1? = null

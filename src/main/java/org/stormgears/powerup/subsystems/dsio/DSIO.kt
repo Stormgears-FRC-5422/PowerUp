@@ -114,7 +114,7 @@ object DSIO {
 	}
 
 	val intakeSpeed: Double
-		get(): Double = buttonBoard.speedPot.value
+		get(): Double = 1.0 // (buttonBoard.speedPot.value - 0.5) * 2
 
 	// Joystick related methods
 
@@ -139,6 +139,10 @@ object DSIO {
 	fun disableDriveControls() {
 		logger.info("Disabling drive controls")
 		joystickEnabled = false
+	}
+
+	fun tick() {
+		Robot.intake?.setVelocity(intakeSpeed)
 	}
 
 	private fun processJoystick(value: Double, nullzone: Double): Double {
