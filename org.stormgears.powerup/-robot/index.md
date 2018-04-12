@@ -42,6 +42,6 @@
 | [elevator](elevator.md) | `var elevator: `[`Elevator`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.md)`?` |
 | [elevatorSharedTalons](elevator-shared-talons.md) | `var elevatorSharedTalons: `[`ElevatorSharedTalons`](../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/index.md)`?` |
 | [intake](intake.md) | `var intake: `[`Intake`](../../org.stormgears.powerup.subsystems.intake/-intake/index.md)`?` |
-| [notifierRegistry](notifier-registry.md) | `val notifierRegistry: `[`ArrayList`](http://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)`<`[`RegisteredNotifier`](../../org.stormgears.utils/-registered-notifier/index.md)`>` |
+| [notifierRegistry](notifier-registry.md) | `val notifierRegistry: `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`RegisteredNotifier`](../../org.stormgears.utils/-registered-notifier/index.md)`>` |
 | [sensors](sensors.md) | `var sensors: `[`Sensors`](../../org.stormgears.powerup.subsystems.sensors/-sensors/index.md)`?` |
 | [talonDebugger](talon-debugger.md) | `var talonDebugger: `[`TalonDebugger`](../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md)`?` |

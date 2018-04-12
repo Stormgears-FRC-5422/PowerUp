@@ -2,4 +2,4 @@
 
 # notifierRegistry
 
-`@JvmStatic val notifierRegistry: `[`ArrayList`](http://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html)`<`[`RegisteredNotifier`](../../org.stormgears.utils/-registered-notifier/index.md)`>`
+`@JvmStatic val notifierRegistry: `[`ArrayList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html)`<`[`RegisteredNotifier`](../../org.stormgears.utils/-registered-notifier/index.md)`>`

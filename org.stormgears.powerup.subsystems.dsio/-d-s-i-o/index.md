@@ -21,3 +21,4 @@
 |---|---|
 | [disableDriveControls](disable-drive-controls.md) | `fun disableDriveControls(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
 | [enableDriveControls](enable-drive-controls.md) | `fun enableDriveControls(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [tick](tick.md) | `fun tick(): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |

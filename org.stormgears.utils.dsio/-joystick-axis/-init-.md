@@ -2,4 +2,4 @@
 
 # &lt;init&gt;
 
-`JoystickAxis(joystick: GenericHID, number: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`)`
+`JoystickAxis(joystick: GenericHID, number: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, mult: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html)`)`
