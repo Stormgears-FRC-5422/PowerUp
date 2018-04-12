@@ -20,7 +20,8 @@ object AutoDriveMoveCommand {
 						placementSpot: FieldPositions.PlacementSpot,
 						switchSide: FieldPositions.LeftRight,
 						scaleSide: FieldPositions.LeftRight,
-						opponentSwitchSide: FieldPositions.LeftRight) {
+						opponentSwitchSide: FieldPositions.LeftRight,
+						crossFieldForOppositeSwitch: Boolean) {
 //		Robot.elevator?.zeroElevator()
 		Robot.elevator?.moveElevatorToPosition(if (placementSpot == SWITCH) Elevator.SWITCH_POSITIONS[0] else 12)
 

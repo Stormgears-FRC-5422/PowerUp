@@ -66,9 +66,9 @@ object DSIO {
 		if (intakeWheelsSwitch is ITernarySwitch) {
 			intakeWheelsSwitch.whenFlippedTernary({ state: ITernarySwitch.SwitchState ->
 				when (state) {
-					ITernarySwitch.SwitchState.Up -> Robot.intake?.startWheelsOut(output = intakeSpeed)
+					ITernarySwitch.SwitchState.Up -> Robot.intake?.startWheelsOut(0.4)
 					ITernarySwitch.SwitchState.Neutral -> Robot.intake?.stopWheels()
-					ITernarySwitch.SwitchState.Down -> Robot.intake?.startWheelsIn()
+					ITernarySwitch.SwitchState.Down -> Robot.intake?.startWheelsIn(1.0)
 				}
 			})
 		} else {

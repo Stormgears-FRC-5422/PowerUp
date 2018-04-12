@@ -45,8 +45,8 @@ object Intake : TerminableSubsystem() {
 	}
 
 	fun setVelocity(output: Double) {
-		leftTalon.set(ControlMode.PercentOutput, output)
-		rightTalon.set(ControlMode.PercentOutput, -output)
+//		leftTalon.set(ControlMode.PercentOutput, output)
+//		rightTalon.set(ControlMode.PercentOutput, -output)
 	}
 
 	fun startWheelsIn(output: Double = 1.0): Job {
@@ -121,7 +121,7 @@ object Intake : TerminableSubsystem() {
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
 				multiplier = 0.7
-				time = 5
+				time = 7
 			}
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")

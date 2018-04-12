@@ -29,8 +29,8 @@ object Elevator : TerminableSubsystem() {
 	private val currentPositionTicks: Int
 		get() = talons.masterMotor.sensorCollection.quadraturePosition
 
-	private const val ZERO_POWER = 0.2
-	private const val ZERO_CURRENT_LIMIT = 3.1 // 8.0 // 8.7
+	private const val ZERO_POWER = 0.07
+	private const val ZERO_CURRENT_LIMIT = 2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
@@ -106,7 +106,7 @@ object Elevator : TerminableSubsystem() {
 
 		logger.trace("{} Elevator has moved to encoder position: {}", box(Timer.getFPGATimestamp()), box(currentPositionTicks))
 //		holdElevator()
-		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+		talons.masterMotor.set(ControlMode.PercentOutput, -0.06)
 	}
 
 	/**
@@ -114,7 +114,7 @@ object Elevator : TerminableSubsystem() {
 	 */
 	fun stop(): Job {
 		return launch("Override slow down", parent = null) {
-			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
+			talons.masterMotor.set(ControlMode.PercentOutput, -0.06)
 
 //			holdElevator()
 		}
@@ -182,7 +182,7 @@ object Elevator : TerminableSubsystem() {
 	fun moveDownManual() {
 //		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
 //		else downPower = 0.33
-		val downPower = if (currentPositionTicks > -100000) 0.3 else 0.4
+		val downPower = if (currentPositionTicks > -100000) 0.07 else 0.4
 
 		logger.trace("downPower = {}", downPower)
 

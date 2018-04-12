@@ -79,6 +79,7 @@ class Robot : BaseStormgearsRobot() {
 	private var selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight? = null
 	private var selectedScalePlateAssignment: FieldPositions.LeftRight? = null
 	private var selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight? = null
+	private var selectedCrossFieldForOppositeSwitch: Boolean? = null
 
 	//	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 	//	private PowerUpMecanumDrive wpiMecanumDrive;
@@ -158,7 +159,8 @@ class Robot : BaseStormgearsRobot() {
 				selectedPlacementSpot!!,
 				selectedOwnSwitchPlateAssignment!!,
 				selectedScalePlateAssignment!!,
-				selectedOpponentSwitchPlateAssignmentChooser!!)
+				selectedOpponentSwitchPlateAssignmentChooser!!,
+				selectedCrossFieldForOppositeSwitch!!)
 		}
 
 		//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
@@ -283,6 +285,7 @@ class Robot : BaseStormgearsRobot() {
 		selectedScalePlateAssignment = FieldPositions.SCALE_PLATE_ASSIGNMENT
 		selectedOwnSwitchPlateAssignment = FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT
 		selectedOpponentSwitchPlateAssignmentChooser = FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT
+		selectedCrossFieldForOppositeSwitch = false
 
 		logger.info("Selected Alliance: {}", selectedAlliance!!.toString())
 		logger.info("Selected Starting Spot: {}", selectedStartSpot!!.toString())

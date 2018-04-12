@@ -12,7 +12,8 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 			selectedPlacementSpot: FieldPositions.PlacementSpot,
 			selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight,
 			selectedScalePlateAssignment: FieldPositions.LeftRight,
-			selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight) {
+			selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight,
+			crossFieldForOppositeSwitch: Boolean) {
 		logger.trace("initiating autonomous command group")
 
 		launch {
@@ -21,7 +22,8 @@ object AutonomousCommandGroup : TerminableSubsystem() {
 				selectedPlacementSpot,
 				selectedOwnSwitchPlateAssignment,
 				selectedScalePlateAssignment,
-				selectedOpponentSwitchPlateAssignmentChooser
+				selectedOpponentSwitchPlateAssignmentChooser,
+				crossFieldForOppositeSwitch
 			)
 
 			// Should move elevator upwards
