@@ -22,7 +22,6 @@ import org.stormgears.utils.StormScheduler
 import org.stormgears.utils.concurrency.Terminator
 import org.stormgears.utils.fixPermissions
 import org.stormgears.utils.logging.StormyLog
-import java.util.*
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
