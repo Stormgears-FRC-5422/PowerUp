@@ -30,7 +30,7 @@ object Elevator : TerminableSubsystem() {
 		get() = talons.masterMotor.sensorCollection.quadraturePosition
 
 	private const val ZERO_POWER = 0.07
-	private const val ZERO_CURRENT_LIMIT = 2.5 // 8.0 // 8.7
+	private const val ZERO_CURRENT_LIMIT = 0.4 //2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22

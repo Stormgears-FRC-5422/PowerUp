@@ -11,11 +11,13 @@ import org.stormgears.utils.concurrency.WithCoroutines
  */
 object AutoRoutes : WithCoroutines {
 	private var crossFieldForOppositeSwitch = false
-	private suspend fun backOffAndRetractElevator() {
-		launch { Robot.drive?.moveStraightNavX(-24.0, maxAMultiplier = 0.7) }
-		delay(2800)
-		Robot.elevator?.moveElevatorToPosition(12)?.join()
+	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800) {
+		val j = launch { Robot.drive?.moveStraightNavX(dist, maxAMultiplier = maxAMult) }
+		delay(delay)
+		Robot.elevator?.moveElevatorToPosition(16)?.join()
 		Robot.elevator?.zeroElevator()
+
+		j.join()
 	}
 
 	object FromLeft : AutoRoute {
@@ -201,29 +203,60 @@ object AutoRoutes : WithCoroutines {
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.8)
 // 			Robot.drive?.moveStraightNavX(50.0)
 //			Robot.drive?.strafeNavX(69.0)
+			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.moveStraightNavX(118.0)
-//			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.9)
 			//	val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 //			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 //			Robot.drive?.moveStraightNavX(70.0)
 			//	elevatorJob?.join()
-			Robot.intake?.eject(output = 0.6)
-			delay(750)
+			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.8)
+			Robot.intake?.eject(output = 0.5)
+//			delay(750)
+
+			launch { delay(750); Robot.intake?.stopWheels() }
+
+			backOffAndRetractElevator(-48.0, 0.8, 600)
+			return
+			Robot.drive?.strafeNavX(49.0)
+//			return
+//			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.intake?.startWheelsIn(0.7)
+			Robot.drive?.moveStraightNavX(34.0)
+//			delay(750)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Robot.drive?.strafeNavX(-49.0)
+			elevatorJob?.join()
+			Robot.drive?.moveStraightNavX(48.0)
+			Robot.intake?.eject(0.4)
 
 			backOffAndRetractElevator()
-
 		}
 		override suspend fun rightSwitch() {
 			Robot.drive?.turnNavX(Math.PI / 12.0)
 // 			Robot.drive?.moveStraightNavX(50.0)
 //			Robot.drive?.strafeNavX(69.0)
-			Robot.drive?.moveStraightNavX(125.0)
+			Robot.drive?.moveStraightNavX(121.0)
 			//	val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 //			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 //			Robot.drive?.moveStraightNavX(70.0)
 			//	elevatorJob?.join()
 			Robot.intake?.eject(output = 0.6)
-			delay(750)
+
+			launch { delay(750); Robot.intake?.stopWheels() }
+
+			backOffAndRetractElevator(-48.0, 0.8, 600)
+			return
+			Robot.drive?.strafeNavX(-49.0)
+//			return
+//			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.intake?.startWheelsIn(0.7)
+			Robot.drive?.moveStraightNavX(34.0)
+//			delay(750)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Robot.drive?.strafeNavX(49.0)
+			elevatorJob?.join()
+			Robot.drive?.moveStraightNavX(48.0)
+			Robot.intake?.eject(0.4)
 
 			backOffAndRetractElevator()
 		}
