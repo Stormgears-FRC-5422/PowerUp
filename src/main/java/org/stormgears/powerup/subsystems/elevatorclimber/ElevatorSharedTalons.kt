@@ -69,5 +69,8 @@ object ElevatorSharedTalons {
 		slaveMotor.setConfig(elevatorTalonConfig)
 
 		slaveMotor.set(ControlMode.Follower, MASTER_MOTOR_TALON_ID.toDouble())
+		slaveMotor.follow(masterMotor)
+		slaveMotor.follow(masterMotor)
+		slaveMotor.follow(masterMotor)
 	}
 }

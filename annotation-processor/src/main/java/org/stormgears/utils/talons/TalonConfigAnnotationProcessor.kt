@@ -188,8 +188,10 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 	}
 
 	private fun FunSpec.Builder.buildIfStatement(propName: String, codeBlock: String, talonConfig: String, argStr: String, ann: Config) {
+		// FIXME: Thread.sleep is a band-aid, please replace with proper retry logic!
 		addStatement("""if ((prevConfig == null) || (prevConfig.$propName != config.$propName)) {
 			|    ${if (codeBlock.isBlank()) "talon.$talonConfig($argStr${if (ann.pidIdx) ", 0" else ""}${if (ann.timeout) ", 10" else ""})" else codeBlock}
+			|    Thread.sleep(10)
 			|}
 			|""".trimMargin())
 	}

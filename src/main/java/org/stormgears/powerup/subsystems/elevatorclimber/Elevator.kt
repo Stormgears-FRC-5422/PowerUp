@@ -171,7 +171,7 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveUpManual() {
-		if (currentPositionTicks < -1100000) {
+		if (currentPositionTicks < -1160000) {
 			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 //			holdElevator()
 		} else {
