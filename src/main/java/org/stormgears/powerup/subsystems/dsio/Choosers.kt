@@ -19,25 +19,29 @@ object Choosers {
 	/*
      * Declare private choosers here
      */
-	private val startingSpotChooser: SendableChooser<FieldPositions.StartingSpots> = SendableChooser()
-	private val placementSpotChooser: SendableChooser<FieldPositions.PlacementSpot> = SendableChooser()
-	private val allianceChooser: SendableChooser<FieldPositions.Alliance> = SendableChooser()
+	private val startingSpotChooser = SendableChooser<FieldPositions.StartingSpots>().apply {
+		addDefault("Left Side of the Field", FieldPositions.StartingSpots.LEFT)
+		addObject("Center of the Field", FieldPositions.StartingSpots.CENTER)
+		addObject("Right Side of the Field", FieldPositions.StartingSpots.RIGHT)
+		SmartDashboard.putData("Starting Spot", this)
+	}
 
-	init {
-		startingSpotChooser.addDefault("Left Side of the Field", FieldPositions.StartingSpots.LEFT)
-		startingSpotChooser.addObject("Center of the Field", FieldPositions.StartingSpots.CENTER)
-		startingSpotChooser.addObject("Right Side of the Field", FieldPositions.StartingSpots.RIGHT)
-		SmartDashboard.putData("Starting Spot", startingSpotChooser)
+	private val placementSpotChooser = SendableChooser<FieldPositions.PlacementSpot>().apply {
+		addDefault("Cross Base Line", FieldPositions.PlacementSpot.JUST_CROSS)
+		addObject("Place on Scale", FieldPositions.PlacementSpot.SCALE)
+		addObject("Place on Switch", FieldPositions.PlacementSpot.SWITCH)
+		SmartDashboard.putData("Placement Spot", this)
+	}
+	private val allianceChooser = SendableChooser<FieldPositions.Alliance>().apply {
+		addDefault("Red Alliance", FieldPositions.Alliance.RED)
+		addObject("Blue Alliance", FieldPositions.Alliance.BLUE)
+		SmartDashboard.putData("Alliance Side", this)
+	}
 
-		placementSpotChooser.addDefault("Cross Base Line", FieldPositions.PlacementSpot.JUST_CROSS)
-		placementSpotChooser.addObject("Place on Scale", FieldPositions.PlacementSpot.SCALE)
-		placementSpotChooser.addObject("Place on Switch", FieldPositions.PlacementSpot.SWITCH)
-		SmartDashboard.putData("Placement Spot", placementSpotChooser)
-
-		allianceChooser.addDefault("Red Alliance", FieldPositions.Alliance.RED)
-		allianceChooser.addObject("Blue Alliance", FieldPositions.Alliance.BLUE)
-		SmartDashboard.putData("Alliance Side", allianceChooser)
-
+	private val crossFieldChooser = SendableChooser<Boolean>().apply {
+		addDefault("Cross Field", true)
+		addObject("DO NOT Cross Field", false)
+		SmartDashboard.putData("Cross Field", this)
 	}
 
 	// Getters go below here
@@ -50,4 +54,7 @@ object Choosers {
 
 	val alliance: FieldPositions.Alliance
 		get() = allianceChooser.selected
+
+	val crossField: Boolean
+		get() = crossFieldChooser.selected
 }

@@ -2,6 +2,7 @@ package org.stormgears.powerup.auto.command
 
 import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.subsystems.dsio.Choosers
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.WithCoroutines
@@ -10,7 +11,6 @@ import org.stormgears.utils.concurrency.WithCoroutines
  * Routes for robot in AUTONOMOUS ONLY!!!
  */
 object AutoRoutes : WithCoroutines {
-	private var crossFieldForOppositeSwitch = false
 	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800) {
 		val j = launch { Robot.drive?.moveStraightNavX(dist, maxAMultiplier = maxAMult) }
 		delay(delay)
@@ -23,7 +23,6 @@ object AutoRoutes : WithCoroutines {
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
 			Robot.drive?.moveStraightNavX(254.0 /* for good luck */)
-			println("before moveintake")
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			println("before turn")
@@ -42,8 +41,12 @@ object AutoRoutes : WithCoroutines {
 			backOffAndRetractElevator()
 		}
 
-
 		override suspend fun rightScale() {
+			if (!Choosers.crossField) {
+				crossBaseline()
+				return
+			}
+
 			Robot.drive?.moveStraightNavX(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(258.0) // WITH cable protector in the middle
@@ -84,20 +87,21 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun rightSwitch() {
-			if (crossFieldForOppositeSwitch) {
-				Robot.drive?.moveStraightNavX(50.0)
-				Robot.drive?.strafeNavX(220.0)
-				val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-				Robot.drive?.moveStraightNavX(72.0)
-				elevatorJob?.join()
-				Robot.intake?.eject(output = 0.6)
-				delay(750)
-
-				backOffAndRetractElevator()
-			} else {
+			if (!Choosers.crossField) {
 				crossBaseline()
+				return
 			}
+			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.strafeNavX(220.0)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(72.0)
+			elevatorJob?.join()
+			Robot.intake?.eject(output = 0.6)
+			delay(750)
+
+			backOffAndRetractElevator()
+
 		}
 
 		override suspend fun crossBaseline() {
@@ -129,6 +133,11 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftScale() {
+			if (!Choosers.crossField) {
+				crossBaseline()
+				return
+			}
+
 			Robot.drive?.moveStraightNavX(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(-258.0) // WITH cable protector in the middle
@@ -145,25 +154,26 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftSwitch() {
-			if (crossFieldForOppositeSwitch) {
-				Robot.drive?.moveStraightNavX(50.0)
-				//new stuff
-//			Robot.drive?.turnNavX(-Math.PI/2)
-//			Robot.drive?.moveStraightNavX(115.0)
-//			Robot.drive?.turnNavX(Math.PI/2)
-
-				Robot.drive?.strafeNavX(-210.0)
-				val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-				Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-				Robot.drive?.moveStraightNavX(115.0)
-				elevatorJob?.join()
-				Robot.intake?.eject(output = 0.6)
-				delay(750)
-
-				backOffAndRetractElevator()
-			} else {
+			if (!Choosers.crossField) {
 				crossBaseline()
+				return
 			}
+			Robot.drive?.moveStraightNavX(50.0)
+			//new stuff
+			//			Robot.drive?.turnNavX(-Math.PI/2)
+			//			Robot.drive?.moveStraightNavX(115.0)
+			//			Robot.drive?.turnNavX(Math.PI/2)
+
+			Robot.drive?.strafeNavX(-210.0)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
+			Robot.drive?.moveStraightNavX(115.0)
+			elevatorJob?.join()
+			Robot.intake?.eject(output = 0.6)
+			delay(750)
+
+			backOffAndRetractElevator()
+
 		}
 
 		override suspend fun rightSwitch() {
@@ -231,6 +241,7 @@ object AutoRoutes : WithCoroutines {
 
 			backOffAndRetractElevator()
 		}
+
 		override suspend fun rightSwitch() {
 			Robot.drive?.turnNavX(Math.PI / 12.0)
 // 			Robot.drive?.moveStraightNavX(50.0)
