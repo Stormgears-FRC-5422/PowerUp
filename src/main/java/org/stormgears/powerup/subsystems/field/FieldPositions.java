@@ -47,15 +47,10 @@ public class FieldPositions {
 
 	public enum PlacementSpot {
 		//TODO:Change position values & Light Colors
-		SCALE(new Position(0, 0)),
-		SWITCH(OWN_SWITCH),
-		JUST_CROSS(new Position(0, 0));
-
-		private Position destination;
-
-		PlacementSpot(Position destination) {
-			this.destination = destination;
-		}
+		SCALE,
+		SWITCH,
+		SCALE_SWITCH,
+		JUST_CROSS
 	}
 
 	public enum Alliance {

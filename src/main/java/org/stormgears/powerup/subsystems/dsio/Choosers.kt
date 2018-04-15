@@ -30,6 +30,7 @@ object Choosers {
 		addDefault("Cross Base Line", FieldPositions.PlacementSpot.JUST_CROSS)
 		addObject("Place on Scale", FieldPositions.PlacementSpot.SCALE)
 		addObject("Place on Switch", FieldPositions.PlacementSpot.SWITCH)
+		addObject("Place on Scale (if on own side) or Switch (if on own side)", FieldPositions.PlacementSpot.SCALE_SWITCH)
 		SmartDashboard.putData("Placement Spot", this)
 	}
 	private val allianceChooser = SendableChooser<FieldPositions.Alliance>().apply {

@@ -27,7 +27,7 @@ object AutoRoutes : WithCoroutines {
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			println("before turn")
-			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.90)
+			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.94)
 			delay(700)
 			println("before movestraight 2")
 			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
@@ -122,7 +122,7 @@ object AutoRoutes : WithCoroutines {
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			println("before turn")
-			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.90)
+			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.94)
 			delay(700)
 			println("before movestraight 2")
 			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
@@ -215,7 +215,7 @@ object AutoRoutes : WithCoroutines {
 		}
 
 		override suspend fun leftSwitch() {
-			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.85)
+			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.65)
 // 			Robot.drive?.moveStraightNavX(50.0)
 //			Robot.drive?.strafeNavX(69.0)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
@@ -224,7 +224,7 @@ object AutoRoutes : WithCoroutines {
 //			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 //			Robot.drive?.moveStraightNavX(70.0)
 			//	elevatorJob?.join()
-			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.85)
+			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.65)
 			Robot.intake?.eject(output = 0.5)
 //			delay(750)
 
@@ -232,14 +232,14 @@ object AutoRoutes : WithCoroutines {
 
 			backOffAndRetractElevator(-48.0, 0.8, 600)
 //			return
-			Robot.drive?.strafeNavX(49.0)
+			Robot.drive?.strafeNavX(60.0)
 //			return
 //			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.intake?.startWheelsIn(0.8)
 			Robot.drive?.moveStraightNavX(30.0)
 //			delay(750)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
-			Robot.drive?.strafeNavX(-55.0)
+			Robot.drive?.strafeNavX(-75.0)
 			elevatorJob?.join()
 			Robot.drive?.moveStraightNavX(40.0)
 			Robot.intake?.eject(0.4)

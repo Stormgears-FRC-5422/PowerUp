@@ -34,7 +34,7 @@ object Elevator : TerminableSubsystem() {
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
-	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 83, 85) // first one = 56
+	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 83, 87) // first one = 56
 
 	// Jobs
 	private var elevatorJob: Job? = null
@@ -171,7 +171,7 @@ object Elevator : TerminableSubsystem() {
 	}
 
 	fun moveUpManual() {
-		if (currentPositionTicks < -1160000) {
+		if (currentPositionTicks < -1190000) {
 			talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 //			holdElevator()
 		} else {

@@ -41,6 +41,16 @@ object AutoDriveMoveCommand {
 				R -> autoRoute.rightSwitch()
 			}
 			JUST_CROSS -> autoRoute.crossBaseline()
+			SCALE_SWITCH -> {
+				if (scaleSide == L && startingSpot == LEFT) {
+					autoRoute.leftScale()
+				} else if (scaleSide == L && startingSpot == RIGHT) {
+					autoRoute.rightScale()
+				} else when (switchSide) {
+					L -> autoRoute.leftSwitch()
+					R -> autoRoute.rightSwitch()
+				}
+			}
 		}
 	}
 
