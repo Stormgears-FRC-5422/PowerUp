@@ -10,4 +10,5 @@
 |---|---|
 | [SCALE](-s-c-a-l-e.md) |  |
 | [SWITCH](-s-w-i-t-c-h.md) |  |
+| [SCALE_SWITCH](-s-c-a-l-e_-s-w-i-t-c-h.md) |  |
 | [JUST_CROSS](-j-u-s-t_-c-r-o-s-s.md) |  |
