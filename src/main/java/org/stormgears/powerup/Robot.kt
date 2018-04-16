@@ -247,6 +247,7 @@ class Robot : BaseStormgearsRobot() {
 		//		}
 
 		elevator?.debug()
+		intake?.debug()
 
 //		val coords = sensors?.vision?.findClosestCube() ?: doubleArrayOf(0.0, 0.0)
 //		val alpha = sensors?.vision?.convertAngle(69.0, 104.0, coords[0], coords[1])
@@ -254,14 +255,10 @@ class Robot : BaseStormgearsRobot() {
 		dsio?.tick()
 
 		if (drive != null) {
-			if (!sensors!!.navX.isCalibrating) {
-				if (!sensors!!.navX.thetaIsSet()) {
-					sensors!!.navX.setInitialTheta()
-				}
-				drive!!.joystickMove()
-			} else {
-				logger.fatal("NavX is currently calibrating! Cannot drive!")
+			if (!sensors!!.navX.thetaIsSet()) {
+				sensors!!.navX.setInitialTheta()
 			}
+			drive!!.joystickMove()
 		} else {
 			logger.fatal("Robot.drive is null; that's a problem!")
 		}

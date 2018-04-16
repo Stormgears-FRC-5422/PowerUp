@@ -1,7 +1,6 @@
 package org.stormgears.powerup.subsystems.navigator
 
 import com.ctre.phoenix.motorcontrol.ControlMode
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import kotlinx.coroutines.experimental.delay
 import kotlinx.coroutines.experimental.yield
 import org.apache.logging.log4j.LogManager
@@ -43,10 +42,7 @@ object Drive : TerminableSubsystem() {
 
 	private val sunProfile = SunProfile()
 
-	fun joystickMove() {
-		val x = Robot.dsio!!.joystickX
-		val y = Robot.dsio!!.joystickY
-		val z = Robot.dsio!!.joystickZ
+	fun joystickMove(x: Double = Robot.dsio!!.joystickX, y: Double = Robot.dsio!!.joystickY, z: Double = Robot.dsio!!.joystickZ) {
 
 		//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
 

@@ -29,8 +29,8 @@ object Elevator : TerminableSubsystem() {
 	private val currentPositionTicks: Int
 		get() = talons.masterMotor.sensorCollection.quadraturePosition
 
-	private val ZERO_POWER = 0.07 * Robot.config.elevatorStiffness
-	private val ZERO_CURRENT_LIMIT = 0.4 * Robot.config.elevatorStiffness //2.5 // 8.0 // 8.7
+	private val ZERO_POWER = 0.07 * Math.pow(Robot.config.elevatorStiffness, 1.52)
+	private val ZERO_CURRENT_LIMIT = 0.4 * Math.pow(Robot.config.elevatorStiffness, 2.5) //2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
@@ -91,16 +91,18 @@ object Elevator : TerminableSubsystem() {
 		do {
 			delay(10)
 
-			val relDist = abs((currentPositionTicks.toDouble() - destinationTicks) / destinationTicks)
+			val cpt = currentPositionTicks
+			val relDist = abs((cpt.toDouble() - destinationTicks) / destinationTicks)
 			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
-			talons.masterMotor.set(ControlMode.PercentOutput, max(min(basePower * powerMul * multiplier, 1.0), -1.0))
+			val power = if (lowering && cpt > -100000) 0.07 * Robot.config.elevatorStiffness else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
+			talons.masterMotor.set(ControlMode.PercentOutput, power)
 
 //			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
 
 //			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 2000
 //			else currentPositionTicks < destinationTicks + 3000)
 
-			shouldStop = relDist < 0.04
+			shouldStop = relDist < 0.05
 
 		} while (!shouldStop)
 
@@ -131,7 +133,7 @@ object Elevator : TerminableSubsystem() {
 		return job
 	}
 
-	suspend fun zeroElevator() {
+	suspend fun zeroElevator(zeroEncoder: Boolean = true) {
 		talons.masterMotor.set(ControlMode.PercentOutput, ZERO_POWER)
 
 		logger.trace("Zero-ing Elevator. Watch out!")
@@ -145,7 +147,10 @@ object Elevator : TerminableSubsystem() {
 		}
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 
-		zeroElevatorEncoder()
+		if (zeroEncoder) {
+			zeroElevatorEncoder()
+		}
+
 		elevatorZeroed = true
 		logger.trace("Elevator zeroed")
 	}

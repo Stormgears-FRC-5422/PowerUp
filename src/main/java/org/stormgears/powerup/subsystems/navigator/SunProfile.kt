@@ -70,7 +70,7 @@ class SunProfile(
 		return when {
 			x < mX -> rBase(x, mX, mYmX)
 			x in mX..(d - mX2) -> vTarget
-			x in (d - mX2)..d -> rBase(d - x, mX2, mYmX)
+			x in (d - mX2)..d -> rBase(d - x, mX2, mYmX - 500) + 500
 			else -> 0.0
 		}
 	}

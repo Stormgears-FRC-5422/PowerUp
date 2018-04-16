@@ -85,7 +85,7 @@ object Intake : TerminableSubsystem() {
 	fun grab(): Job {
 		return launch("Intake Grab") {
 			startWheelsIn()
-			while (rightTalon.outputCurrent < 30) delay(10)
+			while (!rightTalon.sensorCollection.isRevLimitSwitchClosed) delay(10)
 			stopWheels()
 		}
 	}
@@ -145,5 +145,7 @@ object Intake : TerminableSubsystem() {
 	fun debug() {
 		SmartDashboard.putNumber("Rotation motor encoder position", rotationMotor.sensorCollection.quadraturePosition.toDouble())
 		SmartDashboard.putNumber("Rotation motor output current", rotationMotor.outputCurrent)
+		SmartDashboard.putBoolean("Right motor proximity sensor engaged (fwd)", rightTalon.sensorCollection.isFwdLimitSwitchClosed)
+		SmartDashboard.putBoolean("Right motor proximity sensor engaged (rev)", rightTalon.sensorCollection.isRevLimitSwitchClosed)
 	}
 }

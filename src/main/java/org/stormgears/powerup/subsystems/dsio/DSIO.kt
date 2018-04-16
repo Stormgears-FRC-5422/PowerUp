@@ -56,7 +56,7 @@ object DSIO {
 		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
 		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
 
-		buttonBoard.intakeGrabButton.whenPressed { /* Commands.grabCube() */ }
+		buttonBoard.intakeGrabButton.whenPressed { Intake.grab() }
 
 		buttonBoard.forceZeroElevatorButton.whenPressed { Robot.elevator?.launchZeroElevator() }
 		buttonBoard.zeroElevatorButton.whenPressed { Robot.elevator?.zeroElevatorEncoder() }
