@@ -29,8 +29,8 @@ object Elevator : TerminableSubsystem() {
 	private val currentPositionTicks: Int
 		get() = talons.masterMotor.sensorCollection.quadraturePosition
 
-	private const val ZERO_POWER = 0.07
-	private const val ZERO_CURRENT_LIMIT = 0.4 //2.5 // 8.0 // 8.7
+	private val ZERO_POWER = 0.07 * Robot.config.elevatorStiffness
+	private val ZERO_CURRENT_LIMIT = 0.4 * Robot.config.elevatorStiffness //2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
 	val SWITCH_POSITIONS = intArrayOf(22, 37, 40) // first one = 22
@@ -182,7 +182,7 @@ object Elevator : TerminableSubsystem() {
 	fun moveDownManual() {
 //		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
 //		else downPower = 0.33
-		val downPower = if (currentPositionTicks > -100000) 0.07 else 0.4
+		val downPower = (if (currentPositionTicks > -100000) 0.07 else 0.4) * Robot.config.elevatorStiffness
 
 		logger.trace("downPower = {}", downPower)
 

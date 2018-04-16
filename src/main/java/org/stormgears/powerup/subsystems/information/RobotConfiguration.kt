@@ -48,6 +48,8 @@ object RobotConfiguration : BaseRobotConfiguration(useBackupIfFileNotAvailable =
 	val elevatorLowerI = getDouble("elevatorLowerI")
 	val elevatorLowerD = getDouble("elevatorLowerD")
 
+	val elevatorStiffness = getDouble("elevatorStiffness", 1.0)
+
 	val encoderResolution = getInt("encoderResolution")
 
 	val reverseJoystick = getBoolean("reverseJoystick")
