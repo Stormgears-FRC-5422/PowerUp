@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.util.Unbox.box
 import org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V1
+import org.stormgears.powerup.subsystems.dsio.ButtonBoard2018V2
 import org.stormgears.powerup.subsystems.dsio.DummyButtonBoard
 import org.stormgears.powerup.subsystems.dsio.IButtonBoard
 import org.stormgears.utils.dsio.DummyJoystick
@@ -18,38 +19,44 @@ class JoystickDetector {
 	}
 
 	private val ds = DriverStation.getInstance()
-	val names: Array<String?> = arrayOfNulls(5)
+	private val names: Array<String?> = arrayOfNulls(5)
 	private val joysticks: Array<Joystick?> = arrayOfNulls(5)
 
 	private var drivingJoystickChannel = -1
 	private var mspChannel = -1
-	private var buttonBoard2018Channel = -1
+	private var jumperGamepadChannel = -1
+	private var normalGamepadChannel = -1
+	private var destroyedLogitechChannel = -1
 	private var xboxChannel = -1
 
 	val drivingJoystick: IRawJoystick
 		get() {
-			when {
+			return when {
 				xboxChannel != -1 -> {
 					logger.info("Selecting XBOX joystick")
-					return XboxJoystick(xboxChannel)
+					XboxJoystick(xboxChannel)
 				}
 				drivingJoystickChannel != -1 -> {
 					logger.info("Selecting Logitech joystick")
-					return LogitechJoystick(drivingJoystickChannel)
+					LogitechJoystick(drivingJoystickChannel)
 				}
 				else -> {
 					logger.warn("Joystick not found! Using dummy joystick.")
-					return DummyJoystick()
+					DummyJoystick()
 				}
 			}
 		}
 
 	val buttonBoard: IButtonBoard
 		get() {
-			return if (buttonBoard2018Channel != -1 && mspChannel != -1) {
+			return if (destroyedLogitechChannel != -1 && mspChannel != -1) {
 				logger.info("Selecting ButtonBoard2018v1")
 				val drivingJoystick = drivingJoystick
-				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(buttonBoard2018Channel), if (drivingJoystick is LogitechJoystick) drivingJoystick else null)
+				ButtonBoard2018V1.getInstance(Joystick(mspChannel), Joystick(destroyedLogitechChannel), drivingJoystick as? LogitechJoystick)
+			} else if (jumperGamepadChannel != -1 && normalGamepadChannel != -1) {
+				logger.info("Selecting ButtonBoard2018v2")
+				val drivingJoystick = drivingJoystick
+				ButtonBoard2018V2.getInstance(Joystick(jumperGamepadChannel), Joystick(normalGamepadChannel), drivingJoystick as? LogitechJoystick)
 			} else {
 				logger.warn("Matching combination of buttonboard and joystick not found! Using dummy button board.")
 				DummyButtonBoard()
@@ -80,10 +87,18 @@ class JoystickDetector {
 					logger.trace("Axis 0: {}; Axis 1: {}", box(joystick.getRawAxis(0)), box(joystick.getRawAxis(1)))
 					if (joystick.getRawAxis(0) < -0.9 && joystick.getRawAxis(2) > 0.9) {
 						logger.info("Button board joystick guess: {}", box(i))
-						buttonBoard2018Channel = i
+						destroyedLogitechChannel = i
 					} else {
 						logger.info("Driving joystick guess: {}", box(i))
 						drivingJoystickChannel = i
+					}
+				} else if (joystick.name.contains("Generic")) {    // Match
+					if (joystick.getRawButton(3)) {
+						logger.info("Jumper generic gamepad guess: {}", box(i))
+						jumperGamepadChannel = i
+					} else {
+						logger.info("Normal generic gamepad guess: {}", box(i))
+						normalGamepadChannel = i
 					}
 				}
 			}
