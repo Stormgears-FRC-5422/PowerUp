@@ -26,4 +26,5 @@
 |---|---|
 | [DummyButton](../-dummy-button/index.md) | `class DummyButton : `[`IButton`](./index.md) |
 | [EnhancedButton](../-enhanced-button/index.md) | `class EnhancedButton : JoystickButton, `[`IButton`](./index.md)<br>Create a joystick button for triggering commands. |
+| [JoystickAxisButton](../-joystick-axis-button/index.md) | `class JoystickAxisButton : Button, `[`IButton`](./index.md) |
 | [POVButton](../-p-o-v-button/index.md) | `class POVButton : Button, `[`IButton`](./index.md) |

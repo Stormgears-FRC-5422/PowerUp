@@ -20,6 +20,7 @@ Utilities for driver station I/O
 | [ISwitch](-i-switch/index.md) | `interface ISwitch` |
 | [ITernarySwitch](-i-ternary-switch/index.md) | `interface ITernarySwitch : `[`ISwitch`](-i-switch/index.md) |
 | [JoystickAxis](-joystick-axis/index.md) | `class JoystickAxis : `[`IJoystickAxis`](-i-joystick-axis/index.md) |
+| [JoystickAxisButton](-joystick-axis-button/index.md) | `class JoystickAxisButton : Button, `[`IButton`](-i-button/index.md) |
 | [LogitechJoystick](-logitech-joystick/index.md) | `class LogitechJoystick : Joystick, `[`IRawJoystick`](-i-raw-joystick/index.md)<br>Construct an instance of a joystick. The joystick index is the USB port on the drivers station. |
 | [POVButton](-p-o-v-button/index.md) | `class POVButton : Button, `[`IButton`](-i-button/index.md) |
 | [SwitchControl](-switch-control/index.md) | `open class SwitchControl : JoystickButton, `[`ISwitch`](-i-switch/index.md)<br>Create a joystick button for triggering commands. |

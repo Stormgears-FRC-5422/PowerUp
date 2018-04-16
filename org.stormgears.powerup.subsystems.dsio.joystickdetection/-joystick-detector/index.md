@@ -16,7 +16,6 @@
 |---|---|
 | [buttonBoard](button-board.md) | `val buttonBoard: `[`IButtonBoard`](../../org.stormgears.powerup.subsystems.dsio/-i-button-board/index.md) |
 | [drivingJoystick](driving-joystick.md) | `val drivingJoystick: `[`IRawJoystick`](../../org.stormgears.utils.dsio/-i-raw-joystick/index.md) |
-| [names](names.md) | `val names: `[`Array`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html)`<`[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?>` |
 
 ### Functions
 

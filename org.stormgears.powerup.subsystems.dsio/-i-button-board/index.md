@@ -41,4 +41,5 @@
 | Name | Summary |
 |---|---|
 | [ButtonBoard2018V1](../-button-board2018-v1/index.md) | `class ButtonBoard2018V1 : `[`IButtonBoard`](./index.md) |
+| [ButtonBoard2018V2](../-button-board2018-v2/index.md) | `class ButtonBoard2018V2 : `[`IButtonBoard`](./index.md) |
 | [DummyButtonBoard](../-dummy-button-board/index.md) | `class DummyButtonBoard : `[`IButtonBoard`](./index.md) |
