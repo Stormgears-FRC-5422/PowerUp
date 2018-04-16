@@ -1,6 +1,9 @@
 package org.stormgears.powerup
 
+import edu.wpi.first.wpilibj.DriverStation
 import org.apache.logging.log4j.LogManager
+import org.stormgears.powerup.auto.command.AutoDriveMoveCommand
+import org.stormgears.powerup.auto.command.AutoRoutes
 import org.stormgears.powerup.auto.command.AutonomousCommandGroup
 import org.stormgears.powerup.subsystems.dsio.Choosers
 import org.stormgears.powerup.subsystems.dsio.DSIO
@@ -16,11 +19,8 @@ import org.stormgears.powerup.subsystems.navigator.Drive
 import org.stormgears.powerup.subsystems.navigator.DriveTalons
 import org.stormgears.powerup.subsystems.navigator.TalonDebugger
 import org.stormgears.powerup.subsystems.sensors.Sensors
-import org.stormgears.utils.BaseStormgearsRobot
-import org.stormgears.utils.RegisteredNotifier
-import org.stormgears.utils.StormScheduler
+import org.stormgears.utils.*
 import org.stormgears.utils.concurrency.Terminator
-import org.stormgears.utils.fixPermissions
 import org.stormgears.utils.logging.StormyLog
 
 /*
@@ -127,9 +127,18 @@ class Robot : BaseStormgearsRobot() {
 			climber = Climber.getInstance()
 		}
 
+		if (choosers == null) {
+			choosers = Choosers
+		}
+
 		Robot.elevator?.zeroElevatorEncoder()
 
+		// Warm up classes used by autonomous to reduce latency
+		DriverStation.getInstance()
 		fmsInterfaceWarmup()
+		forceInit(AutonomousCommandGroup::class.java)
+		forceInit(AutoDriveMoveCommand::class.java)
+		forceInit(AutoRoutes::class.java)
 	}
 
 	/**
@@ -138,29 +147,28 @@ class Robot : BaseStormgearsRobot() {
 	override fun autonomousInit() {
 		logger.trace("autonomous init")
 
-		if (choosers == null) {
-			choosers = Choosers
-		}
-
 		parseFmsData()
 
 		Terminator.disabled = false //DSIO.buttonBoard.overrideSwitch.get()
 
 		// Get all the selected autonomous command properties for this run
-		getSelectedAutonomousCommand()
+
+		logger.info("Alliance: {}", choosers!!.alliance)
+		logger.info("Starting Spot: {}", choosers!!.startingSpot)
+		logger.info("Placement Spot: {}", choosers!!.placementSpot)
+		logger.info("Scale Plate Assignment: {}", FieldPositions.SCALE_PLATE_ASSIGNMENT)
+		logger.info("Own Switch Plate Assignment: {}", FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT)
+		logger.info("Opponent Switch Plate Assignment: {}", FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT)
 
 		logger.trace("starting the autonomous command")
 
 		if (drive != null && sensors != null) {
 			if (!sensors!!.navX.thetaIsSet()) sensors!!.navX.setInitialTheta()
 
-			AutonomousCommandGroup.run(selectedAlliance!!,
-				selectedStartSpot!!,
-				selectedPlacementSpot!!,
-				selectedOwnSwitchPlateAssignment!!,
-				selectedScalePlateAssignment!!,
-				selectedOpponentSwitchPlateAssignmentChooser!!,
-				selectedCrossFieldForOppositeSwitch!!)
+			AutonomousCommandGroup.run(choosers!!.startingSpot,
+				choosers!!.placementSpot,
+				FieldPositions.SCALE_PLATE_ASSIGNMENT!!,
+				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT!!)
 		}
 
 		//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
@@ -277,22 +285,5 @@ class Robot : BaseStormgearsRobot() {
 		}
 	}
 
-	private fun getSelectedAutonomousCommand() {
-		// TODO: Untangle this spaghetti
-		selectedAlliance = choosers!!.alliance
-		selectedStartSpot = choosers!!.startingSpot
-		selectedPlacementSpot = choosers!!.placementSpot
-		selectedScalePlateAssignment = FieldPositions.SCALE_PLATE_ASSIGNMENT
-		selectedOwnSwitchPlateAssignment = FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT
-		selectedOpponentSwitchPlateAssignmentChooser = FieldPositions.OPPONENT_SWITCH_PLATE_ASSIGNMENT
-		selectedCrossFieldForOppositeSwitch = false
-
-		logger.info("Selected Alliance: {}", selectedAlliance!!.toString())
-		logger.info("Selected Starting Spot: {}", selectedStartSpot!!.toString())
-		logger.info("Selected Placement Spot: {}", selectedPlacementSpot!!.toString())
-		logger.info("Selected Scale Plate Assignment: {}", selectedScalePlateAssignment!!.toString())
-		logger.info("Selected Own Switch Plate Assignment: {}", selectedOwnSwitchPlateAssignment!!.toString())
-		logger.info("Selected Opponent Switch Plate Assignment: {}", selectedOpponentSwitchPlateAssignmentChooser!!.toString())
-	}
 }
 

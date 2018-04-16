@@ -5,13 +5,13 @@ import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.dsio.Choosers
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
-import org.stormgears.utils.concurrency.WithCoroutines
+import org.stormgears.utils.concurrency.TerminableSubsystem
 import kotlin.math.PI
 
 /**
  * Routes for robot in AUTONOMOUS ONLY!!!
  */
-object AutoRoutes : WithCoroutines {
+object AutoRoutes : TerminableSubsystem() {
 	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800) {
 		val j = launch { Robot.drive?.moveStraightNavX(dist, maxAMultiplier = maxAMult) }
 		delay(delay)

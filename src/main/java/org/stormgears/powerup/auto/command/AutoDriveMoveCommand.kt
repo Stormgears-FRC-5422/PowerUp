@@ -10,19 +10,16 @@ import org.stormgears.powerup.subsystems.field.FieldPositions.LeftRight.R
 import org.stormgears.powerup.subsystems.field.FieldPositions.PlacementSpot.*
 import org.stormgears.powerup.subsystems.field.FieldPositions.StartingSpots.*
 import org.stormgears.powerup.subsystems.field.Segment
+import org.stormgears.utils.concurrency.TerminableSubsystem
 
 // TODO: Cleanup
-object AutoDriveMoveCommand {
+object AutoDriveMoveCommand : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(AutonomousCommandGroup::class.java)
 
-	suspend fun execute(selectedAlliance: FieldPositions.Alliance,
-						startingSpot: FieldPositions.StartingSpots,
+	suspend fun execute(startingSpot: FieldPositions.StartingSpots,
 						placementSpot: FieldPositions.PlacementSpot,
 						switchSide: FieldPositions.LeftRight,
-						scaleSide: FieldPositions.LeftRight,
-						opponentSwitchSide: FieldPositions.LeftRight,
-						crossFieldForOppositeSwitch: Boolean) {
-//		Robot.elevator?.zeroElevator()
+						scaleSide: FieldPositions.LeftRight) {
 		Robot.elevator?.moveElevatorToPosition(if (placementSpot == SWITCH) Elevator.SWITCH_POSITIONS[0] else 12)
 
 		val autoRoute = when (startingSpot) {
