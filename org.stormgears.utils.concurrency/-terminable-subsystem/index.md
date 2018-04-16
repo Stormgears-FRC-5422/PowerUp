@@ -30,6 +30,8 @@
 
 | Name | Summary |
 |---|---|
+| [AutoDriveMoveCommand](../../org.stormgears.powerup.auto.command/-auto-drive-move-command/index.md) | `object AutoDriveMoveCommand : `[`TerminableSubsystem`](./index.md) |
+| [AutoRoutes](../../org.stormgears.powerup.auto.command/-auto-routes/index.md) | `object AutoRoutes : `[`TerminableSubsystem`](./index.md)<br>Routes for robot in AUTONOMOUS ONLY!!! |
 | [AutonomousCommandGroup](../../org.stormgears.powerup.auto.command/-autonomous-command-group/index.md) | `object AutonomousCommandGroup : `[`TerminableSubsystem`](./index.md) |
 | [Commands](../../org.stormgears.powerup.commands/-commands/index.md) | `object Commands : `[`TerminableSubsystem`](./index.md) |
 | [Drive](../../org.stormgears.powerup.subsystems.navigator/-drive/index.md) | `object Drive : `[`TerminableSubsystem`](./index.md) |

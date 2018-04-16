@@ -20,7 +20,6 @@ context.
 
 | Name | Summary |
 |---|---|
-| [AutoRoutes](../../org.stormgears.powerup.auto.command/-auto-routes/index.md) | `object AutoRoutes : `[`WithCoroutines`](./index.md)<br>Routes for robot in AUTONOMOUS ONLY!!! |
 | [MemWatch](../../org.stormgears.utils/-mem-watch/index.md) | `object MemWatch : `[`WithCoroutines`](./index.md) |
 | [TalonDebugger](../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.md) | `class TalonDebugger : `[`WithCoroutines`](./index.md) |
 | [TerminableSubsystem](../-terminable-subsystem/index.md) | `abstract class TerminableSubsystem : `[`WithCoroutines`](./index.md) |
