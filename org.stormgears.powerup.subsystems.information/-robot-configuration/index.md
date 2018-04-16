@@ -16,6 +16,7 @@
 | [elevatorRaiseI](elevator-raise-i.md) | `val elevatorRaiseI: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [elevatorRaiseP](elevator-raise-p.md) | `val elevatorRaiseP: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [elevatorSlaveTalonId](elevator-slave-talon-id.md) | `val elevatorSlaveTalonId: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [elevatorStiffness](elevator-stiffness.md) | `val elevatorStiffness: `[`Double`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html) |
 | [enableClimber](enable-climber.md) | `val enableClimber: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [enableDrive](enable-drive.md) | `val enableDrive: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [enableElevator](enable-elevator.md) | `val enableElevator: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
