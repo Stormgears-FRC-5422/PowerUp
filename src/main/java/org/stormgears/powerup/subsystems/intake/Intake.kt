@@ -70,7 +70,7 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun grab(): Job {
+	fun grab(limit: Int = 200): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
 			println("Canceled intake wheels job")
@@ -79,8 +79,8 @@ object Intake : TerminableSubsystem() {
 		val job = launch("Intake Grab") {
 			startWheelsIn()
 			var i = 0
-			while (i < 200 && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
-				println(i)
+			while (i < limit && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+//				println(i)
 				i++
 				delay(10)
 			}

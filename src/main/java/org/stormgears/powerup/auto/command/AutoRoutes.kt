@@ -1,5 +1,6 @@
 package org.stormgears.powerup.auto.command
 
+import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.dsio.Choosers
@@ -12,7 +13,7 @@ import kotlin.math.PI
  * Routes for robot in AUTONOMOUS ONLY!!!
  */
 object AutoRoutes : TerminableSubsystem() {
-	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800, joinElevator: Boolean = true, elevatorPos: Int = 1) {
+	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800, joinElevator: Boolean = true, elevatorPos: Int = 1): Job? {
 		val j = launch { Robot.drive?.moveStraightNavX(dist, maxAMultiplier = maxAMult) }
 		delay(delay)
 		val ej = Robot.elevator?.moveElevatorToPosition(elevatorPos)
@@ -20,6 +21,8 @@ object AutoRoutes : TerminableSubsystem() {
 			ej?.join()
 		}
 		j.join()
+
+		return ej;
 	}
 
 	object FromLeft : AutoRoute {
@@ -216,41 +219,56 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun leftSwitch() {
-			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.8)
+			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.75)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(120.0)
-			Robot.intake?.eject(output = 1.0)
-			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.8)
+			var triggered = false
+			Robot.drive?.moveStraightNavX(86.0, fun(progress) {
+				if (!triggered && progress > 0.85) {
+					triggered = true
+					Robot.intake?.eject(output = 1.0)
+					launch { delay(750); Robot.intake?.stopWheels() }
+				}
+			})
+			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
 
-			launch { delay(750); Robot.intake?.stopWheels() }
+			backOffAndRetractElevator(-28.0, 1.6, 600, false)
 
-			backOffAndRetractElevator(-57.0, 1.0, 600, false)
-
-			Robot.drive?.strafeNavX(64.0)
-			var grabJob = Robot.intake?.grab()
-			Robot.drive?.joystickMove(0.0, -0.2, 0.0)
+			Robot.drive?.strafeNavX(49.0, 3.0)
+			var grabJob = Robot.intake?.grab(300)
+			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob?.join()
-			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
+			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
+			delay(100)
 //			delay(750)
-			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0] + 6)
-			Robot.drive?.strafeNavX(-64.0)
-			Robot.drive?.moveStraightNavX(32.0)
+//			Robot.drive?.moveStraightNavX(-8.0, maxAMultiplier = 2.0)
+			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
+			Robot.drive?.strafeNavX(-49.0, 3.0)
+			Robot.drive?.moveStraightNavX(16.0, maxAMultiplier = 3.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
 
-			backOffAndRetractElevator(-24.0, 1.0, 600, false)
+			val backOffAndRetractElevator = backOffAndRetractElevator(0.0, 1.0, 600, false)
 
-			Robot.drive?.turnNavX(PI / 4)
-			grabJob = launch { delay(400); Robot.intake?.grab()?.join() }
-			Robot.drive?.joystickMove(0.0, -0.2, 0.0)
+			Robot.drive?.turnNavX(Math.toRadians(66.0))
+			grabJob = launch { delay(200); Robot.intake?.grab(200)?.join() }
+			backOffAndRetractElevator?.join()
+			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob.join()
+			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
+			delay(100)
 			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-
-			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0] + 6)
-			Robot.drive?.moveStraightNavX(-8.0)
-			Robot.drive?.turnNavX(-PI / 2 * 0.9)
+			Robot.drive?.moveStraightNavX(-12.0, maxAMultiplier = 2.0)
+			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 12)
+			Robot.drive?.turnNavX(Math.toRadians(-62.0))
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
+
+//			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0] + 6)
+//			Robot.drive?.moveStraightNavX(-8.0)
+//			Robot.drive?.turnNavX(-PI / 2 * 0.9)
+//			elevatorJob?.join()
+//			Robot.intake?.eject(1.0)
 		}
 
 		override suspend fun rightSwitch() {

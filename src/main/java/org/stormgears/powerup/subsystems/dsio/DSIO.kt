@@ -132,7 +132,7 @@ object DSIO {
 		get() = if (!joystickEnabled) 0.0 else processJoystick(joystick.joystickY, Y_NULLZONE)
 
 	val joystickZ: Double
-		get() = if (!joystickEnabled) 0.0 else processJoystick(joystick.joystickZ, Z_NULLZONE)
+		get() = if (!joystickEnabled) 0.0 else processJoystick(joystick.joystickZ, Z_NULLZONE, 0.5)
 
 	fun enableDriveControls() {
 		logger.info("Enabling drive controls")
@@ -148,7 +148,7 @@ object DSIO {
 		Robot.intake?.setVelocity(intakeSpeed)
 	}
 
-	private fun processJoystick(value: Double, nullzone: Double): Double {
+	private fun processJoystick(value: Double, nullzone: Double, thumbMultiplier: Double = 0.2): Double {
 		var processedValue = value
 		if (Math.abs(processedValue) < nullzone) {
 			return 0.0
@@ -157,7 +157,7 @@ object DSIO {
 		}
 
 		if (joystick.getRawButton(ButtonIds.Joystick.THUMB)) {
-			return 0.2 * processedValue
+			return thumbMultiplier * processedValue
 		}
 
 //		processedValue *= Math.abs(processedValue)

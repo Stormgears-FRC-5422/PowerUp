@@ -94,7 +94,7 @@ object Elevator : TerminableSubsystem() {
 			val cpt = currentPositionTicks
 			val relDist = abs((cpt.toDouble() - destinationTicks) / destinationTicks)
 			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
-			val power = if (lowering && cpt > -100000) 0.07 * Robot.config.elevatorStiffness else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
+			val power = if (lowering && cpt > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 1.8) else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
 			talons.masterMotor.set(ControlMode.PercentOutput, power)
 
 //			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
@@ -187,7 +187,7 @@ object Elevator : TerminableSubsystem() {
 	fun moveDownManual() {
 //		if (currentPositionTicks > -110000 && elevatorZeroed && useGartnerRate) downPower *= 0.95
 //		else downPower = 0.33
-		val downPower = (if (currentPositionTicks > -100000) 0.07 else 0.4) * Robot.config.elevatorStiffness
+		val downPower = if (currentPositionTicks > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 1.75) else 0.4 * Robot.config.elevatorStiffness
 
 		logger.trace("downPower = {}", downPower)
 
