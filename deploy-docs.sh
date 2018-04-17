@@ -20,7 +20,7 @@ cd ..
 
 rm -rf docs-deploy/* || exit 0
 
-cp -r ./build/dokka/-power-up/* ./docs-deploy/
+cp -r ./build/dokka/* ./docs-deploy/
 
 cd docs-deploy
 git config user.name "GitLab CI"
