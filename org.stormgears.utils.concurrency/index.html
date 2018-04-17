@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>org.stormgears.utils.concurrency - PowerUp</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="./index.html">org.stormgears.utils.concurrency</a><br/>
+<br/>
+<h2>Package org.stormgears.utils.concurrency</h2>
+<p>Helpers for concurrent programming with coroutines.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-terminable-subsystem/index.html">TerminableSubsystem</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TerminableSubsystem</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-with-coroutines/index.html"><span class="identifier">WithCoroutines</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-terminator/index.html">Terminator</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">Terminator</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-with-coroutines/index.html">WithCoroutines</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WithCoroutines</span></code>
+<p>Classes that utilize coroutines should implement this interface to make coroutines launch in a single-threaded
+context.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="global-context.html">globalContext</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">globalContext</span><span class="symbol">: </span><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-thread-pool-dispatcher/index.html"><span class="identifier">ThreadPoolDispatcher</span></a></code>
+<p>The global, single-threaded context in which coroutines are run. This is to prevent threading issues by not
+using more than one thread.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,143 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ElevatorSharedTalons.MasterElevatorTalonConfig - PowerUp</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../../index.html">org.stormgears.powerup.subsystems.elevatorclimber</a>&nbsp;/&nbsp;<a href="../index.html">ElevatorSharedTalons</a>&nbsp;/&nbsp;<a href="./index.html">MasterElevatorTalonConfig</a><br/>
+<br/>
+<h1>MasterElevatorTalonConfig</h1>
+<code><span class="keyword">class </span><span class="identifier">MasterElevatorTalonConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-elevator-talon-config/index.html"><span class="identifier">ElevatorTalonConfig</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MasterElevatorTalonConfig</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/continuous-current-limit.html">continuousCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">continuousCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Configure the continuous allowable current-draw (when current limit is enabled). Current limit is activated when
+current exceeds the peak limit for longer than the peak duration. Then software will limit to the continuous
+limit. This ensures current limiting while allowing for momentary excess current events. For simpler
+current-limiting (single threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to zero:
+<code>ConfigPeakCurrentLimit(0)</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/enable-current-limit.html">enableCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">enableCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Enable or disable Current Limit.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/forward-limit-switch-source.html">forwardLimitSwitchSource</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">forwardLimitSwitchSource</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.html"><span class="identifier">LocalLimitSwitchSourceConfig</span></a></code>
+<p>Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the
+Limit-R pin of another Talon, CANifier, or local Gadgeteer feedback connector. If the sensor is remote, a device
+ID of zero is assumed. If that's not desired, use the four parameter version of this function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/inverted.html">inverted</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">inverted</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Inverts the hbridge output of the motor controller. This does not impact sensor phase and should not be used to
+correct sensor polarity. This will invert the hbridge output but NOT the LEDs. This ensures....</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/neutral-mode.html">neutralMode</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">neutralMode</span><span class="symbol">: </span><span class="identifier">NeutralMode</span></code>
+<p>Sets the mode of operation during neutral throttle output.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/peak-current-limit.html">peakCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">peakCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Configure the peak allowable current (when current limit is enabled). Current limit is activated when current
+exceeds the peak limit for longer than the peak duration. Then software will limit to the continuous limit. This
+ensures current limiting while allowing for momentary excess current events. For simpler current-limiting (single
+threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to zero: <code>ConfigPeakCurrentLimit(0)</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/profile-slot0.html">profileSlot0</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot0</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-factory-talon-config/-default-p-i-d-slot/index.html"><span class="identifier">DefaultPIDSlot</span></a></code>
+<p>Profile slot 0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/profile-slot1.html">profileSlot1</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot1</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-factory-talon-config/-default-p-i-d-slot/index.html"><span class="identifier">DefaultPIDSlot</span></a></code>
+<p>Profile slot 1</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/reverse-limit-switch-source.html">reverseLimitSwitchSource</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">reverseLimitSwitchSource</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-local-limit-switch-source-config/index.html"><span class="identifier">LocalLimitSwitchSourceConfig</span></a></code>
+<p>Configures the reverse limit switch for a remote source.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/sensor-phase.html">sensorPhase</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">sensorPhase</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Sets the phase of the sensor. Use when controller forward/reverse output doesn't correlate to appropriate
+forward/reverse reading of sensor. Pick a value so that positive PercentOutput yields a positive change in
+sensor. After setting this, user can freely call SetInvert() with any value.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-elevator-talon-config/status-frame-period.html">statusFramePeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">statusFramePeriod</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="identifier">StatusFrameEnhanced</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
+<p>Sets the period of each status frame in the given map. User ensure CAN Bus utilization is not high. This setting
+is not persistent and is lost when device is reset. If this is a concern, calling application can use
+<a href="#">TalonSRX.hasResetOccurred</a> to determine if the status frame needs to be reconfigured.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

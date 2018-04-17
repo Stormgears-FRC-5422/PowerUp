@@ -1,0 +1,20 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TalonConfig.statusFramePeriod - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="index.html">TalonConfig</a>&nbsp;/&nbsp;<a href="./status-frame-period.html">statusFramePeriod</a><br/>
+<br/>
+<h1>statusFramePeriod</h1>
+<a name="org.stormgears.utils.talons.TalonConfig$statusFramePeriod"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">statusFramePeriod</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="identifier">StatusFrameEnhanced</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
+<p>Sets the period of each status frame in the given map. User ensure CAN Bus utilization is not high. This setting
+is not persistent and is lost when device is reset. If this is a concern, calling application can use
+<a href="#">TalonSRX.hasResetOccurred</a> to determine if the status frame needs to be reconfigured.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="#">TalonSRX.setStatusFramePeriod</a></p>
+</p>
+</BODY>
+</HTML>

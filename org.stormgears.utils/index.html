@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>org.stormgears.utils - PowerUp</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="./index.html">org.stormgears.utils</a><br/>
+<br/>
+<h2>Package org.stormgears.utils</h2>
+<p>Utilities that can be shared between robots/seasons.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-base-stormgears-robot/index.html">BaseStormgearsRobot</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">BaseStormgearsRobot</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IterativeRobot</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-lambda-command/index.html">LambdaCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LambdaCommand</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Command</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-mem-watch/index.html">MemWatch</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">MemWatch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../org.stormgears.utils.concurrency/-with-coroutines/index.html"><span class="identifier">WithCoroutines</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-registered-notifier/index.html">RegisteredNotifier</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">RegisteredNotifier</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Notifier</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-runnable-command/index.html">RunnableCommand</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">RunnableCommand</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Command</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-storm-scheduler/index.html">StormScheduler</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">StormScheduler</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="fix-permissions.html">fixPermissions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fixPermissions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invokes a shell script provided by the build system with the <a href="https://en.wikipedia.org/wiki/Setuid">setuid</a> flag
+set that fixes permissions of the config.properties file, in case it was uploaded as the admin user.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="force-init.html">forceInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span> <span class="identifier">forceInit</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils$forceInit(java.lang.Class((org.stormgears.utils.forceInit.T)))/klass">klass</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="force-init.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><a href="force-init.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="retry.html">retry</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">retry</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils$retry(kotlin.Int, kotlin.Function0((kotlin.Unit)), kotlin.Function1((kotlin.Throwable, kotlin.Unit)))/tries">tries</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils$retry(kotlin.Int, kotlin.Function0((kotlin.Unit)), kotlin.Function1((kotlin.Throwable, kotlin.Unit)))/operation">operation</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils$retry(kotlin.Int, kotlin.Function0((kotlin.Unit)), kotlin.Function1((kotlin.Throwable, kotlin.Unit)))/exceptionHandler">exceptionHandler</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">e</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html"><span class="identifier">Throwable</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a>&nbsp;<span class="symbol">=</span>&nbsp;{}<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

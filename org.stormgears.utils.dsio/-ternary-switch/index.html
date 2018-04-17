@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TernarySwitch - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.dsio</a>&nbsp;/&nbsp;<a href="./index.html">TernarySwitch</a><br/>
+<br/>
+<h1>TernarySwitch</h1>
+<code><span class="keyword">class </span><span class="identifier">TernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-switch-control/index.html"><span class="identifier">SwitchControl</span></a><span class="symbol">, </span><a href="../-i-ternary-switch/index.html"><span class="identifier">ITernarySwitch</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+<h3>Parameters</h3>
+<p><a name="joystick"></a>
+<code>joystick</code> - The GenericHID object that has the button (e.g. Joystick, KinectStick,
+etc)</p>
+<p><a name="buttonUp"></a>
+<code>buttonUp</code> - The button number (see <a href="#">GenericHID.getRawButton</a></p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TernarySwitch</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$<init>(edu.wpi.first.wpilibj.GenericHID, kotlin.Int, kotlin.Int)/joystick">joystick</span><span class="symbol">:</span>&nbsp;<span class="identifier">GenericHID</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$<init>(edu.wpi.first.wpilibj.GenericHID, kotlin.Int, kotlin.Int)/buttonUp">buttonUp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$<init>(edu.wpi.first.wpilibj.GenericHID, kotlin.Int, kotlin.Int)/buttonDown">buttonDown</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="when-flipped.html">whenFlipped</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$whenFlipped(org.stormgears.utils.dsio.ITernarySwitch.TernaryFlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-ternary-flip-listener/index.html"><span class="identifier">TernaryFlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-flipped-ternary.html">whenFlippedTernary</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenFlippedTernary</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$whenFlippedTernary(kotlin.Function1((org.stormgears.utils.dsio.ITernarySwitch.SwitchState, kotlin.Unit)))/listener">listener</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">state</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-switch-state/index.html"><span class="identifier">SwitchState</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whenFlippedTernary</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.TernarySwitch$whenFlippedTernary(org.stormgears.utils.dsio.ITernarySwitch.TernaryFlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-ternary-flip-listener/index.html"><span class="identifier">TernaryFlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-switch-control/when-flipped.html">whenFlipped</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.SwitchControl$whenFlipped(org.stormgears.utils.dsio.ISwitch.FlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-switch/-flip-listener/index.html"><span class="identifier">FlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.SwitchControl$whenFlipped(kotlin.Function1((kotlin.Boolean, kotlin.Unit)))/listener">listener</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

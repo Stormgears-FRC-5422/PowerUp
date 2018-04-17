@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Robot - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.powerup</a>&nbsp;/&nbsp;<a href="./index.html">Robot</a><br/>
+<br/>
+<h1>Robot</h1>
+<code><span class="keyword">class </span><span class="identifier">Robot</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../org.stormgears.utils/-base-stormgears-robot/index.html"><span class="identifier">BaseStormgearsRobot</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Robot</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="after-autonomous-init.html">afterAutonomousInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">afterAutonomousInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs once right at the start of autonomousPeriodic</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="after-teleop-init.html">afterTeleopInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">afterTeleopInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs once right at the start of teleopPeriodic</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="autonomous-init.html">autonomousInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">autonomousInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs when autonomous mode starts</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="autonomous-periodic.html">autonomousPeriodic</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">autonomousPeriodic</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>This function is called periodically during autonomous</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="disabled-init.html">disabledInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">disabledInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>This function is called periodically during sendTestData mode</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="robot-init.html">robotInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">robotInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>This function is run when the robot is first started up and should be
+used for any initialization code</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="teleop-init.html">teleopInit</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">teleopInit</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Runs when operator control starts</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="teleop-periodic.html">teleopPeriodic</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">teleopPeriodic</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>This function is called periodically during operator control</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../org.stormgears.utils/-base-stormgears-robot/start-competition.html">startCompetition</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">startCompetition</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="choosers.html">choosers</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">choosers</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.dsio/-choosers/index.html"><span class="identifier">Choosers</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="climber.html">climber</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">climber</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.elevatorclimber/-climber/index.html"><span class="identifier">Climber</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config.html">config</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">config</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.information/-robot-configuration/index.html"><span class="identifier">RobotConfiguration</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="drive.html">drive</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">drive</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.navigator/-drive/index.html"><span class="identifier">Drive</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="drive-talons.html">driveTalons</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">driveTalons</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.navigator/-drive-talons/index.html"><span class="identifier">DriveTalons</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="dsio.html">dsio</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">dsio</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.dsio/-d-s-i-o/index.html"><span class="identifier">DSIO</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="elevator.html">elevator</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">elevator</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator/index.html"><span class="identifier">Elevator</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="elevator-shared-talons.html">elevatorSharedTalons</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">elevatorSharedTalons</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/index.html"><span class="identifier">ElevatorSharedTalons</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="intake.html">intake</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">intake</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.intake/-intake/index.html"><span class="identifier">Intake</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="notifier-registry.html">notifierRegistry</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">notifierRegistry</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../org.stormgears.utils/-registered-notifier/index.html"><span class="identifier">RegisteredNotifier</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="sensors.html">sensors</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">sensors</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.sensors/-sensors/index.html"><span class="identifier">Sensors</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="talon-debugger.html">talonDebugger</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">talonDebugger</span><span class="symbol">: </span><a href="../../org.stormgears.powerup.subsystems.navigator/-talon-debugger/index.html"><span class="identifier">TalonDebugger</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

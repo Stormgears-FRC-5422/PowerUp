@@ -1,0 +1,136 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IButton - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.dsio</a>&nbsp;/&nbsp;<a href="./index.html">IButton</a><br/>
+<br/>
+<h1>IButton</h1>
+<code><span class="keyword">interface </span><span class="identifier">IButton</span></code>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cancel-when-active.html">cancelWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cancelWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$cancelWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="cancel-when-pressed.html">cancelWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cancelWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$cancelWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="toggle-when-active.html">toggleWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toggleWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$toggleWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="toggle-when-pressed.html">toggleWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toggleWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$toggleWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-active.html">whenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-inactive.html">whenInactive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenInactive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenInactive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-pressed.html">whenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenPressed(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenPressed(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-released.html">whenReleased</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenReleased(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenReleased(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whenReleased(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="while-active.html">whileActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whileActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="while-held.html">whileHeld</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whileHeld(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whileHeld(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.IButton$whileHeld(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-dummy-button/index.html">DummyButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-enhanced-button/index.html">EnhancedButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EnhancedButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JoystickButton</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">IButton</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-joystick-axis-button/index.html">JoystickAxisButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">JoystickAxisButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Button</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-p-o-v-button/index.html">POVButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">POVButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Button</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,29 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TerminableSubsystem.produce - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.concurrency</a>&nbsp;/&nbsp;<a href="index.html">TerminableSubsystem</a>&nbsp;/&nbsp;<a href="./produce.html">produce</a><br/>
+<br/>
+<h1>produce</h1>
+<a name="org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">E</span><span class="symbol">&gt;</span> <span class="identifier">produce</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines.experimental/-coroutine-context/index.html"><span class="identifier">CoroutineContext</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))/capacity">capacity</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental/-job/index.html"><span class="identifier">Job</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))/block">block</span><span class="symbol">:</span>&nbsp;<span class="keyword">suspend </span><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental.channels/-producer-scope/index.html"><span class="identifier">ProducerScope</span></a><span class="symbol">&lt;</span><a href="produce.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">.</span><span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental.channels/-receive-channel/index.html"><span class="identifier">ReceiveChannel</span></a><span class="symbol">&lt;</span><a href="produce.html#E"><span class="identifier">E</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Overrides <a href="../-with-coroutines/produce.html">WithCoroutines.produce</a></p>
+<p>Launches new coroutine to produce a stream of values by sending them to a channel
+and returns a reference to the coroutine as a <a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental.channels/-receive-channel/index.html">ReceiveChannel</a>, within the coroutine thread.</p>
+<h3>Parameters</h3>
+<p><a name="context"></a>
+<code>context</code> - context of the coroutine. The default value is <a href="../global-context.html">globalContext</a>.</p>
+<p><a name="capacity"></a>
+<code>capacity</code> - capacity of the channel's buffer (no buffer by default).</p>
+<p><a name="parent"></a>
+<code>parent</code> - explicitly specifies the parent job, overrides job from the <a href="produce.html#org.stormgears.utils.concurrency.TerminableSubsystem$produce(kotlin.coroutines.experimental.CoroutineContext, kotlin.Int, kotlinx.coroutines.experimental.Job, kotlin.SuspendFunction1((kotlinx.coroutines.experimental.channels.ProducerScope((org.stormgears.utils.concurrency.TerminableSubsystem.produce.E)), kotlin.Unit)))/context">context</a> (if any).*</p>
+<p><a name="block"></a>
+<code>block</code> - the coroutine code.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.experimental.channels/produce.html">kotlinx.coroutines.experimental.channels.produce</a></p>
+</p>
+</BODY>
+</HTML>

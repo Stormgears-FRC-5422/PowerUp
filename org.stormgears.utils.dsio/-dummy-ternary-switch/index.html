@@ -1,0 +1,135 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DummyTernarySwitch - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.dsio</a>&nbsp;/&nbsp;<a href="./index.html">DummyTernarySwitch</a><br/>
+<br/>
+<h1>DummyTernarySwitch</h1>
+<code><span class="keyword">class </span><span class="identifier">DummyTernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-dummy-switch/index.html"><span class="identifier">DummySwitch</span></a><span class="symbol">, </span><a href="../-i-ternary-switch/index.html"><span class="identifier">ITernarySwitch</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DummyTernarySwitch</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="when-flipped.html">whenFlipped</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummyTernarySwitch$whenFlipped(kotlin.Function1((kotlin.Boolean, kotlin.Unit)))/listener">listener</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummyTernarySwitch$whenFlipped(org.stormgears.utils.dsio.ITernarySwitch.TernaryFlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-ternary-flip-listener/index.html"><span class="identifier">TernaryFlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-flipped-ternary.html">whenFlippedTernary</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenFlippedTernary</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummyTernarySwitch$whenFlippedTernary(kotlin.Function1((org.stormgears.utils.dsio.ITernarySwitch.SwitchState, kotlin.Unit)))/listener">listener</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">state</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-switch-state/index.html"><span class="identifier">SwitchState</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whenFlippedTernary</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummyTernarySwitch$whenFlippedTernary(org.stormgears.utils.dsio.ITernarySwitch.TernaryFlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-ternary-switch/-ternary-flip-listener/index.html"><span class="identifier">TernaryFlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-dummy-switch/cancel-when-active.html">cancelWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">cancelWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$cancelWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/cancel-when-pressed.html">cancelWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">cancelWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$cancelWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/toggle-when-active.html">toggleWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toggleWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$toggleWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/toggle-when-pressed.html">toggleWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toggleWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$toggleWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/when-active.html">whenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/when-flipped.html">whenFlipped</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whenFlipped(org.stormgears.utils.dsio.ISwitch.FlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="../-i-switch/-flip-listener/index.html"><span class="identifier">FlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/when-inactive.html">whenInactive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenInactive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whenInactive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/when-pressed.html">whenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/when-released.html">whenReleased</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whenReleased(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/while-active.html">whileActive</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whileActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whileActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-dummy-switch/while-held.html">whileHeld</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.DummySwitch$whileHeld(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

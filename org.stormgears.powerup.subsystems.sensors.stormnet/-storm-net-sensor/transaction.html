@@ -1,0 +1,30 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StormNetSensor.transaction - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.powerup.subsystems.sensors.stormnet</a>&nbsp;/&nbsp;<a href="index.html">StormNetSensor</a>&nbsp;/&nbsp;<a href="./transaction.html">transaction</a><br/>
+<br/>
+<h1>transaction</h1>
+<a name="org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor$transaction(kotlin.ByteArray, kotlin.Int, kotlin.ByteArray, kotlin.Int)"></a>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">transaction</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor$transaction(kotlin.ByteArray, kotlin.Int, kotlin.ByteArray, kotlin.Int)/dataToSend">dataToSend</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor$transaction(kotlin.ByteArray, kotlin.Int, kotlin.ByteArray, kotlin.Int)/sendSize">sendSize</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor$transaction(kotlin.ByteArray, kotlin.Int, kotlin.ByteArray, kotlin.Int)/dataReceived">dataReceived</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.sensors.stormnet.StormNetSensor$transaction(kotlin.ByteArray, kotlin.Int, kotlin.ByteArray, kotlin.Int)/receiveSize">receiveSize</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>A low-level routine that executes a transaction using the appropriate voice. 
+<p> Adds additional logging and creates a simulation mode to allow bytes to be returned even if nothing is connected. Simulation mode always sends back bytes receiveSize bytes from 0 to (receiveSize-1). </p>
+<p> All StormNetSensor command calls eventually use this transaction method. </p>
+<p> Performs debug-level logging in debug mode.</p>
+</p>
+<h3>Parameters</h3>
+<p><a name="dataToSend"></a>
+<code>dataToSend</code> - Buffer of data to send from master to slave to initiate the transaction.</p>
+<p><a name="sendSize"></a>
+<code>sendSize</code> - Number of bytes to send.</p>
+<p><a name="dataReceived"></a>
+<code>dataReceived</code> - Pre-allocated buffer to receive data sent from slave to end the transaction.</p>
+<p><a name="receiveSize"></a>
+<code>receiveSize</code> - Number of bytes to read from I2C bus.</p>
+<p><strong>See Also</strong><br/>
+edu.wpi.first.wpilibj.I2C</p>
+</BODY>
+</HTML>

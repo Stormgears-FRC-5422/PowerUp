@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MotionMagic - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.powerup.subsystems.navigator.motionprofile</a>&nbsp;/&nbsp;<a href="./index.html">MotionMagic</a><br/>
+<br/>
+<h1>MotionMagic</h1>
+<code><span class="keyword">class </span><span class="identifier">MotionMagic</span></code>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-motion-magic-drive-config/index.html">MotionMagicDriveConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MotionMagicDriveConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../org.stormgears.powerup.subsystems.navigator/-drive-talons/-drive-talon-config/index.html"><span class="identifier">DriveTalonConfig</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">MotionMagic</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic$<init>(org.stormgears.utils.talons.ITalon, kotlin.Double, kotlin.Double)/talon">talon</span><span class="symbol">:</span>&nbsp;<a href="../../org.stormgears.utils.talons/-i-talon/index.html"><span class="identifier">ITalon</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic$<init>(org.stormgears.utils.talons.ITalon, kotlin.Double, kotlin.Double)/maxVel">maxVel</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic$<init>(org.stormgears.utils.talons.ITalon, kotlin.Double, kotlin.Double)/maxAccel">maxAccel</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="run-motion-magic.html">runMotionMagic</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">runMotionMagic</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic$runMotionMagic(kotlin.Int)/targetPos">targetPos</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>The runMotionMagic method receives an encoder position
+(8192 ticks / 1 revolution) and uses the MotionMagic
+ControlMode along with PID to get to the commanded position.
+This class and method applies to only one talon.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-t-a-l-o-n_-f-p-i-d_-t-i-m-e-o-u-t.html">TALON_FPID_TIMEOUT</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">TALON_FPID_TIMEOUT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

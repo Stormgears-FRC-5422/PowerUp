@@ -1,0 +1,88 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IBaseTalon - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">IBaseTalon</a><br/>
+<br/>
+<h1>IBaseTalon</h1>
+<code><span class="keyword">interface </span><span class="identifier">IBaseTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IMotorControllerEnhanced</span><span class="symbol">, </span><span class="identifier">SpeedController</span><span class="symbol">, </span><span class="identifier">MotorSafety</span><span class="symbol">, </span><a href="../-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-control-mode-gettable/index.html"><span class="identifier">IControlModeGettable</span></a><span class="symbol">, </span><a href="../-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-handle-gettable/index.html"><span class="identifier">IHandleGettable</span></a></code>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dummy.html">dummy</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">dummy</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="sensor-collection.html">sensorCollection</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">sensorCollection</span><span class="symbol">: </span><a href="../-i-sensor-collection/index.html"><span class="identifier">ISensorCollection</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-handle-gettable/get-handle.html">getHandle</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getHandle</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-dummy-talon/index.html">DummyTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IBaseTalon</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-talon/index.html">ITalon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IBaseTalon</span></a></code>
+<p>Talon + Config management</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-managed-talon/index.html">ManagedTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ManagedTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IBaseTalon</span></a><span class="symbol">, </span><a href="../-i-talon/index.html"><span class="identifier">ITalon</span></a><span class="symbol">, </span><a href="../-generated-talon-manager/index.html"><span class="identifier">GeneratedTalonManager</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../org.stormgears.utils.logging/-motor-logger/index.html">MotorLogger</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MotorLogger</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IBaseTalon</span></a></code>
+<p>Logs all of the method calls to a motor</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-talon-s-r-x-adapter/index.html">TalonSRXAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TalonSRXAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">IBaseTalon</span></a><span class="symbol">, </span><span class="identifier">WPI_TalonSRX</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

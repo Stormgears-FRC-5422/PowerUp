@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DummyTalon.DummySensorCollection.analogIn - PowerUp</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="../index.html">DummyTalon</a>&nbsp;/&nbsp;<a href="index.html">DummySensorCollection</a>&nbsp;/&nbsp;<a href="./analog-in.html">analogIn</a><br/>
+<br/>
+<h1>analogIn</h1>
+<a name="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$analogIn"></a>
+<code><span class="keyword">val </span><span class="identifier">analogIn</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Overrides <a href="../../-i-sensor-collection/analog-in.html">ISensorCollection.analogIn</a></p>
+<p>Get the position of whatever is in the analog pin of the Talon, regardless of
+whether it is actually being used for feedback.</p>
+<p><strong>Return</strong><br/>
+the 24bit analog value.  The bottom ten bits is the ADC (0 - 1023)
+on the analog pin of the Talon. The upper 14 bits tracks the overflows and underflows
+(continuous sensor).</p>
+</BODY>
+</HTML>

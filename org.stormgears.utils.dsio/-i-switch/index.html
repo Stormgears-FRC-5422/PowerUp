@@ -1,0 +1,143 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ISwitch - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.dsio</a>&nbsp;/&nbsp;<a href="./index.html">ISwitch</a><br/>
+<br/>
+<h1>ISwitch</h1>
+<code><span class="keyword">interface </span><span class="identifier">ISwitch</span></code>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-flip-listener/index.html">FlipListener</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FlipListener</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cancel-when-active.html">cancelWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cancelWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$cancelWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="cancel-when-pressed.html">cancelWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">cancelWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$cancelWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="toggle-when-active.html">toggleWhenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toggleWhenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$toggleWhenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="toggle-when-pressed.html">toggleWhenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">toggleWhenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$toggleWhenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-active.html">whenActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-flipped.html">whenFlipped</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenFlipped(org.stormgears.utils.dsio.ISwitch.FlipListener)/listener">listener</span><span class="symbol">:</span>&nbsp;<a href="-flip-listener/index.html"><span class="identifier">FlipListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenFlipped</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenFlipped(kotlin.Function1((kotlin.Boolean, kotlin.Unit)))/listener">listener</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">on</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-inactive.html">whenInactive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenInactive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenInactive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-pressed.html">whenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenPressed(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-released.html">whenReleased</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whenReleased(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="while-active.html">whileActive</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileActive</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whileActive(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="while-held.html">whileHeld</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.ISwitch$whileHeld(edu.wpi.first.wpilibj.command.Command)/command">command</span><span class="symbol">:</span>&nbsp;<span class="identifier">Command</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-dummy-switch/index.html">DummySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">DummySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ISwitch</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-ternary-switch/index.html">ITernarySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">ISwitch</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-switch-control/index.html">SwitchControl</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SwitchControl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JoystickButton</span><span class="symbol">, </span><a href="./index.html"><span class="identifier">ISwitch</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

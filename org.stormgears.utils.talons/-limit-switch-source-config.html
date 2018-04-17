@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>LimitSwitchSourceConfig - PowerUp</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./-limit-switch-source-config.html">LimitSwitchSourceConfig</a><br/>
+<br/>
+<h1>LimitSwitchSourceConfig</h1>
+<code><span class="keyword">interface </span><span class="identifier">LimitSwitchSourceConfig</span></code>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-local-limit-switch-source-config/index.html">LocalLimitSwitchSourceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">LocalLimitSwitchSourceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<p>Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the
+Limit-R pin of another Talon, CANifier, or local Gadgeteer feedback connector. If the sensor is remote, a device ID
+of zero is assumed. If that's not desired, use the four parameter version of this function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remote-limit-switch-source-config/index.html">RemoteLimitSwitchSourceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteLimitSwitchSourceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<p>Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the
+Limit-F pin of another Talon or CANifier.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

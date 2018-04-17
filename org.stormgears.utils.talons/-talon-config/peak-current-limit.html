@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TalonConfig.peakCurrentLimit - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="index.html">TalonConfig</a>&nbsp;/&nbsp;<a href="./peak-current-limit.html">peakCurrentLimit</a><br/>
+<br/>
+<h1>peakCurrentLimit</h1>
+<a name="org.stormgears.utils.talons.TalonConfig$peakCurrentLimit"></a>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">peakCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Configure the peak allowable current (when current limit is enabled). Current limit is activated when current
+exceeds the peak limit for longer than the peak duration. Then software will limit to the continuous limit. This
+ensures current limiting while allowing for momentary excess current events. For simpler current-limiting (single
+threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to zero: <code>ConfigPeakCurrentLimit(0)</code>.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="#">TalonSRX.configPeakCurrentLimit</a></p>
+</p>
+</BODY>
+</HTML>

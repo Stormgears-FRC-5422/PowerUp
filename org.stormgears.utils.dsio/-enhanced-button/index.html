@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EnhancedButton - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.dsio</a>&nbsp;/&nbsp;<a href="./index.html">EnhancedButton</a><br/>
+<br/>
+<h1>EnhancedButton</h1>
+<code><span class="keyword">class </span><span class="identifier">EnhancedButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JoystickButton</span><span class="symbol">, </span><a href="../-i-button/index.html"><span class="identifier">IButton</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+<h3>Parameters</h3>
+<p><a name="joystick"></a>
+<code>joystick</code> - The GenericHID object that has the button (e.g. Joystick, KinectStick,
+etc)</p>
+<p><a name="buttonNumber"></a>
+<code>buttonNumber</code> - The button number (see <a href="#">GenericHID.getRawButton</a>)</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">EnhancedButton</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$<init>(edu.wpi.first.wpilibj.GenericHID, kotlin.Int)/joystick">joystick</span><span class="symbol">:</span>&nbsp;<span class="identifier">GenericHID</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$<init>(edu.wpi.first.wpilibj.GenericHID, kotlin.Int)/buttonNumber">buttonNumber</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="when-pressed.html">whenPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whenPressed(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whenPressed</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whenPressed(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="when-released.html">whenReleased</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whenReleased(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whenReleased</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whenReleased(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="while-held.html">whileHeld</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whileHeld(java.lang.Runnable)/callback">callback</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html"><span class="identifier">Runnable</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">whileHeld</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.dsio.EnhancedButton$whileHeld(kotlin.Function0((kotlin.Unit)))/callback">callback</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

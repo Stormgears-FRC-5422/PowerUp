@@ -1,5 +1,0 @@
-[PowerUp](../../index.md) / [org.stormgears.powerup.auto.command](../index.md) / [AutoDriveMoveCommand](index.md) / [execute](./execute.md)
-
-# execute
-
-`suspend fun execute(startingSpot: `[`StartingSpots`](../../org.stormgears.powerup.subsystems.field/-field-positions/-starting-spots/index.md)`, placementSpot: `[`PlacementSpot`](../../org.stormgears.powerup.subsystems.field/-field-positions/-placement-spot/index.md)`, switchSide: `[`LeftRight`](../../org.stormgears.powerup.subsystems.field/-field-positions/-left-right/index.md)`, scaleSide: `[`LeftRight`](../../org.stormgears.powerup.subsystems.field/-field-positions/-left-right/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)

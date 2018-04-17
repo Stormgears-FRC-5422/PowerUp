@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PIDSlot - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">PIDSlot</a><br/>
+<br/>
+<h1>PIDSlot</h1>
+<code><span class="keyword">interface </span><span class="identifier">PIDSlot</span></code>
+<p>Config specific to a single PID slot</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="allowable-closedloop-error.html">allowableClosedloopError</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">allowableClosedloopError</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Sets the allowable closed-loop error in the given parameter slot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="closed-loop-peak-output.html">closedLoopPeakOutput</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">closedLoopPeakOutput</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the peak closed-loop output. This peak output is slot-specific and is applied to the output of the associated
+PID loop. This setting is separate from the generic Peak Output setting.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="closed-loop-period.html">closedLoopPeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">closedLoopPeriod</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Sets the loop time (in milliseconds) of the PID closed-loop calculations. Default value is 1 ms.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="integral-zone.html">integralZone</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">integralZone</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Sets the Integral Zone constant in the given parameter slot. If the (absolute) closed-loop error is outside of this
+zone, integral accumulator is automatically cleared. This ensures than integral wind up events will stop after the
+sensor gets far enough from its target.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="k-d.html">kD</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">kD</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the 'D' constant in the given parameter slot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="k-f.html">kF</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">kF</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the 'F' constant in the given parameter slot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="k-i.html">kI</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">kI</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the 'I' constant in the given parameter slot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="k-p.html">kP</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">kP</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the 'P' constant in the given parameter slot.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="max-integral-accumulator.html">maxIntegralAccumulator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">maxIntegralAccumulator</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sets the maximum integral accumulator in the given parameter slot.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-factory-talon-config/-default-p-i-d-slot/index.html">DefaultPIDSlot</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">DefaultPIDSlot</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">PIDSlot</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

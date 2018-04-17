@@ -1,0 +1,369 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ITalon - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">ITalon</a><br/>
+<br/>
+<h1>ITalon</h1>
+<code><span class="keyword">interface </span><span class="identifier">ITalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a></code>
+<p>Talon + Config management</p>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-i-base-talon/dummy.html">dummy</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">dummy</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-i-base-talon/sensor-collection.html">sensorCollection</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">sensorCollection</span><span class="symbol">: </span><a href="../-i-sensor-collection/index.html"><span class="identifier">ISensorCollection</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="config-allowable-closedloop-error.html">configAllowableClosedloopError</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configAllowableClosedloopError</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configAllowableClosedloopError(kotlin.Int, kotlin.Int, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configAllowableClosedloopError(kotlin.Int, kotlin.Int, kotlin.Int)/allowableClosedLoopError">allowableClosedLoopError</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configAllowableClosedloopError(kotlin.Int, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-aux-p-i-d-polarity.html">configAuxPIDPolarity</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configAuxPIDPolarity</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configAuxPIDPolarity(kotlin.Boolean, kotlin.Int)/invert">invert</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configAuxPIDPolarity(kotlin.Boolean, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-closed-loop-peak-output.html">configClosedLoopPeakOutput</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configClosedLoopPeakOutput</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeakOutput(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeakOutput(kotlin.Int, kotlin.Double, kotlin.Int)/percentOut">percentOut</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeakOutput(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-closed-loop-period.html">configClosedLoopPeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configClosedLoopPeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeriod(kotlin.Int, kotlin.Int, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeriod(kotlin.Int, kotlin.Int, kotlin.Int)/loopTimeMs">loopTimeMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedLoopPeriod(kotlin.Int, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-closedloop-ramp.html">configClosedloopRamp</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configClosedloopRamp</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedloopRamp(kotlin.Double, kotlin.Int)/secondsFromNeutralToFull">secondsFromNeutralToFull</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configClosedloopRamp(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-continuous-current-limit.html">configContinuousCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configContinuousCurrentLimit</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configContinuousCurrentLimit(kotlin.Int, kotlin.Int)/amps">amps</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configContinuousCurrentLimit(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-forward-limit-switch-source.html">configForwardLimitSwitchSource</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configForwardLimitSwitchSource</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchSource</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/normalOpenOrClose">normalOpenOrClose</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchNormal</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configForwardLimitSwitchSource</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteLimitSwitchSource</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/normalOpenOrClose">normalOpenOrClose</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchNormal</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/deviceID">deviceID</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-forward-soft-limit-enable.html">configForwardSoftLimitEnable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configForwardSoftLimitEnable</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardSoftLimitEnable(kotlin.Boolean, kotlin.Int)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardSoftLimitEnable(kotlin.Boolean, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-forward-soft-limit-threshold.html">configForwardSoftLimitThreshold</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configForwardSoftLimitThreshold</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardSoftLimitThreshold(kotlin.Int, kotlin.Int)/forwardSensorLimit">forwardSensorLimit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configForwardSoftLimitThreshold(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-max-integral-accumulator.html">configMaxIntegralAccumulator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configMaxIntegralAccumulator</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMaxIntegralAccumulator(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMaxIntegralAccumulator(kotlin.Int, kotlin.Double, kotlin.Int)/iaccum">iaccum</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMaxIntegralAccumulator(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-motion-acceleration.html">configMotionAcceleration</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configMotionAcceleration</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionAcceleration(kotlin.Int, kotlin.Int)/sensorUnitsPer100msPerSec">sensorUnitsPer100msPerSec</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionAcceleration(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-motion-cruise-velocity.html">configMotionCruiseVelocity</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configMotionCruiseVelocity</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionCruiseVelocity(kotlin.Int, kotlin.Int)/sensorUnitsPer100ms">sensorUnitsPer100ms</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionCruiseVelocity(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-motion-profile-trajectory-period.html">configMotionProfileTrajectoryPeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configMotionProfileTrajectoryPeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionProfileTrajectoryPeriod(kotlin.Int, kotlin.Int)/baseTrajDurationMs">baseTrajDurationMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configMotionProfileTrajectoryPeriod(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-neutral-deadband.html">configNeutralDeadband</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configNeutralDeadband</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNeutralDeadband(kotlin.Double, kotlin.Int)/percentDeadband">percentDeadband</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNeutralDeadband(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-nominal-output-forward.html">configNominalOutputForward</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configNominalOutputForward</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNominalOutputForward(kotlin.Double, kotlin.Int)/percentOut">percentOut</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNominalOutputForward(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-nominal-output-reverse.html">configNominalOutputReverse</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configNominalOutputReverse</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNominalOutputReverse(kotlin.Double, kotlin.Int)/percentOut">percentOut</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configNominalOutputReverse(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-openloop-ramp.html">configOpenloopRamp</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configOpenloopRamp</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configOpenloopRamp(kotlin.Double, kotlin.Int)/secondsFromNeutralToFull">secondsFromNeutralToFull</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configOpenloopRamp(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-peak-current-duration.html">configPeakCurrentDuration</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configPeakCurrentDuration</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakCurrentDuration(kotlin.Int, kotlin.Int)/milliseconds">milliseconds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakCurrentDuration(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-peak-current-limit.html">configPeakCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configPeakCurrentLimit</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakCurrentLimit(kotlin.Int, kotlin.Int)/amps">amps</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakCurrentLimit(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-peak-output-forward.html">configPeakOutputForward</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configPeakOutputForward</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakOutputForward(kotlin.Double, kotlin.Int)/percentOut">percentOut</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakOutputForward(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-peak-output-reverse.html">configPeakOutputReverse</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configPeakOutputReverse</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakOutputReverse(kotlin.Double, kotlin.Int)/percentOut">percentOut</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configPeakOutputReverse(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-remote-feedback-filter.html">configRemoteFeedbackFilter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configRemoteFeedbackFilter</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configRemoteFeedbackFilter(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int, kotlin.Int)/deviceID">deviceID</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configRemoteFeedbackFilter(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int, kotlin.Int)/remoteSensorSource">remoteSensorSource</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteSensorSource</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configRemoteFeedbackFilter(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int, kotlin.Int)/remoteOrdinal">remoteOrdinal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configRemoteFeedbackFilter(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-reverse-limit-switch-source.html">configReverseLimitSwitchSource</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configReverseLimitSwitchSource</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchSource</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/normalOpenOrClose">normalOpenOrClose</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchNormal</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.LimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configReverseLimitSwitchSource</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteLimitSwitchSource</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/normalOpenOrClose">normalOpenOrClose</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchNormal</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/deviceID">deviceID</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseLimitSwitchSource(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-reverse-soft-limit-enable.html">configReverseSoftLimitEnable</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configReverseSoftLimitEnable</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseSoftLimitEnable(kotlin.Boolean, kotlin.Int)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseSoftLimitEnable(kotlin.Boolean, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-reverse-soft-limit-threshold.html">configReverseSoftLimitThreshold</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configReverseSoftLimitThreshold</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseSoftLimitThreshold(kotlin.Int, kotlin.Int)/reverseSensorLimit">reverseSensorLimit</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configReverseSoftLimitThreshold(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-selected-feedback-coefficient.html">configSelectedFeedbackCoefficient</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configSelectedFeedbackCoefficient</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackCoefficient(kotlin.Double, kotlin.Int, kotlin.Int)/coefficient">coefficient</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackCoefficient(kotlin.Double, kotlin.Int, kotlin.Int)/pidIdx">pidIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackCoefficient(kotlin.Double, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-selected-feedback-sensor.html">configSelectedFeedbackSensor</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configSelectedFeedbackSensor</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int, kotlin.Int)/feedbackDevice">feedbackDevice</span><span class="symbol">:</span>&nbsp;<span class="identifier">FeedbackDevice</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int, kotlin.Int)/pidIdx">pidIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configSelectedFeedbackSensor</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice, kotlin.Int, kotlin.Int)/feedbackDevice">feedbackDevice</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteFeedbackDevice</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice, kotlin.Int, kotlin.Int)/pidIdx">pidIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.RemoteFeedbackDevice, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-sensor-term.html">configSensorTerm</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configSensorTerm</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSensorTerm(com.ctre.phoenix.motorcontrol.SensorTerm, com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int)/sensorTerm">sensorTerm</span><span class="symbol">:</span>&nbsp;<span class="identifier">SensorTerm</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSensorTerm(com.ctre.phoenix.motorcontrol.SensorTerm, com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int)/feedbackDevice">feedbackDevice</span><span class="symbol">:</span>&nbsp;<span class="identifier">FeedbackDevice</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configSensorTerm(com.ctre.phoenix.motorcontrol.SensorTerm, com.ctre.phoenix.motorcontrol.FeedbackDevice, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-velocity-measurement-period.html">configVelocityMeasurementPeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configVelocityMeasurementPeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVelocityMeasurementPeriod(com.ctre.phoenix.motorcontrol.VelocityMeasPeriod, kotlin.Int)/period">period</span><span class="symbol">:</span>&nbsp;<span class="identifier">VelocityMeasPeriod</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVelocityMeasurementPeriod(com.ctre.phoenix.motorcontrol.VelocityMeasPeriod, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-velocity-measurement-window.html">configVelocityMeasurementWindow</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configVelocityMeasurementWindow</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVelocityMeasurementWindow(kotlin.Int, kotlin.Int)/windowSize">windowSize</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVelocityMeasurementWindow(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-voltage-comp-saturation.html">configVoltageCompSaturation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configVoltageCompSaturation</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVoltageCompSaturation(kotlin.Double, kotlin.Int)/voltage">voltage</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVoltageCompSaturation(kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config-voltage-measurement-filter.html">configVoltageMeasurementFilter</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">configVoltageMeasurementFilter</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVoltageMeasurementFilter(kotlin.Int, kotlin.Int)/filterWindowSamples">filterWindowSamples</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$configVoltageMeasurementFilter(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config_-integral-zone.html">config_IntegralZone</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">config_IntegralZone</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_IntegralZone(kotlin.Int, kotlin.Int, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_IntegralZone(kotlin.Int, kotlin.Int, kotlin.Int)/izone">izone</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_IntegralZone(kotlin.Int, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config_k-d.html">config_kD</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">config_kD</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kD(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kD(kotlin.Int, kotlin.Double, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kD(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config_k-f.html">config_kF</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">config_kF</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kF(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kF(kotlin.Int, kotlin.Double, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kF(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config_k-i.html">config_kI</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">config_kI</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kI(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kI(kotlin.Int, kotlin.Double, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kI(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="config_k-p.html">config_kP</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">config_kP</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kP(kotlin.Int, kotlin.Double, kotlin.Int)/slotIdx">slotIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kP(kotlin.Int, kotlin.Double, kotlin.Int)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$config_kP(kotlin.Int, kotlin.Double, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="enable-current-limit.html">enableCurrentLimit</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">enableCurrentLimit</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$enableCurrentLimit(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="enable-voltage-compensation.html">enableVoltageCompensation</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">enableVoltageCompensation</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$enableVoltageCompensation(kotlin.Boolean)/enable">enable</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-config.html">setConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">setConfig</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setConfig(org.stormgears.utils.talons.TalonConfig)/config">config</span><span class="symbol">:</span>&nbsp;<a href="../-talon-config/index.html"><span class="identifier">TalonConfig</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-control-frame-period.html">setControlFramePeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setControlFramePeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setControlFramePeriod(com.ctre.phoenix.motorcontrol.ControlFrame, kotlin.Int)/frame">frame</span><span class="symbol">:</span>&nbsp;<span class="identifier">ControlFrame</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setControlFramePeriod(com.ctre.phoenix.motorcontrol.ControlFrame, kotlin.Int)/periodMs">periodMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-integral-accumulator.html">setIntegralAccumulator</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setIntegralAccumulator</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setIntegralAccumulator(kotlin.Double, kotlin.Int, kotlin.Int)/iaccum">iaccum</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setIntegralAccumulator(kotlin.Double, kotlin.Int, kotlin.Int)/pidIdx">pidIdx</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setIntegralAccumulator(kotlin.Double, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-neutral-mode.html">setNeutralMode</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setNeutralMode</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setNeutralMode(com.ctre.phoenix.motorcontrol.NeutralMode)/neutralMode">neutralMode</span><span class="symbol">:</span>&nbsp;<span class="identifier">NeutralMode</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-sensor-phase.html">setSensorPhase</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setSensorPhase</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setSensorPhase(kotlin.Boolean)/PhaseSensor">PhaseSensor</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-status-frame-period.html">setStatusFramePeriod</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setStatusFramePeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrameEnhanced, kotlin.Int, kotlin.Int)/frame">frame</span><span class="symbol">:</span>&nbsp;<span class="identifier">StatusFrameEnhanced</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrameEnhanced, kotlin.Int, kotlin.Int)/periodMs">periodMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrameEnhanced, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code><br/>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><s><span class="identifier">setStatusFramePeriod</span></s><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrame, kotlin.Int, kotlin.Int)/frame">frame</span><span class="symbol">:</span>&nbsp;<span class="identifier">StatusFrame</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrame, kotlin.Int, kotlin.Int)/periodMs">periodMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.ITalon$setStatusFramePeriod(com.ctre.phoenix.motorcontrol.StatusFrame, kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-managed-talon/index.html">ManagedTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ManagedTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a><span class="symbol">, </span><a href="./index.html"><span class="identifier">ITalon</span></a><span class="symbol">, </span><a href="../-generated-talon-manager/index.html"><span class="identifier">GeneratedTalonManager</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RemoteLimitSwitchSourceConfig - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">RemoteLimitSwitchSourceConfig</a><br/>
+<br/>
+<h1>RemoteLimitSwitchSourceConfig</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteLimitSwitchSourceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<p>Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the
+Limit-F pin of another Talon or CANifier.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="#">TalonSRX.configForwardLimitSwitchSource</a></p>
+<p><a href="#">TalonSRX.configReverseLimitSwitchSource</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RemoteLimitSwitchSourceConfig</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.RemoteLimitSwitchSourceConfig$<init>(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/type">type</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteLimitSwitchSource</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.RemoteLimitSwitchSourceConfig$<init>(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/normalOpenOrClose">normalOpenOrClose</span><span class="symbol">:</span>&nbsp;<span class="identifier">LimitSwitchNormal</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.RemoteLimitSwitchSourceConfig$<init>(com.ctre.phoenix.motorcontrol.RemoteLimitSwitchSource, com.ctre.phoenix.motorcontrol.LimitSwitchNormal, kotlin.Int)/deviceID">deviceID</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the
+Limit-F pin of another Talon or CANifier.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="device-i-d.html">deviceID</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">deviceID</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Device ID of remote source (Talon SRX or CANifier device ID).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="normal-open-or-close.html">normalOpenOrClose</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">normalOpenOrClose</span><span class="symbol">: </span><span class="identifier">LimitSwitchNormal</span></code>
+<p>Setting for normally open, normally closed, or disabled. This setting matches the web-based configuration drop down.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="type.html">type</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">type</span><span class="symbol">: </span><span class="identifier">RemoteLimitSwitchSource</span></code>
+<p>Remote limit switch source. User can choose between a remote Talon SRX, CANifier, or deactivate the feature.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

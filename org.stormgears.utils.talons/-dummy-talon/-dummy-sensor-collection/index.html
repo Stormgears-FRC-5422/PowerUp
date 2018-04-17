@@ -1,0 +1,197 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DummyTalon.DummySensorCollection - PowerUp</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="../index.html">DummyTalon</a>&nbsp;/&nbsp;<a href="./index.html">DummySensorCollection</a><br/>
+<br/>
+<h1>DummySensorCollection</h1>
+<code><span class="keyword">class </span><span class="identifier">DummySensorCollection</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../-i-sensor-collection/index.html"><span class="identifier">ISensorCollection</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DummySensorCollection</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="analog-in.html">analogIn</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">analogIn</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Get the position of whatever is in the analog pin of the Talon, regardless of
+whether it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="analog-in-raw.html">analogInRaw</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">analogInRaw</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Get the position of whatever is in the analog pin of the Talon, regardless of whether
+it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="analog-in-vel.html">analogInVel</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">analogInVel</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Get the velocity of whatever is in the analog pin of the Talon, regardless of
+whether it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-fwd-limit-switch-closed.html">isFwdLimitSwitchClosed</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isFwdLimitSwitchClosed</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Is forward limit switch closed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-rev-limit-switch-closed.html">isRevLimitSwitchClosed</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">isRevLimitSwitchClosed</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Is reverse limit switch closed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pin-state-quad-a.html">pinStateQuadA</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pinStateQuadA</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Gets pin state quad a.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pin-state-quad-b.html">pinStateQuadB</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pinStateQuadB</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Gets pin state quad b.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pin-state-quad-idx.html">pinStateQuadIdx</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pinStateQuadIdx</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Gets pin state quad index.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pulse-width-position.html">pulseWidthPosition</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pulseWidthPosition</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gets pulse width position, regardless of whether
+it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pulse-width-rise-to-fall-us.html">pulseWidthRiseToFallUs</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pulseWidthRiseToFallUs</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gets pulse width rise to fall time.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pulse-width-rise-to-rise-us.html">pulseWidthRiseToRiseUs</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pulseWidthRiseToRiseUs</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gets pulse width rise to rise time.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="pulse-width-velocity.html">pulseWidthVelocity</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pulseWidthVelocity</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Gets pulse width velocity, regardless of whether
+it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="quadrature-position.html">quadraturePosition</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">quadraturePosition</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Get the quadrature position of the Talon, regardless of whether
+it is actually being used for feedback.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="quadrature-velocity.html">quadratureVelocity</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">quadratureVelocity</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Get the quadrature velocity, regardless of whether
+it is actually being used for feedback.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="set-analog-position.html">setAnalogPosition</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setAnalogPosition</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setAnalogPosition(kotlin.Int, kotlin.Int)/newPosition">newPosition</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setAnalogPosition(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code>
+<p>Sets analog position.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-pulse-width-position.html">setPulseWidthPosition</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setPulseWidthPosition</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setPulseWidthPosition(kotlin.Int, kotlin.Int)/newPosition">newPosition</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setPulseWidthPosition(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code>
+<p>Sets pulse width position.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-quadrature-position.html">setQuadraturePosition</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setQuadraturePosition</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setQuadraturePosition(kotlin.Int, kotlin.Int)/newPosition">newPosition</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.DummyTalon.DummySensorCollection$setQuadraturePosition(kotlin.Int, kotlin.Int)/timeoutMs">timeoutMs</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">ErrorCode</span></code>
+<p>Change the quadrature reported position.  Typically this is used to "zero" the
+sensor. This only works with Quadrature sensor.  To set the selected sensor position
+regardless of what type it is, see SetSelectedSensorPosition in the motor controller class.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

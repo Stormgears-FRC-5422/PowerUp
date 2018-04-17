@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>org.stormgears.utils.dsio - PowerUp</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="./index.html">org.stormgears.utils.dsio</a><br/>
+<br/>
+<h2>Package org.stormgears.utils.dsio</h2>
+<p>Utilities for driver station I/O</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-dummy-button/index.html">DummyButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-button/index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-dummy-joystick/index.html">DummyJoystick</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyJoystick</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-raw-joystick/index.html"><span class="identifier">IRawJoystick</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-dummy-joystick-axis/index.html">DummyJoystickAxis</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyJoystickAxis</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-joystick-axis/index.html"><span class="identifier">IJoystickAxis</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-dummy-switch/index.html">DummySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">DummySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-switch/index.html"><span class="identifier">ISwitch</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-dummy-ternary-switch/index.html">DummyTernarySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyTernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-dummy-switch/index.html"><span class="identifier">DummySwitch</span></a><span class="symbol">, </span><a href="-i-ternary-switch/index.html"><span class="identifier">ITernarySwitch</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-enhanced-button/index.html">EnhancedButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EnhancedButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JoystickButton</span><span class="symbol">, </span><a href="-i-button/index.html"><span class="identifier">IButton</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-button/index.html">IButton</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IButton</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-joystick-axis/index.html">IJoystickAxis</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IJoystickAxis</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-raw-joystick/index.html">IRawJoystick</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IRawJoystick</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-switch/index.html">ISwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ISwitch</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-ternary-switch/index.html">ITernarySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-switch/index.html"><span class="identifier">ISwitch</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-joystick-axis/index.html">JoystickAxis</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">JoystickAxis</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-joystick-axis/index.html"><span class="identifier">IJoystickAxis</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-joystick-axis-button/index.html">JoystickAxisButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">JoystickAxisButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Button</span><span class="symbol">, </span><a href="-i-button/index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-logitech-joystick/index.html">LogitechJoystick</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">LogitechJoystick</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Joystick</span><span class="symbol">, </span><a href="-i-raw-joystick/index.html"><span class="identifier">IRawJoystick</span></a></code>
+<p>Construct an instance of a joystick. The joystick index is the USB port on the drivers
+station.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-p-o-v-button/index.html">POVButton</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">POVButton</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Button</span><span class="symbol">, </span><a href="-i-button/index.html"><span class="identifier">IButton</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-switch-control/index.html">SwitchControl</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">SwitchControl</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">JoystickButton</span><span class="symbol">, </span><a href="-i-switch/index.html"><span class="identifier">ISwitch</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-ternary-switch/index.html">TernarySwitch</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TernarySwitch</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-switch-control/index.html"><span class="identifier">SwitchControl</span></a><span class="symbol">, </span><a href="-i-ternary-switch/index.html"><span class="identifier">ITernarySwitch</span></a></code>
+<p>Create a joystick button for triggering commands.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-xbox-joystick/index.html">XboxJoystick</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">XboxJoystick</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Joystick</span><span class="symbol">, </span><a href="-i-raw-joystick/index.html"><span class="identifier">IRawJoystick</span></a></code>
+<p>Construct an instance of a joystick. The joystick index is the USB port on the drivers
+station.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

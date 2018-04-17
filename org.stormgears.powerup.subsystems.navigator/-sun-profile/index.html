@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SunProfile - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.powerup.subsystems.navigator</a>&nbsp;/&nbsp;<a href="./index.html">SunProfile</a><br/>
+<br/>
+<h1>SunProfile</h1>
+<code><span class="keyword">class </span><span class="identifier">SunProfile</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">SunProfile</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/vTarget">vTarget</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a>&nbsp;<span class="symbol">=</span>&nbsp;5000.0<span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/vI">vI</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a>&nbsp;<span class="symbol">=</span>&nbsp;500.0<span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$<init>(kotlin.Double, kotlin.Double, kotlin.Double)/vMin">vMin</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a>&nbsp;<span class="symbol">=</span>&nbsp;100.0<span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="v-i.html">vI</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">vI</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Maximum initial velocity in ticks per 100ms</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="v-min.html">vMin</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">vMin</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Absolute minimum velocity in ticks per 100ms</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="v-target.html">vTarget</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">vTarget</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Target maximum velocity in ticks/100ms</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="m-x.html">mX</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mX</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mX(kotlin.Double, kotlin.Double, kotlin.Double)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mX(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mX(kotlin.Double, kotlin.Double, kotlin.Double)/maxA">maxA</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Calculates rBase target x given <a href="m-x.html#org.stormgears.powerup.subsystems.navigator.SunProfile$mX(kotlin.Double, kotlin.Double, kotlin.Double)/y">y</a> and distance <a href="m-x.html#org.stormgears.powerup.subsystems.navigator.SunProfile$mX(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="m-y.html">mY</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">mY</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mY(kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mY(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$mY(kotlin.Double, kotlin.Double, kotlin.Double)/maxA">maxA</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Calculates rBase target y given <a href="m-y.html#org.stormgears.powerup.subsystems.navigator.SunProfile$mY(kotlin.Double, kotlin.Double, kotlin.Double)/x">x</a> and distance <a href="m-y.html#org.stormgears.powerup.subsystems.navigator.SunProfile$mY(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="max-a.html">maxA</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">maxA</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$maxA(kotlin.Double)/d">d</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Maximum acceleration in ticks per 100ms per inch given distance <a href="max-a.html#org.stormgears.powerup.subsystems.navigator.SunProfile$maxA(kotlin.Double)/d">d</a> in inches</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="profile.html">profile</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">profile</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$profile(kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$profile(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$profile(kotlin.Double, kotlin.Double, kotlin.Double)/maxAMultiplier">maxAMultiplier</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a>&nbsp;<span class="symbol">=</span>&nbsp;1.0<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Calculates the PID velocity of a motor given movement progress <a href="profile.html#org.stormgears.powerup.subsystems.navigator.SunProfile$profile(kotlin.Double, kotlin.Double, kotlin.Double)/x">x</a> in inches and target distance <a href="profile.html#org.stormgears.powerup.subsystems.navigator.SunProfile$profile(kotlin.Double, kotlin.Double, kotlin.Double)/d">d</a> in inches</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="r-base.html">rBase</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">rBase</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$rBase(kotlin.Double, kotlin.Double, kotlin.Double)/x">x</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$rBase(kotlin.Double, kotlin.Double, kotlin.Double)/xT">xT</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$rBase(kotlin.Double, kotlin.Double, kotlin.Double)/yT">yT</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Function of the ramp up and ramp down curves</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="v-i.html">vI</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">vI</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.powerup.subsystems.navigator.SunProfile$vI(kotlin.Double)/y">y</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Sine curve correction factor for <a href="r-base.html">rBase</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,187 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>org.stormgears.utils.talons - PowerUp</title>
+<link rel="stylesheet" href="../../style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="./index.html">org.stormgears.utils.talons</a><br/>
+<br/>
+<h2>Package org.stormgears.utils.talons</h2>
+<p>Helpers regarding Talon SRX devices</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-dummy-talon/index.html">DummyTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DummyTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-factory-talon-config/index.html">FactoryTalonConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FactoryTalonConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-talon-config/index.html"><span class="identifier">TalonConfig</span></a></code>
+<p>Factory default Talon configuration</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-feedback-device-config.html">FeedbackDeviceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">FeedbackDeviceConfig</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-generated-talon-manager/index.html">GeneratedTalonManager</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">GeneratedTalonManager</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-base-talon/index.html">IBaseTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">IBaseTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">IMotorControllerEnhanced</span><span class="symbol">, </span><span class="identifier">SpeedController</span><span class="symbol">, </span><span class="identifier">MotorSafety</span><span class="symbol">, </span><a href="-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-control-mode-gettable/index.html"><span class="identifier">IControlModeGettable</span></a><span class="symbol">, </span><a href="-i-talon-java-helpers/__-d-o_-n-o-t_-u-s-e_-o-r_-y-o-u_-w-i-l-l_-b-e_-f-i-r-e-d/-i-handle-gettable/index.html"><span class="identifier">IHandleGettable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-sensor-collection/index.html">ISensorCollection</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ISensorCollection</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-talon/index.html">ITalon</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">ITalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a></code>
+<p>Talon + Config management</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-i-talon-java-helpers/index.html">ITalonJavaHelpers</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">ITalonJavaHelpers</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-limit-switch-source-config.html">LimitSwitchSourceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">LimitSwitchSourceConfig</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-local-feedback-device-config/index.html">LocalFeedbackDeviceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">LocalFeedbackDeviceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-feedback-device-config.html"><span class="identifier">FeedbackDeviceConfig</span></a></code>
+<p>Select the feedback device for the motor controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-local-limit-switch-source-config/index.html">LocalLimitSwitchSourceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">LocalLimitSwitchSourceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<p>Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the
+Limit-R pin of another Talon, CANifier, or local Gadgeteer feedback connector. If the sensor is remote, a device ID
+of zero is assumed. If that's not desired, use the four parameter version of this function.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-managed-talon/index.html">ManagedTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ManagedTalon</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a><span class="symbol">, </span><a href="-i-talon/index.html"><span class="identifier">ITalon</span></a><span class="symbol">, </span><a href="-generated-talon-manager/index.html"><span class="identifier">GeneratedTalonManager</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-p-i-d-slot/index.html">PIDSlot</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">PIDSlot</span></code>
+<p>Config specific to a single PID slot</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remote-feedback-device-config/index.html">RemoteFeedbackDeviceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteFeedbackDeviceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-feedback-device-config.html"><span class="identifier">FeedbackDeviceConfig</span></a></code>
+<p>Select the remote feedback device for the motor controller.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remote-feedback-filter-config/index.html">RemoteFeedbackFilterConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteFeedbackFilterConfig</span></code>
+<p>Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device
+and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-remote-limit-switch-source-config/index.html">RemoteLimitSwitchSourceConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteLimitSwitchSourceConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<p>Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the
+Limit-F pin of another Talon or CANifier.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-sensor-term-config/index.html">SensorTermConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">SensorTermConfig</span></code>
+<p>Select what sensor term should be bound to switch feedback device.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-talon-config/index.html">TalonConfig</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">TalonConfig</span></code>
+<p>Configuration values for a Talon</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-talon-s-r-x-adapter/index.html">TalonSRXAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TalonSRXAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-i-base-talon/index.html"><span class="identifier">IBaseTalon</span></a><span class="symbol">, </span><span class="identifier">WPI_TalonSRX</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-talon.html">createTalon</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createTalon</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons$createTalon(kotlin.Int, kotlin.String)/deviceNumber">deviceNumber</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons$createTalon(kotlin.Int, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;deviceNumber.toString()<span class="symbol">)</span><span class="symbol">: </span><a href="-i-talon/index.html"><span class="identifier">ITalon</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

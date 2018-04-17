@@ -1,0 +1,66 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>RemoteFeedbackFilterConfig - PowerUp</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">RemoteFeedbackFilterConfig</a><br/>
+<br/>
+<h1>RemoteFeedbackFilterConfig</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">RemoteFeedbackFilterConfig</span></code>
+<p>Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device
+and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="#">TalonSRX.configRemoteFeedbackFilter</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">RemoteFeedbackFilterConfig</span><span class="symbol">(</span><span class="identifier" id="org.stormgears.utils.talons.RemoteFeedbackFilterConfig$<init>(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int)/deviceID">deviceID</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.RemoteFeedbackFilterConfig$<init>(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int)/remoteSensorSource">remoteSensorSource</span><span class="symbol">:</span>&nbsp;<span class="identifier">RemoteSensorSource</span><span class="symbol">, </span><span class="identifier" id="org.stormgears.utils.talons.RemoteFeedbackFilterConfig$<init>(kotlin.Int, com.ctre.phoenix.motorcontrol.RemoteSensorSource, kotlin.Int)/remoteOrdinal">remoteOrdinal</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device
+and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="device-i-d.html">deviceID</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">deviceID</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The CAN ID of the remote sensor device.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remote-ordinal.html">remoteOrdinal</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">remoteOrdinal</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>0 for configuring Remote Sensor 0
+1 for configuring Remote Sensor 1</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remote-sensor-source.html">remoteSensorSource</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">remoteSensorSource</span><span class="symbol">: </span><span class="identifier">RemoteSensorSource</span></code>
+<p>The remote sensor device and signal type to bind.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
