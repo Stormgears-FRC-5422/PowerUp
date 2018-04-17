@@ -49,23 +49,11 @@ object Intake : TerminableSubsystem() {
 //		rightTalon.set(ControlMode.PercentOutput, -output)
 	}
 
-	fun startWheelsIn(output: Double = 1.0): Job {
-		if (wheelsJob != null) {
-			wheelsJob!!.cancel()
-			println("Canceled intake wheels job")
-		}
+	fun startWheelsIn(output: Double = 1.0) {
+		logger.info("Intake wheels pulling in")
 
-		val job = launch("Intake Wheels") {
-			logger.info("Intake wheels pulling in")
-
-			leftTalon.set(ControlMode.PercentOutput, output)
-			rightTalon.set(ControlMode.PercentOutput, -output)
-
-			while (leftTalon.outputCurrent < CUBE_GRAB_CURRENT) delay(10)
-		}
-
-		this.wheelsJob = job
-		return job
+		leftTalon.set(ControlMode.PercentOutput, output)
+		rightTalon.set(ControlMode.PercentOutput, -output)
 	}
 
 	fun startWheelsOut(output: Double = 1.0) {
@@ -90,7 +78,12 @@ object Intake : TerminableSubsystem() {
 
 		val job = launch("Intake Grab") {
 			startWheelsIn()
-			while (!rightTalon.sensorCollection.isRevLimitSwitchClosed) delay(10)
+			var i = 0
+			while (i < 200 && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+				println(i)
+				i++
+				delay(10)
+			}
 			stopWheels()
 		}
 
@@ -106,7 +99,7 @@ object Intake : TerminableSubsystem() {
 
 		val job = launch("Intake Eject") {
 			startWheelsOut(output = output)
-			delay(2000)
+			delay(1000)
 			stopWheels()
 		}
 

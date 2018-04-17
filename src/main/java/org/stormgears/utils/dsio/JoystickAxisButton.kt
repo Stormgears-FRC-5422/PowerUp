@@ -50,6 +50,6 @@ class JoystickAxisButton(private val joystick: Joystick, private val axis: Int, 
 	}
 
 	companion object {
-		private val logger = LogManager.getLogger(POVButton::class.java)
+		private val logger = LogManager.getLogger(JoystickAxisButton::class.java)
 	}
 }
