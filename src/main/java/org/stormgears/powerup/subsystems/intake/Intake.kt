@@ -52,7 +52,7 @@ object Intake : TerminableSubsystem() {
 	fun startWheelsIn(output: Double = 1.0): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
-			println("Canceled intake rotation job")
+			println("Canceled intake wheels job")
 		}
 
 		val job = launch("Intake Wheels") {
@@ -83,19 +83,35 @@ object Intake : TerminableSubsystem() {
 	}
 
 	fun grab(): Job {
-		return launch("Intake Grab") {
+		if (wheelsJob != null) {
+			wheelsJob!!.cancel()
+			println("Canceled intake wheels job")
+		}
+
+		val job = launch("Intake Grab") {
 			startWheelsIn()
 			while (!rightTalon.sensorCollection.isRevLimitSwitchClosed) delay(10)
 			stopWheels()
 		}
+
+		this.wheelsJob = job
+		return job
 	}
 
 	fun eject(output: Double = 1.0): Job {
-		return launch("Intake Eject") {
+		if (wheelsJob != null) {
+			wheelsJob!!.cancel()
+			println("Canceled intake wheels job")
+		}
+
+		val job = launch("Intake Eject") {
 			startWheelsOut(output = output)
 			delay(2000)
 			stopWheels()
 		}
+
+		this.wheelsJob = job
+		return job
 	}
 
 	fun moveIntakeToPosition(position: Int): Job {

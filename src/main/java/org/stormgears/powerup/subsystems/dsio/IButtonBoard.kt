@@ -46,6 +46,8 @@ interface IButtonBoard {
 
 	val speedPot: IJoystickAxis
 
+	val intakeTrigger: IButton
+
 	companion object {
 		var initialized = false
 	}

@@ -43,6 +43,8 @@ class ButtonBoard2018V2 private constructor(jumperGamepad: Joystick, normalGamep
 
 	override val speedPot: IJoystickAxis = DummyJoystickAxis()
 
+	override val intakeTrigger: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 1) else DummyButton()
+
 	companion object {
 		private var instance: ButtonBoard2018V2? = null
 

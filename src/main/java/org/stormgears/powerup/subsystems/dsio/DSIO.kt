@@ -111,6 +111,9 @@ object DSIO {
 		buttonBoard.overrideRight.whenReleased { Robot.elevator?.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
+
+		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab() }
+		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject() }
 	}
 
 	val intakeSpeed: Double
