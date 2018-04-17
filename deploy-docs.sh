@@ -18,7 +18,7 @@ cd docs-deploy
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
 cd ..
 
-rm -rf docs-deploy/**/* || exit 0
+rm -rf docs-deploy/* || exit 0
 
 cp -r ./build/dokka/-power-up/* ./docs-deploy/
 

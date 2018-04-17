@@ -61,7 +61,7 @@ deploy {
 }
 
 dokka {
-	outputFormat = 'gfm'
+	outputFormat = 'html'
 	jdkVersion = 8
 	reportUndocumented = false
 
