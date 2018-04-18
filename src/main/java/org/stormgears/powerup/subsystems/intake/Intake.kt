@@ -91,10 +91,14 @@ object Intake : TerminableSubsystem() {
 		return job
 	}
 
-	fun eject(output: Double = 1.0): Job {
+	fun eject(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
 			println("Canceled intake wheels job")
+		}
+
+		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+			return null
 		}
 
 		val job = launch("Intake Eject") {
