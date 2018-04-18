@@ -451,7 +451,7 @@ interface PIDSlot {
 }
 
 
-interface LimitSwitchSourceConfig
+sealed class LimitSwitchSourceConfig
 
 /**
  * Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the
@@ -473,7 +473,7 @@ data class LocalLimitSwitchSourceConfig(
 	 */
 	@ConfigParam
 	val normalOpenOrClose: LimitSwitchNormal
-) : LimitSwitchSourceConfig
+) : LimitSwitchSourceConfig()
 
 /**
  * Configures the limit switch for a remote source. For example, a CAN motor controller may need to monitor the
@@ -500,7 +500,7 @@ data class RemoteLimitSwitchSourceConfig(
 	 */
 	@ConfigParam
 	val deviceID: Int
-) : LimitSwitchSourceConfig
+) : LimitSwitchSourceConfig()
 
 /**
  * Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote device
@@ -529,21 +529,21 @@ data class RemoteFeedbackFilterConfig(
 	val remoteOrdinal: Int
 )
 
-interface FeedbackDeviceConfig
+sealed class FeedbackDeviceConfig
 
 /**
  * Select the feedback device for the motor controller.
  *
  * @see TalonSRX.configSelectedFeedbackSensor
  */
-data class LocalFeedbackDeviceConfig(@ConfigParam val feedbackDevice: FeedbackDevice) : FeedbackDeviceConfig
+data class LocalFeedbackDeviceConfig(@ConfigParam val feedbackDevice: FeedbackDevice) : FeedbackDeviceConfig()
 
 /**
  * Select the remote feedback device for the motor controller.
  *
  * @see TalonSRX.configSelectedFeedbackSensor
  */
-data class RemoteFeedbackDeviceConfig(@ConfigParam val remoteFeedbackDevice: RemoteFeedbackDevice) : FeedbackDeviceConfig
+data class RemoteFeedbackDeviceConfig(@ConfigParam val remoteFeedbackDevice: RemoteFeedbackDevice) : FeedbackDeviceConfig()
 
 /**
  * Select what sensor term should be bound to switch feedback device.
