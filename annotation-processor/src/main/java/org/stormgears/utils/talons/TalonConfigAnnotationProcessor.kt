@@ -123,33 +123,30 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 //				}
 
 				if (returnType is Type.ClassType) {
-					if (returnType.isInterface) {
-						val p = "config.$propName"
-						// TODO: Generalize
-						codeBlock = when (element.simpleName.toString()) {
-							"FeedbackDeviceConfig" -> """when ($p) {
+					val p = "config.$propName"
+					// TODO: Generalize
+					codeBlock = when (element.simpleName.toString()) {
+						"FeedbackDeviceConfig" -> """when ($p) {
 							|    is LocalFeedbackDeviceConfig -> talon.$talonConfig(($p as LocalFeedbackDeviceConfig).feedbackDevice, 0, 10)
 							|    is RemoteFeedbackDeviceConfig -> talon.$talonConfig(($p as RemoteFeedbackDeviceConfig).remoteFeedbackDevice, 0, 10)
 							|}
 							|""".trimMargin()
-							"LimitSwitchSourceConfig" -> """when ($p) {
+						"LimitSwitchSourceConfig" -> """when ($p) {
 							|    is LocalLimitSwitchSourceConfig -> talon.$talonConfig(($p as LocalLimitSwitchSourceConfig).type, ($p as LocalLimitSwitchSourceConfig).normalOpenOrClose, 10)
 							|    is RemoteLimitSwitchSourceConfig -> talon.$talonConfig(($p as RemoteLimitSwitchSourceConfig).type, ($p as RemoteLimitSwitchSourceConfig).normalOpenOrClose, ($p as RemoteLimitSwitchSourceConfig).deviceID, 10)
 							|}
 							|""".trimMargin()
-							else -> TODO()
-						}
-					} else {
-//						element.accept()
-//						element.getAnnotationsByType(ConfigParam::class.java)[0]
-						val args = arrayListOf<String>()
-						for (param in element.enclosedElements) {
-							val annotation = param.getAnnotation(ConfigParam::class.java) ?: continue
+						else -> {
+							val args = arrayListOf<String>()
+							for (param in element.enclosedElements) {
+								val annotation = param.getAnnotation(ConfigParam::class.java) ?: continue
 //							processingEnv.messager.printMessage(NOTE, "config.$propName.${param.simpleName}")
-							args.add("config.$propName.${param.simpleName}")
-						}
+								args.add("config.$propName.${param.simpleName}")
+							}
 
-						argStr = args.joinToString(", ")
+							argStr = args.joinToString(", ")
+							""
+						}
 					}
 				} else {
 					throw IllegalStateException("???")
