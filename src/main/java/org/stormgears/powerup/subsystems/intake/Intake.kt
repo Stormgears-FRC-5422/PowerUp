@@ -98,6 +98,7 @@ object Intake : TerminableSubsystem() {
 		}
 
 		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+			stopWheels()
 			return null
 		}
 
