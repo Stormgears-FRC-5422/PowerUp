@@ -26,7 +26,8 @@ annotation class Config(
 	val deep: Boolean = false,
 	val pidIdx: Boolean = false,
 	val camel: Boolean = true,
-	val map: Boolean = false
+	val map: Boolean = false,
+	val errorCode: Boolean = true
 )
 
 @Target(AnnotationTarget.FIELD)
@@ -89,6 +90,33 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 				).mutable(true).initializer("null").build())
 
 				addInitializerBlock(CodeBlock.of("setConfig(config)"))
+
+				companionObject(TypeSpec.companionObjectBuilder().apply {
+					addProperty(PropertySpec.builder(
+						"logger",
+						ClassName.bestGuess("org.apache.logging.log4j.Logger"),
+						KModifier.PRIVATE
+					).initializer("org.apache.logging.log4j.LogManager.getLogger($generatedClassName::class.java)").build())
+				}.build())
+
+				addFunction(FunSpec.builder("retry").apply {
+					addModifiers(KModifier.INLINE, KModifier.PRIVATE)
+					addParameter("op", LambdaTypeName.get(returnType = ClassName.bestGuess("com.ctre.phoenix.ErrorCode")))
+					addParameter("name", String::class)
+					addParameter(ParameterSpec.builder("tries", Int::class).defaultValue("3").build())
+					addStaticImport("org.apache.logging.log4j.util.Unbox", "box")
+					addStatement("""
+						for (i in 1..tries) {
+							val ret = op()
+							if (ret == ErrorCode.OK) {
+								return
+							}
+
+							logger.warn("Retrying {}, try {} of {}", name, box(i), box(tries))
+						}
+						logger.error("Failed to {} after {} tries", name, box(tries))
+						""".trimIndent())
+				}.build())
 
 				addFunction(FunSpec.builder("setConfig").apply {
 					addModifiers(KModifier.OPEN)
@@ -154,15 +182,17 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 
 			} else if (ann.map) {
 				// TODO: Diff individual map keys
+				val code = """talon.$talonConfig(key, value${if (ann.timeout) ", 10" else ""})"""
+				val inner = if (ann.errorCode) "retry({ $code }, \"$talonConfig(\$key)\")" else code
 				codeBlock = """for ((key, value) in config.$propName) {
-    |    talon.$talonConfig(key, value${if (ann.timeout) ", 10" else ""})
+    |    $inner
     |}
 """.trimMargin()
 			} else {
 				argStr = "config.$propName"
 			}
 
-			buildIfStatement(propName, codeBlock, talonConfig, argStr, ann)
+			buildIfStatement(propName, codeBlock, talonConfig, argStr, ann, ann.errorCode && !ann.map)
 		}
 
 		for (el in executableElements) {
@@ -179,16 +209,16 @@ class TalonConfigAnnotationProcessor : AbstractProcessor() {
 				val configPropName = "$slotPropName.$propName"
 				val talonConfig = if (prefix.isBlank()) propName else prefix + if (ann.camel) propName.capitalize() else propName
 
-				buildIfStatement(configPropName, "", talonConfig, "${pidAnn.idx}, config.$configPropName", ann)
+				buildIfStatement(configPropName, "", talonConfig, "${pidAnn.idx}, config.$configPropName", ann, ann.errorCode && !ann.map)
 			}
 		}
 	}
 
-	private fun FunSpec.Builder.buildIfStatement(propName: String, codeBlock: String, talonConfig: String, argStr: String, ann: Config) {
-		// FIXME: Thread.sleep is a band-aid, please replace with proper retry logic!
+	private fun FunSpec.Builder.buildIfStatement(propName: String, codeBlock: String, talonConfig: String, argStr: String, ann: Config, retry: Boolean) {
+		val code = if (codeBlock.isBlank()) "talon.$talonConfig($argStr${if (ann.pidIdx) ", 0" else ""}${if (ann.timeout) ", 10" else ""})" else codeBlock
+		val inner = if (retry) """retry({ $code }, "$talonConfig")""" else code
 		addStatement("""if ((prevConfig == null) || (prevConfig.$propName != config.$propName)) {
-			|    ${if (codeBlock.isBlank()) "talon.$talonConfig($argStr${if (ann.pidIdx) ", 0" else ""}${if (ann.timeout) ", 10" else ""})" else codeBlock}
-			|    Thread.sleep(10)
+			|    $inner
 			|}
 			|""".trimMargin())
 	}

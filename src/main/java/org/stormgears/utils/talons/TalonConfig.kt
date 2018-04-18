@@ -273,7 +273,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.enableVoltageCompensation
 	 */
-	@get:Config("", false)
+	@get:Config("", false, errorCode = false)
 	val enableVoltageCompensation: Boolean
 
 //	/**
@@ -294,7 +294,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setInverted
 	 */
-	@get:Config("set", false)
+	@get:Config("set", false, errorCode = false)
 	val inverted: Boolean
 
 	/**
@@ -302,7 +302,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setNeutralMode
 	 */
-	@get:Config("set", false)
+	@get:Config("set", false, errorCode = false)
 	val neutralMode: NeutralMode
 
 	/**
@@ -312,7 +312,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.setSensorPhase
 	 */
-	@get:Config("set", false)
+	@get:Config("set", false, errorCode = false)
 	val sensorPhase: Boolean
 
 	// Only in TalonSRX class
@@ -356,7 +356,7 @@ interface TalonConfig {
 	 *
 	 * @see TalonSRX.enableCurrentLimit
 	 */
-	@get:Config("", timeout = false)
+	@get:Config("", timeout = false, errorCode = false)
 	val enableCurrentLimit: Boolean
 
 	/**
