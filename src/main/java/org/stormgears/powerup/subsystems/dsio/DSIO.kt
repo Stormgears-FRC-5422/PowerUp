@@ -54,7 +54,7 @@ object DSIO {
 			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
 		}
 
-		buttonBoard.dropButton.whenPressed { Intake.ejectTeleop(0.4) }
+		buttonBoard.dropButton.whenPressed { Intake.ejectTeleop(0.2) }
 
 		// THIS BUTTON WILL BE USED AS THE RESET BUTTON
 		buttonBoard.sideLeftButton.whenPressed {
