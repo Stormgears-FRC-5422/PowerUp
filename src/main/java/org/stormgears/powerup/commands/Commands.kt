@@ -1,7 +1,6 @@
 package org.stormgears.powerup.commands
 
 import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
@@ -9,6 +8,25 @@ import org.stormgears.utils.concurrency.TerminableSubsystem
 
 object Commands : TerminableSubsystem() {
 	private var job: Job? = null
+
+	fun reset() {
+		launch("Reset") {
+			if (Robot.intake?.getPosition() != Intake.VERTICAL)
+				Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)?.join()
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(1)
+			elevatorJob?.join()
+			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)?.join()
+		}
+	}
+
+	fun placeCube(height: Int, type: Int) {
+		launch("Cube Placed") {
+			Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)?.join()
+			Robot.elevator?.moveElevatorToPosition(height)?.join()
+			if (type == 1)
+				Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
+		}
+	}
 
 	suspend fun prepareToPlaceCube(height: Int = Robot.elevator!!.SCALE_POSITIONS[2]) {
 		Elevator.moveElevatorToPosition(height).join()

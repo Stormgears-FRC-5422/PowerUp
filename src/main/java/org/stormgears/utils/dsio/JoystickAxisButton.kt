@@ -22,6 +22,7 @@ class JoystickAxisButton(private val joystick: Joystick, private val axis: Int, 
 
 	override fun get(): Boolean {
 		val d = this.joystick.getRawAxis(axis)
+		logger.trace("Joystick axis {} value: {} match: {}", axis, d, direction.match(d))
 		return direction.match(d)
 	}
 

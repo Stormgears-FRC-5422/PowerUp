@@ -36,10 +36,10 @@ class ButtonBoard2018V2 private constructor(jumperGamepad: Joystick, normalGamep
 	override val zeroElevatorButton: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 8) else DummyButton()
 
 	override val overrideSwitch: ISwitch = SwitchControl(normalGamepad, 12)
-	override val overrideUp: IButton = JoystickAxisButton(jumperGamepad, 0, JoystickAxisButton.Direction.Left)
-	override val overrideDown: IButton = JoystickAxisButton(jumperGamepad, 0, JoystickAxisButton.Direction.Right)
-	override val overrideLeft: IButton = JoystickAxisButton(jumperGamepad, 1, JoystickAxisButton.Direction.Right)
-	override val overrideRight: IButton = JoystickAxisButton(jumperGamepad, 1, JoystickAxisButton.Direction.Left)
+	override val overrideUp: IButton = JoystickAxisButton(normalGamepad, 0, JoystickAxisButton.Direction.Left)
+	override val overrideDown: IButton = JoystickAxisButton(normalGamepad, 0, JoystickAxisButton.Direction.Right)
+	override val overrideLeft: IButton = JoystickAxisButton(normalGamepad, 1, JoystickAxisButton.Direction.Right)
+	override val overrideRight: IButton = JoystickAxisButton(normalGamepad, 1, JoystickAxisButton.Direction.Left)
 
 	override val speedPot: IJoystickAxis = DummyJoystickAxis()
 

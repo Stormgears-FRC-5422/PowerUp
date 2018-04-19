@@ -63,6 +63,10 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, output)
 	}
 
+	fun getPosition(): Int {
+		return position
+	}
+
 	fun stopWheels() {
 		logger.info("Intake wheels off")
 
@@ -80,10 +84,36 @@ object Intake : TerminableSubsystem() {
 			startWheelsIn()
 			var i = 0
 			while (i < limit && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
-//				println(i)
+				if (!rightTalon.sensorCollection.isRevLimitSwitchClosed)
+					println("DO NOT SEE CUBE")
+				println(i)
 				i++
 				delay(10)
 			}
+			stopWheels()
+			if (rightTalon.sensorCollection.isRevLimitSwitchClosed)
+				moveIntakeToPosition(Intake.VERTICAL)
+		}
+
+		this.wheelsJob = job
+		return job
+	}
+
+	fun ejectAutonomous(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
+		if (wheelsJob != null) {
+			wheelsJob!!.cancel()
+			println("Canceled intake wheels job")
+		}
+
+		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+			println("NO CUBE INSIDE")
+			stopWheels()
+			return null
+		}
+
+		val job = launch("Intake Eject") {
+			startWheelsOut(output = output)
+			delay(1000)
 			stopWheels()
 		}
 
@@ -91,18 +121,26 @@ object Intake : TerminableSubsystem() {
 		return job
 	}
 
-	fun eject(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
+	fun ejectTeleop(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
 			println("Canceled intake wheels job")
 		}
 
 		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+			println("NO CUBE INSIDE")
 			stopWheels()
 			return null
 		}
 
+		// Added to make sure that the intake is always horizontal before ejecting cube
+		if (this.position == Intake.VERTICAL) {
+			moveIntakeToPosition(Intake.HORIZONTAL)
+		}
+
+		// Added delay at the beginning for making sure that the ejection does not occur before the arm goes down
 		val job = launch("Intake Eject") {
+			delay(200)
 			startWheelsOut(output = output)
 			delay(1000)
 			stopWheels()

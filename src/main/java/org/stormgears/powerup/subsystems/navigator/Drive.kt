@@ -22,7 +22,7 @@ object Drive : TerminableSubsystem() {
 	private const val MAX_VELOCITY_ENCODER_TICKS = 6300
 	private val MODE = ControlMode.Velocity
 
-	private const val TURN_SENSITIVITY_FACTOR = 0.6
+	private const val TURN_SENSITIVITY_FACTOR = 0.65
 
 	// IN RPM!!!
 	private const val MAX_VELOCITY = 5000

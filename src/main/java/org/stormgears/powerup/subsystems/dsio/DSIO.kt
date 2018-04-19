@@ -2,6 +2,7 @@ package org.stormgears.powerup.subsystems.dsio
 
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
+import org.stormgears.powerup.commands.Commands
 import org.stormgears.powerup.subsystems.dsio.joystickdetection.JoystickDetector
 import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
@@ -36,25 +37,34 @@ object DSIO {
 		logger.trace("setting up buttons")
 
 		for (i in 0 until buttonBoard.scaleButtons.size) {
-			buttonBoard.scaleButtons[i].whenPressed { Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[i]) }
+			buttonBoard.scaleButtons[i].whenPressed {
+				if (i >= 2)
+					Commands.placeCube(Elevator.SCALE_POSITIONS[i], 1)
+				else
+					Commands.placeCube(Elevator.SCALE_POSITIONS[i], 0)
+			}
 		}
 
 		buttonBoard.switch0Button.whenPressed {
 			logger.trace("SWITCH BUTTON PRESSED 1")
-			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0])
+			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
 		}
 		buttonBoard.switch1Button.whenPressed {
 			logger.trace("SWITCH BUTTON PRESSED 2")
-			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
 		}
 
-		buttonBoard.dropButton.whenPressed { Intake.eject() }
+		buttonBoard.dropButton.whenPressed { Intake.ejectTeleop(0.4) }
 
-		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
+		// THIS BUTTON WILL BE USED AS THE RESET BUTTON
+		buttonBoard.sideLeftButton.whenPressed {
+			Commands.reset()
+		}
+
 		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
 
-		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
-		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
+//		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
+//		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
 
 		buttonBoard.intakeGrabButton.whenPressed { Intake.grab() }
 
@@ -113,7 +123,7 @@ object DSIO {
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 
 		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab() }
-		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(checkLimitSwitch = true) }
+		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.ejectTeleop(checkLimitSwitch = true) }
 	}
 
 	val intakeSpeed: Double
