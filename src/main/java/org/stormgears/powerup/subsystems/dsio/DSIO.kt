@@ -54,7 +54,7 @@ object DSIO {
 			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
 		}
 
-		buttonBoard.dropButton.whenPressed { Intake.ejectTeleop(0.2) }
+		buttonBoard.dropButton.whenPressed { Robot.intake?.eject(output = 0.2, forceHorizontal = true) }
 
 		// THIS BUTTON WILL BE USED AS THE RESET BUTTON
 		buttonBoard.sideLeftButton.whenPressed {
@@ -123,7 +123,7 @@ object DSIO {
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 
 		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab() }
-		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.ejectTeleop(checkLimitSwitch = true) }
+		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(checkLimitSwitch = true, forceHorizontal = true) }
 	}
 
 	val intakeSpeed: Double

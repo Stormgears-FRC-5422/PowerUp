@@ -19,8 +19,6 @@ object Intake : TerminableSubsystem() {
 	const val VERTICAL = 0
 	const val HORIZONTAL = 1
 
-	private const val CUBE_GRAB_CURRENT = 30.0
-
 	private val LEFT_TALON_ID = Robot.config.intakeLeftTalonId
 	private val RIGHT_TALON_ID = Robot.config.intakeRightTalonId
 	private val ARTICULATOR_TALON_ID = Robot.config.intakeArticulatorTalonId
@@ -77,70 +75,48 @@ object Intake : TerminableSubsystem() {
 	fun grab(limit: Int = 200): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
-			println("Canceled intake wheels job")
+			logger.info("Canceled intake wheels job")
 		}
 
 		val job = launch("Intake Grab") {
 			startWheelsIn()
+
 			var i = 0
 			while (i < limit && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
-				if (!rightTalon.sensorCollection.isRevLimitSwitchClosed)
-					println("DO NOT SEE CUBE")
-				println(i)
-				i++
+				if (!rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+					logger.info("Do not see cube, iteration: {}", i)
+				}
+
 				delay(10)
+				i++
 			}
+
 			stopWheels()
-			if (rightTalon.sensorCollection.isRevLimitSwitchClosed)
+			if (rightTalon.sensorCollection.isRevLimitSwitchClosed) {
 				moveIntakeToPosition(Intake.VERTICAL)
+			}
 		}
 
 		this.wheelsJob = job
 		return job
 	}
 
-	fun ejectAutonomous(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
+	fun eject(output: Double = 1.0, checkLimitSwitch: Boolean = false, forceHorizontal: Boolean = false): Job? {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
-			println("Canceled intake wheels job")
+			logger.info("Canceled intake wheels job")
 		}
 
 		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
-			println("NO CUBE INSIDE")
-			stopWheels()
+			logger.info("No cube inside, not ejecting anything")
 			return null
 		}
 
 		val job = launch("Intake Eject") {
-			startWheelsOut(output = output)
-			delay(1000)
-			stopWheels()
-		}
+			if (forceHorizontal && this@Intake.position == VERTICAL) {
+				moveIntakeToPositionSuspend(HORIZONTAL)
+			}
 
-		this.wheelsJob = job
-		return job
-	}
-
-	fun ejectTeleop(output: Double = 1.0, checkLimitSwitch: Boolean = false): Job? {
-		if (wheelsJob != null) {
-			wheelsJob!!.cancel()
-			println("Canceled intake wheels job")
-		}
-
-		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
-			println("NO CUBE INSIDE")
-			stopWheels()
-			return null
-		}
-
-		// Added to make sure that the intake is always horizontal before ejecting cube
-		if (this.position == Intake.VERTICAL) {
-			moveIntakeToPosition(Intake.HORIZONTAL)
-		}
-
-		// Added delay at the beginning for making sure that the ejection does not occur before the arm goes down
-		val job = launch("Intake Eject") {
-			delay(200)
 			startWheelsOut(output = output)
 			delay(1000)
 			stopWheels()
@@ -153,7 +129,7 @@ object Intake : TerminableSubsystem() {
 	fun moveIntakeToPosition(position: Int): Job {
 		if (rotationJob != null) {
 			rotationJob!!.cancel()
-			println("Canceled intake rotation job")
+			logger.info("Canceled intake rotation job")
 		}
 
 		val job = launch("Intake Rotation") {
@@ -167,17 +143,17 @@ object Intake : TerminableSubsystem() {
 	private suspend fun moveIntakeToPositionSuspend(position: Int) {
 		if (rotationMotor.dummy) return
 
-		val multiplier: Double
+		val power: Double
 		val time: Int
 		when (position) {
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				multiplier = 0.7
+				power = 0.7
 				time = 7
 			}
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				multiplier = -1.0
+				power = -1.0
 				time = 12
 			}
 			else -> {
@@ -186,8 +162,8 @@ object Intake : TerminableSubsystem() {
 			}
 		}
 
-		logger.trace("Articulator moving with {}", multiplier)
-		rotationMotor.set(ControlMode.PercentOutput, multiplier)
+		logger.trace("Articulator moving with {}", power)
+		rotationMotor.set(ControlMode.PercentOutput, power)
 		delay(time * 20)
 		rotationMotor.set(ControlMode.PercentOutput, 0.0)
 

@@ -71,16 +71,6 @@ class Robot : BaseStormgearsRobot() {
 		var talonDebugger: TalonDebugger? = null
 	}
 
-
-	private var selectedAlliance: FieldPositions.Alliance? = null
-	private var selectedStartSpot: FieldPositions.StartingSpots? = null
-	private var selectedPlacementSpot: FieldPositions.PlacementSpot? = null
-
-	private var selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight? = null
-	private var selectedScalePlateAssignment: FieldPositions.LeftRight? = null
-	private var selectedOpponentSwitchPlateAssignmentChooser: FieldPositions.LeftRight? = null
-	private var selectedCrossFieldForOppositeSwitch: Boolean? = null
-
 	//	**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 	//	private PowerUpMecanumDrive wpiMecanumDrive;
 	//	**END**FOR USE WITH WPI MECANUM DRIVE API
@@ -281,6 +271,4 @@ class Robot : BaseStormgearsRobot() {
 			rn.stop()
 		}
 	}
-
 }
-
