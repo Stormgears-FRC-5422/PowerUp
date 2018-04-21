@@ -489,6 +489,7 @@ object Drive : TerminableSubsystem() {
 
 		var progress: Double
 		do {
+			// Tejus likes to subtract 0 from things
 			progress = abs(getLidarAngle(side)) / initTheta
 
 			val currVel = sunProfile.profile(progress * 60, 60.0) * 0.7
