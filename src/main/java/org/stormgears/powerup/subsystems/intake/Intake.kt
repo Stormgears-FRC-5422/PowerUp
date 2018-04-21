@@ -153,8 +153,8 @@ object Intake : TerminableSubsystem() {
 			}
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				power = -1.0
-				time = 12
+				power = -0.5
+				time = 24
 			}
 			else -> {
 				logger.info("Position value for intake rotation does not match a valid position.")

@@ -182,9 +182,8 @@ class Robot : BaseStormgearsRobot() {
 		if (dsio == null) {
 			dsio = DSIO
 		}
-
+//		println(Sensors.getInstance().stormNet.test())
 		Terminator.disabled = DSIO.buttonBoard.overrideSwitch.get()
-
 		//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "teleop");//.start();
 	}
 
@@ -218,6 +217,10 @@ class Robot : BaseStormgearsRobot() {
 		super.teleopPeriodic()
 
 		StormScheduler.getInstance().run()
+//		for(i in 0..3) {
+//			println("Sensor" + i + ": " + Sensors.getInstance().stormNet.getLidarDistance(i))
+//		}
+//		println("Pair 0: " + Sensors.getInstance().stormNet.printLidarPair(0));
 
 		//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 		//		if (wpiMecanumDrive != null) {
