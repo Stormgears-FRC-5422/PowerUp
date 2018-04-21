@@ -471,8 +471,8 @@ object Drive : TerminableSubsystem() {
 		setDriveTalonsZeroVelocity()
 	}
 
-	suspend fun turnToAlignLIDAR(side: Int) {
-		val sign = -Math.signum(Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1] as Double)
+	suspend fun turnToAlignLidar(side: Int) {
+		val sign = -Math.signum((Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1]).toDouble())
 
 		for (talon in talons) {
 			talon.setConfig(driveTalons.driveTalonConfig)
@@ -485,11 +485,11 @@ object Drive : TerminableSubsystem() {
 		val talonRL = talons[2]
 		val talonRR = talons[3]
 
-		val initTheta = calculateLIDARTheta(side) // degrees
+		val initTheta = getLidarAngle(side) // degrees
 
 		var progress: Double
 		do {
-			progress = abs(calculateLIDARTheta(side) - 0) / initTheta
+			progress = abs(getLidarAngle(side) - 0) / initTheta
 
 			val currVel = sunProfile.profile(progress * 60, 60.0) * 0.7
 
@@ -502,26 +502,31 @@ object Drive : TerminableSubsystem() {
 
 //			delay(10)
 			yield()
-		} while (progress < 1.0);
+		} while (progress < 1.0)
 		setDriveTalonsZeroVelocity()
 	}
 
-	fun moveStraightLIDAR(side: Int) {
+	fun moveStraightLidar(side: Int) {
 
 	}
 
-	fun strafeLIDAR(side: Integer) {
+	fun strafeLidar(side: Integer) {
 
 	}
 
-	fun calculateLIDARTheta(side: Int): Double {
-		var difference: Double = Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1] as Double
-		difference = difference / 10 / 2.54
-		var distanceBetweenLidars: Double = 0.0
-		if (side == StormNet.LEFT) //TODO: || StormNet.RIGHT)
+	fun getLidarAngle(side: Int): Double {
+		// Warning: there's a conversion factor at the end
+		val difference = (Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1]).toDouble() / 10 / 2.54
+
+		var distanceBetweenLidars = 0.0
+		if (side == StormNet.LEFT) {
+			// TODO: || StormNet.RIGHT)
 			distanceBetweenLidars = 28.0
-		return Math.atan2(difference.toDouble(), distanceBetweenLidars.toDouble());
+		}
+
+		return Math.atan2(difference, distanceBetweenLidars)
 	}
+
 	/**
 	 * MoveToPos Method; Moves robot between two positions
 	 *
