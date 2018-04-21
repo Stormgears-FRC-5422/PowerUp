@@ -61,7 +61,9 @@ object DSIO {
 			Commands.reset()
 		}
 
-		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
+		buttonBoard.sideRightButton.whenPressed {
+			/* TODO: This button is unused */
+		}
 
 //		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
 //		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }

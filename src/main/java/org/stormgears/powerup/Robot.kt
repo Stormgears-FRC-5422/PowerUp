@@ -217,11 +217,8 @@ class Robot : BaseStormgearsRobot() {
 		super.teleopPeriodic()
 
 		StormScheduler.getInstance().run()
-//		for(i in 0..3) {
-//			println("Sensor" + i + ": " + Sensors.getInstance().stormNet.getLidarDistance(i))
-//		}
-//		println("Pair 0: " + Sensors.getInstance().stormNet.printLidarPair(0));
-
+		//	println("Left: " + Sensors.getInstance().stormNet.printLidarPair(StormNet.LEFT));
+		//	Sensors.getInstance().stormNet.m_lidar.changeThreshold(5);
 		//		**BEGIN**FOR USE WITH WPI MECANUM DRIVE API
 		//		if (wpiMecanumDrive != null) {
 		//			if (!sensors.getNavX().isCalibrating()) {

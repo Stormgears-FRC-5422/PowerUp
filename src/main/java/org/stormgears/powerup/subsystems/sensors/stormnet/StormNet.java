@@ -6,6 +6,13 @@ public class StormNet {
 	private EthernetLidar m_lidar;
 	private LineIR m_lineIR;
 
+//	public static final int RIGHT = 0;
+//	public static final int BACK = 1;
+//	public static final int LEFT = 2;
+//	public static final int FRONT = 3;
+
+	public static final int LEFT = 0;
+
 	private StormNet() {
 		// TODO - get these values from configuration
 		EthernetVoice ethernetVoice = new EthernetVoice("10.54.22.177", 5422);
@@ -30,12 +37,16 @@ public class StormNet {
 		return true;
 	}
 
+	public EthernetLidar getM_lidar() {
+		return m_lidar;
+	}
+
 	public int getLidarDistance(int sensorNumber) {
 		return m_lidar.getDistance(sensorNumber);
 	}
 
 	public String printLidarPair(int num) {
-		return m_lidar.printPairs(num);
+		return m_lidar.getPair(num)[0] + ", " + m_lidar.getPair(num)[1];
 	}
 
 	public int getLineIRDistance(int sensorNumber) {

@@ -10,6 +10,8 @@ import org.stormgears.powerup.subsystems.field.FieldPositions
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionMagic
 import org.stormgears.powerup.subsystems.navigator.motionprofile.MotionManager
 import org.stormgears.powerup.subsystems.navigator.motionprofile.TrapezoidalProfile
+import org.stormgears.powerup.subsystems.sensors.Sensors
+import org.stormgears.powerup.subsystems.sensors.stormnet.StormNet
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import org.stormgears.utils.sensordrivers.NavX
 import java.util.*
@@ -469,7 +471,57 @@ object Drive : TerminableSubsystem() {
 		setDriveTalonsZeroVelocity()
 	}
 
+	suspend fun turnToAlignLIDAR(side: Int) {
+		val sign = -Math.signum(Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1] as Double)
 
+		for (talon in talons) {
+			talon.setConfig(driveTalons.driveTalonConfig)
+		}
+
+		driveTalons.velocityPIDMode()
+
+		val talonFL = talons[0]
+		val talonFR = talons[1]
+		val talonRL = talons[2]
+		val talonRR = talons[3]
+
+		val initTheta = calculateLIDARTheta(side) // degrees
+
+		var progress: Double
+		do {
+			progress = abs(calculateLIDARTheta(side) - 0) / initTheta
+
+			val currVel = sunProfile.profile(progress * 60, 60.0) * 0.7
+
+//			logger.trace("progress = {} currTheta = {} delta = {} compensation = {} currVel = {}", box(progress), box(currTheta), box(delta), box(compensation), box(currVel));
+
+			talonFL.set(ControlMode.Velocity, sign * currVel)
+			talonFR.set(ControlMode.Velocity, sign * currVel)
+			talonRL.set(ControlMode.Velocity, sign * currVel)
+			talonRR.set(ControlMode.Velocity, sign * currVel)
+
+//			delay(10)
+			yield()
+		} while (progress < 1.0);
+		setDriveTalonsZeroVelocity()
+	}
+
+	fun moveStraightLIDAR(side: Int) {
+
+	}
+
+	fun strafeLIDAR(side: Integer) {
+
+	}
+
+	fun calculateLIDARTheta(side: Int): Double {
+		var difference: Double = Sensors.getInstance().stormNet.m_lidar.getPair(side)[0] - Sensors.getInstance().stormNet.m_lidar.getPair(side)[1] as Double
+		difference = difference / 10 / 2.54
+		var distanceBetweenLidars: Double = 0.0
+		if (side == StormNet.LEFT) //TODO: || StormNet.RIGHT)
+			distanceBetweenLidars = 28.0
+		return Math.atan2(difference.toDouble(), distanceBetweenLidars.toDouble());
+	}
 	/**
 	 * MoveToPos Method; Moves robot between two positions
 	 *

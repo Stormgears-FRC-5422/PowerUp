@@ -1,11 +1,16 @@
 package org.stormgears.powerup.subsystems.sensors.stormnet;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.TimeUnit;
 
 public class EthernetLidar extends StormNetSensor {
 	private short[] sensorValues;
 	private short[] sensorPairValues;
 	private byte[] addressValues;
+
+	private int threshold;
 
 	public EthernetLidar(StormNetVoice voice) {
 		super(voice);
@@ -18,6 +23,8 @@ public class EthernetLidar extends StormNetSensor {
 		addressValues = new byte[24];
 
 		this.m_deviceString = voice.getDeviceString();
+
+		threshold = 5;
 	}
 
 	public boolean test(int sleep) {
@@ -66,10 +73,7 @@ public class EthernetLidar extends StormNetSensor {
 	}
 
 	public void pollPairs(int pairNumber) {
-		System.out.println("ENTERED POLL PAIRS");
-		String command = "R";
-		fetchShorts(command, "Pair", sensorPairValues);
-		System.out.println("EXITED POLL PAIRS");
+		fetchPairs(0, sensorPairValues);
 	}
 
 	// Distance in millimeters
@@ -78,8 +82,47 @@ public class EthernetLidar extends StormNetSensor {
 		return (sensorValues[sensorNumber]); // Java wants shorts to be signed.  We want unsigned value
 	}
 
-	public String printPairs(int pairNumber) {
+	public short[] getPair(int pairNumber) {
 		pollPairs(pairNumber);
-		return sensorPairValues[0] + " " + sensorPairValues[1];
+		return sensorPairValues;
 	}
+
+	public void changeThreshold(int threshold) {
+		this.threshold = threshold;
+		fetchThreshold(threshold);
+	}
+
+	public boolean isAligned() {
+		return Math.abs(sensorPairValues[0] - sensorPairValues[1]) <= threshold;
+	}
+
+	public boolean fetchThreshold(int threshold) {
+		byte[] receiveBuffer = new byte[4];
+		ByteBuffer buffer = ByteBuffer.allocate(5);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
+
+		buffer.put("T".getBytes(StandardCharsets.US_ASCII)[0]);
+		buffer.putInt(threshold);
+		return fetchCommand(buffer.array(), "Change Threshold", receiveBuffer);
+	}
+
+	public boolean fetchPairs(int pairNumber, short[] shortArray) {
+		byte[] receiveBuffer = new byte[shortArray.length * Short.BYTES];
+		ByteBuffer sendingBuffer = ByteBuffer.allocate(5);
+		sendingBuffer.order(ByteOrder.LITTLE_ENDIAN);
+
+		sendingBuffer.put("R".getBytes(StandardCharsets.US_ASCII)[0]);
+		sendingBuffer.putInt(pairNumber);
+
+		boolean result = fetchCommand(sendingBuffer.array(), "Report Pairs", receiveBuffer);
+
+		ByteBuffer buffer = ByteBuffer.wrap(receiveBuffer);
+		buffer.order(ByteOrder.LITTLE_ENDIAN);
+		for (int i = 0; i < shortArray.length; i++) {
+			shortArray[i] = buffer.getShort();
+			debug("short value: " + shortArray[i]);
+		}
+		return result;
+	}
+
 }
