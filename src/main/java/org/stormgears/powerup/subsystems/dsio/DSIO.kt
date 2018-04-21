@@ -124,8 +124,8 @@ object DSIO {
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 
-		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab() }
-		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(checkLimitSwitch = true, forceHorizontal = true) }
+		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab(vault = true) }
+		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(checkLimitSwitch = true, forceHorizontal = false) }
 	}
 
 	val intakeSpeed: Double

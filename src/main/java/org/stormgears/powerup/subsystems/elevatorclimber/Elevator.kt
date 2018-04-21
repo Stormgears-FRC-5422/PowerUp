@@ -67,6 +67,11 @@ object Elevator : TerminableSubsystem() {
 		val destinationTicks = toEncoderTicks(position.toDouble())
 		val multiplier: Int
 
+		if (abs(destinationTicks - currentPositionTicks) < TICKS_PER_INCH * 2) {
+			logger.info("Elevator already within 4 inches of destination; doing nothing")
+			return
+		}
+
 		talons.masterMotor.set(ControlMode.PercentOutput, 0.0)
 		lowering = if (destinationTicks < currentPositionTicks) {     // Raising elevator
 			logger.info("Using raise elevator PID values")
@@ -94,15 +99,15 @@ object Elevator : TerminableSubsystem() {
 			val cpt = currentPositionTicks
 			val relDist = abs((cpt.toDouble() - destinationTicks) / destinationTicks)
 			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
-			val power = if (lowering && cpt > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 1.8) else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
+			val power = if (lowering && cpt > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 2.0) else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
 			talons.masterMotor.set(ControlMode.PercentOutput, power)
 
 //			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
 
-//			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 2000
-//			else currentPositionTicks < destinationTicks + 3000)
+			shouldStop = (if (lowering) currentPositionTicks > destinationTicks - 13000
+			else currentPositionTicks < destinationTicks + 13000)
 
-			shouldStop = relDist < 0.05
+//			shouldStop = relDist < 0.05
 
 		} while (!shouldStop)
 

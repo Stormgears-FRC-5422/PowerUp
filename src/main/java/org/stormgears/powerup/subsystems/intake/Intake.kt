@@ -72,7 +72,7 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun grab(limit: Int = 200): Job {
+	fun grab(limit: Int = 200, vault: Boolean = false): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
 			logger.info("Canceled intake wheels job")
@@ -92,7 +92,7 @@ object Intake : TerminableSubsystem() {
 			}
 
 			stopWheels()
-			if (rightTalon.sensorCollection.isRevLimitSwitchClosed) {
+			if (rightTalon.sensorCollection.isRevLimitSwitchClosed && !vault) {
 				moveIntakeToPosition(Intake.VERTICAL)
 			}
 		}
