@@ -6,12 +6,11 @@ public class StormNet {
 	private EthernetLidar m_lidar;
 	private LineIR m_lineIR;
 
-//	public static final int RIGHT = 0;
-//	public static final int BACK = 1;
-//	public static final int LEFT = 2;
-//	public static final int FRONT = 3;
-
 	public static final int LEFT = 0;
+	public static final int RIGHT = 1;
+	public static final int FRONT = 2;
+	public static final int BACK = 3;
+
 
 	private StormNet() {
 		// TODO - get these values from configuration

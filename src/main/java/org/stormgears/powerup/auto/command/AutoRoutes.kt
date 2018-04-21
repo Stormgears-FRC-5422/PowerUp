@@ -14,7 +14,7 @@ import kotlin.math.PI
  */
 object AutoRoutes : TerminableSubsystem() {
 	private suspend fun backOffAndRetractElevator(dist: Double = -24.0, maxAMult: Double = 0.7, delay: Int = 2800, joinElevator: Boolean = true, elevatorPos: Int = 1): Job? {
-		val j = launch { Robot.drive?.moveStraightNavX(dist, maxAMultiplier = maxAMult) }
+		val j = launch { Robot.drive?.moveStraightWithFeedback(dist, maxAMultiplier = maxAMult) }
 		delay(delay)
 		val ej = Robot.elevator?.moveElevatorToPosition(elevatorPos)
 		if (joinElevator) {
@@ -27,7 +27,7 @@ object AutoRoutes : TerminableSubsystem() {
 
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
-			Robot.drive?.moveStraightNavX(254.0 /* for good luck */)
+			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			println("before turn")
@@ -35,12 +35,12 @@ object AutoRoutes : TerminableSubsystem() {
 			delay(250)
 			println("before movestraight 2")
 			// OG 42
-			Robot.drive?.moveStraightNavX(36.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(36.0, maxAMultiplier = 0.7)
 
 			delay(200)
 			println("before joining elevator")
 			elevatorJob?.join()
-//			Robot.drive?.moveStraightNavX(5.0)
+//			Robot.drive?.moveStraightWithFeedback(5.0)
 			// OG 0.4
 			Robot.intake?.eject(output = 1.0)
 			delay(100)
@@ -52,17 +52,17 @@ object AutoRoutes : TerminableSubsystem() {
 
 			Robot.drive?.turnNavX(PI / 2 + PI / 8)
 			Robot.intake?.startWheelsIn(0.7)
-			Robot.drive?.moveStraightNavX(54.0)
+			Robot.drive?.moveStraightWithFeedback(54.0)
 			Robot.drive?.turnNavX(-(PI / 2 + PI / 4))
 
 			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			delay(100)
-			Robot.drive?.moveStraightNavX(45.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(45.0, maxAMultiplier = 0.7)
 
 //			delay(400)
 			println("before joining elevator")
 			elevatorJob2?.join()
-//			Robot.drive?.moveStraightNavX(5.0)
+//			Robot.drive?.moveStraightWithFeedback(5.0)
 			Robot.intake?.eject(output = 1.0)
 		}
 
@@ -72,19 +72,19 @@ object AutoRoutes : TerminableSubsystem() {
 				return
 			}
 
-			Robot.drive?.moveStraightNavX(235.0)
+			Robot.drive?.moveStraightWithFeedback(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(258.0) // WITH cable protector in the middle
 
-//			Robot.drive?.moveStraightNavX(225.0)
+//			Robot.drive?.moveStraightWithFeedback(225.0)
 //			Robot.drive?.turnNavX(PI / 2)
-//			Robot.drive?.moveStraightNavX(194.0)
+//			Robot.drive?.moveStraightWithFeedback(194.0)
 //			Robot.drive?.turnNavX(-PI / 2)
 
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
-			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(42.0, maxAMultiplier = 0.7)
 			eJ?.join()
 			Robot.intake?.eject(output = 1.0)
 			delay(750)
@@ -94,7 +94,7 @@ object AutoRoutes : TerminableSubsystem() {
 
 		override suspend fun leftSwitch() {
 			var triggered = false
-			Robot.drive?.moveStraightNavX(155.0, fun(progress) {
+			Robot.drive?.moveStraightWithFeedback(155.0, fun(progress) {
 //				if (!triggered && progress > 0.8) {
 //					triggered = true
 //					Robot.intake?.startWheelsIn()
@@ -103,7 +103,7 @@ object AutoRoutes : TerminableSubsystem() {
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 //			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(Math.PI / 2.0)
-			Robot.drive?.moveStraightNavX(20.0)
+			Robot.drive?.moveStraightWithFeedback(20.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(output = 0.6)
 			delay(750)
@@ -116,11 +116,11 @@ object AutoRoutes : TerminableSubsystem() {
 				crossBaseline()
 				return
 			}
-			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.moveStraightWithFeedback(50.0)
 			Robot.drive?.strafeNavX(220.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			//			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(72.0)
+			Robot.drive?.moveStraightWithFeedback(72.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(output = 0.6)
 			delay(750)
@@ -130,14 +130,14 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun crossBaseline() {
-			Robot.drive?.moveStraightNavX(150.0)
+			Robot.drive?.moveStraightWithFeedback(150.0)
 		}
 	}
 
 	object FromRight : AutoRoute {
 
 		override suspend fun rightScale() {
-//			Robot.drive?.moveStraightNavX(254.0 /* for good luck */)
+//			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 //			println("before moveintake")
 //			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 //			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
@@ -145,18 +145,18 @@ object AutoRoutes : TerminableSubsystem() {
 //			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.94)
 //			delay(700)
 //			println("before movestraight 2")
-//			Robot.drive?.moveStraightNavX(42.0, maxAMultiplier = 0.7)
+//			Robot.drive?.moveStraightWithFeedback(42.0, maxAMultiplier = 0.7)
 //
 //			delay(400)
 //			println("before joining elevator")
 //			elevatorJob?.join()
-////			Robot.drive?.moveStraightNavX(5.0)
+////			Robot.drive?.moveStraightWithFeedback(5.0)
 //			Robot.intake?.eject(output = 0.4)
 //			delay(750)
 //
 //			backOffAndRetractElevator()
 
-			Robot.drive?.moveStraightNavX(254.0 /* for good luck */)
+			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			println("before turn")
@@ -164,12 +164,12 @@ object AutoRoutes : TerminableSubsystem() {
 			delay(250)
 			println("before movestraight 2")
 			// OG 42
-			Robot.drive?.moveStraightNavX(36.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(36.0, maxAMultiplier = 0.7)
 
 			delay(200)
 			println("before joining elevator")
 			elevatorJob?.join()
-//			Robot.drive?.moveStraightNavX(5.0)
+//			Robot.drive?.moveStraightWithFeedback(5.0)
 			// OG 0.4
 			Robot.intake?.eject(output = 1.0)
 			delay(100)
@@ -181,17 +181,17 @@ object AutoRoutes : TerminableSubsystem() {
 
 			Robot.drive?.turnNavX(-(PI / 2 + PI / 8))
 			Robot.intake?.startWheelsIn(0.7)
-			Robot.drive?.moveStraightNavX(54.0)
+			Robot.drive?.moveStraightWithFeedback(54.0)
 			// Difference in angle here is due to the wheel that has the chains needs to touch!
 			Robot.drive?.turnNavX(PI / 2 + PI / 6)
 
 			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			delay(100)
-			Robot.drive?.moveStraightNavX(45.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(45.0, maxAMultiplier = 0.7)
 
 			println("before joining elevator")
 			elevatorJob2?.join()
-//			Robot.drive?.moveStraightNavX(5.0)
+//			Robot.drive?.moveStraightWithFeedback(5.0)
 			Robot.intake?.eject(output = 1.0)
 		}
 
@@ -201,14 +201,14 @@ object AutoRoutes : TerminableSubsystem() {
 				return
 			}
 
-			Robot.drive?.moveStraightNavX(235.0)
+			Robot.drive?.moveStraightWithFeedback(235.0)
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(-258.0) // WITH cable protector in the middle
 
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
-			Robot.drive?.moveStraightNavX(48.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(48.0, maxAMultiplier = 0.7)
 			eJ?.join()
 			Robot.intake?.eject(output = 1.0)
 			delay(750)
@@ -221,16 +221,16 @@ object AutoRoutes : TerminableSubsystem() {
 				crossBaseline()
 				return
 			}
-			Robot.drive?.moveStraightNavX(50.0)
+			Robot.drive?.moveStraightWithFeedback(50.0)
 			//new stuff
 			//			Robot.drive?.turnNavX(-Math.PI/2)
-			//			Robot.drive?.moveStraightNavX(115.0)
+			//			Robot.drive?.moveStraightWithFeedback(115.0)
 			//			Robot.drive?.turnNavX(Math.PI/2)
 
 			Robot.drive?.strafeNavX(-210.0)
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightNavX(115.0)
+			Robot.drive?.moveStraightWithFeedback(115.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(output = 0.6)
 			delay(750)
@@ -241,7 +241,7 @@ object AutoRoutes : TerminableSubsystem() {
 
 		override suspend fun rightSwitch() {
 			var triggered = false
-			Robot.drive?.moveStraightNavX(162.0, fun(progress) {
+			Robot.drive?.moveStraightWithFeedback(162.0, fun(progress) {
 //				if (!triggered && progress > 0.8) {
 //					triggered = true
 //					Robot.intake?.startWheelsIn()
@@ -250,7 +250,7 @@ object AutoRoutes : TerminableSubsystem() {
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			Robot.drive?.turnNavX(-Math.PI / 2.0)
-			Robot.drive?.moveStraightNavX(23.0)
+			Robot.drive?.moveStraightWithFeedback(23.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(output = 0.6)
 			delay(750)
@@ -259,7 +259,7 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun crossBaseline() {
-			Robot.drive?.moveStraightNavX(150.0)
+			Robot.drive?.moveStraightWithFeedback(150.0)
 		}
 	}
 
@@ -277,7 +277,7 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.75)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 			var triggered = false
-			Robot.drive?.moveStraightNavX(86.0, fun(progress) {
+			Robot.drive?.moveStraightWithFeedback(86.0, fun(progress) {
 				if (!triggered && progress > 0.85) {
 					triggered = true
 					Robot.intake?.eject(output = 1.0)
@@ -295,10 +295,10 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 //			delay(750)
-//			Robot.drive?.moveStraightNavX(-8.0, maxAMultiplier = 2.0)
+//			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
 			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
 			Robot.drive?.strafeNavX(-49.0, 3.0)
-			Robot.drive?.moveStraightNavX(16.0, maxAMultiplier = 3.0)
+			Robot.drive?.moveStraightWithFeedback(16.0, maxAMultiplier = 3.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
 
@@ -312,15 +312,15 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-			Robot.drive?.moveStraightNavX(-12.0, maxAMultiplier = 2.0)
+			Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 12)
 			Robot.drive?.turnNavX(Math.toRadians(-62.0))
-			Robot.drive?.moveStraightNavX(10.0, maxAMultiplier = 2.0);
+			Robot.drive?.moveStraightWithFeedback(10.0, maxAMultiplier = 2.0);
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
 
 //			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[0] + 6)
-//			Robot.drive?.moveStraightNavX(-8.0)
+//			Robot.drive?.moveStraightWithFeedback(-8.0)
 //			Robot.drive?.turnNavX(-PI / 2 * 0.9)
 //			elevatorJob?.join()
 //			Robot.intake?.eject(1.0)
@@ -331,7 +331,7 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.6)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 			var triggered = false
-			Robot.drive?.moveStraightNavX(92.0, fun(progress) {
+			Robot.drive?.moveStraightWithFeedback(92.0, fun(progress) {
 				if (!triggered && progress > 0.85) {
 					triggered = true
 					Robot.intake?.eject(output = 1.0)
@@ -349,10 +349,10 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 //			delay(750)
-//			Robot.drive?.moveStraightNavX(-8.0, maxAMultiplier = 2.0)
+//			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
 			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
 			Robot.drive?.strafeNavX(64.0, 3.0)
-			Robot.drive?.moveStraightNavX(24.0, maxAMultiplier = 3.0)
+			Robot.drive?.moveStraightWithFeedback(24.0, maxAMultiplier = 3.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
 
@@ -368,10 +368,10 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-			Robot.drive?.moveStraightNavX(-12.0, maxAMultiplier = 2.0)
+			Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 20) // Originally 12
 			Robot.drive?.turnNavX(Math.toRadians(75.0))
-			Robot.drive?.moveStraightNavX(8.0, maxAMultiplier = 2.0)
+			Robot.drive?.moveStraightWithFeedback(8.0, maxAMultiplier = 2.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
 		}

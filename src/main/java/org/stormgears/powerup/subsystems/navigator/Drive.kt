@@ -26,6 +26,12 @@ object Drive : TerminableSubsystem() {
 
 	private const val TURN_SENSITIVITY_FACTOR = 0.65
 
+	const val NAVX = 0
+	const val LIDAR_LEFT = 1
+	const val LIDAR_RIGHT = 2
+	const val LIDAR_FRONT = 3
+	const val LIDAR_BACK = 4
+
 	// IN RPM!!!
 	private const val MAX_VELOCITY = 5000
 	private const val MAX_ACCELERATION = 2500
@@ -306,7 +312,20 @@ object Drive : TerminableSubsystem() {
 	 * Moves the robot forwards or backwards
 	 * @param dist in inches
 	 */
-	suspend fun moveStraightNavX(dist: Double, progressListener: ((progress: Double) -> Unit)? = null, maxAMultiplier: Double = 1.0) {
+	suspend fun moveStraightWithFeedback(dist: Double,
+										 progressListener: ((progress: Double) -> Unit)? = null,
+										 maxAMultiplier: Double = 1.0,
+										 feedbackDevice: Int = NAVX) {
+
+		fun getAngle(feedbackDevice: Int): Double = when (feedbackDevice) {
+			NAVX -> -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false)
+			LIDAR_LEFT -> getLidarAngle(StormNet.LEFT)
+			LIDAR_RIGHT -> getLidarAngle(StormNet.RIGHT)
+			LIDAR_FRONT -> getLidarAngle(StormNet.FRONT)
+			LIDAR_BACK -> getLidarAngle(StormNet.BACK)
+			else -> 0.0
+		}
+
 		val sign = Math.signum(dist)
 		val distance = abs(dist)
 
@@ -323,7 +342,7 @@ object Drive : TerminableSubsystem() {
 		val talonRL = talons[2]
 		val talonRR = talons[3]
 
-		val initTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees
+		val initTheta = getAngle(feedbackDevice) // degrees
 		val initPosFL = -talonFL.sensorCollection.quadraturePosition
 		val initPosFR = talonFR.sensorCollection.quadraturePosition
 
@@ -337,7 +356,7 @@ object Drive : TerminableSubsystem() {
 //			val currVel = Math.sin((progress * 0.82 + 0.1) * Math.PI) * maxVel // ticks/100ms
 			val currVel = sunProfile.profile(progress * distance, distance, maxAMultiplier)
 
-			val currTheta = -sensors.navX.getTheta(NavX.AngleUnit.Degrees, false) // degrees TODO why is this inverted
+			val currTheta = getAngle(feedbackDevice)
 			val delta = currTheta - initTheta // degrees
 
 			val compensation = sign * delta / 30
@@ -507,11 +526,15 @@ object Drive : TerminableSubsystem() {
 		setDriveTalonsZeroVelocity()
 	}
 
-	fun moveStraightLidar(side: Int) {
+	suspend fun moveStraightRelativeToLidarDistance(side: Int, distanceFromObstacle: Int) {
+		val currentDistance = Robot.sensors?.stormNet?.m_lidar?.getAverageDistance(side) ?: return
 
+		val delta = currentDistance - distanceFromObstacle
+
+		moveStraightWithFeedback(delta)
 	}
 
-	fun strafeLidar(side: Integer) {
+	fun strafeLidar(side: Int) {
 
 	}
 
@@ -550,7 +573,7 @@ object Drive : TerminableSubsystem() {
 
 //		moveStraight(hyp, theta)
 		if (abs(theta) < 0.001) {
-			moveStraightNavX(hyp)
+			moveStraightWithFeedback(hyp)
 		} else if (abs(theta) in (PI / 2 - 0.001)..(PI / 2 + 0.001)) {
 			strafeNavX(Math.copySign(hyp, theta))
 		} else {
