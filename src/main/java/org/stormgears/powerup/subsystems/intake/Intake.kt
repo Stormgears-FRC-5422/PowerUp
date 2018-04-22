@@ -114,9 +114,8 @@ object Intake : TerminableSubsystem() {
 
 		val job = launch("Intake Eject") {
 			if (forceHorizontal && this@Intake.position == VERTICAL) {
-				moveIntakeToPositionSuspend(HORIZONTAL)
+				moveIntakeToPosition(HORIZONTAL).join()
 			}
-
 			startWheelsOut(output = output)
 			delay(1000)
 			stopWheels()
@@ -166,6 +165,7 @@ object Intake : TerminableSubsystem() {
 		rotationMotor.set(ControlMode.PercentOutput, power)
 		delay(time * 20)
 		rotationMotor.set(ControlMode.PercentOutput, 0.0)
+		delay(150)
 
 		this.position = position
 	}
