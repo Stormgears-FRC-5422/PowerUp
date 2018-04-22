@@ -1,6 +1,5 @@
 package org.stormgears.powerup.subsystems.dsio
 
-import edu.wpi.first.wpilibj.GenericHID
 import edu.wpi.first.wpilibj.Joystick
 import org.stormgears.utils.dsio.*
 
@@ -42,7 +41,7 @@ class ButtonBoard2018V1 private constructor(msp: Joystick, logitech: Joystick, r
 	override val overrideLeft: IButton = EnhancedButton(msp, 12)
 	override val overrideRight: IButton = EnhancedButton(msp, 13)
 
-	override val speedPot: IJoystickAxis = JoystickAxis(msp, 1, -1.0)
+	override val speedSwitch: ISwitch = DummySwitch()
 
 	override val intakeTrigger: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 1) else DummyButton()
 

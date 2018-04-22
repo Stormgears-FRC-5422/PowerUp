@@ -93,7 +93,7 @@ class JoystickDetector {
 						drivingJoystickChannel = i
 					}
 				} else if (joystick.name.contains("Generic")) {    // Match
-					if (joystick.getRawButton(3)) {
+					if (joystick.getRawButton(4)) {
 						logger.info("Jumper generic gamepad guess: {}", box(i))
 						jumperGamepadChannel = i
 					} else {

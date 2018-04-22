@@ -5,8 +5,8 @@ import org.stormgears.utils.dsio.*
 
 class ButtonBoard2018V2 private constructor(jumperGamepad: Joystick, normalGamepad: Joystick, realJoystick: LogitechJoystick?) : IButtonBoard {
 
-	override val gripOpenButton: IButton = EnhancedButton(normalGamepad, 8)
-	override val gripCloseButton: IButton = EnhancedButton(normalGamepad, 9)
+	override val gripOpenButton: IButton = DummyButton()
+	override val gripCloseButton: IButton = EnhancedButton(normalGamepad, 8)
 
 	override val dropButton: IButton = EnhancedButton(normalGamepad, 1)
 
@@ -36,12 +36,12 @@ class ButtonBoard2018V2 private constructor(jumperGamepad: Joystick, normalGamep
 	override val zeroElevatorButton: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 8) else DummyButton()
 
 	override val overrideSwitch: ISwitch = SwitchControl(normalGamepad, 12)
-	override val overrideUp: IButton = JoystickAxisButton(normalGamepad, 0, JoystickAxisButton.Direction.Left)
-	override val overrideDown: IButton = JoystickAxisButton(normalGamepad, 0, JoystickAxisButton.Direction.Right)
-	override val overrideLeft: IButton = JoystickAxisButton(normalGamepad, 1, JoystickAxisButton.Direction.Right)
-	override val overrideRight: IButton = JoystickAxisButton(normalGamepad, 1, JoystickAxisButton.Direction.Left)
+	override val overrideUp: IButton = EnhancedButton(jumperGamepad, 3)
+	override val overrideDown: IButton = EnhancedButton(jumperGamepad, 2)
+	override val overrideLeft: IButton = DummyButton()
+	override val overrideRight: IButton = DummyButton()
 
-	override val speedPot: IJoystickAxis = DummyJoystickAxis()
+	override val speedSwitch: ISwitch = SwitchControl(jumperGamepad, 1)
 
 	override val intakeTrigger: IButton = if (realJoystick != null) EnhancedButton(realJoystick, 1) else DummyButton()
 
