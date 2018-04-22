@@ -29,7 +29,7 @@ object AutoRoutes : TerminableSubsystem() {
 		override suspend fun leftScale() {
 			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
-			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[3])
 			println("before turn")
 			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.94)
 			delay(250)
@@ -51,11 +51,11 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 
 			Robot.drive?.turnNavX(PI / 2 + PI / 8)
-			Robot.intake?.startWheelsIn(0.7)
+			Robot.intake?.grab()
 			Robot.drive?.moveStraightWithFeedback(54.0)
 			Robot.drive?.turnNavX(-(PI / 2 + PI / 4))
 
-			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[3])
 			delay(100)
 			Robot.drive?.moveStraightWithFeedback(45.0, maxAMultiplier = 0.7)
 
@@ -63,7 +63,7 @@ object AutoRoutes : TerminableSubsystem() {
 			println("before joining elevator")
 			elevatorJob2?.join()
 //			Robot.drive?.moveStraightWithFeedback(5.0)
-			Robot.intake?.eject(output = 1.0)
+			Robot.intake?.eject(output = 1.0, forceHorizontal = true)
 		}
 
 		override suspend fun rightScale() {
@@ -158,7 +158,7 @@ object AutoRoutes : TerminableSubsystem() {
 
 			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
-			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[3])
 			println("before turn")
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.94)
 			delay(250)
@@ -179,20 +179,20 @@ object AutoRoutes : TerminableSubsystem() {
 			backOffAndRetractElevator(delay = 0)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 
-			Robot.drive?.turnNavX(-(PI / 2 + PI / 8))
-			Robot.intake?.startWheelsIn(0.7)
+			Robot.drive?.turnNavX(-(PI / 2 + 3 * PI / 24))
+			Robot.intake?.grab()
 			Robot.drive?.moveStraightWithFeedback(54.0)
 			// Difference in angle here is due to the wheel that has the chains needs to touch!
-			Robot.drive?.turnNavX(PI / 2 + PI / 6)
+			Robot.drive?.turnNavX(PI / 2 + PI / 4)
 
-			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
+			val elevatorJob2 = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[2])
 			delay(100)
 			Robot.drive?.moveStraightWithFeedback(45.0, maxAMultiplier = 0.7)
 
 			println("before joining elevator")
 			elevatorJob2?.join()
 //			Robot.drive?.moveStraightWithFeedback(5.0)
-			Robot.intake?.eject(output = 1.0)
+			Robot.intake?.eject(forceHorizontal = true, output = 1.0)
 		}
 
 		override suspend fun leftScale() {

@@ -38,16 +38,13 @@ object DSIO {
 
 		for (i in 0 until buttonBoard.scaleButtons.size) {
 			buttonBoard.scaleButtons[i].whenPressed {
-				if (i >= 2)
-					Commands.placeCube(Elevator.SCALE_POSITIONS[i], 1)
-				else
-					Commands.placeCube(Elevator.SCALE_POSITIONS[i], 0)
+				Commands.placeCube(Elevator.SCALE_POSITIONS[i], 1)
 			}
 		}
 
 		buttonBoard.switch0Button.whenPressed {
 			logger.trace("SWITCH BUTTON PRESSED 1")
-			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
+			Commands.placeCube(Elevator.SWITCH_POSITIONS[0], 1)
 		}
 		buttonBoard.switch1Button.whenPressed {
 			logger.trace("SWITCH BUTTON PRESSED 2")

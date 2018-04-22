@@ -33,8 +33,8 @@ object Elevator : TerminableSubsystem() {
 	private val ZERO_CURRENT_LIMIT = 0.4 * Math.pow(Robot.config.elevatorStiffness, 2.5) //2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
-	val SWITCH_POSITIONS = intArrayOf(19, 35, 40) // first one = 22
-	val SCALE_POSITIONS = intArrayOf(56, 70, 81, 83, 87) // first one = 56
+	val SWITCH_POSITIONS = intArrayOf(27, 35, 40) // first one = 22
+	val SCALE_POSITIONS = intArrayOf(56, 70, 75, 81, 89) // first one = 56
 
 	// Jobs
 	private var elevatorJob: Job? = null
@@ -99,7 +99,7 @@ object Elevator : TerminableSubsystem() {
 			val cpt = currentPositionTicks
 			val relDist = abs((cpt.toDouble() - destinationTicks) / destinationTicks)
 			val powerMul = 1.0 //relDist.pow(1.0 / 3.0) + 0.15
-			val power = if (lowering && cpt > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 2.0) else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
+			val power = if (lowering && cpt > -100000) 0.07 * Math.pow(Robot.config.elevatorStiffness, 2.5) else max(min(basePower * powerMul * multiplier, 1.0), -1.0)
 			talons.masterMotor.set(ControlMode.PercentOutput, power)
 
 //			logger.trace("relDist = {}; powerMul = {}; currentPositionTicks = {}; destinationTicks = {}; power = {}", box(relDist), box(powerMul), box(currentPositionTicks), box(destinationTicks), box(basePower * powerMul * multiplier))
