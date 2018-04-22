@@ -97,7 +97,7 @@ object DSIO {
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 
-		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab(vault = true) }
+		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab(forceVertical = false) }
 		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(output = if (buttonBoard.speedSwitch.get()) 0.2 else 0.8, checkLimitSwitch = true, forceHorizontal = false) }
 	}
 

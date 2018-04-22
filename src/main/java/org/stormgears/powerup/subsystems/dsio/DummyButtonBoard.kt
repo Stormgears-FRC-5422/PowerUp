@@ -24,5 +24,6 @@ class DummyButtonBoard : IButtonBoard {
 	override val overrideLeft: IButton = DummyButton()
 	override val overrideRight: IButton = DummyButton()
 	override val speedSwitch: ISwitch = DummySwitch()
-	override val intakeTrigger: IButton = DummyButton()
+	override val intakeTrigger:
+		IButton = DummyButton()
 }

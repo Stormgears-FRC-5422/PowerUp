@@ -18,6 +18,8 @@ object Intake : TerminableSubsystem() {
 	// Positions
 	const val VERTICAL = 0
 	const val HORIZONTAL = 1
+	private const val VERTICAL_TICKS = 0
+	private const val HORIZONTAL_TICKS = 2048
 
 	private val LEFT_TALON_ID = Robot.config.intakeLeftTalonId
 	private val RIGHT_TALON_ID = Robot.config.intakeRightTalonId
@@ -72,7 +74,7 @@ object Intake : TerminableSubsystem() {
 		rightTalon.set(ControlMode.PercentOutput, 0.0)
 	}
 
-	fun grab(limit: Int = 200, vault: Boolean = false): Job {
+	fun grab(limit: Int = 200, forceVertical: Boolean = true): Job {
 		if (wheelsJob != null) {
 			wheelsJob!!.cancel()
 			logger.info("Canceled intake wheels job")
@@ -92,7 +94,7 @@ object Intake : TerminableSubsystem() {
 			}
 
 			stopWheels()
-			if (rightTalon.sensorCollection.isRevLimitSwitchClosed && !vault) {
+			if (rightTalon.sensorCollection.isRevLimitSwitchClosed && forceVertical) {
 				moveIntakeToPosition(Intake.VERTICAL)
 			}
 		}
@@ -147,8 +149,8 @@ object Intake : TerminableSubsystem() {
 		when (position) {
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				power = 0.7
-				time = 7
+				power = 0.4
+				time = 17
 			}
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
@@ -164,8 +166,9 @@ object Intake : TerminableSubsystem() {
 		logger.trace("Articulator moving with {}", power)
 		rotationMotor.set(ControlMode.PercentOutput, power)
 		delay(time * 20)
+//		rotationMotor.set(ControlMode.PercentOutput, -power / 5)
+//		delay(150)
 		rotationMotor.set(ControlMode.PercentOutput, 0.0)
-		delay(150)
 
 		this.position = position
 	}

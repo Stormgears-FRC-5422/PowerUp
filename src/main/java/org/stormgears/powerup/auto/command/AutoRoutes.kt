@@ -273,30 +273,35 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun leftSwitch() {
-			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.75)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 			var triggered = false
-			Robot.drive?.moveStraightWithFeedback(86.0, fun(progress) {
+			Robot.drive?.moveStraightWithFeedback(90.0, { progress ->
 				if (!triggered && progress > 0.85) {
 					triggered = true
-					Robot.intake?.eject(output = 1.0)
-					launch { delay(750); Robot.intake?.stopWheels() }
+					launch {
+						elevatorJob?.join()
+						Robot.intake?.eject(output = 1.0);
+						delay(750); Robot.intake?.stopWheels()
+					}
 				}
 			})
+
+			// Turning to get second cube
 			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
 
-			backOffAndRetractElevator(-28.0, 1.6, 600, false)
+			backOffAndRetractElevator(-33.0, 1.6, 600, false)
 
-			Robot.drive?.strafeNavX(49.0, 3.0)
-			var grabJob = Robot.intake?.grab(300)
+			Robot.drive?.strafeNavX(44.0, 3.0)
+			var grabJob = Robot.intake?.grab(300, forceVertical = false)
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob?.join()
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 //			delay(750)
 //			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
-			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
+			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
 			Robot.drive?.strafeNavX(-49.0, 3.0)
 			Robot.drive?.moveStraightWithFeedback(16.0, maxAMultiplier = 3.0)
 			elevatorJob?.join()
@@ -305,16 +310,16 @@ object AutoRoutes : TerminableSubsystem() {
 			val backOffAndRetractElevator = backOffAndRetractElevator(0.0, 1.0, 600, false)
 
 			Robot.drive?.turnNavX(Math.toRadians(66.0))
-			grabJob = launch { delay(200); Robot.intake?.grab(200)?.join() }
+			grabJob = launch { delay(200); Robot.intake?.grab(200, forceVertical = false)?.join() }
 			backOffAndRetractElevator?.join()
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob.join()
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
 			delay(100)
 			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-			Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
+			Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 3.0)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 12)
-			Robot.drive?.turnNavX(Math.toRadians(-62.0))
+			Robot.drive?.turnNavX(Math.toRadians(-70.0))
 			Robot.drive?.moveStraightWithFeedback(10.0, maxAMultiplier = 2.0);
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
@@ -343,7 +348,7 @@ object AutoRoutes : TerminableSubsystem() {
 			backOffAndRetractElevator(-28.0, 1.6, 600, false)
 
 			Robot.drive?.strafeNavX(-50.0, 3.0)
-			var grabJob = Robot.intake?.grab(300)
+			var grabJob = Robot.intake?.grab(300, forceVertical = false)
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob?.join()
 			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
@@ -361,7 +366,7 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.strafeNavX(-12.0, 3.0)
 			Robot.drive?.turnNavX(Math.toRadians(-20.0))
 
-			grabJob = launch { delay(200); Robot.intake?.grab(200)?.join() }
+			grabJob = launch { delay(200); Robot.intake?.grab(200, forceVertical = false)?.join() }
 			backOffAndRetractElevator?.join()
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
 			grabJob.join()
