@@ -51,25 +51,17 @@ object DSIO {
 			Commands.placeCube(Elevator.SWITCH_POSITIONS[1], 1)
 		}
 
-		buttonBoard.dropButton.whenPressed { Robot.intake?.eject(output = 0.2, forceHorizontal = true) }
+		buttonBoard.dropButton.whenPressed { Robot.intake?.eject(output = if (buttonBoard.speedSwitch.get()) 0.2 else 0.8, forceHorizontal = true) }
 
 		// THIS BUTTON WILL BE USED AS THE RESET BUTTON
 		buttonBoard.sideLeftButton.whenPressed {
 			Commands.reset()
 		}
 
-		buttonBoard.sideRightButton.whenPressed {
-			/* TODO: This button is unused */
-		}
-
-//		buttonBoard.sideLeftButton.whenPressed { /* TODO: This button is unused */ }
-//		buttonBoard.sideRightButton.whenPressed { /* TODO: This button is unused */ }
-
 		buttonBoard.intakeGrabButton.whenPressed { Intake.grab() }
 
 		buttonBoard.forceZeroElevatorButton.whenPressed { Robot.elevator?.launchZeroElevator() }
 		buttonBoard.zeroElevatorButton.whenPressed { Robot.elevator?.zeroElevatorEncoder() }
-
 
 		val intakeWheelsSwitch = buttonBoard.intakeWheelsSwitch
 		if (intakeWheelsSwitch is ITernarySwitch) {
@@ -98,31 +90,15 @@ object DSIO {
 			logger.warn("Intake lift switch is not ternary, not sure what to do!")
 		}
 
-//		buttonBoard.gripCloseButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true }
-//		buttonBoard.gripCloseButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false }
-//
-//		buttonBoard.gripOpenButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true  }
-//		buttonBoard.gripOpenButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false  }
-//
-//		buttonBoard.climbUpButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true   }
-//		buttonBoard.climbUpButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false}
-//
-//		buttonBoard.climbDownButton.whenPressed { Robot.drive?.overrideAbsoluteControl = true   }
-//		buttonBoard.climbDownButton.whenReleased { Robot.drive?.overrideAbsoluteControl = false }
-
 		buttonBoard.overrideUp.whileHeld { Robot.elevator?.moveUpManual() }
 		buttonBoard.overrideDown.whileHeld { Robot.elevator?.moveDownManual() }
 		buttonBoard.overrideUp.whenReleased { Robot.elevator?.stop() }
 		buttonBoard.overrideDown.whenReleased { Robot.elevator?.stop() }
-		buttonBoard.overrideLeft.whenPressed { /* TODO: This button is unused */ }
-		buttonBoard.overrideRight.whenPressed { /* TODO: This button is unused */ }
-		buttonBoard.overrideLeft.whenReleased { Robot.elevator?.stop() }
-		buttonBoard.overrideRight.whenReleased { Robot.elevator?.stop() }
 
 		buttonBoard.overrideSwitch.whenFlipped { on -> Terminator.disabled = on }
 
 		buttonBoard.intakeTrigger.whenPressed { Robot.intake?.grab(vault = true) }
-		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(checkLimitSwitch = true, forceHorizontal = false) }
+		buttonBoard.intakeTrigger.whenReleased { Robot.intake?.eject(output = if (buttonBoard.speedSwitch.get()) 0.2 else 0.8, checkLimitSwitch = true, forceHorizontal = false) }
 	}
 
 	val intakeSpeed: Double
