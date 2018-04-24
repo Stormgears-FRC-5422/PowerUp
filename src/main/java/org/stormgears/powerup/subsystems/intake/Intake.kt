@@ -7,6 +7,7 @@ import kotlinx.coroutines.experimental.delay
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.Robot
 import org.stormgears.utils.concurrency.TerminableSubsystem
+import org.stormgears.utils.talons.FactoryTalonConfig
 import org.stormgears.utils.talons.ITalon
 import org.stormgears.utils.talons.createTalon
 
@@ -33,10 +34,17 @@ object Intake : TerminableSubsystem() {
 	private var rotationJob: Job? = null
 	private var wheelsJob: Job? = null
 
+	class RotationMotorConfig : FactoryTalonConfig() {
+		override val enableVoltageCompensation = true
+		override val voltageCompSaturation = 8.0
+	}
+
 	init {
 		leftTalon = createTalon(LEFT_TALON_ID)
 		rightTalon = createTalon(RIGHT_TALON_ID)
 		rotationMotor = createTalon(ARTICULATOR_TALON_ID)
+
+		rotationMotor.setConfig(RotationMotorConfig())
 
 		if (leftTalon.dummy || rightTalon.dummy) {
 			logger.warn("Requires physical talon, disabling Intake!")
@@ -149,12 +157,12 @@ object Intake : TerminableSubsystem() {
 		when (position) {
 			HORIZONTAL -> {
 				logger.info("Moving to horizontal position.")
-				power = 0.4
+				power = 0.8
 				time = 17
 			}
 			VERTICAL -> {
 				logger.info("Moving to vertical position.")
-				power = -0.5
+				power = -0.8
 				time = 24
 			}
 			else -> {
@@ -168,7 +176,7 @@ object Intake : TerminableSubsystem() {
 		delay(time * 20)
 //		rotationMotor.set(ControlMode.PercentOutput, -power / 5)
 //		delay(150)
-		rotationMotor.set(ControlMode.PercentOutput, 0.0)
+		rotationMotor.set(ControlMode.PercentOutput, power * 0.1)
 
 		this.position = position
 	}

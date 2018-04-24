@@ -20,8 +20,8 @@ public class Sensors {
 		vision = new Vision();
 		navX = new NavX();
 
-		StormNet.init();
-		stormNet = StormNet.getInstance();
+//		StormNet.init();
+//		stormNet = StormNet.getInstance();
 
 		ProximitySensor.init();
 		proximitySensor = ProximitySensor.getInstance();

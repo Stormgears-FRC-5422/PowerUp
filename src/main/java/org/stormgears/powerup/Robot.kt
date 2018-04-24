@@ -153,7 +153,7 @@ class Robot : BaseStormgearsRobot() {
 		logger.trace("starting the autonomous command")
 
 		if (drive != null && sensors != null) {
-			if (!sensors!!.navX.thetaIsSet()) sensors!!.navX.setInitialTheta()
+			sensors!!.navX.setInitialTheta()
 
 			AutonomousCommandGroup.run(choosers!!.startingSpot,
 				choosers!!.placementSpot,
