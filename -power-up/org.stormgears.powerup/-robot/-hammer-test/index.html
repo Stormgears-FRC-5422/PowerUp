@@ -1,47 +1,70 @@
 <HTML>
 <HEAD>
 <meta charset="UTF-8">
-<title>FactoryTalonConfig - PowerUp</title>
-<link rel="stylesheet" href="../../../style.css">
+<title>Robot.HammerTest - PowerUp</title>
+<link rel="stylesheet" href="../../../../style.css">
 </HEAD>
 <BODY>
-<a href="../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../index.html">org.stormgears.utils.talons</a>&nbsp;/&nbsp;<a href="./index.html">FactoryTalonConfig</a><br/>
+<a href="../../../index.html">PowerUp</a>&nbsp;/&nbsp;<a href="../../index.html">org.stormgears.powerup</a>&nbsp;/&nbsp;<a href="../index.html">Robot</a>&nbsp;/&nbsp;<a href="./index.html">HammerTest</a><br/>
 <br/>
-<h1>FactoryTalonConfig</h1>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">FactoryTalonConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-talon-config/index.html"><span class="identifier">TalonConfig</span></a></code>
-<p>Factory default Talon configuration</p>
-<h3>Types</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-default-p-i-d-slot/index.html">DefaultPIDSlot</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">DefaultPIDSlot</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="-init-.html">&lt;init&gt;</a></p>
-</td>
-<td>
-<code><span class="identifier">FactoryTalonConfig</span><span class="symbol">(</span><span class="symbol">)</span></code>
-<p>Factory default Talon configuration</p>
-</td>
-</tr>
-</tbody>
-</table>
+<h1>HammerTest</h1>
+<code><span class="keyword">object </span><span class="identifier">HammerTest</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../org.stormgears.utils.talons/-factory-talon-config/index.html"><span class="identifier">FactoryTalonConfig</span></a></code>
 <h3>Properties</h3>
 <table>
 <tbody>
 <tr>
 <td>
-<p><a href="aux-p-i-d-polarity.html">auxPIDPolarity</a></p>
+<p><a href="closedloop-ramp.html">closedloopRamp</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">closedloopRamp</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
+<p>Configures the closed-loop ramp rate of throttle output.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="profile-slot0.html">profileSlot0</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">profileSlot0</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
+<p>Profile slot 0</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="profile-slot1.html">profileSlot1</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">profileSlot1</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
+<p>Profile slot 1</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="profile-slot2.html">profileSlot2</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">profileSlot2</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
+<p>Profile slot 2</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="profile-slot3.html">profileSlot3</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">profileSlot3</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
+<p>Profile slot 3</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/aux-p-i-d-polarity.html">auxPIDPolarity</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">auxPIDPolarity</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -51,16 +74,7 @@
 </tr>
 <tr>
 <td>
-<p><a href="closedloop-ramp.html">closedloopRamp</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">closedloopRamp</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
-<p>Configures the closed-loop ramp rate of throttle output.</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="continuous-current-limit.html">continuousCurrentLimit</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/continuous-current-limit.html">continuousCurrentLimit</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">continuousCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -73,7 +87,7 @@ current-limiting (single threshold) use <code>ConfigContinuousCurrentLimit()</co
 </tr>
 <tr>
 <td>
-<p><a href="enable-current-limit.html">enableCurrentLimit</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/enable-current-limit.html">enableCurrentLimit</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">enableCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -82,7 +96,7 @@ current-limiting (single threshold) use <code>ConfigContinuousCurrentLimit()</co
 </tr>
 <tr>
 <td>
-<p><a href="enable-voltage-compensation.html">enableVoltageCompensation</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/enable-voltage-compensation.html">enableVoltageCompensation</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">enableVoltageCompensation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -91,10 +105,10 @@ current-limiting (single threshold) use <code>ConfigContinuousCurrentLimit()</co
 </tr>
 <tr>
 <td>
-<p><a href="forward-limit-switch-source.html">forwardLimitSwitchSource</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/forward-limit-switch-source.html">forwardLimitSwitchSource</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">forwardLimitSwitchSource</span><span class="symbol">: </span><a href="../-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">forwardLimitSwitchSource</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
 <p>Configures a limit switch for a local/remote source. For example, a CAN motor controller may need to monitor the
 Limit-R pin of another Talon, CANifier, or local Gadgeteer feedback connector. If the sensor is remote, a device
 ID of zero is assumed. If that's not desired, use the four parameter version of this function.</p>
@@ -102,7 +116,7 @@ ID of zero is assumed. If that's not desired, use the four parameter version of 
 </tr>
 <tr>
 <td>
-<p><a href="forward-soft-limit-enable.html">forwardSoftLimitEnable</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/forward-soft-limit-enable.html">forwardSoftLimitEnable</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">forwardSoftLimitEnable</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -111,7 +125,7 @@ ID of zero is assumed. If that's not desired, use the four parameter version of 
 </tr>
 <tr>
 <td>
-<p><a href="forward-soft-limit-threshold.html">forwardSoftLimitThreshold</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/forward-soft-limit-threshold.html">forwardSoftLimitThreshold</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">forwardSoftLimitThreshold</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -120,7 +134,7 @@ ID of zero is assumed. If that's not desired, use the four parameter version of 
 </tr>
 <tr>
 <td>
-<p><a href="inverted.html">inverted</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/inverted.html">inverted</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">inverted</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -130,7 +144,7 @@ correct sensor polarity. This will invert the hbridge output but NOT the LEDs. T
 </tr>
 <tr>
 <td>
-<p><a href="motion-acceleration.html">motionAcceleration</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/motion-acceleration.html">motionAcceleration</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">motionAcceleration</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -140,7 +154,7 @@ in ticks/100ms/sec.</p>
 </tr>
 <tr>
 <td>
-<p><a href="motion-cruise-velocity.html">motionCruiseVelocity</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/motion-cruise-velocity.html">motionCruiseVelocity</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">motionCruiseVelocity</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -150,7 +164,7 @@ use in ticks/100ms.</p>
 </tr>
 <tr>
 <td>
-<p><a href="motion-profile-trajectory-period.html">motionProfileTrajectoryPeriod</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/motion-profile-trajectory-period.html">motionProfileTrajectoryPeriod</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">motionProfileTrajectoryPeriod</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -162,7 +176,7 @@ with 1ms resolution, while allowing some degree of change from point to point.</
 </tr>
 <tr>
 <td>
-<p><a href="neutral-deadband.html">neutralDeadband</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/neutral-deadband.html">neutralDeadband</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">neutralDeadband</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -171,7 +185,7 @@ with 1ms resolution, while allowing some degree of change from point to point.</
 </tr>
 <tr>
 <td>
-<p><a href="neutral-mode.html">neutralMode</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/neutral-mode.html">neutralMode</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">neutralMode</span><span class="symbol">: </span><span class="identifier">NeutralMode</span></code>
@@ -180,7 +194,7 @@ with 1ms resolution, while allowing some degree of change from point to point.</
 </tr>
 <tr>
 <td>
-<p><a href="nominal-output-forward.html">nominalOutputForward</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/nominal-output-forward.html">nominalOutputForward</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">nominalOutputForward</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -189,14 +203,14 @@ with 1ms resolution, while allowing some degree of change from point to point.</
 </tr>
 <tr>
 <td>
-<p><a href="nominal-output-reverse.html">nominalOutputReverse</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/nominal-output-reverse.html">nominalOutputReverse</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">nominalOutputReverse</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code></td>
 </tr>
 <tr>
 <td>
-<p><a href="openloop-ramp.html">openloopRamp</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/openloop-ramp.html">openloopRamp</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">openloopRamp</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -205,7 +219,7 @@ with 1ms resolution, while allowing some degree of change from point to point.</
 </tr>
 <tr>
 <td>
-<p><a href="peak-current-duration.html">peakCurrentDuration</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/peak-current-duration.html">peakCurrentDuration</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">peakCurrentDuration</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -217,7 +231,7 @@ This ensures current limiting while allowing for momentary excess current events
 </tr>
 <tr>
 <td>
-<p><a href="peak-current-limit.html">peakCurrentLimit</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/peak-current-limit.html">peakCurrentLimit</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">peakCurrentLimit</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -229,7 +243,7 @@ threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to z
 </tr>
 <tr>
 <td>
-<p><a href="peak-output-forward.html">peakOutputForward</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/peak-output-forward.html">peakOutputForward</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">peakOutputForward</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -238,7 +252,7 @@ threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to z
 </tr>
 <tr>
 <td>
-<p><a href="peak-output-reverse.html">peakOutputReverse</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/peak-output-reverse.html">peakOutputReverse</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">peakOutputReverse</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -247,62 +261,26 @@ threshold) use <code>ConfigContinuousCurrentLimit()</code> and set the peak to z
 </tr>
 <tr>
 <td>
-<p><a href="profile-slot0.html">profileSlot0</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/remote-feedback-filter.html">remoteFeedbackFilter</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot0</span><span class="symbol">: </span><a href="../-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
-<p>Profile slot 0</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="profile-slot1.html">profileSlot1</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot1</span><span class="symbol">: </span><a href="../-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
-<p>Profile slot 1</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="profile-slot2.html">profileSlot2</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot2</span><span class="symbol">: </span><a href="../-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
-<p>Profile slot 2</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="profile-slot3.html">profileSlot3</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">profileSlot3</span><span class="symbol">: </span><a href="../-p-i-d-slot/index.html"><span class="identifier">PIDSlot</span></a></code>
-<p>Profile slot 3</p>
-</td>
-</tr>
-<tr>
-<td>
-<p><a href="remote-feedback-filter.html">remoteFeedbackFilter</a></p>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">remoteFeedbackFilter</span><span class="symbol">: </span><a href="../-remote-feedback-filter-config/index.html"><span class="identifier">RemoteFeedbackFilterConfig</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">remoteFeedbackFilter</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-remote-feedback-filter-config/index.html"><span class="identifier">RemoteFeedbackFilterConfig</span></a></code>
 <p>Select what remote device and signal to assign to Remote Sensor 0 or Remote Sensor 1. After binding a remote
 device and signal to Remote Sensor X, you may select Remote Sensor X as a PID source for closed-loop features.</p>
 </td>
 </tr>
 <tr>
 <td>
-<p><a href="reverse-limit-switch-source.html">reverseLimitSwitchSource</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/reverse-limit-switch-source.html">reverseLimitSwitchSource</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">reverseLimitSwitchSource</span><span class="symbol">: </span><a href="../-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">reverseLimitSwitchSource</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-limit-switch-source-config.html"><span class="identifier">LimitSwitchSourceConfig</span></a></code>
 <p>Configures the reverse limit switch for a remote source.</p>
 </td>
 </tr>
 <tr>
 <td>
-<p><a href="reverse-soft-limit-enable.html">reverseSoftLimitEnable</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/reverse-soft-limit-enable.html">reverseSoftLimitEnable</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">reverseSoftLimitEnable</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -311,7 +289,7 @@ device and signal to Remote Sensor X, you may select Remote Sensor X as a PID so
 </tr>
 <tr>
 <td>
-<p><a href="reverse-soft-limit-threshold.html">reverseSoftLimitThreshold</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/reverse-soft-limit-threshold.html">reverseSoftLimitThreshold</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">reverseSoftLimitThreshold</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -320,7 +298,7 @@ device and signal to Remote Sensor X, you may select Remote Sensor X as a PID so
 </tr>
 <tr>
 <td>
-<p><a href="selected-feedback-coefficient.html">selectedFeedbackCoefficient</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/selected-feedback-coefficient.html">selectedFeedbackCoefficient</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">selectedFeedbackCoefficient</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -330,16 +308,16 @@ your sensor values within the closed-loop calculations. Default value is 1.</p>
 </tr>
 <tr>
 <td>
-<p><a href="selected-feedback-sensor.html">selectedFeedbackSensor</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/selected-feedback-sensor.html">selectedFeedbackSensor</a></p>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">selectedFeedbackSensor</span><span class="symbol">: </span><a href="../-feedback-device-config.html"><span class="identifier">FeedbackDeviceConfig</span></a></code>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">selectedFeedbackSensor</span><span class="symbol">: </span><a href="../../../org.stormgears.utils.talons/-feedback-device-config.html"><span class="identifier">FeedbackDeviceConfig</span></a></code>
 <p>Select the feedback device for the motor controller.</p>
 </td>
 </tr>
 <tr>
 <td>
-<p><a href="sensor-phase.html">sensorPhase</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/sensor-phase.html">sensorPhase</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">sensorPhase</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
@@ -350,7 +328,7 @@ sensor. After setting this, user can freely call SetInvert() with any value.</p>
 </tr>
 <tr>
 <td>
-<p><a href="status-frame-period.html">statusFramePeriod</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/status-frame-period.html">statusFramePeriod</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">statusFramePeriod</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><span class="identifier">StatusFrameEnhanced</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
@@ -361,7 +339,7 @@ is not persistent and is lost when device is reset. If this is a concern, callin
 </tr>
 <tr>
 <td>
-<p><a href="velocity-measurement-period.html">velocityMeasurementPeriod</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/velocity-measurement-period.html">velocityMeasurementPeriod</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">velocityMeasurementPeriod</span><span class="symbol">: </span><span class="identifier">VelocityMeasPeriod</span></code>
@@ -370,7 +348,7 @@ is not persistent and is lost when device is reset. If this is a concern, callin
 </tr>
 <tr>
 <td>
-<p><a href="velocity-measurement-window.html">velocityMeasurementWindow</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/velocity-measurement-window.html">velocityMeasurementWindow</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">velocityMeasurementWindow</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
@@ -379,7 +357,7 @@ is not persistent and is lost when device is reset. If this is a concern, callin
 </tr>
 <tr>
 <td>
-<p><a href="voltage-comp-saturation.html">voltageCompSaturation</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/voltage-comp-saturation.html">voltageCompSaturation</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">voltageCompSaturation</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-double/index.html"><span class="identifier">Double</span></a></code>
@@ -388,45 +366,12 @@ is not persistent and is lost when device is reset. If this is a concern, callin
 </tr>
 <tr>
 <td>
-<p><a href="voltage-measurement-filter.html">voltageMeasurementFilter</a></p>
+<p><a href="../../../org.stormgears.utils.talons/-factory-talon-config/voltage-measurement-filter.html">voltageMeasurementFilter</a></p>
 </td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">voltageMeasurementFilter</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
 <p>Configures the voltage measurement filter.</p>
 </td>
-</tr>
-</tbody>
-</table>
-<h3>Inheritors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<p><a href="../../org.stormgears.powerup.subsystems.navigator/-drive-talons/-drive-talon-config/index.html">DriveTalonConfig</a></p>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">DriveTalonConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FactoryTalonConfig</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="../../org.stormgears.powerup.subsystems.elevatorclimber/-elevator-shared-talons/-elevator-talon-config/index.html">ElevatorTalonConfig</a></p>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">ElevatorTalonConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FactoryTalonConfig</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="../../org.stormgears.powerup/-robot/-hammer-test/index.html">HammerTest</a></p>
-</td>
-<td>
-<code><span class="keyword">object </span><span class="identifier">HammerTest</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FactoryTalonConfig</span></a></code></td>
-</tr>
-<tr>
-<td>
-<p><a href="../../org.stormgears.powerup.subsystems.intake/-intake/-rotation-motor-config/index.html">RotationMotorConfig</a></p>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">RotationMotorConfig</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">FactoryTalonConfig</span></a></code></td>
 </tr>
 </tbody>
 </table>
