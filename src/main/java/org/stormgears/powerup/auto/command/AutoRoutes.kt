@@ -50,7 +50,7 @@ object AutoRoutes : TerminableSubsystem() {
 			backOffAndRetractElevator(delay = 0)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
 
-			Robot.drive?.turnNavX(PI / 2 + PI / 8)
+			Robot.drive?.turnNavX((PI / 2 + PI / 8))
 			Robot.intake?.grab()
 			Robot.drive?.moveStraightWithFeedback(54.0)
 			Robot.drive?.turnNavX(-(PI / 2 + PI / 4))
@@ -308,17 +308,15 @@ object AutoRoutes : TerminableSubsystem() {
 //			elevatorJob?.join()
 			Robot.intake?.eject(0.7)
 
+			// THIRD CUBE
 			val backOffAndRetractElevator = backOffAndRetractElevator(0.0, 1.0, 600, false)
 
-			Robot.drive?.turnNavX(Math.toRadians(66.0))
+			Robot.drive?.turnNavX(Math.toRadians(61.0))
 			grabJob = launch { delay(200); Robot.intake?.grab(200, forceVertical = false)?.join() }
 			backOffAndRetractElevator?.join()
-			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
+			Robot.drive?.moveStraightWithFeedback(dist = 22.0, maxAMultiplier = 2.0)
 			grabJob.join()
-			Robot.drive?.joystickMove(0.0, 0.4, 0.0)
-//			delay(100)
-//			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-			Robot.drive?.moveStraightWithFeedback(-20.0, maxAMultiplier = 3.5)
+			Robot.drive?.moveStraightWithFeedback(-22.0, maxAMultiplier = 3.5)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 12)
 			Robot.drive?.turnNavX(Math.toRadians(-80.0))
 			Robot.drive?.moveStraightWithFeedback(10.0, maxAMultiplier = 2.0);
@@ -368,16 +366,16 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.strafeNavX(-12.0, 3.0)
 			Robot.drive?.turnNavX(Math.toRadians(-20.0))
 
-			grabJob = launch { delay(200); Robot.intake?.grab(200, forceVertical = false)?.join() }
+			//drive forward 30 inches with intake on
+			//turn +20 degrees with intake on
+
 			backOffAndRetractElevator?.join()
-			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
-			grabJob.join()
-			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
-			delay(100)
-			Robot.drive?.joystickMove(0.0, 0.0, 0.0)
-			Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
+			grabJob = Robot.intake?.grab(20000, forceVertical = false)
+			Robot.drive?.moveStraightWithFeedback(dist = 25.0, maxAMultiplier = 2.0)
+			Robot.drive?.turnNavX(Math.toRadians(55.0))
+			//Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 20) // Originally 12
-			Robot.drive?.turnNavX(Math.toRadians(75.0))
+
 			Robot.drive?.moveStraightWithFeedback(8.0, maxAMultiplier = 2.0)
 			elevatorJob?.join()
 			Robot.intake?.eject(1.0)
