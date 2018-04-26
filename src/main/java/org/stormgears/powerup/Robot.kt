@@ -1,6 +1,7 @@
 package org.stormgears.powerup
 
 import edu.wpi.first.wpilibj.DriverStation
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import org.apache.logging.log4j.LogManager
 import org.stormgears.powerup.auto.command.AutoDriveMoveCommand
 import org.stormgears.powerup.auto.command.AutoRoutes
@@ -22,6 +23,8 @@ import org.stormgears.powerup.subsystems.sensors.Sensors
 import org.stormgears.utils.*
 import org.stormgears.utils.concurrency.Terminator
 import org.stormgears.utils.logging.StormyLog
+import org.stormgears.utils.talons.FactoryTalonConfig
+import org.stormgears.utils.talons.PIDSlot
 
 /*
  * The entry point of the PowerUp program. Please keep it clean.
@@ -29,6 +32,7 @@ import org.stormgears.utils.logging.StormyLog
 class Robot : BaseStormgearsRobot() {
 	companion object {
 		init {
+			println("Robot.Companion init")
 			StormyLog.init()
 			fixPermissions()
 		}
@@ -155,10 +159,10 @@ class Robot : BaseStormgearsRobot() {
 		if (drive != null && sensors != null) {
 			sensors!!.navX.setInitialTheta()
 
-			AutonomousCommandGroup.run(choosers!!.startingSpot,
-				choosers!!.placementSpot,
-				FieldPositions.SCALE_PLATE_ASSIGNMENT!!,
-				FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT!!)
+			AutonomousCommandGroup.run(startingSpot = choosers!!.startingSpot,
+				placement = choosers!!.placementSpot,
+				switchPlate = FieldPositions.OWN_SWITCH_PLATE_ASSIGNMENT!!,
+				scalePlate = FieldPositions.SCALE_PLATE_ASSIGNMENT!!)
 		}
 
 		//		this.talonDebugger = new TalonDebugger(driveTalons.getTalons(), "autonomous");//.start();
@@ -269,6 +273,61 @@ class Robot : BaseStormgearsRobot() {
 
 		for (rn in notifierRegistry) {
 			rn.stop()
+		}
+	}
+
+	override fun robotPeriodic() {
+		SmartDashboard.putNumber("Time", DriverStation.getInstance().matchTime)
+	}
+
+	object HammerTest : FactoryTalonConfig() {
+		override val profileSlot0: PIDSlot = object : DefaultPIDSlot() {
+			override val kD: Double
+				get() = Math.random()
+			override val kF: Double
+				get() = Math.random()
+			override val kI: Double
+				get() = Math.random()
+			override val kP: Double
+				get() = Math.random()
+		}
+		override val profileSlot1: PIDSlot = object : DefaultPIDSlot() {
+			override val kD: Double
+				get() = Math.random()
+			override val kF: Double
+				get() = Math.random()
+			override val kI: Double
+				get() = Math.random()
+			override val kP: Double
+				get() = Math.random()
+		}
+		override val profileSlot2: PIDSlot = object : DefaultPIDSlot() {
+			override val kD: Double
+				get() = Math.random()
+			override val kF: Double
+				get() = Math.random()
+			override val kI: Double
+				get() = Math.random()
+			override val kP: Double
+				get() = Math.random()
+		}
+		override val profileSlot3: PIDSlot = object : DefaultPIDSlot() {
+			override val kD: Double
+				get() = Math.random()
+			override val kF: Double
+				get() = Math.random()
+			override val kI: Double
+				get() = Math.random()
+			override val kP: Double
+				get() = Math.random()
+		}
+		override val closedloopRamp: Double
+			get() = Math.random()
+	}
+
+	override fun testPeriodic() {
+		driveTalons?.talons?.forEach {
+			it.setConfig(HammerTest)
 		}
 	}
 }

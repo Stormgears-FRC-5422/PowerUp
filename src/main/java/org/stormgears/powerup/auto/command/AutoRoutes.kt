@@ -1,5 +1,6 @@
 package org.stormgears.powerup.auto.command
 
+import com.ctre.phoenix.motorcontrol.ControlMode
 import kotlinx.coroutines.experimental.Job
 import kotlinx.coroutines.experimental.delay
 import org.stormgears.powerup.Robot
@@ -27,6 +28,7 @@ object AutoRoutes : TerminableSubsystem() {
 
 	object FromLeft : AutoRoute {
 		override suspend fun leftScale() {
+			println("Starting at left spot, going to left scale")
 			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[3])
@@ -72,7 +74,10 @@ object AutoRoutes : TerminableSubsystem() {
 				return
 			}
 
-			Robot.drive?.moveStraightWithFeedback(235.0)
+			println("Starting at left spot, going to right scale")
+
+			Robot.drive?.moveStraightWithFeedback(247.0)
+			realignNavX(Math.toRadians(-5.0))
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(258.0) // WITH cable protector in the middle
 
@@ -84,7 +89,7 @@ object AutoRoutes : TerminableSubsystem() {
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
-			Robot.drive?.moveStraightWithFeedback(42.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(50.0, maxAMultiplier = 0.7)
 			eJ?.join()
 			Robot.intake?.eject(output = 1.0)
 			delay(750)
@@ -93,6 +98,8 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun leftSwitch() {
+			println("Starting at left spot, going to left switch")
+
 			var triggered = false
 			Robot.drive?.moveStraightWithFeedback(155.0, fun(progress) {
 //				if (!triggered && progress > 0.8) {
@@ -112,6 +119,8 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun rightSwitch() {
+			println("Starting at left spot, going to right switch")
+
 			if (!Choosers.crossField) {
 				crossBaseline()
 				return
@@ -130,6 +139,8 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun crossBaseline() {
+			println("Starting at left spot, crossing baseline")
+
 			Robot.drive?.moveStraightWithFeedback(150.0)
 		}
 	}
@@ -137,6 +148,8 @@ object AutoRoutes : TerminableSubsystem() {
 	object FromRight : AutoRoute {
 
 		override suspend fun rightScale() {
+			println("Starting at right spot, going to right scale")
+
 //			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */)
 //			println("before moveintake")
 //			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
@@ -156,7 +169,7 @@ object AutoRoutes : TerminableSubsystem() {
 //
 //			backOffAndRetractElevator()
 
-			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */, maxAMultiplier = 1.5)
+			Robot.drive?.moveStraightWithFeedback(254.0 /* for good luck */, maxAMultiplier = 1.0)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)//?.join()
 			val elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[3])
 			println("before turn")
@@ -201,14 +214,17 @@ object AutoRoutes : TerminableSubsystem() {
 				return
 			}
 
-			Robot.drive?.moveStraightWithFeedback(235.0)
+			println("Starting at right spot, going to left scale")
+
+			Robot.drive?.moveStraightWithFeedback(247.0)
+			realignNavX(Math.toRadians(5.0))
 //			Robot.drive?.strafeNavX(242.0)
 			Robot.drive?.strafeNavX(-258.0) // WITH cable protector in the middle
 
 			val eJ = Robot.elevator?.moveElevatorToPosition(Elevator.SCALE_POSITIONS[4])
 			Intake.moveIntakeToPosition(Intake.HORIZONTAL)
 			delay(1200)
-			Robot.drive?.moveStraightWithFeedback(48.0, maxAMultiplier = 0.7)
+			Robot.drive?.moveStraightWithFeedback(50.0, maxAMultiplier = 0.7)
 			eJ?.join()
 			Robot.intake?.eject(output = 1.0)
 			delay(750)
@@ -221,6 +237,8 @@ object AutoRoutes : TerminableSubsystem() {
 				crossBaseline()
 				return
 			}
+
+			println("Starting at right spot, going to left switch")
 			Robot.drive?.moveStraightWithFeedback(50.0)
 			//new stuff
 			//			Robot.drive?.turnNavX(-Math.PI/2)
@@ -240,6 +258,8 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun rightSwitch() {
+			println("Starting at right spot, going to right switch")
+
 			var triggered = false
 			Robot.drive?.moveStraightWithFeedback(162.0, fun(progress) {
 //				if (!triggered && progress > 0.8) {
@@ -259,6 +279,8 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun crossBaseline() {
+			println("Starting at right spot, crossing baseline")
+
 			Robot.drive?.moveStraightWithFeedback(150.0)
 		}
 	}
@@ -273,33 +295,32 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun leftSwitch() {
-			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 5)
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.75)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			var triggered = false
-			Robot.drive?.moveStraightWithFeedback(90.0, { progress ->
-				if (!triggered && progress > 0.85) {
-					triggered = true
-					launch {
-						elevatorJob?.join()
-						Robot.intake?.eject(output = 1.0);
-						delay(750); Robot.intake?.stopWheels()
-					}
-				}
-			})
+			Robot.drive?.moveStraightWithFeedback(90.0)
+
+			elevatorJob?.join()
+
+			launch {
+				Robot.intake?.eject(output = 0.7);
+				delay(750);
+				Robot.intake?.stopWheels()
+			}
+			delay(150)
 
 			// Turning to get second cube
 			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
 
 			backOffAndRetractElevator(-33.0, 1.6, 600, false)
 
-			Robot.drive?.strafeNavX(44.0, 3.0)
+			Robot.drive?.strafeNavX(42.0, 3.0)
 			var grabJob = Robot.intake?.grab(300, forceVertical = false)
-			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
+			Robot.drive?.joystickMove(0.0, -0.25, 0.0, mode = ControlMode.Velocity)
 			grabJob?.join()
-			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
+			Robot.drive?.joystickMove(0.0, 0.3, 0.0, mode = ControlMode.Velocity)
 			delay(100)
-			if (Robot.sensors?.navX != null) Robot.drive?.turnNavX(Robot.sensors?.navX?.getTheta(wrap = false)!!)
+			realignNavX()
 //			delay(750)
 //			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
 			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
@@ -331,28 +352,29 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun rightSwitch() {
-			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 5)
 			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.6)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			var triggered = false
-			Robot.drive?.moveStraightWithFeedback(93.0, fun(progress) {
-				if (!triggered && progress > 0.84) {
-					triggered = true
-					Robot.intake?.eject(output = 1.0)
-					launch { delay(750); Robot.intake?.stopWheels() }
-				}
-			})
+			Robot.drive?.moveStraightWithFeedback(93.0)
+
+			launch {
+				Robot.intake?.eject(output = 0.7)
+				delay(750);
+				Robot.intake?.stopWheels()
+			}
+			delay(150)
+
 			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.6)
 
-			backOffAndRetractElevator(-28.0, 1.6, 600, false)
+			backOffAndRetractElevator(-30.0, 1.6, 600, false)
 
 			Robot.drive?.strafeNavX(-47.0, 3.0)
 			var grabJob = Robot.intake?.grab(300, forceVertical = false)
-			Robot.drive?.joystickMove(0.0, -0.25, 0.0)
+			Robot.drive?.joystickMove(0.0, -0.25, 0.0, mode = ControlMode.Velocity)
 			grabJob?.join()
-			Robot.drive?.joystickMove(0.0, 0.3, 0.0)
+			Robot.drive?.joystickMove(0.0, 0.3, 0.0, mode = ControlMode.Velocity)
 			delay(100)
-			if (Robot.sensors?.navX != null) Robot.drive?.turnNavX(Robot.sensors?.navX?.getTheta(wrap = false)!!)
+			realignNavX()
 //			delay(750)
 //			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
 			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
@@ -383,6 +405,12 @@ object AutoRoutes : TerminableSubsystem() {
 
 		override suspend fun crossBaseline() {
 			// TODO: Not implemented
+		}
+	}
+
+	private suspend fun realignNavX(offset: Double = 0.0) {
+		if (Robot.sensors?.navX != null) {
+			Robot.drive?.turnNavX(Robot.sensors?.navX?.getTheta(wrap = false)!! + offset)
 		}
 	}
 }

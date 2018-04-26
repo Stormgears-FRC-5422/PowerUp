@@ -50,7 +50,7 @@ object Drive : TerminableSubsystem() {
 
 	private val sunProfile = SunProfile()
 
-	fun joystickMove(x: Double = Robot.dsio!!.joystickX, y: Double = Robot.dsio!!.joystickY, z: Double = Robot.dsio!!.joystickZ) {
+	fun joystickMove(x: Double = Robot.dsio!!.joystickX, y: Double = Robot.dsio!!.joystickY, z: Double = Robot.dsio!!.joystickZ, mode: ControlMode = ControlMode.PercentOutput) {
 
 		//		logger.debug("x: {} y: {} z: {}", box(x), box(y), box(z));
 
@@ -58,7 +58,7 @@ object Drive : TerminableSubsystem() {
 		if (theta < 0) theta += 2 * Math.PI
 
 		if (x == 0.0 && y == 0.0 && z == 0.0) {
-			setDriveTalonsZeroVelocity()
+			zeroVelocity(mode)
 		} else {
 			mecMove(MAX_VELOCITY_ENCODER_TICKS * Math.sqrt(x * x + y * y + z * z),
 				x, y, z * TURN_SENSITIVITY_FACTOR,
@@ -177,9 +177,9 @@ object Drive : TerminableSubsystem() {
 		return inPer100ms / Robot.config.wheelRadius / 2.0 / Math.PI * 8192
 	}
 
-	private fun setDriveTalonsZeroVelocity() {
+	private fun zeroVelocity(mode: ControlMode = ControlMode.Velocity) {
 		for (t in talons) {
-			t.set(ControlMode.Velocity, 0.0)
+			t.set(mode, 0.0)
 		}
 	}
 
@@ -376,7 +376,7 @@ object Drive : TerminableSubsystem() {
 			yield()
 		} while (progress < 1.0);
 
-		setDriveTalonsZeroVelocity()
+		zeroVelocity()
 	}
 
 	/**
@@ -445,7 +445,7 @@ object Drive : TerminableSubsystem() {
 			yield()
 		} while (progress < 1.0)
 
-		setDriveTalonsZeroVelocity()
+		zeroVelocity()
 	}
 
 	/**
@@ -487,7 +487,7 @@ object Drive : TerminableSubsystem() {
 			yield()
 		} while (progress < 1.0);
 
-		setDriveTalonsZeroVelocity()
+		zeroVelocity()
 	}
 
 	suspend fun turnToAlignLidar(side: Int) {
@@ -523,7 +523,7 @@ object Drive : TerminableSubsystem() {
 //			delay(10)
 			yield()
 		} while (progress < 1.0)
-		setDriveTalonsZeroVelocity()
+		zeroVelocity()
 	}
 
 	suspend fun moveStraightRelativeToLidarDistance(side: Int, distanceFromObstacle: Int) {

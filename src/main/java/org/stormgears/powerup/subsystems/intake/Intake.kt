@@ -119,6 +119,7 @@ object Intake : TerminableSubsystem() {
 
 		if (checkLimitSwitch && !rightTalon.sensorCollection.isRevLimitSwitchClosed) {
 			logger.info("No cube inside, not ejecting anything")
+			stopWheels()
 			return null
 		}
 

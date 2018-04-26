@@ -41,11 +41,14 @@ object AutoDriveMoveCommand : TerminableSubsystem() {
 			SCALE_SWITCH -> {
 				if (scaleSide == L && startingSpot == LEFT) {
 					autoRoute.leftScale()
-				} else if (scaleSide == L && startingSpot == RIGHT) {
+				} else if (scaleSide == R && startingSpot == RIGHT) {
 					autoRoute.rightScale()
-				} else when (switchSide) {
-					L -> autoRoute.leftSwitch()
-					R -> autoRoute.rightSwitch()
+				} else if (switchSide == L && startingSpot == LEFT) {
+					autoRoute.leftSwitch()
+				} else if (switchSide == R && startingSpot == RIGHT) {
+					autoRoute.rightSwitch()
+				} else {
+					autoRoute.crossBaseline()
 				}
 			}
 		}

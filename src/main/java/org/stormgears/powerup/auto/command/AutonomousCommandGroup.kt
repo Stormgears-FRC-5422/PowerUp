@@ -7,17 +7,17 @@ import org.stormgears.utils.concurrency.TerminableSubsystem
 object AutonomousCommandGroup : TerminableSubsystem() {
 	private val logger = LogManager.getLogger(AutonomousCommandGroup::class.java)
 
-	fun run(selectedStartingSpot: FieldPositions.StartingSpots,
-			selectedPlacementSpot: FieldPositions.PlacementSpot,
-			selectedOwnSwitchPlateAssignment: FieldPositions.LeftRight,
-			selectedScalePlateAssignment: FieldPositions.LeftRight) {
+	fun run(startingSpot: FieldPositions.StartingSpots,
+			placement: FieldPositions.PlacementSpot,
+			switchPlate: FieldPositions.LeftRight,
+			scalePlate: FieldPositions.LeftRight) {
 		logger.trace("initiating autonomous command group")
 
 		launch {
-			AutoDriveMoveCommand.execute(selectedStartingSpot,
-				selectedPlacementSpot,
-				selectedOwnSwitchPlateAssignment,
-				selectedScalePlateAssignment
+			AutoDriveMoveCommand.execute(startingSpot,
+				placement,
+				switchPlate,
+				scaleSide = scalePlate
 			)
 		}
 	}
