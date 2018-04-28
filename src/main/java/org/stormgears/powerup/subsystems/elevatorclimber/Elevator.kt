@@ -33,8 +33,8 @@ object Elevator : TerminableSubsystem() {
 	private val ZERO_CURRENT_LIMIT = 0.4 * Math.pow(Robot.config.elevatorStiffness, 2.5) //2.5 // 8.0 // 8.7
 
 	// Elevator button positions (inches)
-	val SWITCH_POSITIONS = intArrayOf(27, 35, 40) // first one = 22
-	val SCALE_POSITIONS = intArrayOf(56, 70, 75, 81, 89) // first one = 56
+	val SWITCH_POSITIONS = doubleArrayOf(27.0, 35.0, 40.0) // first one = 22
+	val SCALE_POSITIONS = doubleArrayOf(56.0, 70.0, 75.0, 81.0, 89.0) // first one = 56
 
 	// Jobs
 	private var elevatorJob: Job? = null
@@ -47,7 +47,7 @@ object Elevator : TerminableSubsystem() {
 	 *
 	 * @param position = inches from the bottom of the elevator
 	 */
-	fun moveElevatorToPosition(position: Int): Job {
+	fun moveElevatorToPosition(position: Double): Job {
 		if (elevatorJob != null) {
 			elevatorJob!!.cancel()
 			logger.trace("Cancelled elevator job")
@@ -62,7 +62,7 @@ object Elevator : TerminableSubsystem() {
 		return elevatorJob
 	}
 
-	private suspend fun elevatorAutoMove(position: Int) {
+	private suspend fun elevatorAutoMove(position: Double) {
 		val lowering: Boolean
 		val destinationTicks = toEncoderTicks(position.toDouble())
 		val multiplier: Int

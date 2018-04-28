@@ -13,13 +13,13 @@ object Commands : TerminableSubsystem() {
 		launch("Reset") {
 			if (Robot.intake?.getPosition() != Intake.VERTICAL)
 				Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)?.join()
-			val elevatorJob = Robot.elevator?.moveElevatorToPosition(1)
+			val elevatorJob = Robot.elevator?.moveElevatorToPosition(0.25)
 			elevatorJob?.join()
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)?.join()
 		}
 	}
 
-	fun placeCube(height: Int, type: Int) {
+	fun placeCube(height: Double, type: Int) {
 		launch("Cube Placed") {
 			Robot.intake?.moveIntakeToPosition(Intake.VERTICAL)?.join()
 			Robot.elevator?.moveElevatorToPosition(height)?.join()
@@ -28,7 +28,7 @@ object Commands : TerminableSubsystem() {
 		}
 	}
 
-	suspend fun prepareToPlaceCube(height: Int = Robot.elevator!!.SCALE_POSITIONS[2]) {
+	suspend fun prepareToPlaceCube(height: Double = Robot.elevator!!.SCALE_POSITIONS[2]) {
 		Elevator.moveElevatorToPosition(height).join()
 		val angle = Robot.sensors!!.navX.getTheta()
 		val sideShiftSide: Int

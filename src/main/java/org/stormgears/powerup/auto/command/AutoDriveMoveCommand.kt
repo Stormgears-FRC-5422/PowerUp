@@ -20,7 +20,7 @@ object AutoDriveMoveCommand : TerminableSubsystem() {
 						placementSpot: FieldPositions.PlacementSpot,
 						switchSide: FieldPositions.LeftRight,
 						scaleSide: FieldPositions.LeftRight) {
-		Robot.elevator?.moveElevatorToPosition(if (placementSpot == SWITCH) Elevator.SWITCH_POSITIONS[0] else 12)
+		Robot.elevator?.moveElevatorToPosition(if (placementSpot == SWITCH) Elevator.SWITCH_POSITIONS[0] else 12.0)
 
 		val autoRoute = when (startingSpot) {
 			LEFT -> AutoRoutes.FromLeft
