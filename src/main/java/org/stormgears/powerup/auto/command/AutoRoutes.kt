@@ -9,6 +9,8 @@ import org.stormgears.powerup.subsystems.elevatorclimber.Elevator
 import org.stormgears.powerup.subsystems.intake.Intake
 import org.stormgears.utils.concurrency.TerminableSubsystem
 import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Routes for robot in AUTONOMOUS ONLY!!!
@@ -282,27 +284,28 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun leftSwitch() {
-			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 5)
-			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.75)
+			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			val firstTheta = Math.PI / 6.0 * 0.75
+			Robot.drive?.turnNavX(-firstTheta)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightWithFeedback(90.0)
-			realignNavX()
+			Robot.drive?.moveStraightWithFeedback(90.0 + 10.0)
 
 			elevatorJob?.join()
 
 			launch {
-				Robot.intake?.eject(output = 0.7);
+				Robot.intake?.eject(output = 0.5);
 				delay(750);
 				Robot.intake?.stopWheels()
 			}
 			delay(150)
 
 			// Turning to get second cube
-			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
+//			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
+			realignNavX()
 
-			backOffAndRetractElevator(-33.0, 1.6, 600, false)
+			backOffAndRetractElevator(-33.0 - 10 * cos(firstTheta), 1.6, 600, false)
 
-			Robot.drive?.strafeNavX(42.0, 3.0)
+			Robot.drive?.strafeNavX(42.0 + 10 * sin(firstTheta), 3.0)
 			var grabJob = Robot.intake?.grab(300, forceVertical = false)
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0, mode = ControlMode.Velocity)
 			grabJob?.join()
@@ -311,14 +314,14 @@ object AutoRoutes : TerminableSubsystem() {
 			realignNavX()
 //			delay(750)
 //			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
-			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
+			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Robot.drive?.strafeNavX(-55.0, 3.0)
-			Robot.drive?.moveStraightWithFeedback(16.0, maxAMultiplier = 3.0)
+			Robot.drive?.moveStraightWithFeedback(16.0 + 5.0, maxAMultiplier = 3.0)
 //			elevatorJob?.join()
-			Robot.intake?.eject(0.7)
+			Robot.intake?.eject(0.5)
 
 			// THIRD CUBE
-			val backOffAndRetractElevator = backOffAndRetractElevator(0.0, 1.0, 600, false)
+			val backOffAndRetractElevator = backOffAndRetractElevator(-5.0, 1.0, 600, false)
 
 			Robot.drive?.turnNavX(Math.toRadians(61.0))
 			grabJob = launch { delay(200); Robot.intake?.grab(200, forceVertical = false)?.join() }
