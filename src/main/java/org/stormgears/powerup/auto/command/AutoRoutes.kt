@@ -286,9 +286,10 @@ object AutoRoutes : TerminableSubsystem() {
 		override suspend fun leftSwitch() {
 			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			val firstTheta = Math.PI / 6.0 * 0.75
+			val firstAdd = 10.0
 			Robot.drive?.turnNavX(-firstTheta)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightWithFeedback(90.0 + 10.0)
+			Robot.drive?.moveStraightWithFeedback(90.0 + firstAdd)
 
 			elevatorJob?.join()
 
@@ -303,9 +304,9 @@ object AutoRoutes : TerminableSubsystem() {
 //			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.75)
 			realignNavX()
 
-			backOffAndRetractElevator(-33.0 - 10 * cos(firstTheta), 1.6, 600, false)
+			backOffAndRetractElevator(-33.0 - firstAdd * cos(firstTheta), 1.6, 600, false)
 
-			Robot.drive?.strafeNavX(42.0 + 10 * sin(firstTheta), 3.0)
+			Robot.drive?.strafeNavX(42.0 + firstAdd * sin(firstTheta), 3.0)
 			var grabJob = Robot.intake?.grab(300, forceVertical = false)
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0, mode = ControlMode.Velocity)
 			grabJob?.join()
@@ -319,6 +320,8 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.moveStraightWithFeedback(16.0 + 5.0, maxAMultiplier = 3.0)
 //			elevatorJob?.join()
 			Robot.intake?.eject(0.5)
+
+			return
 
 			// THIRD CUBE
 			val backOffAndRetractElevator = backOffAndRetractElevator(-5.0, 1.0, 600, false)
@@ -343,23 +346,26 @@ object AutoRoutes : TerminableSubsystem() {
 		}
 
 		override suspend fun rightSwitch() {
-			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 5)
-			Robot.drive?.turnNavX(Math.PI / 6.0 * 0.6)
+			Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
+			val firstTheta = PI / 0.6 * 0.6
+			val firstAdd = 92.3 / cos(firstTheta) - 93.0
+			Robot.drive?.turnNavX(firstTheta)
 			Robot.intake?.moveIntakeToPosition(Intake.HORIZONTAL)
-			Robot.drive?.moveStraightWithFeedback(93.0)
+			Robot.drive?.moveStraightWithFeedback(93.0 + firstAdd)
 
 			launch {
-				Robot.intake?.eject(output = 0.7)
+				Robot.intake?.eject(output = 0.5)
 				delay(750);
 				Robot.intake?.stopWheels()
 			}
 			delay(150)
 
-			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.6)
+			realignNavX()
+//			Robot.drive?.turnNavX(-Math.PI / 6.0 * 0.6)
 
-			backOffAndRetractElevator(-30.0, 1.6, 600, false)
+			backOffAndRetractElevator(-30.0 - (firstAdd * cos(firstTheta)), 1.6, 600, false)
 
-			Robot.drive?.strafeNavX(-47.0, 3.0)
+			Robot.drive?.strafeNavX(-47.0 - (firstAdd * sin(firstTheta)), 3.0)
 			var grabJob = Robot.intake?.grab(300, forceVertical = false)
 			Robot.drive?.joystickMove(0.0, -0.25, 0.0, mode = ControlMode.Velocity)
 			grabJob?.join()
@@ -368,13 +374,15 @@ object AutoRoutes : TerminableSubsystem() {
 			realignNavX()
 //			delay(750)
 //			Robot.drive?.moveStraightWithFeedback(-8.0, maxAMultiplier = 2.0)
-			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 8)
+			var elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1])
 			Robot.drive?.strafeNavX(64.0, 3.0)
-			Robot.drive?.moveStraightWithFeedback(24.0, maxAMultiplier = 3.0)
+			Robot.drive?.moveStraightWithFeedback(24.0 + 5.0, maxAMultiplier = 3.0)
 			elevatorJob?.join()
-			Robot.intake?.eject(1.0)
+			Robot.intake?.eject(0.5)
 
-			val backOffAndRetractElevator = backOffAndRetractElevator(-36.0, 1.0, 600, false)
+			return
+
+			val backOffAndRetractElevator = backOffAndRetractElevator(-36.0 - 5.0, 1.0, 600, false)
 			//elevatorJob = Robot.elveator?.moveElevatorToPosition(14)
 			Robot.drive?.strafeNavX(-12.0, 3.0)
 			Robot.drive?.turnNavX(Math.toRadians(-20.0))
@@ -387,11 +395,11 @@ object AutoRoutes : TerminableSubsystem() {
 			Robot.drive?.moveStraightWithFeedback(dist = 25.0, maxAMultiplier = 2.0)
 			Robot.drive?.turnNavX(Math.toRadians(55.0))
 			//Robot.drive?.moveStraightWithFeedback(-12.0, maxAMultiplier = 2.0)
-			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 20) // Originally 12
+			elevatorJob = Robot.elevator?.moveElevatorToPosition(Elevator.SWITCH_POSITIONS[1] + 12.0) // Originally 12
 
-			Robot.drive?.moveStraightWithFeedback(8.0, maxAMultiplier = 2.0)
+			Robot.drive?.moveStraightWithFeedback(10.0, maxAMultiplier = 2.0)
 			elevatorJob?.join()
-			Robot.intake?.eject(1.0)
+			Robot.intake?.eject(0.5)
 		}
 
 		override suspend fun crossBaseline() {
